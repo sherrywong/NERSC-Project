@@ -5,7 +5,6 @@ gem 'rails', '3.2.7'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem "twitter-bootstrap-rails"
 
 # Gems used only for assets and not required
@@ -38,10 +37,11 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 group :test, :development do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require=>false
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
+  gem 'sqlite3'
 end
