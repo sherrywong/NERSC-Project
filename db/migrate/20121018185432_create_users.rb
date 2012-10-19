@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :first
       t.string :last
       t.string :email
-      t.boolean :admin
+      t.boolean :admin, :default => false
       t.string :username
       t.string :password
 
