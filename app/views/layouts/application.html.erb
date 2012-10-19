@@ -1,12 +1,9 @@
 <html>
 <head>
-<<<<<<< HEAD
   <title>NERSC Risk Tracker</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-=======
-<title> NERSC </title>
 <%= stylesheet_link_tag "myglobal" %>
 <%= stylesheet_link_tag "960" %>
 <%= stylesheet_link_tag "jquery" %>
@@ -16,12 +13,11 @@
 
 </style>
 
->>>>>>> 3ed4ecb4b09881430089ba0aad1e60e301f2e650
 </head>
 <body>
 
 <div class = "container_12">
-NERSC
+NERSC Risk Tracker
 <div id="outerHeader">
 <div id="header">
 
@@ -44,7 +40,7 @@ NERSC
 <% if session[:uid].nil? %>
 <%= link_to "login", :action => 'login' %>
 <% else %>
-<%= link_to "logout", :action => 'logout' %> 
+<%= link_to "logout", :action => 'logout' %>
 <% end %>
 </div>
 </center>
