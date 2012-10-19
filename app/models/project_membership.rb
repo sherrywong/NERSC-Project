@@ -1,13 +1,14 @@
 class ProjectMembership < ActiveRecord::Base
   attr_accessible :owner
-  validates :user, :project
+  validates_presence_of :user, :project
 
   validates_uniqueness_of :user_id, :scope => :project_id
   validates_uniqueness_of :project_id, :scope => :user_id
   #restrict one owner per project.
   validate :owner, :uniqueness=> {:scope => :project_id}, :if => :owner
 
-  has_many :users, :projects
+  has_many :users
+  has_many :projects
 
 
   def owner_of_team(team)

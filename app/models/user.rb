@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  validates_presence_of :admin, :email, :first, :last, :password, :username
+  validates_presence_of :email, :first, :last, :password, :username
+  validates_inclusion_of :admin, :in => [true, false]
   validates_uniqueness_of :username
   attr_accessible :admin, :email, :first, :last, :password, :username
   
