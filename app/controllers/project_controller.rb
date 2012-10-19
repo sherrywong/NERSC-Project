@@ -1,5 +1,5 @@
-class ProjectController < ApplicationController.rb
-  before_filter :login_required, :except => [:login]
+class ProjectController < ApplicationController
+  #before_filter :login_required, :except => [:login]
 
   def create
     @project = Project.new(params[:project]).save
@@ -22,6 +22,10 @@ class ProjectController < ApplicationController.rb
     flash[:notice] = "Project '#{project.name}' was successfully updated."
 
     redirect_to_user_project(@project)
+  end
+
+  def index
+    @projects = Project.find(:all)
   end
 
 end

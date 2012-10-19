@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
-  before_filter :login_required, :except => [:login]
+  #before_filter :login_required, :except => [:login]
 
   def create
     user_hash = [:email => params[:email], :first => params[:first], :last => params[:last], :password => params[:first], :username => params[:usrname]]
@@ -41,6 +41,10 @@ class UserController < ApplicationController
   def logout
     session[:uid] = nil #Logs out the user
     redirect_to :action => "login" #redirect to log-in screen
+  end
+
+  def index
+    @users = User.find(:all)
   end
 
 end
