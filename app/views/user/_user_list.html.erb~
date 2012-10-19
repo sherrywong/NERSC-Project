@@ -1,0 +1,12 @@
+
+  <% for user in @users %>
+<tr>
+         <td class='first'>
+                 <%= link_to user.name, "/user/edit/" %>
+</td>
+                 <td class='last'><%= user.email %>
+</td>
+</tr>
+<% end %>
+
+

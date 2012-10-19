@@ -1,0 +1,14 @@
+<% @page_heading = "My Projects" + content_tag(:div, link_to("New Project", {:controller => 'project', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
+
+  <h1> My Projects </h1>
+<%= link_to "+Create New Project", "/project/new"%>
+
+
+<table class="zebra-striped clearfix" id="projects">
+    <tr>
+    <th class = 'first'><%= "Title" %></th>
+    <th><%= "Description" %></th>
+    </tr>
+<%= render 'project_list', {:projects => @projects } -%>
+</table>
+

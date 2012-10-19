@@ -1,0 +1,18 @@
+<div class='well'>
+         <%= form_tag :action=> "login" do %>
+         <div class='clearfix'>
+         <h2><%= _("Login") %></h2>
+         </div>
+         <div class='clearfix'>
+           <%= text_field(:user, :login, {:class => 'login', :placeholder => _("password")}) %>
+         </div>
+         <div class='clearfix'>
+           <%= password_field(:user, :password, {:class => 'login', :placeholder => _("password")})%>
+         </div>
+         <div class='clearfix'>
+           <input type="submit" name="login" class="btn info" value= "<%= _('Login') %>" />
+           <%= check_box_tag 'remember_me' %> <small><%= _('Remember Me')%></small>
+         </div>
+         <% end %>
+</div>
+

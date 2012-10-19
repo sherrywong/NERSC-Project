@@ -1,0 +1,12 @@
+
+  <% for project in @projects %>
+<tr>
+         <td class='first'>
+                 <%= link_to project.name, "/project/edit/" %>
+</td>
+                 <td class='last'><%= project.description %>
+</td>
+</tr>
+<% end %>
+
+
