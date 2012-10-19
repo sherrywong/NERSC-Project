@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 class ProjectController < ApplicationController
   #before_filter :login_required, :except => [:login]
+=======
+class ProjectController < ApplicationController.rb
+  before_filter :login_required
+  before_filter :project_id_matches_user
+>>>>>>> 3ed4ecb4b09881430089ba0aad1e60e301f2e650
 
   def create
     @project = Project.new(params[:project]).save

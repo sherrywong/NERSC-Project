@@ -32,7 +32,7 @@ Scenario: invalid login
     And I fill in password with "swong"
     And I press "Sign in"
     Then I should I should be on the login page
-    And I should see "Invalid username/password"
+    And I should see "We don't have a user by this username."
 
 Scenario: logout should require login access
     Given I am logged in

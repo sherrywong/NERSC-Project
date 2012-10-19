@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   def admin?
     return self.admin
   end
-
+    
   #optional: maybe the controller should do the admin check 
   #to present a flash erorr if needed.
   def add_new_user(user_hash) #returns true if the new user is created.
