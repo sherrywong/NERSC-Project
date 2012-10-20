@@ -15,10 +15,11 @@ linda = User.create(:first=>:Lingbo, :last => :Zhang, :email=> "linda@gmail.com"
 jason = User.create(:first=>:Jia, :last=> :Teoh, :email => "jason@gmail.com", :admin=>false, :username=>:jason, :password => :jteoh)
 
 proj1 = Project.create(:name=>:MyFirstProject, :description => "This is the first test project")
-proj2 = Project.create(:name=>:MySecondProject, :description => "This is my second test project")
-
+proj1.owner = admin
 proj1.add_members(User.all)
 
+proj2 = Project.create(:name=>:MySecondProject, :description => "This is my second test project")
+proj2.owner = jason
 proj2.add_members(User.find_all_by_admin(true))
 
 

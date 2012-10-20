@@ -17,20 +17,20 @@ class User < ActiveRecord::Base
 
   #optional: maybe the controller should do the admin check 
   #to present a flash erorr if needed.
-  def create_user(user_hash) #returns true if the new user is created.
+  def add_new_user(user_hash) #returns true if the new user is created.
     return (self.admin? and User.new(user_hash).save)
   end
   
   #includes default owner
-  def create_project(project_hash)
-    proj = Project.new(project_hash)
-    if self.admin? and proj.save
-        pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
-        if not pm.save
-            proj.destroy
-            return false
-        end
-    end
-    return false
-  end
+  #def create_project(project_hash)
+  #  proj = Project.new(project_hash)
+  #  if self.admin? and proj.save
+  #      pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
+  #      if not pm.save
+  #          proj.destroy
+  #          return false
+  #      end
+  #  end
+  #  return false
+  #end
 end

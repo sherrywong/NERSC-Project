@@ -11,10 +11,22 @@ class ProjectMembership < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
-
-  def owner_of_project(project)
+  def self.owner_membership_of_project(project)
     find_by_project_id_and_owner(project.id, true)
   end
+  
+  def self.owner_of_project(project)
+    owner_membership_of_project.user
+  end
+  
+  def self.set_owner_of_project(project, new_owner)
+    if (former = owner_membership_of_project(project))
+        former.update_attributes(:owner=>false)
+    end
+    new_ownership = ProjectMembership.find_or_create_by_user_id_and_project_id(:user_id=>new_owner.id, :project_id=>project.id)
+    new_ownership.update_attributes(:owner=>true)
+  end
+  
   
   def unique_owner_per_project
     if owner? and ProjectMembership.exists?(:project_id=>project_id, :owner => true)
