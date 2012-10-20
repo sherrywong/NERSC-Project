@@ -53,7 +53,8 @@ NerscProject::Application.routes.draw do
 
   root :to => 'user#login'
   match "/user/login" => 'user#login'
-  match "/user/index" => 'user#index'
+  match "/user/index" => 'project#index'
+  match "/user/show_users" => 'user#show_users'
   match "/user/new" => 'user#new'
   match "/user/project/index" => 'project#index'
   match "/project/new" => 'project#new'

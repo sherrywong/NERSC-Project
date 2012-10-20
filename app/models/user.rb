@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates_inclusion_of :admin, :in => [true, false]
   validates_uniqueness_of :username
   attr_accessible :admin, :email, :first, :last, :password, :username
-  
+
 #Rails internal password digesting (temporary until LDAP)
   has_secure_password
 
@@ -14,13 +14,13 @@ class User < ActiveRecord::Base
   def admin?
     return self.admin
   end
-    
-  #optional: maybe the controller should do the admin check 
-  #to present a flash erorr if needed.
+
+  #optional: maybe the controller should do the admin check
+  #to present a flash error if needed.
   def add_new_user(user_hash) #returns true if the new user is created.
     return (self.admin? and User.new(user_hash).save)
   end
-  
+
   #includes default owner
   #def create_project(project_hash)
   #  proj = Project.new(project_hash)

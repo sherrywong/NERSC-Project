@@ -2,19 +2,19 @@
 <div class='clearfix'>
   <div>
     <div>
-    <%= text_field :first_name, nil, :placeholder => "First Name" %>
+    <%= text_field 'user', 'first', :placeholder => "First Name" %>
     </div>
     <div>
-    <%= text_field :last_name, nil, :placeholder => "Last Name" %>
+    <%= text_field 'user', 'last', :placeholder => "Last Name" %>
     </div>
     <div>
-    <%= text_field :username, nil, :placeholder => "Username" %>
+    <%= text_field 'user', 'username', :placeholder => "Username" %>
     </div>
     <div>
-    <%= text_field :email, nil, :placeholder => "Email" %>
+    <%= text_field 'user', 'email', :placeholder => "Email" %>
     </div>
     <div>
-    <%= password_field :password, nil, :placeholder => "Password" %>
+    <%= password_field 'user', 'password', :placeholder => "Password" %>
     </div>
     <%= submit_tag "Create" %>
   </div>

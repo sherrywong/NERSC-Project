@@ -1,13 +1,12 @@
-<% @page_heading = "System Users" + content_tag(:div, link_to("New User", {:controller => 'user', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
+<% @page_heading = "Main Page" + content_tag(:div, link_to("New Project", {:controller => 'user', :action => 'index'}, :class => 'btn info'), :class => 'pull-right') %>
+<h1> My Projects </h1>
+<%= link_to "+ Create New Project", "/project/new"%>
 
-  <h1> System Users </h1>
-<%= link_to "+ Add new user", "/user/new"%>
 
-
-<table class="zebra-striped clearfix" id="users">
+<table class="zebra-striped clearfix" id="projects">
     <tr>
-    <th class = 'first'><%= "Username" %></th>
-    <th><%= "Email" %></th>
+    <th class = 'first'><%= "Title" %></th>
+    <th><%= "Description" %></th>
     </tr>
-<%= render 'user_list', {:users => @users } -%>
+<%= render 'project_list', {:projects => @projects } -%>
 </table>

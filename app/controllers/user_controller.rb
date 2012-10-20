@@ -4,7 +4,8 @@ class UserController < ApplicationController
   #before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
 
   def index
-    @projects = ProjectMembership.find_by_user_id(session[:uid]).projects
+    # @projects = ProjectMembership.find_by_user_id(session[:uid]).projects
+    @projects = Project.find(:all)
   end
 
   def show_users
@@ -13,10 +14,11 @@ class UserController < ApplicationController
 
   def new
     if request.post?
-    user_hash = [:email => params[:email], :first => params[:first], :last => params[:last], :password => params[:first], :username => params[:usrname]]
-    User.add_new_user(user_hash)
-    flash[:notice] = "User '#{@user.first}' '#{@user.last}' created."
-    redirect_to "/user/index"
+
+      user_hash = params[:user]
+    User.new(user_hash).save
+    flash[:notice] = "User created."
+    redirect_to "/user/show_users"
       end
   end
 

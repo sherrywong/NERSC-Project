@@ -7,17 +7,6 @@ gem 'rails', '3.2.7'
 
 gem "twitter-bootstrap-rails"
 
-group :development, :test do
-  gem 'splite3'
-  gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'cucumber-rails'
-  gem 'cucumber-rails-training-wheels'
-  gem 'database_cleaner'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'rspec-rails'
-  gem 'simplecov'
-end
 
 group :production do
   gem 'pg'
@@ -39,7 +28,7 @@ gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'bcrypt-ruby'
+# gem 'bcrypt-ruby'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -61,4 +50,6 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'sqlite3'
+#  gem 'simplecov'
+   gem 'bycrypt-ruby'
 end
