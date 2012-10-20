@@ -50,4 +50,6 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'sqlite3'
+#  gem 'simplecov'
+   gem 'bycrypt-ruby'
 end
