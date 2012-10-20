@@ -5,12 +5,12 @@ Feature: User security
     
 Background: Some user logins exist.
     Given the following users exist:
-    | username  | email             | first       | last         | department | admin | password        |
-    | anna      | anna@gmail.com    | Anensshiya  | Govinthasamy | UCB        | true  | agovinthasamy   |
-    | bob       | bob@gmail.com     | Shery       | Wong         | UCB        | true  | swong           |
-    | elise     | elise@gmail.com   | Elise       | McCallum     | UCB        | false | emccallum       |
-    | jason     | jason@gmail.com   | Jia         | Teoh         | UCB        | false | jteoh           |
-    | linda     | linda@gmail.com   | Lingbo      | Zhang        | UCB        | false | lzhang          |
+    | username  | email             | first       | last          | admin | password        |
+    | anna      | anna@gmail.com    | Anensshiya  | Govinthasamy | true  | agovinthasamy   |
+    | bob       | bob@gmail.com     | Shery       | Wong         | true  | swong           |
+    | elise     | elise@gmail.com   | Elise       | McCallum     | false | emccallum       |
+    | jason     | jason@gmail.com   | Jia         | Teoh         | false | jteoh           |
+    | linda     | linda@gmail.com   | Lingbo      | Zhang        | false | lzhang          |
     
     And I am not logged in
     

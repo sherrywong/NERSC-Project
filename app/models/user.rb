@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   #These allow you to say @user.project_memberships and @user.projects to get the related teams/projects.
-  has_many :project_memberships #
+  has_many :project_memberships
   has_many :projects, :through => :project_memberships
 
   def admin?
@@ -16,8 +16,21 @@ class User < ActiveRecord::Base
   end
 
   #optional: maybe the controller should do the admin check 
-  #to present an error if needed?
+  #to present a flash erorr if needed.
   def create_user(user_hash) #returns true if the new user is created.
     return (self.admin? and User.new(user_hash).save)
+  end
+  
+  #includes default owner
+  def create_project(project_hash)
+    proj = Project.new(project_hash)
+    if self.admin? and proj.save
+        pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
+        if not pm.save
+            proj.destroy
+            return false
+        end
+    end
+    return false
   end
 end
