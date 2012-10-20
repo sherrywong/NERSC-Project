@@ -15,8 +15,13 @@ class User < ActiveRecord::Base
     return self.admin
   end
 
-  #optional: maybe the controller should do the admin check
-  #to present a flash error if needed.
+  def self.authenticate(username, password)
+    find_by_username(username).try(:authenticate, password)
+  end
+    
+  #optional: maybe the controller should do the admin check 
+  #to present a flash erorr if needed.
+
   def add_new_user(user_hash) #returns true if the new user is created.
     return (self.admin? and User.new(user_hash).save)
   end
