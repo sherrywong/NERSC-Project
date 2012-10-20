@@ -11,11 +11,13 @@ class UserController < ApplicationController
     @users= User.all
   end
 
-  def create
+  def new
+    if request.post?
     user_hash = [:email => params[:email], :first => params[:first], :last => params[:last], :password => params[:first], :username => params[:usrname]]
     User.add_new_user(user_hash)
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' created."
-    redirect_to user_path
+    redirect_to "/user/index"
+      end
   end
 
   def destroy
