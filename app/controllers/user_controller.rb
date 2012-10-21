@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
   before_filter :login_required, :except => [:login]
+  before_filter :is_admin, :only => [:create], [:edit], [:destroy]
 
   def create
     user_hash = [:email => params[:email], :first => params[:first], :last => params[:last], :password => params[:first], :username => params[:usrname]]
