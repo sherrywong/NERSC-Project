@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
-  before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
+  #before_filter :login_required, :except => [:login]
+  #before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
 
   def index
     @projects = ProjectMembership.find_by_user_id(session[:uid]).projects
@@ -51,6 +51,10 @@ class UserController < ApplicationController
   def logout
     session[:uid] = nil #Logs out the user
     redirect_to :action => "login" #redirect to log-in screen
+  end
+
+  def index
+    @users = User.find(:all)
   end
 
 end

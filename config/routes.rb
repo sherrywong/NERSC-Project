@@ -50,9 +50,14 @@ NerscProject::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+
   root :to => 'user#login'
-  match "/login" => 'user#login'
-  match "/index" => 'user#index'
+  match "/user/login" => 'user#login'
+  match "/user/index" => 'user#index'
+  match "/user/new" => 'user#new'
+  match "/user/project/index" => 'project#index'
+  match "/user/project/new" => 'project#new'
+
 
 
   # See how all your routes lay out with "rake routes"

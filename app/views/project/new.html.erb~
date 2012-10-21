@@ -1,0 +1,2 @@
+<% @page_heading = "New Project" %>
+  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "create", :id => @project.id, :class => ('autosave')}} %>

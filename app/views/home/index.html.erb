@@ -48,20 +48,23 @@ font-weight: bold;
 <div class="container">
   <div class="content">
     <div class="row">
-      <div class="login-form">
-        <h1> NERSC</h2>
+      <div class='well'>
+        <h1>NERSC Risk Tracker</h2>
         <h2>Login</h2>
-           <form action="">
-             <fieldset>
-               <div class="clearfix">
-                 <input type="text" placeholder="Username">
+           <%= form_tag :action=> "login" do %>
+
+               <div class='clearfix'>
+                 <%= text_field(:user, :login, {:class => 'login', :placeholder => "Username"})%>
                </div>
-               <div class="clearfix">
-                 <input type="password" placeholder="Password">
+               <div class='clearfix'>
+                 <%= password_field(:user, :password, {:class => 'login', :placeholder => "Password"})%>
                </div>
-               <button class="btn primary" type="submit">Sign in</button>
-             </fieldset>
-           </form>
+               <div class='clearfix'>
+                 <input type="submit" name="login" class="btn info" value="Login" />
+               <%= check_box_tag 'remember_me' %> <small><%= 'Remember Me'%></small>
+</div>
+
+<% end %>
       </div>
   </div>
 </div>
