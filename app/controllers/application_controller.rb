@@ -24,4 +24,5 @@ class ApplicationController < ActionController::Base
     end
     redirect_to :controller => "user", :action=> "index", :notice=>"Sorry, you don't have permissions to modify users."
     return false
+  end
 end
