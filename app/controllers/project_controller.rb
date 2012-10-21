@@ -1,5 +1,5 @@
 class ProjectController < ApplicationController.rb
-  before_filter :login_required, :except => [:login]
+  before_filter :login_required
   before_filter :project_id_matches_user
 
   def create

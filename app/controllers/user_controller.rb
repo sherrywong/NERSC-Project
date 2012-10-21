@@ -1,16 +1,25 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
   before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:create], [:edit], [:destroy]
+  before_filter :is_admin, :only => [:create], [:edit], [:destroy], [:show_users]
+
+  def index
+    @projects = ProjectMembership.find_by_user_id(session[:uid]).projects
+  end
+
+  def show_users
+    @users= User.all
+  end
 
   def create
     user_hash = [:email => params[:email], :first => params[:first], :last => params[:last], :password => params[:first], :username => params[:usrname]]
     User.add_new_user(user_hash)
+    flash[:notice] = "User '#{@user.first}' '#{@user.last}' created."
+    redirect_to user_path
   end
 
   def destroy
     @user = User.find(params[:id])
-
     @user.destroy if User.count > 1
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to user_path
