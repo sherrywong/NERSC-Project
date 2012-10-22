@@ -44,7 +44,7 @@ Scenario: invalid login - username nonexistent
     
 Scenario: logout should require login access
     Given I am logged in
-    When I press "logout"
+    And I log out
     And I go to the project page
     Then I should not see "My Projects"
     And I should be on the login page

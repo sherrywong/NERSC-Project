@@ -63,6 +63,9 @@ Given /^I am not logged in$/ do
   page.should have_content("Login")
 end
 
+Given /^I log out$/ do
+  visit '/user/logout'
+end
 
 
 # Single-line step scoper
