@@ -18,7 +18,13 @@ module NavigationHelpers
 
     when /^the project\s?page$/
       '/user/index'
-
+      
+    when /^the project index page$/
+      '/user/project/index'
+      
+    when /^the new project page$/
+      '/user/project/new'
+      
     when /^(.*)'s Edit Users page$/i
       "/user/edit/#{User.find_by_username($1).id}"
     when /^the show users page$/
