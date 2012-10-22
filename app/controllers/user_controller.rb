@@ -1,10 +1,15 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
-  #before_filter :login_required, :except => [:login]
-  #before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
+  before_filter :login_required, :except => [:login]
+  before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
 
   def index
-     @projects = User.find_by_id(session[:uid]).projects
+     user = User.find_by_id(session[:uid])
+     if user.nil?
+        @projects = []
+     else
+        @projects = user.projects
+     end
     # @projects = Project.find(:all)
   end
 

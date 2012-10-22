@@ -31,6 +31,40 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Given /^the following projects exist:$/ do |table|
+  table.hashes.each do |project_hash|
+    Project.create!(project_hash);
+  end
+end
+
+Given /^the following users exist:$/ do |table|
+  table.hashes.each do |user_hash|
+    User.create!(user_hash);
+  end
+end
+
+Given /^I am logged in( as an admin)?$/ do 
+  visit '/login'
+  fill_in 'username', :with => 'admin'
+  fill_in 'password', :with => 'admin'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content("My Projects")
+  else
+    page.should have_content?("My Projects")
+  end
+end
+
+Given /^I am not logged in$/ do
+  visit '/user/index'
+  if page.body =~ /My Projects/
+    click_button 'Logout'
+  end
+  page.should have_content("Login")
+end
+
+
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
