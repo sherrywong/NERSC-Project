@@ -4,7 +4,7 @@ class UserController < ApplicationController
   #before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
 
   def index
-     @projects = ProjectMembership.find_by_user_id(session[:uid]).projects
+     @projects = User.find_by_user_id(session[:uid]).projects
     # @projects = Project.find(:all)
   end
 
