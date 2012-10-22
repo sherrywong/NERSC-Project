@@ -1,4 +1,4 @@
 <h1>Create New User</h1>
 <br/>
-  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "new", :class => ('autosave')}} %>
-  <%= link_to "Create", "/user/index" %>
+  <%= render "home/shared/edit", { :form_type => "user", :form_action => {:action => "new", :class => ('autosave')}, :method=> "post"} %>
+

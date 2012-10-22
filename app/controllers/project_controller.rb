@@ -4,9 +4,12 @@ class ProjectController < ApplicationController
   #before_filter :project_id_matches_user
 
 
-  def create
-    @project = Project.new(params[:project]).save
-    flash[:notice] = "Project '#{@project.name}' created."
+  def new
+    if request.post?
+      Project.new(params[:project]).save
+      flash[:notice] = "Project created."
+      redirect_to "/user/project/index"
+      end
   end
 
 
