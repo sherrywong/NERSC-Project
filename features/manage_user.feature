@@ -1,4 +1,4 @@
-Feature: Manage user
+Feature: Manage users
     As an admin,
     So that I can manage who has access to the database,
     I want to be able to add, edit, and delete users.
@@ -24,7 +24,7 @@ Scenario:
     Then I should see "User Linda Zhang created."
     And I should see "Linda Zhang"
 
-    When I am on the "Edit Users" page for "anna"
+    When I go to "anna's Edit Users" page
     And I fill in "first" with "Sherry"
     And I press "Submit" 
     Then I should see "User Sherry Govinthasamy was successfully updated."
