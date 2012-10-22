@@ -26,17 +26,25 @@ Scenario: valid login
     And I press "Login"
     Then I should be on the project page
     
-Scenario: invalid login
+Scenario: invalid login - bad password
     When I go to the login page
     And I fill in "username" with "anna"
     And I fill in "password" with "swong"
     And I press "Login"
     Then I should be on the login page
+    And I should see "Incorrect password."
+    
+Scenario: invalid login - username nonexistent
+    When I go to the login page
+    And I fill in "username" with "starfish"
+    And I fill in "password" with "swong"
+    And I press "Login"
+    Then I should be on the login page
     And I should see "We don't have a user by this username."
-
+    
 Scenario: logout should require login access
     Given I am logged in
-    When I press "Logout"
+    When I press "logout"
     And I go to the project page
     Then I should not see "My Projects"
     And I should be on the login page

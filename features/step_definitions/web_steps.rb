@@ -43,10 +43,10 @@ Given /^the following users exist:$/ do |table|
   end
 end
 
-Given /^I am logged in( as an admin)?$/ do 
-  visit '/login'
-  fill_in 'username', :with => 'admin'
-  fill_in 'password', :with => 'admin'
+Given /^I am logged in( as an admin)?$/ do |ignore|
+  visit '/'
+  fill_in 'username', :with => 'bob'
+  fill_in 'password', :with => 'swong'
   click_button 'Login'
   if page.respond_to? :should
     page.should have_content("My Projects")
