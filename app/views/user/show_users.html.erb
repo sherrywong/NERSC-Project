@@ -1,0 +1,13 @@
+<% @page_heading = "System Users" + content_tag(:div, link_to("New User", {:controller => 'user', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
+
+  <h1> System Users </h1>
+<%= link_to "+ Add new user", "/user/new"%>
+
+
+<table class="zebra-striped clearfix" id="users">
+    <tr>
+    <th class = 'first'><%= "Username" %></th>
+    <th><%= "Email" %></th>
+    </tr>
+<%= render 'user_list', {:users => @users } -%>
+</table>
