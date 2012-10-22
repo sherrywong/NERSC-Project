@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
   #optional: maybe the controller should do the admin check 
   #to present a flash erorr if needed.
 
+  def self.add_new_user(uid, user_hash)
+    User.find_by_id(uid).add_new_user(user_hash)
+  end
   def add_new_user(user_hash) #returns true if the new user is created.
     return (self.admin? and User.new(user_hash).save)
   end

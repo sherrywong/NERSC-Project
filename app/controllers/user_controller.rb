@@ -26,14 +26,14 @@ class UserController < ApplicationController
     redirect_to "/user/show_users"
       end
   end
-
+=begin
   def destroy
     @user = User.find(params[:id])
     @user.destroy if User.count > 1
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to user_path
   end
-
+=end
   def edit
     @user = User.find_by_id(params[:id])
 

@@ -12,7 +12,7 @@ Background: Some user logins exist.
     And I am logged in as an admin
 
 Scenario:
-    When I go to the index page
+    When I go to the project page
     And I click on "Add Users"
     And I fill in "username" with "Starfish"
     And I fill in "email" with "zhang.lynda@gmail.com"
@@ -29,8 +29,8 @@ Scenario:
     And I press "Submit" 
     Then I should see "User Sherry Govinthasamy was successfully updated."
 
-    When I am on the index page
-    And I click on "Show Users"
+    When I am on the project page
+    And I press "Manage System Users"
     And I click on "delete" for "bob"
     Then I should see "User Sherry Wong deleted."
     And I should not see "Sherry Wong"
