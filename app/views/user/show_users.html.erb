@@ -1,6 +1,7 @@
 <% @page_heading = "System Users" + content_tag(:div, link_to("New User", {:controller => 'user', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
 
   <h1> System Users </h1>
+  <p><center><%= params[:notice] %></center></p>
 <%= link_to "+ Add new user", "/user/new"%>
 
 

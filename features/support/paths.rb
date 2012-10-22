@@ -21,6 +21,8 @@ module NavigationHelpers
 
     when /^(.*)'s Edit Users page$/i
       "/user/edit/#{User.find_by_username($1).id}"
+    when /^the show users page$/
+      '/user/show_users/'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

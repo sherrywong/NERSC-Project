@@ -22,8 +22,7 @@ class UserController < ApplicationController
 
       user_hash = params[:user]
     User.new(user_hash).save
-    flash[:notice] = "User created."
-    redirect_to "/user/show_users"
+    redirect_to "/user/show_users", :notice => "User created."
       end
   end
 =begin
