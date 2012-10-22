@@ -12,7 +12,8 @@ class ProjectController < ApplicationController
       end
   end
 
-
+=begin
+    shouldn't need this anymore.
     def login
     if request.post? #If the form was submitted
       user = User.find(:first, :conditions=>['username=?',(params[:username])]) #Find the user based on the name submitted
@@ -26,12 +27,15 @@ class ProjectController < ApplicationController
       end
     end
   end
-
+=end
+=begin
+  no longer needed.
   def logout
     session[:uid] = nil #Logs out the user
     redirect_to :action => "login" #redirect to log-in screen
   end
-
+=end
+=begin
   def destroy
     @project = Project.find(params[:id])
 
@@ -39,7 +43,8 @@ class ProjectController < ApplicationController
     flash[:notice] = "Project '#{@project.name}' deleted."
     redriect_to project_path
   end
-
+=end
+=begin
   def edit
     @project = Project.find_by_id(params[:id])
 
@@ -49,7 +54,7 @@ class ProjectController < ApplicationController
 
     redirect_to_user_project(@project)
   end
-
+=end
   def index
     @projects = Project.find(:all)
   end

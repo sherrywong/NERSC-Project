@@ -6,7 +6,7 @@ class ProjectMembership < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :project_id
   validates_uniqueness_of :project_id, :scope => :user_id
   #restrict one owner per project - custom validator.
-  validate :unique_owner_per_project
+  #validate :unique_owner_per_project
 
   belongs_to :user
   belongs_to :project
@@ -27,10 +27,10 @@ class ProjectMembership < ActiveRecord::Base
     #new_ownership.update_attributes(:owner=>true)
   #end
   
-  
-  def unique_owner_per_project
-    if owner? and ProjectMembership.exists?(:project_id=>project_id, :owner => true)
-        errors.add(:project_id, "#{project_id} already has an owner")
-    end
-  end
+  #will be needed for adding members to project.
+  #def unique_owner_per_project
+  #  if owner? and ProjectMembership.exists?(:project_id=>project_id, :owner => true)
+  #      errors.add(:project_id, "#{project_id} already has an owner")
+  #  end
+  #end
 end
