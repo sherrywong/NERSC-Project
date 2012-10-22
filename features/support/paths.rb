@@ -17,9 +17,10 @@ module NavigationHelpers
       '/'
 
     when /^the project\s?page$/
-      '/#{session[:uid]'
+      '/index'
 
-    
+    when /^(.*)'s Edit Users page$/i
+      '/edit/#{User.find_by_username($1).id}'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

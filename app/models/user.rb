@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   def admin?
     return self.admin
   end
+
+  def self.authenticate(username, password)
+    find_by_username(username).try(:authenticate, password)
+  end
     
   #optional: maybe the controller should do the admin check 
   #to present a flash erorr if needed.
