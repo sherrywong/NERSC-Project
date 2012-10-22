@@ -21,7 +21,8 @@ Scenario: Admins can delete
     Given I am logged in as an admin
     And I am on the project page for "Second Project"
     When I press "delete_project"
-    And I press "Yes" #confirmation?
+    And I press "Yes" 
+#confirmation?
     Then I should be on the project page
     And I should not see "First Project"
     And I should see "First Project deleted"
@@ -30,7 +31,8 @@ Scenario: Project managers (owners) can delete their own projects
     Given I am logged in as "Jason"
     And I am on the project page for "Second Project"
     When I press "delete_project"
-    And I press "Yes" #confirmation?
+    And I press "Yes" 
+#confirmation?
     Then I should be on the project page
     And I should not see "First Project"
     And I should see "First Project deleted"

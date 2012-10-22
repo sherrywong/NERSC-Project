@@ -16,7 +16,7 @@ Background: Some user logins exist.
     
 Scenario: require login
     When I go to the project page
-    I should not see "My Projects"
+    And I should not see "My Projects"
     And I should see "Login"
     
 Scenario: valid login

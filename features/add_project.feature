@@ -6,11 +6,11 @@ Feature: Create a project
 Background: some projects have already been added to database
 	
 	Given the following projects exist:
-	| title          | manager | coordinators  | id | department | start      | end         |
-	| First Project  | Linda   | Anna	       | 1  | CS		 | 02-10-2012 | 05-10-2012  |
-	| Second Project | Jason   | Elise, Sherry | 2  | CS	     | 03-10-2012 | 06-10-2012  |
-	| Third Project  | Anna    | Sherry        | 3  | Art        | 04-10-2012 | 07-10-2012  |
-	
+	| name           | description | 
+	| First Project  | proj1       | 
+	| Second Project | proj2       | 
+	| Third Project  | proj3       |  
+
 	And I am on the project page
 	
 Scenario: add valid project
