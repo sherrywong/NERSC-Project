@@ -25,16 +25,14 @@ class UserController < ApplicationController
     redirect_to "/user/show_users", :notice => "User created."
       end
   end
-=begin
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy if User.count > 1
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to user_path
   end
-=end
-=begin
-    later feature
+
   def edit
     @user = User.find_by_id(params[:id])
 
@@ -43,7 +41,7 @@ class UserController < ApplicationController
     flash[:notice] = "User '#{user.first}' '#{user.last}' was successfully updated."
     redirect_to user_path(@user)
   end
-=end
+
   def login
     if request.post? #If the form was submitted
       if @user= User.authenticate(params[:username], params[:password]) #Check that this user exists and it's password matches the inputted password

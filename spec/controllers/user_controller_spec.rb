@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe UsersController do
-  describe 'create' do
+describe UserController do
+  describe 'new' do
     it 'should be able to create a new user' do
-      m = mock('user', :first => 'first')
-      User.should_receive(:create!).and_return(m)
-      post :create, {:user => m}
+      u = mock('user', :first => 'first')
+      User.should_receive(:new!).and_return(u)
+      post :new, {:user => u}
       response.should redirect_to('/user/index')
     end
   end
@@ -13,9 +13,9 @@ describe UsersController do
   
   describe 'edit' do
     it 'should be able to edit a user' do
-      m = stub_model(User)
-      User.stub!(:find).and_return(m)
-      get :edit, :id => m.id
+      u = stub_model(User)
+      User.stub!(:find).and_return(u)
+      get :edit, :id => u.id
       response.should be_success
     end
   end
@@ -23,10 +23,10 @@ describe UsersController do
   
   describe 'update' do
     it 'should be able to update a user field' do
-      m = stub_model(User)
-      m.stub!(:update_attributes).and_return(true)
+      u = stub_model(User)
+      u.stub!(:update_attributes).and_return(true)
       User.should_receive(:find).with('1').and_return(m)																																																																																																																																																																																																																																															
-      put :update, :id => m.id, :user => {}
+      put :update, :id => u.id, :user => {}
       response.should redirect_to('/users/1')
     end
   end
@@ -34,11 +34,11 @@ describe UsersController do
   
   describe 'destroy' do
     it 'should be able to destroy a user' do
-      m = stub_model(User, :destroy => true)
-      m.stub!(:find).and_return(m)
-      User.should_receive(:find).with(m.id.to_s).and_return(m)
- #     m.should_receive(:destory)
-      post :destroy, :id => m.id.to_s
+      u = stub_model(User, :destroy => true)
+      u.stub!(:find).and_return(u)
+      User.should_receive(:find).with(u.id.to_s).and_return(u)
+ #     u.should_receive(:destory)
+      post :destroy, :id => u.id.to_s
       #response.should redirect_to(movies_path)
     end
   end
@@ -48,5 +48,4 @@ describe UsersController do
     before do
     end
   end
-end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserContoller do
+describe User do
   describe 'login' do
   end
 end

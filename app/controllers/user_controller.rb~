@@ -1,10 +1,15 @@
 class UserController < ApplicationController
   #You can find "login_required" in application_controller.rb"
-  #before_filter :login_required, :except => [:login]
-  #before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
+  before_filter :login_required, :except => [:login]
+  before_filter :is_admin, :only => [:create, :edit, :destroy, :show_users]
 
   def index
-     @projects = User.find_by_user_id(session[:uid]).projects
+     user = User.find_by_id(session[:uid])
+     if user.nil?
+        @projects = []
+     else
+        @projects = user.projects
+     end
     # @projects = Project.find(:all)
   end
 
@@ -17,18 +22,19 @@ class UserController < ApplicationController
 
       user_hash = params[:user]
     User.new(user_hash).save
-    flash[:notice] = "User created."
-    redirect_to "/user/show_users"
+    redirect_to "/user/show_users", :notice => "User created."
       end
   end
-
+=begin
   def destroy
     @user = User.find(params[:id])
     @user.destroy if User.count > 1
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to user_path
   end
-
+=end
+=begin
+    later feature
   def edit
     @user = User.find_by_id(params[:id])
 
@@ -37,7 +43,7 @@ class UserController < ApplicationController
     flash[:notice] = "User '#{user.first}' '#{user.last}' was successfully updated."
     redirect_to user_path(@user)
   end
-
+=end
   def login
     if request.post? #If the form was submitted
       if @user= User.authenticate(params[:username], params[:password]) #Check that this user exists and it's password matches the inputted password

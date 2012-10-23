@@ -35,7 +35,7 @@ class ProjectController < ApplicationController
     redirect_to :action => "login" #redirect to log-in screen
   end
 =end
-=begin
+
   def destroy
     @project = Project.find(params[:id])
 
@@ -43,18 +43,17 @@ class ProjectController < ApplicationController
     flash[:notice] = "Project '#{@project.name}' deleted."
     redriect_to project_path
   end
-=end
-=begin
+
   def edit
     @project = Project.find_by_id(params[:id])
 
     #update
-    @project.update_attributes!(params[:user])
+    @project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{project.name}' was successfully updated."
 
     redirect_to_user_project(@project)
   end
-=end
+
   def index
     @projects = Project.find(:all)
   end
