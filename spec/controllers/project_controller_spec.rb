@@ -3,10 +3,13 @@ require 'spec_helper'
 describe ProjectController do
   describe 'new' do
     it 'should be able to create a new project' do
-      p = mock('project', :id => 1, :name => 'n', :description => 't', :create_at => 'ca', :updated_at => 'dt')
+      #p = mock('project', :id => 1, :name => 'n', :description => 't', :create_at => 'ca', :updated_at => 'dt')
+      p = mock ('project')
       Project.should_receive(:new).and_return(p)
+      p.should_receive(:save)
       post :new, {:project => p}
       response.should redirect_to('/user/project/index')
+      # can view projects without logging in?
     end
   end
   

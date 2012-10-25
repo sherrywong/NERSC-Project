@@ -3,9 +3,11 @@ require 'spec_helper'
 describe UserController do
   describe 'new' do
     it 'should be able to create a new user' do
-      u = mock('user', :first => 'first')
-      User.should_receive(:new!).and_return(u)
+      u = mock('user')
+      User.should_receive(:new).and_return(u)
+      u.should_receive(:save)
       post :new, {:user => u}
+      # Need to log in first
       response.should redirect_to('/user/index')
     end
   end

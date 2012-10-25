@@ -6,7 +6,8 @@ class ProjectController < ApplicationController
 
   def new
     if request.post?
-      Project.new(params[:project]).save
+      p = Project.new(params[:project])
+      p.save
       flash[:notice] = "Project created."
       redirect_to "/user/project/index"
       end
@@ -48,7 +49,7 @@ class ProjectController < ApplicationController
     @project = Project.find_by_id(params[:id])
 
     #update
-    @project.update_attributes!(params[:user])
+    @project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{project.name}' was successfully updated."
 
     redirect_to_user_project(@project)

@@ -3,8 +3,9 @@ require 'spec_helper'
 describe RiskController do
   describe 'new' do
     it 'should be able to create a new risk' do
-      r = mock('risk', :first => 'first')
+      r = mock('risk')
       Risk.should_receive(:new!).and_return(r)
+      r.should_receive(:save)
       post :new, {:risk => r}
       response.should redirect_to('/user/risk/index')
     end
