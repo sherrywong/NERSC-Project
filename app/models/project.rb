@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   
   has_many :project_memberships, :dependent => :destroy #assume destroy for now.
   has_many :users, :through => :project_memberships
+  has_many :risks
   
   #Will merge current list with input list.
 
@@ -27,4 +28,5 @@ class Project < ActiveRecord::Base
   def set_owner (new_owner)
     owner= new_owner
   end
+  
 end
