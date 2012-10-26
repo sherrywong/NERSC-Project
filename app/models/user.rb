@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   #These allow you to say @user.project_memberships and @user.projects to get the related teams/projects.
-  has_many :project_memberships
+  has_many :project_memberships, :dependent => :destroy
   has_many :projects, :through => :project_memberships
 
   def admin?
@@ -30,15 +30,16 @@ class User < ActiveRecord::Base
   end
 
   #includes default owner
-  #def create_project(project_hash)
-  #  proj = Project.new(project_hash)
-  #  if self.admin? and proj.save
-  #      pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
-  #      if not pm.save
-  #          proj.destroy
-  #          return false
-  #      end
-  #  end
-  #  return false
-  #end
+  def create_project(project_hash)
+    proj = Project.new(project_hash)
+    if self.admin? and proj.save
+        pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
+        proj.owner = self.id
+        if not pm.save
+            proj.destroy
+            return false
+        end
+    end
+    return false
+  end
 end
