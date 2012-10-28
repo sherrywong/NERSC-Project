@@ -6,7 +6,7 @@ class RiskController < ApplicationController
 
   def new
     if request.post?
-      Risk.new(params[:risk]).save
+      User.create_risk_for_project(params[:project],params[:risk])
       flash[:notice] = "Risk created."
       redirect_to "/user/risk/index"
       end
