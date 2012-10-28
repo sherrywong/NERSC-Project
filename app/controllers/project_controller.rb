@@ -49,8 +49,10 @@ class ProjectController < ApplicationController
 
   def edit
     @project = Project.find_by_id(params[:id])
+  end
 
-    #update
+  def update
+    @project = Project.find_by_name(params[:project]["name"])
     @project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{project.name}' was successfully updated."
 

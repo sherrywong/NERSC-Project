@@ -1,0 +1,16 @@
+<% @page_heading = "Risks Page" + content_tag(:div, link_to("New Risk", {:controller => 'risk', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
+
+
+  <h1> Risks for @project.title </h1>
+<p><center><%= params[:notice] %></center></p>
+<%= link_to "+ Create New Risk", "/user/project/risk/new"%>
+
+
+<table class="zebra-striped clearfix" id="risks">
+    <tr>
+    <th class = 'first'><%= "Title" %></th>
+    <th><%= "Description" %></th>
+    </tr>
+<%= render 'risk_list', {:risks => @risks } -%>
+</table>
+
