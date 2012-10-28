@@ -53,9 +53,6 @@ class Project < ActiveRecord::Base
   def owner= (new_owner)
     ProjectMembership.set_owner_of_project(self, new_owner)
   end
-  def set_owner (new_owner)
-    owner= new_owner
-  end
 
   
 end

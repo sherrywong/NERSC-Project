@@ -27,7 +27,8 @@ class ProjectMembership < ActiveRecord::Base
   
   def self.set_owner_of_project(project, new_owner)
     if (former = owner_membership_of_project(project))
-        former.update_attributes(:owner=>false)
+        former.owner = false
+        former.save
     end
     new_ownership = ProjectMembership.find_or_create_by_user_id_and_project_id(:user_id=>new_owner.id, :project_id=>project.id)
     new_ownership.update_attributes(:owner=>true)
