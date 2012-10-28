@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   validates_presence_of :email, :first, :last, :password, :username
+  #not included: admin, status
+  validates_inclusion_of :status, :in=>["active", "retired", "pending"]
   #validates_inclusion_of :admin, :in => [true, false]
   #don't think I need this - db will error out since admin not a boolean.
   validates_uniqueness_of :username
@@ -18,37 +20,86 @@ class User < ActiveRecord::Base
     return self.admin
   end
 
+  def active?
+    return self.status == "active"
+  end
+  def retired?
+    return self.status == "retired"
+  end
+  
   def self.authenticate(username, password)
     find_by_username(username).try(:authenticate, password)
   end
     
-  #optional: maybe the controller should do the admin check 
-  #to present a flash error if needed.
 
-  def self.add_new_user(uid, user_hash)
-    User.find_by_id(uid).add_new_user(user_hash)
-  end
   def add_new_user(user_hash) #returns true if the new user is created.
-    return (self.admin? and User.new(user_hash).save)
+    @usr = User.new(user_hash)
+    if self.admin? 
+        @usr.save
+    else
+        @usr.errors[:current] << "Current user does not have permission to create new users (must be admin)"
+    end
+    return @usr
   end
 
   #includes default owner
   def create_project(project_hash)
-    proj = Project.new(project_hash)
-    if self.admin? and proj.save
-        pm = ProjectMembership.new(:user_id=>self.id, :project_id => proj.id, :owner=>true)
+    @proj = Project.new(project_hash)
+    if self.admin? and @proj.save
+        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true)
         #proj.owner = self.id
-        if not pm.save
-            proj.destroy
+        if not @pm.save
+            @proj.errors[:membership_errors] = @pm.errors
+            @proj.destroy
             #return false
         end
-        #return true
     end
-    #return false
-    return proj #check proj.Errors for errors?
+    if not self.admin?
+        @proj.errors[:current] << "Current user does not have permission to create projects (must be admin)"
+    end
+    return @proj #check @proj.errors
   end
   
-  def create_risk(project_id, risk_hash)
-    print "UNDEFINED"
+  def create_risk_for_project(project_id, risk_hash)
+    risk_hash[:creator_id] = self.id
+    risk_hash[:owner_id] = self.id #default owner = creator
+    risk_hash[:project_id] = project_id
+    @proj = Project.find_by_id(project_id)
+    @rsk = Risk.new(risk_hash)
+    if @proj and self.projects.include? @proj#not nil
+        @rsk.save
+    end
+    if not @proj
+        @rsk.errors[:project] << "Given project does not exist"
+    end
+    if not self.projects.include? @proj
+        @rsk.errors[:current] << "Current user is not a member of this project"
+    end
+    return @rsk
   end
+  
+  def deactivate_project(project_id)
+    @proj = Project.find_by_id(project_id)
+    if @proj and (self.admin? or @proj.owner == self)
+        @proj.status = "retired"
+        @proj.save
+    end
+    if not (self.admin? or @proj.owner == self)
+        @proj.errors[:current] << "Current user does not have permission to deactive project (must be admin or project owner)"
+    end
+    return @proj
+  end
+  
+  def deactivate_user(user_id)
+    @usr = User.find_by_id(user_id)
+    if @usr and self.admin?
+        @usr.status = "retired"
+        @usr.save
+    end
+    if not self.admin?
+        @usr.errors[:current] << "Current user does not have permission to deactive users (must be admin)"
+    end
+    return @usr
+  end
+  
 end

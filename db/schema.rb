@@ -11,21 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026212910) do
+ActiveRecord::Schema.define(:version => 20121028012418) do
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "project_id"
     t.boolean  "owner",      :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "permission", :default => "read"
   end
 
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "status",      :default => "active"
   end
 
   create_table "risks", :force => true do |t|
@@ -35,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20121026212910) do
     t.string   "title"
     t.text     "description"
     t.string   "probability"
-    t.float    "cost"
+    t.string   "cost"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -46,9 +48,10 @@ ActiveRecord::Schema.define(:version => 20121026212910) do
     t.string   "email"
     t.boolean  "admin",           :default => false
     t.string   "username"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "password_digest"
+    t.string   "status",          :default => "active"
   end
 
 end
