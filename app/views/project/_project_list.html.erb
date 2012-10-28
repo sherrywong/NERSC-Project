@@ -2,7 +2,7 @@
   <% for project in @projects %>
 <tr>
          <td class='first'>
-                 <%= link_to project.name, "/project/edit/" %>
+                 <%= link_to project.name, edit_project_path(project.id) %>
 </td>
                  <td class='last'><%= project.description %>
 </td>

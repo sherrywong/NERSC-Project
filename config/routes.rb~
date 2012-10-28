@@ -62,6 +62,7 @@ NerscProject::Application.routes.draw do
   match "/user/edit" => 'user#edit'
   match "/project/new" => 'project#new'
   match "/project/login" => 'project#login'
+  match "/project/logout" => 'project#logout'
 
 
   # See how all your routes lay out with "rake routes"

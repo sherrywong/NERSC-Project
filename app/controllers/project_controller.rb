@@ -54,9 +54,9 @@ class ProjectController < ApplicationController
   def update
     @project = Project.find_by_name(params[:project]["name"])
     @project.update_attributes!(params[:project])
-    flash[:notice] = "Project '#{project.name}' was successfully updated."
+    flash[:notice] = "Project was successfully updated."
 
-    redirect_to_user_project(@project)
+    redirect_to "/user/project/index"
   end
 
   def index
