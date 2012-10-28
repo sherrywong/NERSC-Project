@@ -38,11 +38,13 @@ class UserController < ApplicationController
 
   def edit
     @user = User.find_by_id(params[:id])
+  end
 
-    #updating user
+  def update
+    @user = User.find_by_username(params[:user]["username"])
     @user.update_attributes!(params[:user])
-    flash[:notice] = "User '#{user.first}' '#{user.last}' was successfully updated."
-    redirect_to user_path(@user)
+    flash[:notice] = "User was successfully updated."
+    redirect_to "/user/show_users"
   end
 
   def login
