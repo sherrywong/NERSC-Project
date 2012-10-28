@@ -40,3 +40,7 @@ Scenario: add valid project
 #    Then I press "create_proj" 
 #    Then I should be on the create project page 
 #    And I should see "Error: Project already exists with that title."
+
+#Scenario: view a project that the user doesn't have read permissions
+#    Given I press "proj2"
+#    Then I should see "Don't have permission to view this project."
