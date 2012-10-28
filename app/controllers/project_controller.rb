@@ -6,7 +6,7 @@ class ProjectController < ApplicationController
 
   def new
     if request.post?
-      Project.new(params[:project]).save
+      User.create_project(params[:project])
       flash[:notice] = "Project created."
       redirect_to "/user/project/index"
       end
@@ -39,7 +39,10 @@ class ProjectController < ApplicationController
   def destroy
     @project = Project.find(params[:id])
 
-    @project.destroy if Project.count > 1
+    if Project.count > 1
+      User.deactivate_project(params[:id])
+      @project.destroy
+    end
     flash[:notice] = "Project '#{@project.name}' deleted."
     redriect_to project_path
   end
