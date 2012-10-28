@@ -1,0 +1,15 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/ubuntu/NERSC-Project/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/NERSC-Project/app/helpers/home_helper.rb": [
+        1,
+        null
+      ]
+    },
+    "timestamp": 1350874169
+  }
+}
