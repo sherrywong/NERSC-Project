@@ -21,8 +21,10 @@ class RiskController < ApplicationController
 
   def edit
     @risk = Risk.find_by_id(params[:id])
+  end
 
-    #update
+  def update
+    @risk = Risk.find_by_id(params[:id])
     @risk.update_attributes!(params[:risk])
     flash[:notice] = "Risk '#{risk.name}' was successfully updated."
 

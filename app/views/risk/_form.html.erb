@@ -2,11 +2,27 @@
 <div class='editor-left'>
   <div>
     <div>
-    <%= text_field 'project', 'name', :placeholder => "Name" %>
+    <%= text_field 'risk', 'title', :placeholder => "Title" %>
     </div>
     <div>
-    <%= text_field 'project', 'description', :placeholder => "Description" %>
+    <%= text_field 'risk', 'description', :placeholder => "Description" %>
     </div>
-    <%= submit_tag "Create" %>
+    <div>
+    <%= label_tag 'cost', 'Cost' %>
+    <select name="risk[cost]">
+      <option value='High'> High </option>
+      <option value='Medium'> Medium </option>
+      <option value='Low'> Low </option>
+    </select>
+    </div>
+    <div>
+    <%= label_tag 'probability', 'Probability' %>
+    <select name="risk[probability]">
+      <option value='High'> High </option>
+      <option value='Medium'> Medium </option>
+      <option value='Low'> Low </option>
+    </select>
+    </div>
+    <%= submit_tag "Save" %>
   </div>
 </div>

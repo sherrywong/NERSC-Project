@@ -1,4 +1,4 @@
 <h1> Edit <%= @project.name %> </h1>
-
+<%= link_to "+ Add new risk", "/user/project/risk/new" %>
   <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "update", :class => ('autosave')}} %>
 
