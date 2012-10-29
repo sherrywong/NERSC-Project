@@ -26,18 +26,23 @@ class UserController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy if User.count > 1
+    if User.count > 1
+      User.deactivate_user(params[:id])
+      @user.destroy
+    end
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to user_path
   end
 
   def edit
     @user = User.find_by_id(params[:id])
+  end
 
-    #updating user
+  def update
+    @user = User.find_by_username(params[:user]["username"])
     @user.update_attributes!(params[:user])
-    flash[:notice] = "User '#{user.first}' '#{user.last}' was successfully updated."
-    redirect_to user_path(@user)
+    flash[:notice] = "User was successfully updated."
+    redirect_to "/user/show_users"
   end
 
   def login
@@ -47,9 +52,13 @@ class UserController < ApplicationController
         redirect_to :action => "index" #And redirect to their profile
       elsif @user=User.find(:first, :conditions=>['username=?',(params[:username])])==nil
         redirect_to :action => "login", :notice=> "We don't have a user by this username. Please contact an administrator to be granted access to the application."
+<<<<<<< HEAD
       elsif @user.status != "active"
         redirect_to :action => "login", :notice=> "Your account has been deactivated. Please contact an administrator if this was done in error."
       else 
+=======
+      else
+>>>>>>> 13afd81a7a33d085a26e6079a27028fdfba10357
         redirect_to :action => "login", :notice=> "Incorrect password. Please try again."
       end
     end

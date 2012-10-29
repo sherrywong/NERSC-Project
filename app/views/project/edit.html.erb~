@@ -1,0 +1,4 @@
+<h1> Edit <%= @project.name %> </h1>
+
+  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "update", :class => ('autosave')}, :form_name => "edit_form"} %>
+

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   #These allow you to say @user.project_memberships and @user.projects to get the related teams/projects.
   has_many :project_memberships, :dependent => :destroy
   has_many :projects, :through => :project_memberships
-  has_many :created_risks, :class_name=> "Risk", :foreign_key => :creator_id
+  #has_many :created_risks, :class_name=> "Risk", :foreign_key => :creator_id
   has_many :owned_risks, :class_name => "Risk", :foreign_key => :owner_id
 
   def admin?
@@ -35,10 +35,13 @@ class User < ActiveRecord::Base
   def self.authenticate(username, password)
     find_by_username(username).try(:authenticate, password)
   end
-    
-  def add_new_user(user_hash) #returns true if the new user is created.
+
+  def add_new_user(user_hash) #returns user object
     @usr = User.new(user_hash)
     if self.admin? 
+        if user_hash[:admin]
+            @usr.admin = true
+        end
         @usr.save
     else
         @usr.errors[:current] << "Current user does not have permission to create new users (must be admin)"
@@ -46,12 +49,15 @@ class User < ActiveRecord::Base
     return @usr
   end
 
-  #includes default owner
+  #Do not pass in owner just yet!
+  #Current setup: create_project (owner is by default the creator).
+  #If another person should be owner, use Proj.owner = 
+  #(Future change expected)
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
         @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true)
-        #proj.owner = self.id
+        #proj.owner = self.id skipped in case pm errors.
         if not @pm.save
             @proj.errors[:membership_errors] = @pm.errors
             @proj.destroy
@@ -65,7 +71,7 @@ class User < ActiveRecord::Base
   end
   
   def create_risk_for_project(project_id, risk_hash)
-    risk_hash[:creator_id] = self.id
+    #risk_hash[:creator_id] = self.id
     risk_hash[:owner_id] = self.id #default owner = creator
     risk_hash[:project_id] = project_id
     @proj = Project.find_by_id(project_id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121028012418) do
+ActiveRecord::Schema.define(:version => 20121028192103) do
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20121028012418) do
 
   create_table "risks", :force => true do |t|
     t.integer  "project_id"
-    t.integer  "creator_id"
     t.integer  "owner_id"
     t.string   "title"
     t.text     "description"
