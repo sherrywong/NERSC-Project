@@ -1,6 +1,5 @@
-
 class RiskController < ApplicationController
-  #before_filter :login_required
+  before_filter :login_required
   #before_filter :risk_id_matches_user
 
 

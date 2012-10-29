@@ -2,7 +2,7 @@ class Risk < ActiveRecord::Base
   attr_accessible :cost, :description, :probability, :title, :project_id, :creator_id, :owner_id
    validates_presence_of :cost, :description, :probability, :title
    
-    #not included:   :project_id, :creator_id, :owner_id
+   #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
    validates_inclusion_of :probability, :in => %w(High Medium Low)
    validates_inclusion_of :cost, :in => %w(High Medium Low)

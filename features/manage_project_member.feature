@@ -58,7 +58,7 @@ Scenario: add and delete user to project as a regular user
     And I click "Add Project Member"
     Then I should see "Don't have permission to add user to First Project."
     Given I click on "Delete user" for Sherry Wong
-    Then I should see "Don't have permission to delete Sherry Wong from First Project?" 
+    Then I should see "Don't have permission to delete Sherry Wong from First Project." 
 
 Scenario: change user read/write permissions of a project as an admin
 	Given I am logged in as an admin

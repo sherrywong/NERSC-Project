@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-  validates_presence_of :email, :first, :last, :password, :username
-  #not included: admin, status
+  validates_presence_of :email, :first, :last, :password, :username, :status
+  #not included: admin
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
   #validates_inclusion_of :admin, :in => [true, false]
   #don't think I need this - db will error out since admin not a boolean.
   validates_uniqueness_of :username
-  attr_accessible :admin, :email, :first, :last, :password, :username
+  attr_accessible :admin, :email, :first, :last, :password, :username, :status
 
 #Rails internal password digesting (temporary until LDAP)
   has_secure_password
@@ -20,9 +20,14 @@ class User < ActiveRecord::Base
     return self.admin
   end
 
+  def owner?(proj_id)
+    return self==Project.find_by_id(proj_id).owner
+  end
+
   def active?
     return self.status == "active"
   end
+
   def retired?
     return self.status == "retired"
   end
@@ -31,7 +36,6 @@ class User < ActiveRecord::Base
     find_by_username(username).try(:authenticate, password)
   end
     
-
   def add_new_user(user_hash) #returns true if the new user is created.
     @usr = User.new(user_hash)
     if self.admin? 

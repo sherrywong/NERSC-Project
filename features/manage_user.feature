@@ -7,7 +7,7 @@ Background: Some user logins exist.
     Given the following users exist:
     | username  | email             | first       | last         | admin | password        |
     | anna      | anna@gmail.com    | Anensshiya  | Govinthasamy | true  | agovinthasamy   |
-    | bob       | bob@gmail.com     | Shery       | Wong         | true  | swong           |
+    | bob       | bob@gmail.com     | Sherry       | Wong         | true  | swong           |
    
     And I am logged in as an admin
 
@@ -25,9 +25,9 @@ Scenario: create
     #Then I should see "User created."
     And I should see "Starfish"
 
- #Scenario: edit
- #   When I go to "anna's Edit Users" page
- #   And I fill in "first" with "Sherry"
- #   And I press "Submit" 
- #   Then I should see "User Sherry Govinthasamy was successfully updated."
+Scenario: edit
+   When I go to "anna's Edit User" page
+   And I fill in "first" with "Sherry"
+   And I press "Submit" 
+   Then I should see "User Sherry Govinthasamy was successfully updated."
 
