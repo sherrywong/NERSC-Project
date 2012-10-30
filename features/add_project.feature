@@ -10,15 +10,14 @@ Background: some projects have already been added to database
     | First Project  | proj1       |  
     | Second Project | proj2       |  
     | Third Project  | proj3       |  
- 
+    Given I am logged in
     And I am on the project page 
      
 Scenario: add valid project 
-    When I go to the new project page 
-    Then I should be on the new project page 
-    Then I fill in "project_name" with "Test Project" 
-    Then I fill in "project_description" with "Project 4" 
-    Then I press "Create" 
+    When I go to the new project page
+    When I fill in "project_name" with "Test Project" 
+    When I fill in "project_description" with "Project 4" 
+    Then I press "Save" 
     Then I should be on the project index page
     And I should see "Test Project" 
  

@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true)
+        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
         #proj.owner = self.id skipped in case pm errors.
         if not @pm.save
             @proj.errors[:membership_errors] = @pm.errors

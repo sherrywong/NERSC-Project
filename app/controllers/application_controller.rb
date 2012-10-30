@@ -39,4 +39,8 @@ class ApplicationController < ActionController::Base
     redirect_to :controller => "user", :action => "index", :notice=> "Sorry, you have to be an administrator or project owner to perform this action."
     return false
   end 
+  
+  def get_current_user
+    return User.find_by_id(session[:uid])
+  end
 end
