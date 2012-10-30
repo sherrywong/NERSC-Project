@@ -52,13 +52,9 @@ class UserController < ApplicationController
         redirect_to :action => "index" #And redirect to their profile
       elsif @user=User.find(:first, :conditions=>['username=?',(params[:username])])==nil
         redirect_to :action => "login", :notice=> "We don't have a user by this username. Please contact an administrator to be granted access to the application."
-<<<<<<< HEAD
       elsif @user.status != "active"
         redirect_to :action => "login", :notice=> "Your account has been deactivated. Please contact an administrator if this was done in error."
       else 
-=======
-      else
->>>>>>> 13afd81a7a33d085a26e6079a27028fdfba10357
         redirect_to :action => "login", :notice=> "Incorrect password. Please try again."
       end
     end
