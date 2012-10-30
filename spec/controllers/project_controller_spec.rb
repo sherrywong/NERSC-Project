@@ -28,7 +28,7 @@ describe ProjectController do
     it 'should be able to update a project field' do
       p = stub_model(Project)
       p.stub!(:update_attributes).and_return(true)
-      Project.should_receive(:find).with('1').and_return(m)																																																																																																																																																																																																																																															
+      Project.should_receive(:find).with('1').and_return(p)																																																																																																																																																																																																																																															
       put :update, :id => p.id, :project => {}
       response.should redirect_to('/projects/1')
     end

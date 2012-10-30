@@ -3,12 +3,13 @@ class UserController < ApplicationController
   before_filter :is_admin, :only => [:new, :edit, :destroy, :show_users]
 
   def index
-     user = User.find_by_id(session[:uid])
-     if user.nil?
-        @projects = []
-     else
-        @projects = user.projects
-     end
+    # user = User.find_by_id(session[:uid])
+    @usr = get_current_user
+    if @usr.nil?
+       @projects = []
+    else
+       @projects = user.projects
+    end
     # @projects = Project.find(:all)
   end
 
@@ -35,7 +36,7 @@ class UserController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(params[:uid])
   end
 
   def update

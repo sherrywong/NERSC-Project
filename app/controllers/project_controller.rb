@@ -6,25 +6,31 @@ class ProjectController < ApplicationController
 
   def new
     if request.post?
-      User.create_project(params[:project])
-      flash[:notice] = "Project created."
-      redirect_to "/user/project/index"
+      @usr = get_current_user
+      @proj = @usr.create_project(params[:project])
+      if @proj
+      #check for errors here for error messages
+        flash[:notice] = "Project created."
+      else
+        flash[:notice] = "Error occured when creating project"
       end
+      redirect_to "/user/project/index"
+    end
   end
 
   def destroy
-    @project = Project.find(params[:id])
-
-    if Project.count > 1
-      User.deactivate_project(params[:id])
+    @project = Project.find(params[:pid])
+    if @project.count > 1
+      User.deactivate_project(params[:pid])
       @project.destroy
     end
-    flash[:notice] = "Project '#{@project.name}' deleted."
+    flash[:notice] = "Project '#{@proj.name}' deleted."
     redriect_to project_path
   end
 
   def edit
-    @project = Project.find_by_id(params[:id])
+    @project = Project.find_by_id(params[:pid])
+    flash[:notice] = "Project was edited."
   end
 
   def update
@@ -36,8 +42,7 @@ class ProjectController < ApplicationController
   end
 
   def index
-    @projects = Project.find(:all)
+    @projects = Project.find_by_users(:uid)
   end
 
 end
-

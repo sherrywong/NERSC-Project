@@ -14,7 +14,7 @@ Background: some projects have already been added to database
     And I am on the project page 
      
 Scenario: add valid project 
-    Given I go to the new project page 
+    When I go to the new project page 
     Then I should be on the new project page 
     Then I fill in "project_name" with "Test Project" 
     Then I fill in "project_description" with "Project 4" 
