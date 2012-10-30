@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
   end
   
   def deactivate_user(user_id)
+	puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin?
         @usr.status = "retired"
