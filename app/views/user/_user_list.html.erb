@@ -8,7 +8,7 @@
   </td>
   <td><%= user.status %>
   </td>
-  <td class='last'><%= form_tag :action=>'destroy', :id=> (user.id) %><%= submit_tag "X" %>
+          <td class='last'><%= link_to "X", {:action => 'destroy', :uid => user.id} -%>
   </td>
 </tr>
 <% end %>
