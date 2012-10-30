@@ -32,7 +32,7 @@ class UserController < ApplicationController
       @user.destroy
     end
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
-    redirect_to user_path
+    redirect_to "/user/show_users", :notice => "User deleted"
   end
 
   def edit
