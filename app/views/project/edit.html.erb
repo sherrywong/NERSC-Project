@@ -1,4 +1,5 @@
 <h1> Edit <%= @project.name %> </h1>
-<%= link_to "+ Add new risk", new_risk_path(@project.id) %>
+<%= link_to "+ Add new risk", new_risk_path(@project.id) %> <br/>
+<%= link_to "+ Display Associated Risks", risk_index_path(@project.id) %>
   <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "update", :class => ('autosave')}} %>
 
