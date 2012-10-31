@@ -54,24 +54,26 @@ NerscProject::Application.routes.draw do
   root :to => 'user#login'
   match "/user/login" => 'user#login'
   match "/user/index" => 'user#index'
-  match "/user/destroy" => 'user#destroy'
+  match "/user/destroy" => 'user#destroy', :as => :destroy_user
   match "/user/show_users" => 'user#show_users'
   match "/user/new" => 'user#new'
   match "/user/project/index" => 'project#index'
   match "/user/project/new" => 'project#new'
   match "/user/logout" => 'user#logout'
-  match "/user/:id/edit" => 'user#edit', :as => :edit_user
+  match "/user/:uid/edit" => 'user#edit', :as => :edit_user
   match "/user/update" => 'user#update', :as => :update_user
   match "/project/new" => 'project#new'
   match "/project/login" => 'project#login'
   match "/project/logout" => 'project#logout'
   match "/risk/login" => 'risk#login'
   match "/risk/logout" => 'risk#logout'
-  match "/project/:id/edit" => 'project#edit', :as => :edit_project
+  match "/user/risk/index" => 'risk#index'
+  match "/project/:pid/edit" => 'project#edit', :as => :edit_project
   match "/project/update" => 'project#update', :as => :update_project
-  match "/user/project/risk/new" => 'risk#new'
-  match "/user/project/risk/:id/edit" => 'risk#edit', :as => :edit_risk
-  match "/user/project/risk/update" => 'risk#update', :as => :update_risk
+  match "/user/project/:pid/risk/new" => 'risk#new', :as => :new_risk
+  match "/user/project/:pid/risk/:rid/edit" => 'risk#edit', :as => :edit_risk
+  match "/user/project/:pid/risk/update" => 'risk#update', :as => :update_risk
+  match "/user/project/:pid/risk/index" => 'risk#index', :as => :risk_index
 
 
   # See how all your routes lay out with "rake routes"

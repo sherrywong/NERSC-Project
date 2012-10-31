@@ -1,0 +1,10 @@
+<% for risk in @risks %>
+<tr>
+    <td class='first'>
+            <%= link_to risk.title, edit_risk_path(params[:pid], risk.id) %>
+            </td>
+<td class='last'>
+<%= risk.description %>
+</td>
+</tr>
+<% end %>

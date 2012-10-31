@@ -29,9 +29,9 @@ class ProjectController < ApplicationController
   end
 
   def edit
-    @project = Project.find_by_id(params[:id])
+    @project = Project.find_by_id(params[:pid])
     if @project.nil?
-        put "ERROR - no project by pid"
+        puts "ERROR - no project by pid"
     end
     flash[:notice] = "Project was edited." #doesn't edit just render the edit page?
     #include error handling...
