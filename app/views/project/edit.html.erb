@@ -1,5 +1,16 @@
 <h1> Edit <%= @project.name %> </h1>
 <%= link_to "+ Add new risk", new_risk_path(@project.id) %> <br/>
 <%= link_to "+ Display Associated Risks", risk_index_path(@project.id) %>
+  <br/>
+  <input type="button" value="+" onclick="showForm();"/> Add Project Members
+  <br/>
+<div id="members_form" style="display:none;">Please enter a comma-delimited list of usernames to add. <%= form_tag :controller=> 'project', :action=> 'add_members'%> <%= text_field :members, ''%><%= submit_tag "Add" %></form></div>
+
+<script type="text/javascript">
+function showForm() {
+document.getElementById('members_form').style.display = 'block';
+}
+</script>
+
   <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "update", :class => ('autosave')}} %>
 

@@ -45,6 +45,24 @@ class ProjectController < ApplicationController
     redirect_to "/user/project/index"
   end
 
+  def add_members
+    members = params[:members]
+    puts "MEMBERS", members
+    @project = Project.find_by_id(params[:pid])
+    members_list = members[0].split(", ")
+    @members = members_list
+    member_id_list = Array(members_list.length)
+    members_list.each do |member|
+      member = User.find_by_username(member)
+      member_id = member.id
+      member_id_list << member_id
+      end
+    puts "MEM LIST", members_list
+    flash[:notice] = "Members updated."
+    @project.add_members(member_id_list)
+    redirect_to edit_project_path(params[:pid])
+  end
+
   def index
     @user = get_current_user
     @projects = @user.projects

@@ -60,6 +60,7 @@ NerscProject::Application.routes.draw do
   match "/user/project/index" => 'project#index'
   match "/user/project/new" => 'project#new'
   match "/user/project/:pid/edit" => 'project#edit'
+  match "/project/:pid/add_members" => 'project#add_members'
   match "/user/logout" => 'user#logout'
   match "/user/:id/edit" => 'user#edit', :as => :edit_user
   match "/user/update" => 'user#update', :as => :update_user
