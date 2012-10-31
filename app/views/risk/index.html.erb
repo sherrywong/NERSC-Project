@@ -3,7 +3,7 @@
 
   <h1> Risks for <%= @project.name %></h1>
 <p><center><%= params[:notice] %></center></p>
-<%= link_to "+ Create New Risk", "/user/project/risk/new"%>
+<%= link_to "+ Create New Risk", new_risk_path(params[:pid])%>
 
 
 <table class="zebra-striped clearfix" id="risks">
