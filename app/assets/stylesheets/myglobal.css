@@ -84,3 +84,13 @@ h1, h2, h3, h4 {
   text-align: center;
   color: #0d9ee5;
 }
+tr {
+ border-bottom: dotted 1px #0d9ee5;
+}
+td {
+ padding-left: 20px;
+ text-align:center;
+}
+th {
+ padding-left: 20px;
+}
