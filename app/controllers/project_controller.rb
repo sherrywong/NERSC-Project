@@ -15,6 +15,7 @@ class ProjectController < ApplicationController
         flash[:notice] = "Error occured when creating project"
       end
       redirect_to "/user/project/index"
+    end
   end
 
   def destroy
@@ -45,4 +46,3 @@ class ProjectController < ApplicationController
   end
 
 end
-
