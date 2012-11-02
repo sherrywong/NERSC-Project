@@ -5,14 +5,15 @@ class RiskController < ApplicationController
 
   def new
     if request.post?
-      User.create_risk_for_project(params[:project],params[:risk])
+      @usr = get_current_user
+      @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
       flash[:notice] = "Risk created."
       redirect_to "/user/risk/index"
       end
   end
 
   def destroy
-    @risk = Risk.find(params[:id])
+    @risk = Risk.find(params[:rid])
 
     @risk.destroy if Risk.count > 1
     flash[:notice] = "Risk '#{@risk.name}' deleted."
@@ -20,11 +21,11 @@ class RiskController < ApplicationController
   end
 
   def edit
-    @risk = Risk.find_by_id(params[:id])
+    @risk = Risk.find_by_id(params[:rid])
   end
 
   def update
-    @risk = Risk.find_by_id(params[:id])
+    @risk = Risk.find_by_id(params[:rid])
     @risk.update_attributes!(params[:risk])
     flash[:notice] = "Risk '#{risk.name}' was successfully updated."
 
@@ -32,7 +33,7 @@ class RiskController < ApplicationController
   end
 
   def index
-    @risks = Risk.find(:all)
+    @risks = Risk.find_by_projects(:pid)
   end
 
 end
