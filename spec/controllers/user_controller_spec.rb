@@ -27,7 +27,7 @@ describe UserController do
     it 'should be able to update a user field' do
       u = stub_model(User)
       u.stub!(:update_attributes).and_return(true)
-      User.should_receive(:find).with('1').and_return(m)																																																																																																																																																																																																																																															
+      User.should_receive(:find).with('1').and_return(u)																																																																																																																																																																																																																																															
       put :update, :id => u.id, :user => {}
       response.should redirect_to('/users/1')
     end
