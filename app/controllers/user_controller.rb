@@ -3,12 +3,13 @@ class UserController < ApplicationController
   before_filter :is_admin, :only => [:new, :edit, :destroy, :show_users]
 
   def index
-     user = User.find_by_id(session[:uid])
-     if user.nil?
-        @projects = []
-     else
-        @projects = user.projects
-     end
+    # user = User.find_by_id(session[:uid])
+    @usr = get_current_user
+    if @usr.nil?
+       @projects = []
+    else
+       @projects = user.projects
+    end
     # @projects = Project.find(:all)
   end
 
@@ -25,9 +26,9 @@ class UserController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find(params[:uid])
     if User.count > 1
-      User.deactivate_user(params[:id])
+      @user.deactivate_user(params[:uid])
       @user.destroy
     end
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
@@ -35,7 +36,7 @@ class UserController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(params[:uid])
   end
 
   def update
@@ -54,7 +55,7 @@ class UserController < ApplicationController
         redirect_to :action => "login", :notice=> "We don't have a user by this username. Please contact an administrator to be granted access to the application."
       elsif @user.status != "active"
         redirect_to :action => "login", :notice=> "Your account has been deactivated. Please contact an administrator if this was done in error."
-      else 
+      else
         redirect_to :action => "login", :notice=> "Incorrect password. Please try again."
       end
     end
