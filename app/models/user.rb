@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   #validates_inclusion_of :admin, :in => [true, false]
   #don't think I need this - db will error out since admin not a boolean.
   validates_uniqueness_of :username
-  attr_accessible :admin, :email, :first, :last, :password, :username, :status
+  attr_accessible :admin, :email, :first, :last, :password, :username, :status, :permission
 
 #Rails internal password digesting (temporary until LDAP)
   has_secure_password

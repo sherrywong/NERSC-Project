@@ -7,7 +7,7 @@ class ProjectController < ApplicationController
   def new
     if request.post?
       @usr = get_current_user
-      @proj = @usr.create_project(params[:project])
+      @proj = @usr.create_project(params[:project]).save
       if @proj
       #check for errors here for error messages
         flash[:notice] = "Project created."
@@ -19,9 +19,9 @@ class ProjectController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:pid])
+    @project = Project.find(params[:id])
     if @project.count > 1
-      User.deactivate_project(params[:pid])
+      User.deactivate_project(params[:id])
       @project.destroy
     end
     flash[:notice] = "Project '#{@proj.name}' deleted."
@@ -29,8 +29,12 @@ class ProjectController < ApplicationController
   end
 
   def edit
-    @project = Project.find_by_id(params[:pid])
-    flash[:notice] = "Project was edited."
+    @project = Project.find_by_id(params[:id])
+    if @project.nil?
+        put "ERROR - no project by pid"
+    end
+    flash[:notice] = "Project was edited." #doesn't edit just render the edit page?
+    #include error handling...
   end
 
   def update
@@ -42,7 +46,9 @@ class ProjectController < ApplicationController
   end
 
   def index
-    @projects = Project.find_by_users(:uid)
+    @user = get_current_user
+    @projects = @user.projects
+    #Project.all if we want to show all users
   end
 
 end
