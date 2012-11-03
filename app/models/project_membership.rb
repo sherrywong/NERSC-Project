@@ -5,7 +5,7 @@
 class ProjectMembership < ActiveRecord::Base
   attr_accessible :user_id, :project_id
   validates :user, :presence => true
-  validates :project, :presence => true
+#  validates :project, :presence => true
 
   validates_uniqueness_of :user_id, :scope => :project_id
   validates_uniqueness_of :project_id, :scope => :user_id

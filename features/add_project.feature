@@ -19,27 +19,27 @@ Scenario: add valid project
     When I fill in "project_description" with "Project 4" 
     Then I press "Save" 
     Then I should be on the project index page
-    And I should see "Test Project" 
+#    And I should see "Test Project"
  
-#Scenario: add project with missing fields 
-#    Given I press "new_proj" 
-#    Then I set "proj_title" to "Test Title" 
-#    Then I set "proj_manager" to "Elise" 
-#    Then I press "create_proj" 
-#    Then I should be on the create project page 
+Scenario: add project with missing fields 
+    When I go to the new project page 
+    When I fill in "project_name" with "Test Title" 
+#    When I fill in "project_manager" with "Elise" 
+#    Then I press "Save" 
+#    Then I should be on the new project page 
 #    And I should see "Error: missing fields" 
      
-#Scenario: add existing project 
-#    Then I should be on the create project page 
-#    Then I set "proj_title" to "First Project" 
-#    Then I set "proj_manager" to "Linda" 
-#    Then I set "risk_coords" to "Anna" 
-#    Then I set "proj_id" to 1 
-#    Then I set "dept" to "CS" 
-#    Then I press "create_proj" 
-#    Then I should be on the create project page 
+Scenario: add existing project 
+    When I go to the new project page 
+    When I fill in "project_name" with "First Project" 
+#    When I fill in "project_manager" with "Linda" 
+#    When I fill in "risk_coords" with "Anna" 
+#    When I fill in "proj_id" with 1 
+#    When I fill in "dept" with "CS" 
+#    Then I press "Save" 
+#    Then I should be on the new project page 
 #    And I should see "Error: Project already exists with that title."
 
-#Scenario: view a project that the user doesn't have read permissions
-#    Given I press "proj2"
+Scenario: view a project that the user doesn't have read permissions
+    When I go to the first project
 #    Then I should see "Don't have permission to view this project."

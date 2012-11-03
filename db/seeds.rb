@@ -10,11 +10,11 @@
 
 admin = User.create(:first=>:ADMIN, :last => :ACCOUNT, :email => "admin@gmail.com", :admin => true, :username => :admin, :password => :admin, :status => "active")
 
-anna = User.create(:first=>:Anensshiya, :last => :Govinthasamy, :email => "anna@gmail.com", :username => :anna, :password => :agovinthasamy)
-bob = User.create(:first=>:Sherry, :last=> :Wong, :email => "bob@gmail.com", :username=>:bob, :password => :swong)
-elise = User.create(:first=>:Elise, :last => :McCallum, :email => "elise@gmail.com" , :username => :elise, :password => :emccallum)
-linda = User.create(:first=>:Lingbo, :last => :Zhang, :email=> "linda@gmail.com",  :username=>:linda, :password => :lzhang)
-jason = User.create(:first=>:Jia, :last=> :Teoh, :email => "jason@gmail.com",  :username=>:jason, :password => :jteoh)
+anna = admin.create_user(:first=>:Anensshiya, :last => :Govinthasamy, :email => "anna@gmail.com", :username => :anna, :password => :agovinthasamy)
+bob = admin.create_user(:first=>:Sherry, :last=> :Wong, :email => "bob@gmail.com", :username=>:bob, :password => :swong)
+elise = admin.create_user(:first=>:Elise, :last => :McCallum, :email => "elise@gmail.com" , :username => :elise, :password => :emccallum)
+linda = admin.create_user(:first=>:Lingbo, :last => :Zhang, :email=> "linda@gmail.com",  :username=>:linda, :password => :lzhang)
+jason = admin.create_user(:first=>:Jia, :last=> :Teoh, :email => "jason@gmail.com",  :username=>:jason, :password => :jteoh)
 
 proj1 = admin.create_project(:name=>:MyFirstProject, :description => "This is the first test project")
 #proj1.owner = admin

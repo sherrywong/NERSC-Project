@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   #validates_inclusion_of :admin, :in => [true, false]
   #don't think I need this - db will error out since admin not a boolean.
   validates_uniqueness_of :username
-  attr_accessible :admin, :email, :first, :last, :password, :username, :status
+  attr_accessible :admin, :email, :first, :last, :password, :username, :status, :permission
 
 #Rails internal password digesting (temporary until LDAP)
   has_secure_password
@@ -36,14 +36,14 @@ class User < ActiveRecord::Base
   def retired?
     return self.status == "retired"
   end
-  
+
   def self.authenticate(username, password)
     find_by_username(username).try(:authenticate, password)
   end
 
-  def add_new_user(user_hash) #returns user object
+  def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-    if self.admin? 
+    if self.admin?
         if user_hash[:admin]
             @usr.admin = true
         end
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   #Do not pass in owner just yet!
   #Current setup: create_project (owner is by default the creator).
-  #If another person should be owner, use Proj.owner = 
+  #If another person should be owner, use Proj.owner =
   #(Future change expected)
   def create_project(project_hash)
     @proj = Project.new(project_hash)
@@ -64,6 +64,13 @@ class User < ActiveRecord::Base
         @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         @pm.permission = "write"
         @pm.owner = true
+=begin ======= JT-incorporating these changes after seed fix is pushed.
+      if project_hash[project][members].nil?
+        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
+      else
+        @pm = project_hash[project][members]
+>>>>>>> 27dd0fe7ff7dcefce5176cb73b6d29fac7ccae64
+=end
         #proj.owner = self.id skipped in case pm errors.
         if not @pm.save
             @proj.errors[:membership_errors] = @pm.errors
@@ -76,7 +83,7 @@ class User < ActiveRecord::Base
     end
     return @proj #check @proj.errors
   end
-  
+
   def create_risk_for_project(project_id, risk_hash)
     #risk_hash[:creator_id] = self.id
     risk_hash[:owner_id] = self.id #default owner = creator
@@ -94,7 +101,7 @@ class User < ActiveRecord::Base
     end
     return @rsk
   end
-  
+
   def deactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
     if @proj and (self.admin? or @proj.owner == self)
@@ -106,9 +113,9 @@ class User < ActiveRecord::Base
     end
     return @proj
   end
-  
+
   def deactivate_user(user_id)
-	puts "HERE", user_id
+  puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin?
         @usr.status = "retired"
@@ -119,5 +126,5 @@ class User < ActiveRecord::Base
     end
     return @usr
   end
-  
+
 end
