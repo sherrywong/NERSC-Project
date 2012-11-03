@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     find_by_username(username).try(:authenticate, password)
   end
 
-  def add_new_user(user_hash) #returns user object
+  def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
     if self.admin?
         if user_hash[:admin]
