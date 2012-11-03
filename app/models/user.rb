@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  validates_presence_of :email, :first, :last, :password, :username
+  validates_presence_of :email, :first, :last, :username
+  validates_presence_of :password, :unless => :password_digest? #unless a password already exists.
   #not included: admin (optional, default = false), status (default active)
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
   #validates_inclusion_of :admin, :in => [true, false]
@@ -115,11 +116,11 @@ class User < ActiveRecord::Base
   end
 
   def deactivate_user(user_id)
-  puts "HERE", user_id
+    puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
         @usr.status = "retired"
-        @usr.save
+        puts "USER SAVED?:", @usr.inspect, @usr.save, @usr.errors.full_messages
     end
     return @usr
   end

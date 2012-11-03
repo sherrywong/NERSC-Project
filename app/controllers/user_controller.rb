@@ -29,7 +29,7 @@ class UserController < ApplicationController
   def destroy
     @user = get_current_user
     # @user.deactivate_user(params[:uid])
-    @user.deactivate_user(params[:id])
+    @user.deactivate_user(params[:uid])
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to "/user/show_users", :notice => "User deleted"
   end

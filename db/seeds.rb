@@ -8,7 +8,8 @@
 
 
 
-admin = User.create(:first=>:ADMIN, :last => :ACCOUNT, :email => "admin@gmail.com", :admin => true, :username => :admin, :password => :admin, :status => "active")
+admin = User.create(:first=>:ADMIN, :last => :ACCOUNT, :email => "admin@gmail.com", :username => :admin, :password => :admin, :status => "active")
+admin.admin = true; admin.save
 
 anna = admin.create_user(:first=>:Anensshiya, :last => :Govinthasamy, :email => "anna@gmail.com", :username => :anna, :password => :agovinthasamy)
 bob = admin.create_user(:first=>:Sherry, :last=> :Wong, :email => "bob@gmail.com", :username=>:bob, :password => :swong)
