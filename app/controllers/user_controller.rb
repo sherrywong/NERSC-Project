@@ -21,7 +21,7 @@ class UserController < ApplicationController
     @usr = get_current_user
     if request.post?
       user_hash = params[:user]
-    @usr.add_new_user(user_hash)
+    @usr.create_user(user_hash)
     redirect_to "/user/show_users", :notice => "User created."
       end
   end
