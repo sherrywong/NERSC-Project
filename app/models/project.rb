@@ -14,14 +14,14 @@ class Project < ActiveRecord::Base
   def add_members(members_id_list) #can also just provide the users themselves.
     members_id_list.each do |member_id|
         member = User.find_by_id(member_id)
-        ProjectMembership.create(:user_id => member_id, :project_id => self.id, :owner=>false)
+        ProjectMembership.create(:user_id => member_id, :project_id => self.id)
         self.members << member unless self.members.include? member
     end
     self.save
   end
   
   def add_member(member_id)
-    ProjectMembership.new(:user_id => member_id, :project_id => self.id, :owner=>false)
+    ProjectMembership.new(:user_id => member_id, :project_id => self.id)
     self.members << User.find_by_id(member_id) unless self.members.include? member
     self.save
   end

@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   #has_many :created_risks, :class_name=> "Risk", :foreign_key => :creator_id
   has_many :owned_risks, :class_name => "Risk", :foreign_key => :owner_id
 
+  def can_edit(proj_id)
+    pm = ProjectMembership.find_by_user_id_and_project_id(self.id, proj_id)
+    return false if pm.nil? or pm.permission == "read"
+    return true #otherwise
+  end
   def admin?
     return self.admin
   end
@@ -56,7 +61,9 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
+        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
+        @pm.permission = "write"
+        @pm.owner = true
         #proj.owner = self.id skipped in case pm errors.
         if not @pm.save
             @proj.errors[:membership_errors] = @pm.errors

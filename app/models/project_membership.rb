@@ -3,7 +3,7 @@
 #interact with each other.
 
 class ProjectMembership < ActiveRecord::Base
-  attr_accessible :owner, :user_id, :project_id
+  attr_accessible :user_id, :project_id
   validates :user, :presence => true
   validates :project, :presence => true
 
