@@ -8,7 +8,7 @@ class UserController < ApplicationController
     if @usr.nil?
        @projects = []
     else
-       @projects = user.projects
+       @projects = @usr.projects
     end
     # @projects = Project.find(:all)
   end
@@ -18,19 +18,18 @@ class UserController < ApplicationController
   end
 
   def new
+    @usr = get_current_user
     if request.post?
       user_hash = params[:user]
-    User.new(user_hash).save
+    @usr.create_user(user_hash)
     redirect_to "/user/show_users", :notice => "User created."
       end
   end
 
   def destroy
-    @user = User.find(params[:uid])
-    if User.count > 1
-      @user.deactivate_user(params[:uid])
-      @user.destroy
-    end
+    @user = get_current_user
+    @user.deactivate_user(params[:uid])
+
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to "/user/show_users", :notice => "User deleted"
   end
@@ -41,7 +40,8 @@ class UserController < ApplicationController
 
   def update
     @user = User.find_by_username(params[:user]["username"])
-    @user.update_attributes!(params[:user])
+    #check for permission to update first
+    @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
     flash[:notice] = "User was successfully updated."
     redirect_to "/user/show_users"
   end
