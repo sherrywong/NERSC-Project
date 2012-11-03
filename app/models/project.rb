@@ -21,8 +21,9 @@ class Project < ActiveRecord::Base
   end
   
   def add_member(member_id)
+    member = User.find_by_id(member_id)
     ProjectMembership.new(:user_id => member_id, :project_id => self.id)
-    self.members << User.find_by_id(member_id) unless self.members.include? member
+    self.members << member unless self.members.include? member
     self.save
   end
   
@@ -45,7 +46,7 @@ class Project < ActiveRecord::Base
   
   #permission must be either read or write (or more importantly, must
   #match whatever the ProjectMembership validation requires).
-  def edit_member_permission(member_id, permission)
+  def edit_member_permission(member_id, perm)
     @pm = ProjectMembership.find_by_project_id_and_user_id(self.id, member_id)
     if @pm
         @pm.permission = perm

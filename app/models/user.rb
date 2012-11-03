@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
     if self.admin? and @proj.save
         @proj.add_member(self)
         @proj.edit_member_permission(self, "write")
-        @proj.owner = true
+        @proj.owner = self
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
@@ -76,11 +76,11 @@ class User < ActiveRecord::Base
 >>>>>>> 27dd0fe7ff7dcefce5176cb73b6d29fac7ccae64
 =end
         #proj.owner = self.id skipped in case pm errors.
-        if not @pm.save
-            @proj.errors[:membership_errors] = @pm.errors
-            @proj.destroy
+        #if not @pm.save
+            #@proj.errors[:membership_errors] = @pm.errors
+            #@proj.destroy
             #return false
-        end
+        #end
     end
     if not self.admin?
         @proj.errors[:current] << "Current user does not have permission to create projects (must be admin)"
