@@ -33,7 +33,10 @@ World(WithinHelpers)
 
 Given /^the following projects exist:$/ do |table|
   table.hashes.each do |project_hash|
-    Project.new(project_hash).save;
+    # This needs to be generalized
+    @usr = User.find_by_username('admin')
+    @usr.create_project(project_hash)
+    #Project.new(project_hash).save;
   end
 end
 
@@ -90,6 +93,10 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+And /^(?:|I )click on delete for "([^"]*)"$/ do |user|
+  visit path_to("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
+end
+
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
@@ -100,6 +107,10 @@ end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
+end
+
+And /"([^"]*)" should be retired$/ do |user|
+  #visit path_to("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
 # Use this to fill in an entire form with data from a table. Example:

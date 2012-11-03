@@ -6,8 +6,8 @@ Feature: Manage users
 Background: Some user logins exist.
     Given the following users exist:
     | username | email             | first      | last         | admin | password        |
-    | aa       | anna@gmail.com    | Anensshiya | Govinthasamy | true  | agovinthasamy   |
-    | bb       | bob@gmail.com     | Sherry     | Wong         | true  | swong           |
+    | ag       | anna@gmail.com    | Anensshiya | Govinthasamy | true  | agovinthasamy   |
+    | sw       | bob@gmail.com     | Sherry     | Wong         | true  | swong           |
    
     And I am logged in as an admin
 
