@@ -21,7 +21,7 @@ class UserController < ApplicationController
     @usr = get_current_user
     if request.post?
       user_hash = params[:user]
-    @usr.add_new_user(user_hash)
+    @usr.create_user(user_hash)
     redirect_to "/user/show_users", :notice => "User created."
       end
   end
@@ -29,16 +29,13 @@ class UserController < ApplicationController
   def destroy
     @user = get_current_user
     # @user.deactivate_user(params[:uid])
-    if User.count > 1
-      @user.deactivate_user(params[:uid])
-      @user.destroy
-    end
+    @user.deactivate_user(params[:id])
     flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
     redirect_to "/user/show_users", :notice => "User deleted"
   end
 
   def edit
-    @user = User.find_by_id(params[:uid])
+    @user = User.find_by_id(params[:id])
   end
 
   def update

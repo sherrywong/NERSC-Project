@@ -117,12 +117,9 @@ class User < ActiveRecord::Base
   def deactivate_user(user_id)
   puts "HERE", user_id
     @usr = User.find_by_id(user_id)
-    if @usr and self.admin?
+    if @usr and self.admin? and not @usr.admin?
         @usr.status = "retired"
         @usr.save
-    end
-    if not self.admin?
-        @usr.errors[:current] << "Current user does not have permission to deactive users (must be admin)"
     end
     return @usr
   end
