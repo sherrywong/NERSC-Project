@@ -1,11 +1,15 @@
 
   <% for user in @users %>
 <tr>
-         <td class='first'>
-                 <%= link_to user.username, edit_user_path(user.id) %>
-</td>
-                 <td class='last'><%= user.email %>
-</td>
+  <td class='first'>
+  <%= link_to user.username, edit_user_path(user.id) %>
+  </td>
+  <td><%= user.email %>
+  </td>
+  <td><%= user.status %>
+  </td>
+  <td class='last'><%= form_tag :action=>'destroy', :id=> (user.id) %><%= submit_tag "X" %>
+  </td>
 </tr>
 <% end %>
 
