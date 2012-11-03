@@ -62,9 +62,12 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
-        @pm.permission = "write"
-        @pm.owner = true
+        @proj.add_member(self)
+        @proj.edit_member_permission(self, "write")
+        @proj.owner = true
+        #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
+        #@pm.permission = "write"
+        #@pm.owner = true
 =begin ======= JT-incorporating these changes after seed fix is pushed.
       if project_hash[project][members].nil?
         @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
@@ -120,7 +123,7 @@ class User < ActiveRecord::Base
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
         @usr.status = "retired"
-        puts "USER SAVED?:", @usr.inspect, @usr.save, @usr.errors.full_messages
+        @usr.save
     end
     return @usr
   end

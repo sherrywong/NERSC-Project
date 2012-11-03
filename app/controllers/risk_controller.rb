@@ -8,7 +8,7 @@ class RiskController < ApplicationController
       @usr = get_current_user
       @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
       flash[:notice] = "Risk created."
-      redirect_to "/user/risk/index"
+      redirect_to risk_index_path(params[:pid])
       end
   end
 
@@ -27,13 +27,15 @@ class RiskController < ApplicationController
   def update
     @risk = Risk.find_by_id(params[:rid])
     @risk.update_attributes!(params[:risk])
-    flash[:notice] = "Risk '#{risk.name}' was successfully updated."
+    flash[:notice] = "Risk was successfully updated."
 
-    redirect_to_user_risk(@risk)
+    redirect_to risk_index_path(params[:pid])
   end
 
   def index
-    @risks = Risk.find_by_projects(:pid)
+    puts "PARAMS", params[:pid]
+    @project = Project.find_by_id(params[:pid])
+    @risks = @project.risks
   end
 
 end

@@ -1,6 +1,7 @@
 <% @page_heading = "Main Page" + content_tag(:div, link_to("New Project", {:controller => 'user', :action => 'index'}, :class => 'btn info'), :class => 'pull-right') %>
 <h1> Main Page </h1>
 <p><center><%= params[:notice] %></center></p>
+
 <%= link_to "+ Manage System Users", "/user/show_users" %>
 <br/>
 <%= link_to "+ Create New Project", "/user/project/new"%>
@@ -13,3 +14,4 @@
     </tr>
 <%= render 'project_list', {:projects => @projects } -%>
 </table>
+
