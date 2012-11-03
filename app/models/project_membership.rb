@@ -3,9 +3,9 @@
 #interact with each other.
 
 class ProjectMembership < ActiveRecord::Base
-  attr_accessible :owner, :user_id, :project_id
+  attr_accessible :owner, :user_id, :project_id, :permission
   validates :user, :presence => true
-  validates :project, :presence => true
+#  validates :project, :presence => true
 
   validates_uniqueness_of :user_id, :scope => :project_id
   validates_uniqueness_of :project_id, :scope => :user_id
