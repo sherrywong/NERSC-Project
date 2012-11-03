@@ -11,7 +11,7 @@ class ProjectMembership < ActiveRecord::Base
   validates_uniqueness_of :project_id, :scope => :user_id
   #restrict one owner per project - custom validator.
   validate :unique_owner_per_project
-  #validates_inclusion_of :permission, :in = ["read", "write", "etc?"]
+  validates_inclusion_of :permission, :in = ["read", "write"]
   #use with add_permissions migration if desired?
 
   belongs_to :user

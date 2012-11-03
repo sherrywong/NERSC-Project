@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
   has_many :members, :through => :project_memberships, :source => :user   #identical to users, this is preferred.
   has_many :risks
   
-  #Will merge current list with input list.
+  #Will merge current list with input list, assuming read-only access
   def add_members(members_id_list) #can also just provide the users themselves.
     members_id_list.each do |member_id|
         member = User.find_by_id(member_id)
@@ -42,6 +42,18 @@ class Project < ActiveRecord::Base
     end
     self.save
   end
+  
+  #permission must be either read or write (or more importantly, must
+  #match whatever the ProjectMembership validation requires).
+  def edit_member_permission(member_id, permission)
+    @pm = ProjectMembership.find_by_project_id_and_user_id(self.id, member_id)
+    if @pm
+        @pm.permission = perm
+        @pm.save
+    end
+    return @pm
+  end
+  
   def has_member?(member_id)
     return self.members.include? User.find_by_id(member_id)
   end

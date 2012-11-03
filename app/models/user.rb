@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  validates_presence_of :email, :first, :last, :password, :username, :status
-  #not included: admin
+  validates_presence_of :email, :first, :last, :password, :username
+  #not included: admin (optional, default = false), status (default active)
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
   #validates_inclusion_of :admin, :in => [true, false]
   #don't think I need this - db will error out since admin not a boolean.
