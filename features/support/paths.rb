@@ -25,11 +25,11 @@ module NavigationHelpers
     when /^the new project page$/
       '/user/project/new'
       
-    when /^(.*)'s Edit Users page$/i
-      "/user/edit/#{User.find_by_username($1).id}"
+    when /^(.*)'s Edit User page$/i
+      "/user/#{User.find_by_username($1).id}/edit"
 
     when /^the show users page$/
-      '/user/show_users/'
+      '/user/show_users'
 
     when /^the first project$/
       '/project/1/edit'

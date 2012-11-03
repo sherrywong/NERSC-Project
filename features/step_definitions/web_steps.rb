@@ -33,7 +33,7 @@ World(WithinHelpers)
 
 Given /^the following projects exist:$/ do |table|
   table.hashes.each do |project_hash|
-    Project.create!(project_hash);
+    Project.new(project_hash).save;
   end
 end
 
@@ -45,8 +45,8 @@ end
 
 Given /^I am logged in( as an admin)?$/ do |ignore|
   visit '/'
-  fill_in 'username', :with => 'bob'
-  fill_in 'password', :with => 'swong'
+  fill_in 'username', :with => 'admin'
+  fill_in 'password', :with => 'admin'
   click_button 'Login'
   if page.respond_to? :should
     page.should have_content("My Projects")
