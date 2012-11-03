@@ -51,11 +51,11 @@ class UserController < ApplicationController
 
   def login
     if request.post? #If the form was submitted
-      if @user= User.authenticate(params[:username], params[:password]) and @user.active? #Check that user exists, password is correct, and status is active
+      if @user= User.authenticate(params[:username], params[:password]) and @user and @user.active? #Check that user exists, password is correct, and status is active
         session[:uid] = @user.id #If so log in the user
         redirect_to :action => "index" #And redirect to their profile
-      elsif @user=User.find(:first, :conditions=>['username=?',(params[:username])])==nil
-        redirect_to :action => "login", :notice=> "We don't have a user by this username. Please contact an administrator to be granted access to the application."
+      elsif not @user=User.find(:first, :conditions=>['username=?',(params[:username])])
+        redirect_to :action => "login", :notice =>  "We don't have a user by this username. Please contact an administrator to be granted access to the application."
       elsif @user.status != "active"
         redirect_to :action => "login", :notice=> "Your account has been deactivated. Please contact an administrator if this was done in error."
       else
