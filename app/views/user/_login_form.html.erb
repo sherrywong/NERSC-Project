@@ -1,15 +1,16 @@
 <%= form_tag :action=>"login", :method => :login do %>
   <center>
   <div class = "field">
-    <%= label_tag :username, "username " %> <br />
+    <br>
+    <%= label_tag :username, "username " %> 
     <%= text_field_tag :username, nil, :placeholder=>"Enter your username" %>
   </div>
-
+  <br>
   <div class ="field">
-    <%= label_tag :password, "password " %> <br />
+    <%= label_tag :password, "password " %> 
     <%= text_field_tag :password, nil,:type=>"password", :placeholder=>"Enter your password " %>
   </div>
-  
+  <br>
   <div class="actions">
     <%= submit_tag "Login" %>
   </div>

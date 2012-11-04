@@ -1,6 +1,13 @@
 <table>
-  <th>Members </th>
+  <th><%= "Members" %> </th>
+  <% if @user.admin? %>
+  <th><%= "Remove?" %></th>
+  <% end %>
   <% for member in @project.members %>
-  <tr><td><%= member.username %></td></tr>
+  <tr>
+      <td><%= member.username %></td>
+      <% if @user.admin? %>
+  <td><center><%= link_to "X", {:action => 'remove_member', :uid => user.id} %></center></td><% end %>
+  </tr>
   <% end %>
 </table>
