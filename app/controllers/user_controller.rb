@@ -1,13 +1,14 @@
 class UserController < ApplicationController
   before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:new, :edit, :destroy, :update]
+  before_filter :is_admin, :only => [:new, :destroy]
+  before_filter :is_admin_or_user, :only => [:edit, :update]
 
   def index
-    @usr = get_current_user
-    if @usr.nil?
+    @user = get_current_user
+    if @user.nil?
        @projects = []
     else
-       @projects = @usr.projects
+       @projects = @user.projects
     end
     # @projects = Project.find(:all)
   end
@@ -17,18 +18,20 @@ class UserController < ApplicationController
   end
 
   def new
-    @usr = get_current_user
+    @user = get_current_user
     if request.post?
       user_hash = params[:user]
-    @usr.create_user(user_hash)
-    redirect_to "/user/show_users", :notice => "User created."
+    @user.create_user(user_hash)
+    flash[:notice]= "User '#{@user.first}' '#{@user.last}' created."
+    redirect_to "/user/show_users"
     end
   end
 
   def destroy
     @user = get_current_user
     @user.deactivate_user(params[:uid])
-    redirect_to "/user/show_users", :notice => "User '#{@user.first}' '#{@user.last}' deleted."
+    flash[:notice] = "User '#{@user.first}' '#{@user.last}' deactivated."
+    redirect_to "/user/show_users"
   end
 
   def edit
@@ -37,9 +40,9 @@ class UserController < ApplicationController
 
   def update
     @user = User.find_by_username(params[:user]["username"])
-    #check for permission to update first
     @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
-    redirect_to "/user/show_users", :notice => "User was successfully updated."
+    flash[:notice] = "User '#{@user.first}' '#{@user.last}' was successfully updated."
+    redirect_to "/user/show_users"
   end
 
   def login

@@ -30,6 +30,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def is_admin_or_user
+    if !get_current_user.admin? and get_current_user!=User.find_by_id(params[:id])
+      flash[:notice] = "Sorry, you have to be an admin to edit someone else's account information."
+      redirect_to :controller => "user", :action => "show_users"
+    end
+  end
+
+
   def is_admin_or_owner
     if get_current_user.admin? or get_current_user.owner?(params[:pid]) 
       return true
@@ -42,8 +50,7 @@ class ApplicationController < ActionController::Base
     if not get_current_user.admin? and not Project.find_by_id(params[:pid]).has_member?(get_current_user.id)
        redirect_to :controller => "user", :action => "index", :notice => "Sorry, you have to be an admin or project member to perform this action." 
     end
-  end
-    
+  end    
 
   def get_current_user
     return User.find_by_id(session[:uid])

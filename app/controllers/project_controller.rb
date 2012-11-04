@@ -10,11 +10,11 @@ class ProjectController < ApplicationController
       @usr = get_current_user
       @proj = @usr.create_project(params[:project])
       if @proj
-      #check for errors here for error messages
-        redirect_to "/user/project/index", :notice => "Project created."
+        flash[:notice] = "Project '#{@proj.name}' created."
       else
-        redirect_to "/user/project/index", :notice => "Error occured when creating project."
+        flash[:notice] = "Error occured when creating project."
       end
+      redirect_to project_path
     end
   end
 
@@ -24,22 +24,23 @@ class ProjectController < ApplicationController
       User.deactivate_project(params[:id])
       @project.destroy
     end
-    redriect_to project_path, :notice => "Project '#{@proj.name}' deactivated."
+    redirect_to project_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
   def edit
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
-        redirect_to "/user/project/index", :notice => "That project does not exist."
+        flash[:notice] = "That project does not exist."
+        redirect_to "/user/project/index"
     end
-    #flash[:notice] = "Project was edited." #doesn't edit just render the edit page?
     #include error handling...
   end
 
   def update
     @project = Project.find_by_name(params[:project]["name"])
     @project.update_attributes!(params[:project])
-    redirect_to "/user/project/index", :notice => "Project was succesfully updated."
+    flash[:notice] = "Project '#{@project.name}' was succesfully updated."
+    redirect_to "/user/project/index"
   end
 
   def add_members
