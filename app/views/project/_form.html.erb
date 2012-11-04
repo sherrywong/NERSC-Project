@@ -2,10 +2,10 @@
 <div class='editor-left'>
   <div>
     <div>
-    <%= text_field 'project', 'name', :placeholder => "Name" %>
+    <%= text_field 'project', 'name', :placeholder => "Name", :required => true %>
     </div>
     <div>
-    <%= text_field 'project', 'description', :placeholder => "Description" %>
+    <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>
     <div>
  <table><th>Members</th><% for member in @project.members %><tr><td><%= member.username %></td></tr> <% end %></table>

@@ -2,19 +2,19 @@
 <div class='clearfix'>
   <div>
     <div>
-    <%= text_field 'user', 'first', :placeholder => "First Name" %>
+    <%= text_field 'user', 'first', :placeholder => "First Name", :required => true%>
     </div>
     <div>
-    <%= text_field 'user', 'last', :placeholder => "Last Name" %>
+    <%= text_field 'user', 'last', :placeholder => "Last Name", :required => true %>
     </div>
     <div>
-    <%= text_field 'user', 'username', :placeholder => "Username" %>
+    <%= text_field 'user', 'username', :placeholder => "Username", :required => true %>
     </div>
     <div>
-    <%= text_field 'user', 'email', :placeholder => "Email" %>
+    <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
-    <%= password_field 'user', 'password', :placeholder => "Password" %>
+    <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
     </div>
     <%= submit_tag "Save" %>
   </div>
