@@ -4,7 +4,7 @@ Feature: Create a project
     I want to be able to create a project and share it with project members 
      
 Background: some projects have already been added to database 
-     
+    Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 
     | First Project  | proj1       |  
@@ -17,7 +17,6 @@ Scenario: add valid project
     When I go to the new project page
     When I fill in "project_name" with "Test Project" 
     When I fill in "project_description" with "Project 4"
-#    When I fill in "project_members" with "User1"
     Then I press "Save" 
     Then I should be on the project index page
     And I should see "Test Project"

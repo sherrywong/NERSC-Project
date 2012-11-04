@@ -30,11 +30,10 @@ module WithinHelpers
   end
 end
 World(WithinHelpers)
-
+@usr
 Given /^the following projects exist:$/ do |table|
   table.hashes.each do |project_hash|
     # This needs to be generalized
-    @usr = User.find_by_username('admin')
     @usr.create_project(project_hash)
     #Project.new(project_hash).save;
   end
@@ -51,6 +50,7 @@ Given /^I am logged in( as an admin)?$/ do |ignore|
   fill_in 'username', :with => 'admin'
   fill_in 'password', :with => 'admin'
   click_button 'Login'
+  @usr = User.find_by_username('admin')
   if page.respond_to? :should
     page.should have_content("My Projects")
   else
@@ -95,7 +95,7 @@ end
 
 And /^(?:|I )click on delete for "([^"]*)"$/ do |user|
   visit "/user/destroy?uid=2"
-  #click_button("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
+  #visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|

@@ -1,10 +1,10 @@
-Feature: Create a project 
-    As an administrator, 
-    So that I can capture and share information about a project I am working on 
-    I want to be able to create a project and share it with project members 
+Feature: Validate a project 
+    As a user,
+    So that I can catch my own mistakes
+    I want to be notified if a project is missing fields.
      
 Background: some projects have already been added to database 
-     
+    Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 
     | First Project  | proj1       |  
@@ -12,7 +12,6 @@ Background: some projects have already been added to database
     | Third Project  | proj3       |
 
 Scenario: add project with missing fields
-    Given I am logged in as an admin
     And I am on the project page
     When I go to the new project page 
     When I fill in "project_name" with "Test Title"

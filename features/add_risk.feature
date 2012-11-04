@@ -4,12 +4,12 @@ Feature: Create a risk
 	I want to be able to document the specifics of the risk and add it to the risk log.
 	
 Background: some projects and no risks have been added to database
+    Given I am logged in as an admin
     Given the following projects exist:
     | name           | description | 
     | First Project  | proj1       |  
     | Second Project | proj2       |  
-    | Third Project  | proj3       |  
-    Given I am logged in as an admin
+    | Third Project  | proj3       |
     And I am on the project page 
 	
 Scenario: add valid risk
@@ -25,7 +25,7 @@ Scenario: add valid risk
 
 Scenario: add risk with missing fields
     When I go to First Project's Add Risk page
-    # risk_title/risk_owner
+    # risk_owner
     Then I fill in "risk_title" with "Test Risk" 
 #    Then I fill in "risk_description" with "Risk 4" 
     Then I press "Save"
