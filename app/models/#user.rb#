@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   #(Future change expected)
   def create_project(project_hash)
     @proj = Project.new(project_hash)
-    if self.admin? and @proj.save
+    rif self.admin? and @proj.save
         @proj.add_member(self)
         @proj.edit_member_permission(self, "write")
         @proj.owner = self
