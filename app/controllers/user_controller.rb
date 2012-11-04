@@ -20,7 +20,7 @@ class UserController < ApplicationController
   def new
     if request.post?
       user_hash = params[:user]
-    @new = User.create_user(user_hash)
+    @new = get_current_user.create_user(user_hash)
     flash[:notice]= "User '#{@new.first}' '#{@new.last}'created."
     redirect_to "/user/show_users"
     end
