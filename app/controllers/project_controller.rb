@@ -1,8 +1,8 @@
 class ProjectController < ApplicationController
   before_filter :login_required
-  before_filter :project_id_matches_user
-  before_filter :is_admin_or_owner, :only => [:edit, :update, :add_members]
-  before_filter :is_admin, :only =>[:new, :destroy]
+  before_filter :project_id_matches_user, :except => [:new]
+  before_filter :is_admin_or_owner, :only => [:destroy, :edit, :update, :add_members]
+  before_filter :is_admin, :only =>[:new]
 
 
   def new
@@ -24,24 +24,22 @@ class ProjectController < ApplicationController
       User.deactivate_project(params[:id])
       @project.destroy
     end
-    redriect_to project_path, :notice => "Project '#{@proj.name}' deleted."
+    redriect_to project_path, :notice => "Project '#{@proj.name}' deactivated."
   end
 
   def edit
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
-        puts "ERROR - no project by pid"
+        redirect_to "/user/project/index", :notice => "That project does not exist."
     end
-    flash[:notice] = "Project was edited." #doesn't edit just render the edit page?
+    #flash[:notice] = "Project was edited." #doesn't edit just render the edit page?
     #include error handling...
   end
 
   def update
     @project = Project.find_by_name(params[:project]["name"])
     @project.update_attributes!(params[:project])
-    flash[:notice] = "Project was successfully updated."
-
-    redirect_to "/user/project/index"
+    redirect_to "/user/project/index", :notice => "Project was succesfully updated."
   end
 
   def add_members
@@ -55,7 +53,7 @@ class ProjectController < ApplicationController
       member = User.find_by_username(member)
       member_id = member.id
       member_id_list << member_id
-      end
+    end
     puts "MEM LIST", members_list
     flash[:notice] = "Members updated."
     @project.add_members(member_id_list)

@@ -8,7 +8,7 @@
     <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>
     <div>
- <table><th>Members</th><% for member in @project.members %><tr><td><%= member.username %></td></tr> <% end %></table>
+  <table><th>Members</th><% for member in @project.members %><tr><td><%= member.username %></td></tr> <% end %></table>
     </div>
     <%= submit_tag "Save" %>
   </div>

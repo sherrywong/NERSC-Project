@@ -1,24 +1,24 @@
 class RiskController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user
-  before_filter :risk_id_matches_user, :only => [:destroy] 
-  before_filter :is_admin, :only =>[:new, :destroy]
+  before_filter :is_admin_or_member, :only => [:new, :edit] 
+  before_filter :is_admin, :only =>[:destroy]
 
   def new
     if request.post?
       @usr = get_current_user
       @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
-      flash[:notice] = "Risk created."
-      redirect_to risk_index_path(params[:pid])
-      end
+      #flash[:notice] = "Risk created."
+      redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@rsk.name}' created."
+    end
   end
 
   def destroy
     @risk = Risk.find(params[:rid])
-
+    @name = risk.name
     @risk.destroy if Risk.count > 1
-    flash[:notice] = "Risk '#{@risk.name}' deleted."
-    redriect_to risk_path
+    #flash[:notice] = "Risk '#{@name}' deleted."
+    redirect_to risk_path, :notice => "Risk '#{@name}' deleted.
   end
 
   def edit

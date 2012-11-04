@@ -50,8 +50,6 @@ class User < ActiveRecord::Base
             @usr.admin = true
         end
         @usr.save
-    else
-        @usr.errors[:current] << "Current user does not have permission to create new users (must be admin)"
     end
     return @usr
   end
@@ -60,28 +58,27 @@ class User < ActiveRecord::Base
   #Current setup: create_project (owner is by default the creator).
   #If another person should be owner, use Proj.owner =
   #(Future change expected)
+
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        #@proj.add_member(self) don't need this line- all admins have access to all projects
-        @proj.edit_member_permission(self, "write")
+        #@proj.add_member(self.id) don't need this line- all admins have access to all projects
+        #@proj.edit_member_permission(self, "write")
         @proj.owner = self
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
       #if project_hash[project][members].nil?
-        @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
+        #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
       #else
-      #  @pm = project_hash[project][members]
+        #@pm = project_hash[project][members]
         #proj.owner = self.id skipped in case pm errors.
         #if not @pm.save
             #@proj.errors[:membership_errors] = @pm.errors
             #@proj.destroy
             #return false
         #end
-    end
-    if not self.admin?
-        @proj.errors[:current] << "Current user does not have permission to create projects (must be admin)"
+      #end
     end
     return @proj #check @proj.errors
   end
@@ -98,9 +95,6 @@ class User < ActiveRecord::Base
     if not @proj
         @rsk.errors[:project] << "Given project does not exist"
     end
-    if not self.projects.include? @proj
-        @rsk.errors[:current] << "Current user is not a member of this project"
-    end
     return @rsk
   end
 
@@ -109,9 +103,6 @@ class User < ActiveRecord::Base
     if @proj and (self.admin? or @proj.owner == self)
         @proj.status = "retired"
         @proj.save
-    end
-    if not (self.admin? or @proj.owner == self)
-        @proj.errors[:current] << "Current user does not have permission to deactive project (must be admin or project owner)"
     end
     return @proj
   end
