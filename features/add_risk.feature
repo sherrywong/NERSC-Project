@@ -1,7 +1,7 @@
 Feature: Create a risk
-	As a project member,
-	So that I can capture risk associated with a particular project,
-	I want to be able to document the specifics of the risk and add it to the risk log.
+    As a project member,
+    So that I can capture risk associated with a particular project,
+    I want to be able to document the specifics of the risk and add it to the risk log.
 	
 Background: some projects and no risks have been added to database
     Given I am logged in as an admin
@@ -12,7 +12,7 @@ Background: some projects and no risks have been added to database
     | Third Project  | proj3       |
     And I am on the project page 
 	
-Scenario: add valid risk
+Scenario: add and edit valid risk
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
 #    When I fill in "risk_originator" with "Linda"
@@ -20,19 +20,22 @@ Scenario: add valid risk
     When I fill in "risk_description" with "Our second risk for project 1."
 #    When I fill in "risk_date" with "02-12-2012"
     Then I press "Save"
-    Then I should be on the First Project's Risk Page
-    And I should see "Test Risk"
-
-Scenario: add risk with missing fields
-    When I go to First Project's Add Risk page
-    # risk_owner
-    Then I fill in "risk_title" with "Test Risk" 
-#    Then I fill in "risk_description" with "Risk 4" 
+    Then I should be on the Risk page for First Project
+    And I should see "Risk 'Test Risk' created."
+    When I go to the first project's Test Risk's Edit page
+    When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
-    Then I should be on the First Project's Risk Page
-    And I should not see "Test Risk"
-#    When I go to First Project's Add Risk page 
-#    And I should see "Error: Missing fields"
+    Then I should be on the first project's Risk page
+    And I should see "Risk 'Title Changed' was successfully updated."
+
+#Scenario: add risk with missing fields
+#    When I go to First Project's Add Risk page
+    # risk_owner
+#    Then I fill in "risk_title" with "Test Risk2" 
+#    Then I fill in "risk_description" with "Risk 4" 
+#    Then I press "Save"
+#    Then I should be on First Project's Add Risk page 
+#    And I should see "Please fill out this field."
 
 Scenario: add existing risk
     When I go to First Project's Add Risk page
