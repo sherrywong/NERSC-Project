@@ -27,7 +27,7 @@ Scenario: create
     And I should see "Starfish"
 
 Scenario: edit
-   When I go to anna's Edit User page
+   When I go to ag's Edit User page
    And I fill in "user_first" with "Sherry"
    And I press "Save" 
    Then I should see "User Sherry Govinthasamy was successfully updated."

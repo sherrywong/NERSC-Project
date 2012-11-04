@@ -31,14 +31,20 @@ module NavigationHelpers
     when /^(.*)'s Add Risk page$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/new"
 
-    when /^the (.*)'s Risk page$/i
+    when /^the Risk page for (.*)$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/index"
+
+    when /^the first project's Risk page$/i
+      "/user/project/1/risk/index"
 
     when /^the show users page$/
       '/user/show_users'
 
     when /^the first project$/
       '/project/1/edit'
+
+    when /^the first project's (.*)'s Edit page$/i
+      "/user/project/1/risk/#{Risk.find_by_title($1).id}/edit"
 
     #when /^the project page for (.*)$/
     #  '/project/#{User.find_by_username($)1.id}/edit'
