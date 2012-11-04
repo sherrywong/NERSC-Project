@@ -1,7 +1,7 @@
 class RiskController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user
-  before_filter :is_admin_or_member, :only => [:new, :edit] 
+  before_filter :is_admin_or_member, :only => [:new, :edit]
   before_filter :is_admin, :only =>[:destroy]
 
   def new
@@ -9,6 +9,7 @@ class RiskController < ApplicationController
       @usr = get_current_user
       @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
       flash[:notice] = "Risk '#{@rsk.title}' created."
+      redirect_to risk_index_path(params[:pid])
     end
   end
 
@@ -27,7 +28,7 @@ class RiskController < ApplicationController
   def update
     @risk = Risk.find_by_id(params[:rid])
     @risk.update_attributes!(params[:risk])
-    flash[:notice] = "Risk '#{@name}' was successfully updated."
+    flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
     redirect_to risk_index_path(params[:pid])
   end
 
