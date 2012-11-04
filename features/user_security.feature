@@ -23,6 +23,7 @@ Scenario: deactivated user sign-in
    When I go to the login page
    And I fill in "username" with "bobw"
    And I fill in "password" with "swong"
+   And I press "Login"
    Then I should see "Your account has been deactivated." 
 
 Scenario: valid login

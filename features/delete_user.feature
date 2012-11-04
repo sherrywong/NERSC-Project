@@ -14,7 +14,7 @@ Background: Some user logins exist.
 Scenario: Delete a user
     When I am on the project page
     And I go to the show users page
-#    And I click on delete for "bobw"
+    And I click on delete for "bobw"
 #    And I should see "Are you sure you want to delete user "Bob" from system users?"
 #    And I click "Yes"
 #    And I should see "User Sherry Wong deleted."
