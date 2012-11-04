@@ -1,7 +1,8 @@
 class RiskController < ApplicationController
   before_filter :login_required
-  #before_filter :risk_id_matches_user
-
+  before_filter :project_id_matches_user
+  before_filter :risk_id_matches_user, :only => [:destroy] 
+  before_filter :is_admin, :only =>[:new, :destroy]
 
   def new
     if request.post?

@@ -1,9 +1,8 @@
 class UserController < ApplicationController
   before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:new, :edit, :destroy, :show_users]
+  before_filter :is_admin, :only => [:new, :edit, :destroy, :update]
 
   def index
-    # user = User.find_by_id(session[:uid])
     @usr = get_current_user
     if @usr.nil?
        @projects = []
@@ -23,15 +22,13 @@ class UserController < ApplicationController
       user_hash = params[:user]
     @usr.create_user(user_hash)
     redirect_to "/user/show_users", :notice => "User created."
-      end
+    end
   end
 
   def destroy
     @user = get_current_user
-    # @user.deactivate_user(params[:uid])
     @user.deactivate_user(params[:uid])
-    flash[:notice] = "User '#{@user.first}' '#{@user.last}' deleted."
-    redirect_to "/user/show_users", :notice => "User deleted"
+    redirect_to "/user/show_users", :notice => "User '#{@user.first}' '#{@user.last}' deleted."
   end
 
   def edit
@@ -42,8 +39,7 @@ class UserController < ApplicationController
     @user = User.find_by_username(params[:user]["username"])
     #check for permission to update first
     @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
-    flash[:notice] = "User was successfully updated."
-    redirect_to "/user/show_users"
+    redirect_to "/user/show_users", :notice => "User was successfully updated."
   end
 
   def login

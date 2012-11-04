@@ -1,7 +1,8 @@
 class ProjectController < ApplicationController
   before_filter :login_required
-  #before_filter :project_id_matches_user
-  #before_filter :is_admin_or_owner, :only => [:destroy, :edit, :update]
+  before_filter :project_id_matches_user
+  before_filter :is_admin_or_owner, :only => [:edit, :update, :add_members]
+  before_filter :is_admin, :only =>[:new, :destroy]
 
 
   def new
@@ -10,11 +11,10 @@ class ProjectController < ApplicationController
       @proj = @usr.create_project(params[:project])
       if @proj
       #check for errors here for error messages
-        flash[:notice] = "Project created."
+        redirect_to "/user/project/index", :notice => "Project created."
       else
-        flash[:notice] = "Error occured when creating project"
+        redirect_to "/user/project/index", :notice => "Error occured when creating project."
       end
-      redirect_to "/user/project/index"
     end
   end
 
@@ -24,8 +24,7 @@ class ProjectController < ApplicationController
       User.deactivate_project(params[:id])
       @project.destroy
     end
-    flash[:notice] = "Project '#{@proj.name}' deleted."
-    redriect_to project_path
+    redriect_to project_path, :notice => "Project '#{@proj.name}' deleted."
   end
 
   def edit

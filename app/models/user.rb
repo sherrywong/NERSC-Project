@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
     return false if pm.nil? or pm.permission == "read"
     return true #otherwise
   end
+
   def admin?
     return self.admin
   end
@@ -62,19 +63,16 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        @proj.add_member(self)
+        #@proj.add_member(self) don't need this line- all admins have access to all projects
         @proj.edit_member_permission(self, "write")
         @proj.owner = self
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
-=begin ======= JT-incorporating these changes after seed fix is pushed.
-      if project_hash[project][members].nil?
+      #if project_hash[project][members].nil?
         @pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
-      else
-        @pm = project_hash[project][members]
->>>>>>> 27dd0fe7ff7dcefce5176cb73b6d29fac7ccae64
-=end
+      #else
+      #  @pm = project_hash[project][members]
         #proj.owner = self.id skipped in case pm errors.
         #if not @pm.save
             #@proj.errors[:membership_errors] = @pm.errors

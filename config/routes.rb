@@ -65,10 +65,10 @@ NerscProject::Application.routes.draw do
   match "/user/:id/edit" => 'user#edit', :as => :edit_user
   match "/user/update" => 'user#update', :as => :update_user
   match "/project/new" => 'project#new'
-  match "/project/login" => 'project#login'
-  match "/project/logout" => 'project#logout'
-  match "/risk/login" => 'risk#login'
-  match "/risk/logout" => 'risk#logout'
+  #match "/project/login" => 'user#login'
+  #match "/project/logout" => 'user#logout'
+  #match "/risk/login" => 'user#login'
+  #match "/risk/logout" => 'user#logout'
   match "/user/risk/index" => 'risk#index'
   match "/project/:pid/edit" => 'project#edit', :as => :edit_project
   match "/project/update" => 'project#update', :as => :update_project
