@@ -43,16 +43,16 @@ class User < ActiveRecord::Base
     find_by_username(username).try(:authenticate, password)
   end
 
-  def create_user(user_hash) #returns user object
+
+  def self.create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-    if self.admin?
-        if user_hash[:admin]
-            @usr.admin = true
-        end
-        @usr.save
+    if user_hash[:admin]
+      @usr.admin = true
     end
+    @usr.save
     return @usr
   end
+
 
   #Do not pass in owner just yet!
   #Current setup: create_project (owner is by default the creator).
