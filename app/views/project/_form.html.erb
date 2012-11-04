@@ -8,8 +8,10 @@
     <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>
     <div>
+    <br>
     <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
     </div>
+    <br>
     <%= submit_tag "Save" %>
   </div>
 </div>
