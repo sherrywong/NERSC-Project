@@ -1,12 +1,12 @@
 <table>
   <th><%= "Members" %> </th>
-  <% if User.find_by_id(session[:uid]).admin? %>
+  <% if @user.admin? %>
   <th><%= "Remove?" %></th>
   <% end %>
   <% for member in @project.members %>
   <tr>
       <td><%= member.username %></td>
-      <% if User.find_by_id(session[:uid]).admin? %>
+      <% if @user.admin? %>
   <td><center><%= link_to "X", {:action => 'remove_member', :uid => member.id} %></center></td><% end %>
   </tr>
   <% end %>

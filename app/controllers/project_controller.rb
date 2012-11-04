@@ -28,6 +28,7 @@ class ProjectController < ApplicationController
   end
 
   def edit
+    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
         flash[:notice] = "That project does not exist."
