@@ -24,7 +24,7 @@ class ProjectController < ApplicationController
       get_current_user.deactivate_project(params[:pid])
       @project.destroy
     end
-    redirect_to user_project_index_path, :notice => "Project '#{@project.name}' deactivated."
+    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
   def edit
@@ -32,16 +32,16 @@ class ProjectController < ApplicationController
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
         flash[:notice] = "That project does not exist."
-        redirect_to "/user/project/index"
+        redirect_to "/user/index"
     end
     #include error handling...
   end
 
   def update
-    @project = Project.find_by_name(params[:project]["name"])
+    @project = Project.find_by_id(params[:pid])
     @project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{@project.name}' was succesfully updated."
-    redirect_to "/user/project/index"
+    redirect_to "/user/index"
   end
 
   def add_members
