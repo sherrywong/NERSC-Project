@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-    if user_hash[:admin]
-      @usr.admin = true
-    end
+#    if user_hash[:admin]
+#      @usr.admin = true
+#    end
     @usr.save
     return @usr
   end
