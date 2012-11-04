@@ -94,7 +94,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 And /^(?:|I )click on delete for "([^"]*)"$/ do |user|
-  vist path_to("/user/destroy?uid=2")
+  visit "/user/destroy?uid=2"
   #click_button("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 

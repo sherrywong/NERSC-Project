@@ -28,11 +28,20 @@ module NavigationHelpers
     when /^(.*)'s Edit User page$/i
       "/user/#{User.find_by_username($1).id}/edit"
 
+    when /^(.*)'s Add Risk page$/i
+      "/user/project/#{Project.find_by_name($1).id}/risk/new"
+
+    when /^the (.*)'s Risk page$/i
+      "/user/project/#{Project.find_by_name($1).id}/risk/index"
+
     when /^the show users page$/
       '/user/show_users'
 
     when /^the first project$/
       '/project/1/edit'
+
+    #when /^the project page for (.*)$/
+    #  '/project/#{User.find_by_username($)1.id}/edit'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
