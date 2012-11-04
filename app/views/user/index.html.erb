@@ -1,11 +1,12 @@
 <% @page_heading = "Main Page" + content_tag(:div, link_to("New Project", {:controller => 'user', :action => 'index'}, :class => 'btn info'), :class => 'pull-right') %>
 <h1> Main Page </h1>
+<p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
-
+<% if @user.admin? %>
 <%= link_to "+ Manage System Users", "/user/show_users" %>
 <br/>
 <%= link_to "+ Create New Project", "/user/project/new"%>
-
+<% end %>
 <h3>My Projects </h3>
 <table class="zebra-striped clearfix" id="projects">
     <tr>

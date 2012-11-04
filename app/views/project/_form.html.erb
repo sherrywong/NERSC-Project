@@ -8,7 +8,7 @@
     <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>
     <div>
-  <table><th>Members</th><% for member in @project.members %><tr><td><%= member.username %></td></tr> <% end %></table>
+    <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
     </div>
     <%= submit_tag "Save" %>
   </div>
