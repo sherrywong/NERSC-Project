@@ -20,15 +20,14 @@ class ProjectController < ApplicationController
 
   def destroy
     @project = Project.find(params[:pid])
-    if Project.count > 1
-      User.deactivate_project(params[:pid])
-     # @project.destroy
+    if @project != nil
+      get_current_user.deactivate_project(params[:pid])
+      @project.destroy
     end
-    redirect_to project_path, :notice => "Project '#{@project.name}' deactivated."
+    redirect_to user_project_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
   def edit
-    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
         flash[:notice] = "That project does not exist."
@@ -65,7 +64,7 @@ class ProjectController < ApplicationController
   def remove_member
     @project = Project.find_by_id(params[:pid])
     @member= User.find_by_id(params[:uid])
-    @project.remove_member(params[:uid])
+    @projet.remove_member(params[:uid])
     flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
     redirect_to edit_project_path(params[:pid])
   end
