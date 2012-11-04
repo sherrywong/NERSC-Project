@@ -25,7 +25,7 @@ Scenario: add and delete user to project as an admin
     When I fill in "members_" with "sw"
 #    And I check "read" and "write"
     And I press "Add"
-#    Then I should see "User Sherry Wong add to First Project."
+    Then I should see "Members updated."
     And I should be on the first project
     And I should see "sw"
 #    And I should see "Sherry Wong" as a project member with permissions "read" and "write"

@@ -1,7 +1,7 @@
 Feature: Create a risk
-	As a project member,
-	So that I can capture risk associated with a particular project,
-	I want to be able to document the specifics of the risk and add it to the risk log.
+    As a project member,
+    So that I can capture risk associated with a particular project,
+    I want to be able to document the specifics of the risk and add it to the risk log.
 	
 Background: some projects and no risks have been added to database
     Given I am logged in as an admin
@@ -23,16 +23,14 @@ Scenario: add valid risk
     Then I should be on the First Project's Risk Page
     And I should see "Test Risk"
 
-Scenario: add risk with missing fields
-    When I go to First Project's Add Risk page
+#Scenario: add risk with missing fields
+#    When I go to First Project's Add Risk page
     # risk_owner
-    Then I fill in "risk_title" with "Test Risk" 
+#    Then I fill in "risk_title" with "Test Risk2" 
 #    Then I fill in "risk_description" with "Risk 4" 
-    Then I press "Save"
-    Then I should be on the First Project's Risk Page
-    And I should not see "Test Risk"
-#    When I go to First Project's Add Risk page 
-#    And I should see "Error: Missing fields"
+#    Then I press "Save"
+#    Then I should be on First Project's Add Risk page 
+#    And I should see "Please fill out this field."
 
 Scenario: add existing risk
     When I go to First Project's Add Risk page

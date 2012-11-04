@@ -30,5 +30,5 @@ Scenario: edit
    When I go to anna's Edit User page
    And I fill in "user_first" with "Sherry"
    And I press "Save" 
-   #Then I should see "User Sherry Govinthasamy was successfully updated."
+   Then I should see "User Sherry Govinthasamy was successfully updated."
 
