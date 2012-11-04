@@ -9,7 +9,7 @@ class RiskController < ApplicationController
       @usr = get_current_user
       @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
       #flash[:notice] = "Risk created."
-      redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@rsk.name}' created."
+      redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@rsk.title}' created."
     end
   end
 
@@ -18,7 +18,7 @@ class RiskController < ApplicationController
     @name = risk.name
     @risk.destroy if Risk.count > 1
     #flash[:notice] = "Risk '#{@name}' deleted."
-    redirect_to risk_path, :notice => "Risk '#{@name}' deleted.
+    redirect_to risk_path, :notice => "Risk '#{@name}' deleted."
   end
 
   def edit

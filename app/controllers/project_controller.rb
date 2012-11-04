@@ -1,7 +1,7 @@
 class ProjectController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
-  before_filter :is_admin_or_owner, :only => [:destroy, :edit, :update, :add_members]
+  before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
   before_filter :is_admin, :only =>[:new]
 
 

@@ -14,7 +14,7 @@ admin.admin = true; admin.save
 anna = admin.create_user(:first=>:Anensshiya, :last => :Govinthasamy, :email => "anna@gmail.com", :username => :anna, :password => :agovinthasamy)
 bob = admin.create_user(:first=>:Sherry, :last=> :Wong, :email => "bob@gmail.com", :username=>:bob, :password => :swong)
 elise = admin.create_user(:first=>:Elise, :last => :McCallum, :email => "elise@gmail.com" , :username => :elise, :password => :emccallum)
-linda = admin.create_user(:first=>:Lingbo, :last => :Zhang, :email=> "linda@gmail.com",  :username=>:linda, :password => :lzhang)
+linda = admin.create_user(:first=>:Lingbo, :last => :Zhang, :email=> "linda@gmail.com",  :username=>:linda, :password => :lzhang, :admin => "false")
 jason = admin.create_user(:first=>:Jia, :last=> :Teoh, :email => "jason@gmail.com",  :username=>:jason, :password => :jteoh)
 
 proj1 = admin.create_project(:name=>:MyFirstProject, :description => "This is the first test project")
