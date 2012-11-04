@@ -19,10 +19,10 @@ class ProjectController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
-    if @project.count > 1
-      User.deactivate_project(params[:id])
-      @project.destroy
+    @project = Project.find(params[:pid])
+    if Project.count > 1
+      User.deactivate_project(params[:pid])
+     # @project.destroy
     end
     redirect_to project_path, :notice => "Project '#{@project.name}' deactivated."
   end

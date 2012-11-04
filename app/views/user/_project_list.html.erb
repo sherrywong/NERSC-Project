@@ -1,11 +1,15 @@
 
-  <% for project in @projects %>
+<% for project in @projects %>
 <tr>
-         <td class='first'>
-                 <%= link_to project.name, edit_project_path(project.id) %>
-</td>
-                 <td class='last'><%= project.description %>
-</td>
+    <td class='first'>
+       <%= link_to project.name, edit_project_path(project.id) %>
+    </td>
+    <td class='last'><%= project.description %>
+    </td>
+    <% if @user.admin? %>
+           <td><center><%= link_to "X", {:controller => 'project', :action => 'destroy', :pid => project.id} -%></center>
+    </td>
+    <% end %>
 </tr>
 <% end %>
 

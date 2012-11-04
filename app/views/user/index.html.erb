@@ -12,6 +12,9 @@
     <tr>
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
+    <% if @user.admin? %>
+    <th><%= "Delete?" %></th>
+    <% end %>
     </tr>
 <%= render 'project_list', {:projects => @projects } -%>
 </table>

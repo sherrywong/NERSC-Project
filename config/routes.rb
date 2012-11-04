@@ -76,6 +76,7 @@ NerscProject::Application.routes.draw do
   match "/user/project/:pid/risk/:rid/edit" => 'risk#edit', :as => :edit_risk
   match "/user/project/:pid/risk/:rid/update" => 'risk#update', :as => :update_risk
   match "/user/project/:pid/risk/index" => 'risk#index', :as => :risk_index
+  match "/project/destroy" => 'project#destroy'
 
 
   # See how all your routes lay out with "rake routes"
