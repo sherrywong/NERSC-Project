@@ -28,6 +28,7 @@ class ProjectController < ApplicationController
   end
 
   def edit
+    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
         flash[:notice] = "That project does not exist."
@@ -64,7 +65,7 @@ class ProjectController < ApplicationController
   def remove_member
     @project = Project.find_by_id(params[:pid])
     @member= User.find_by_id(params[:uid])
-    @projet.remove_member(params[:uid])
+    @project.remove_member(params[:uid])
     flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
     redirect_to edit_project_path(params[:pid])
   end
