@@ -18,7 +18,7 @@ Scenario: add valid project
     When I fill in "project_name" with "Test Project" 
     When I fill in "project_description" with "Project 4"
     Then I press "Save" 
-    Then I should be on the project index page
+    Then I should be on the project page
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
 
