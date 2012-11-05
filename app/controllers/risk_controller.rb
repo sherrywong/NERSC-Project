@@ -13,6 +13,7 @@ class RiskController < ApplicationController
     end
   end
 
+=begin
   def destroy
     @risk = Risk.find(params[:rid])
     @name = risk.name
@@ -20,6 +21,7 @@ class RiskController < ApplicationController
     flash[:notice] = "Risk '#{@name}' deleted."
     redirect_to risk_path
   end
+=end
 
   def edit
     @risk = Risk.find_by_id(params[:rid])
