@@ -53,11 +53,15 @@ class ProjectController < ApplicationController
     member_id_list = Array(members_list.length)
     members_list.each do |member|
       member = User.find_by_username(member)
-      member_id = member.id
-      member_id_list << member_id
+      if not member.nil?
+        member_id = member.id
+        member_id_list << member_id
+        flash[:notice] = "Members updated."
+      else
+        flash[:notice] = "Error: This person is not a current user."
+      end
     end
     puts "MEM LIST", members_list
-    flash[:notice] = "Members updated."
     @project.add_members(member_id_list)
     redirect_to edit_project_path(params[:pid])
   end
