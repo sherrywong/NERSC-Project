@@ -17,11 +17,11 @@ class User < ActiveRecord::Base
   #has_many :created_risks, :class_name=> "Risk", :foreign_key => :creator_id
   has_many :owned_risks, :class_name => "Risk", :foreign_key => :owner_id
 
-  def can_edit(proj_id)
-    pm = ProjectMembership.find_by_user_id_and_project_id(self.id, proj_id)
-    return false if pm.nil? or pm.permission == "read"
-    return true #otherwise
-  end
+#  def can_edit(proj_id)
+#    pm = ProjectMembership.find_by_user_id_and_project_id(self.id, proj_id)
+#    return false if pm.nil? or pm.permission == "read"
+#    return true #otherwise
+#  end
 
   def admin?
     return self.admin
@@ -46,9 +46,6 @@ class User < ActiveRecord::Base
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-#    if user_hash[:admin]
-#      @usr.admin = true
-#    end
     @usr.save
     return @usr
   end
@@ -100,7 +97,7 @@ class User < ActiveRecord::Base
 
   def deactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
-    if @proj and (self.admin? or @proj.owner == self)
+    if @proj
         @proj.status = "retired"
         @proj.save
     end

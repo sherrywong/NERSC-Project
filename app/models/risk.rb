@@ -9,7 +9,7 @@ class Risk < ActiveRecord::Base
    validates_uniqueness_of :title, :scope => :project_id
    validates :project, :presence => true
    #validate :creator_exists
-   validate :owner_exists
+   #validate :owner_exists
 
    belongs_to :project
    #belongs_to :creator, :class_name => "User"   
@@ -19,8 +19,11 @@ class Risk < ActiveRecord::Base
     def creator_exists
         errors[:creator] << "Creator does not exist" unless User.find_by_id(self.creator_id)
     end
-=end
+
+
     def owner_exists
         errors[:owner] << "Owner does not exist" unless User.find_by_id(self.owner_id)
     end
+=end
+
 end
