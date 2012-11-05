@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
      end
   end
 
+
   def project_id_matches_user
     if !get_current_user.admin? and ProjectMembership.where(:user_id => session[:uid]).where(:project_id=>params[:pid]).first == nil
       redirect_to :controller => "user", :action=> "index", :notice=>"Sorry, you don't have access to the requested project."
