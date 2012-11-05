@@ -93,9 +93,13 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
-And /^(?:|I )click on delete for "([^"]*)"$/ do |user|
-  visit "/user/destroy?uid=2"
-  #visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
+And /^(?:|I )click on delete user for "([^"]*)"$/ do |user|
+  #visit "/user/destroy?uid=2"
+  visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
+end
+
+And /^(?:|I )click on delete project for "([^"]*)"$/ do |project|
+  visit("/project/destroy?pid=" + Project.find_by_name(project).id.to_s)
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|

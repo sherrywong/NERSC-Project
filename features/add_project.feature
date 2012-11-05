@@ -19,7 +19,20 @@ Scenario: add valid project
     When I fill in "project_description" with "Project 4"
     Then I press "Save" 
     Then I should be on the project index page
+    And I should see "Project 'Test Project' created."
     And I should see "Test Project"
+
+Scenario: edit project
+    Given I am logged in as an admin
+    When I go to the first project
+    When I fill in "project_name" with "Test Project2"
+    Then I press "Save"
+
+Scenario: delete project
+    Given I am logged in as an admin
+    And I am on the project page
+    And I click on delete project for "First Project"
+    And I should see "Project 'First Project' deactivated."
 
 Scenario: view a project that the user doesn't have read permissions
     Given I am logged in as an admin
