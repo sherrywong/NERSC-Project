@@ -102,6 +102,10 @@ And /^(?:|I )click on delete project for "([^"]*)"$/ do |project|
   visit("/project/destroy?pid=" + Project.find_by_name(project).id.to_s)
 end
 
+And /^(?:|I )click on delete project member "([^"]*)" for "([^"]*)"$/ do |user, project|
+  visit("/project/" + Project.find_by_name(project).id.to_s + "/remove_member?uid=" + User.find_by_username(user).id.to_s)
+end
+
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end

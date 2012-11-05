@@ -18,7 +18,7 @@ Background: some users and projects have already been added to database
     | Second Project | proj2       |  
     | Third Project  | proj3       |  
 
-Scenario: add and delete user to project as an admin
+Scenario: Add and delete user to project as an admin
     Given I am logged in as an admin
     When I go to the first project
     Then I press "+"
@@ -29,13 +29,13 @@ Scenario: add and delete user to project as an admin
     And I should be on the first project
     And I should see "sw"
 #    And I should see "Sherry Wong" as a project member with permissions "read" and "write"
-#    Given I click on "Delete user" for Sherry Wong
+    And I click on delete project member "sw" for "First Project"
 #    Then I should see "Are you sure you want to delete user: Sherry Wong from First Project?"
 #    And I click "Yes"
-#    Then I should see "User Sherry Wong deleted from First Project."
 #    And I should be on the first project
-#    And I should not see "Sherry Wong" as a project member
+    Then I should not see "sw"
     
+
 #Scenario: add and delete user to project as a regular user
 #    Given I am logged in as a user
 #    When I go to the first project
