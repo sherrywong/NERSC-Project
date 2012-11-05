@@ -65,7 +65,7 @@ class ProjectController < ApplicationController
   def remove_member
     @project = Project.find_by_id(params[:pid])
     @member= User.find_by_id(params[:uid])
-    @projet.remove_member(params[:uid])
+    @project.remove_member(params[:uid])
     flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
     redirect_to edit_project_path(params[:pid])
   end
