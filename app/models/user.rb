@@ -111,10 +111,11 @@ class User < ActiveRecord::Base
     puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
-        @usr.status = "retired"
-        @usr.save
+      @usr.status = "retired"
+      @usr.save
+      return true 
     end
-    return @usr
+    return false
   end
 
 end

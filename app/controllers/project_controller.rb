@@ -14,7 +14,7 @@ class ProjectController < ApplicationController
       else
         flash[:notice] = "Error occured when creating project."
       end
-      redirect_to user_project_index_path
+      redirect_to "/user/index"
     end
   end
 
