@@ -58,20 +58,14 @@ class User < ActiveRecord::Base
 
   def extract_owner_username(project_hash)
     if new_owner = User.find_by_username(project_hash.delete("owner_username"))
-        print "FOUND AN OWNER: #{new_owner}\n"
-        print "NEW HASH: #{project_hash}\n"
+        #print "FOUND AN OWNER: #{new_owner}\n"
+        #print "NEW HASH: #{project_hash}\n"
     end
     return new_owner
   end
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
-    if new_owner.nil?
-        print "COULDN'T FIND NEW OWNER"
-        return
-    else
-        print "new owner: #{new_owner}"
-    end
     if self.admin? and @proj.save
         #@proj.add_member(self.id) don't need this line- all admins have access to all projects
         #@proj.edit_member_permission(self, "write")

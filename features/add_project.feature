@@ -9,17 +9,18 @@ Background: some projects have already been added to database
     | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
     Given I am logged in as an admin
     Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |  
-    | Second Project | proj2       |  
-    | Third Project  | proj3       |
+    | name           | description | owner_username |
+    | First Project  | proj1       |  admin         |
+    | Second Project | proj2       |  admin         |
+    | Third Project  | proj3       |  admin         |
 
 Scenario: add valid project
     Given I am logged in as an admin
     And I am on the project page
     When I go to the new project page
     When I fill in "project_name" with "Test Project" 
-    When I fill in "project_description" with "Project 4"
+    And I fill in "project_description" with "Project 4"
+    And I fill in "project_owner_username" with "admin"
     Then I press "Save" 
     Then I should be on the project page
     And I should see "Project 'Test Project' created."
