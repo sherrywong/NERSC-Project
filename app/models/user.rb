@@ -104,8 +104,16 @@ class User < ActiveRecord::Base
     return @proj
   end
 
+  def deactivate_risk(risk_id)
+    @risk = Risk.find_by_id(risk_id)
+    if @risk
+        @risk.status = "retired"
+        @risk.save
+    end
+    return @risk
+  end
+
   def deactivate_user(user_id)
-    puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
       @usr.status = "retired"

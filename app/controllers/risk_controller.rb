@@ -13,15 +13,24 @@ class RiskController < ApplicationController
     end
   end
 
-=begin
   def destroy
     @risk = Risk.find(params[:rid])
-    @name = risk.name
-    @risk.destroy if Risk.count > 1
-    flash[:notice] = "Risk '#{@name}' deleted."
-    redirect_to risk_path
+    if @risk != nil
+      get_current_user.deactivate_risk(params[:rid])
+      @risk.destroy
+    end
+    redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
-=end
+
+  def destroy
+    @project = Project.find(params[:pid])
+    if @project != nil
+      get_current_user.deactivate_project(params[:pid])
+      @project.destroy
+    end
+    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
+  end
+
 
   def edit
     @risk = Risk.find_by_id(params[:rid])
