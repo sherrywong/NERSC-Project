@@ -1,6 +1,7 @@
-<h1> Edit <%= @project.name %> </h1>
+<h1> <%= @project.name %> </h1>
   <p><center><%= flash[:notice] %></center></p>
 <br>
+  <%= link_to "+ Return to project list", user_index_path %><br/>
 <%= link_to "+ Add new risk", new_risk_path(@project.id) %> <br/>
 <%= link_to "+ Display Associated Risks", risk_index_path(@project.id) %>
   <br/>
