@@ -1,4 +1,4 @@
-Feature: Delete a project
+Feature: Deactivate a project
     As a project owner or admin,
     So that I can remove completed projects from the system
     I want to be able to delete projects

@@ -34,4 +34,4 @@ Scenario: Add existing project
 #    When I fill in "dept" with "CS" 
     Then I press "Save" 
     Then I should be on the new project page 
-    And I should see "Error: Project already exists with that title."
+    And I should see "Error: Project already exists with that name."

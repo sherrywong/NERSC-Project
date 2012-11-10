@@ -1,7 +1,7 @@
-Feature: Delete a risk
-	As a project owner,
-	So that I can manage risks
-	I want to be able to delete unnecesary or duplicate risks.
+Feature: Deactivate a risk
+    As a project owner,
+    So that I can manage risks
+    I want to be able to delete unnecesary or duplicate risks.
 
 Background:   
     Given the following projects exist: 

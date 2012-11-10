@@ -37,17 +37,6 @@ Scenario: add and edit valid risk
 #    Then I should be on First Project's Add Risk page 
 #    And I should see "Please fill out this field."
 
-Scenario: add existing risk
-    When I go to First Project's Add Risk page
-    When I fill in "risk_title" with "First Risk"
-#    When I fill in "risk_originator" with "Linda"
-#    When I fill in "risk_owner" with "Anna"
-    When I fill in "risk_description" with "Our first risk for project 1."
-#    When I fill in "risk_date" with "02-11-2012"
-    Then I press "Save"
-    When I go to First Project's Add Risk page
-#    And I should see "Error: Risk already exists with that title."
-
 Scenario: View a risk that the user doesn't have read permission
     When I go to Second Project's Add Risk page
 #    Then I should see "Error: Don't have permission to view the risks associated with this project."
