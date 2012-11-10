@@ -21,6 +21,9 @@ module NavigationHelpers
 
     when /^the show users page$/
       '/user/show_users'
+
+    when /^the Add New User page$/
+      '/user/new'
       
     when /^the project index page$/
       '/user/project/index'

@@ -4,14 +4,7 @@ Feature: Manage project members
     I want to be able to add and remove members and manage their permissions. 
      
 Background: some users and projects have already been added to database
-    Given the following users exist:
-    | username  | email             | first       | last         | admin | password        |
-    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
-    | ag        | anna@gmail.com    | Anensshiya  | Govinthasamy | true  | agovinthasamy   |
-    | sw        | bob@gmail.com     | Shery       | Wong         | true  | swong           |
-    | em        | elise@gmail.com   | Elise       | McCallum     | false | emccallum       |
-    | jt        | jason@gmail.com   | Jia         | Teoh         | false | jteoh           |
-    | lz        | linda@gmail.com   | Lingbo      | Zhang        | false | lzhang          |
+    Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist  
 
@@ -19,18 +12,18 @@ Scenario: Add and delete user to project as an admin
     Given I am logged in as an admin
     When I go to the project page for "First Project"
     Then I press "+"
-    When I fill in "members_" with "sw"
+    When I fill in "members_" with "bobw"
 #    And I check "read" and "write"
     And I press "Add"
     Then I should see "Members updated."
     And I should be on the project page for "First Project"
-    And I should see "sw"
+    And I should see "bobw"
 #    And I should see "Sherry Wong" as a project member with permissions "read" and "write"
-    And I click on delete project member "sw" for "First Project"
+    And I click on delete project member "bobw" for "First Project"
 #    Then I should see "Are you sure you want to delete user: Sherry Wong from First Project?"
 #    And I click "Yes"
 #    And I should be on the first project
-    Then I should not see "sw"
+    Then I should not see "bobw"
 
 Scenario: Add fake user to project as an admin
     Given I am logged in as an admin

@@ -4,10 +4,7 @@ Feature: Validate a project
     I want to be notified if a project is missing fields.
      
 Background: Some projects have already been added to database.
-    Given the following users exist:
-    | username  | email             | first       | last         | admin | password        |
-    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
- 
+    Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
 

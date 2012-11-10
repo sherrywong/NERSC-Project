@@ -51,6 +51,15 @@ Given /^the following users exist:$/ do |table|
   end
 end
 
+Given /^a set of users exist$/ do
+  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active"})
+  User.create({"username"=>"ag", "email"=>"anna@gmail.com", "first"=>"Anensshiya", "last"=>"Govinthasamy", "admin"=>"true", "password"=>"agovinthasamy", "status"=>"active"})
+  User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
+  User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
+  User.create({"username"=>"lz", "email"=>"linda@gmail.com", "first"=>"Lingbo", "last"=>"Zhang", "admin"=>"false", "password"=>"lzhang", "status"=>"active"})
+  User.create({"username"=>"bobw", "email"=>"bob@gmail.com", "first"=>"Sherry", "last"=>"Wong", "admin"=>"true", "password"=>"swong", "status"=>"active" })
+end
+
 Given /^I am logged in( as an admin)?$/ do |ignore|
   visit '/'
   fill_in 'username', :with => 'admin'

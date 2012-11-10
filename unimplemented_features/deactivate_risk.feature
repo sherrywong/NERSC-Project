@@ -4,11 +4,8 @@ Feature: Deactivate a risk
     I want to be able to delete unnecesary or duplicate risks.
 
 Background:
-    Given the following users exist:
-    | username  | email             | first       | last         | admin | password        |
-    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
+    Given a set of users exist
     Given a set of projects exist
-
     And the following risks exist:
     |cost | description | probability | title | user_id | proj_id |
     |10   | testing     | high        | test  | 1       | 1       |
