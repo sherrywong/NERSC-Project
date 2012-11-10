@@ -41,7 +41,7 @@ end
 
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
-    User.create!(user_hash);
+    User.create(user_hash);
   end
 end
 
