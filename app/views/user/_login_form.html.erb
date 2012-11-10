@@ -1,18 +1,41 @@
-<%= form_tag :action=>"login", :method => :login do %>
-  <center>
-  <div class = "field">
-    <br>
-    <%= label_tag :username, "username " %> 
-    <%= text_field_tag :username, nil, :placeholder=>"Enter your username" %>
+<style type="text/css">
+      .container {
+
+      }
+         .login-form {
+            margin-left: 400px;
+  }
+
+  legend {
+    margin-right: 0px;
+    font-weight: bold;
+    color: #fff;
+  }
+</style>
+<div class="container">
+  <div class="content">
+    <div class="row">
+      <div class='well'>
+        <h2>NERSC Login</h2>
+           <%= form_tag :action=> "login", :method => :login  do %>
+                 <div class='span4'><center>
+                 <%= label_tag :username, "Username  " %>
+                 <%= text_field_tag(:username, nil, :placeholder => "Enter your username")%>
+               </div></center>
+               <div class='span4'><center>
+                 <%= label_tag :password, "Password  " %>
+                 <%= text_field_tag :password, nil, :type=>"password", :placeholder=>"Enter your password"%>
+               </div></center>
+               <div class='span4'>
+                 <center><input type="submit" name="login" class="btn info" value="Login" /></center>
+               </div>
+               <center><div id="span4"><%= link_to image_tag("nersc_logo.jpg", :size=> "320x320"), :controller=>"user", :action => "index"%></div></center>
+
+          <%end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <br>
-  <div class ="field">
-    <%= label_tag :password, "password " %> 
-    <%= text_field_tag :password, nil,:type=>"password", :placeholder=>"Enter your password " %>
-  </div>
-  <br>
-  <div class="actions">
-    <%= submit_tag "Login" %>
-  </div>
-  </center>
-<% end %>
+</body>
+</html>
+

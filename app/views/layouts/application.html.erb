@@ -1,26 +1,44 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>NERSC Risk Tracker</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-<%= stylesheet_link_tag "myglobal" %>
-<%= stylesheet_link_tag "960" %>
-<%= stylesheet_link_tag "jquery" %>
-<%= javascript_include_tag "application" %>
+
 <style type="text/css" media="screen">
+      /* Override some defaults */
+      html, body {
+        background-color: #7b96b7;
+     }
+     .container {
+       width : 800px;
+     }
 
-
-</style>
 
 </head>
+</style>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+    <a class="brand" href="/user/index">NERSC Risk Tracker</a>
+    </ul>
+    </div>
+    </div>
 
-<div class = "container_12">
+  <div class="container">
+    <div class="row">
+      <div class="span9"><%= yield %></div>
+    </div>
+  </div>
+
+<!-- old stuff
+<div class = "container">
 <div id="outerHeader">
 <div id="header">
 
-<div class="prefix_1 grid_7">
+<div class="container">
 <div id="logo"><%= link_to image_tag("nersc_logo.jpg", :size => "120x120"), :controller => "user", :action => "index" %>
 </div>
 
@@ -29,18 +47,22 @@
 </div>
 
 <div id="main">
-<div class= "prefix_2 grid_8 suffix_2 ">
+<div class="row">
 <%= yield -%>
 </div>
 </div>
 <br>
+-->
+
+
+<!-- logging out -->
 <center>
 <div id="footer">
 <div id="logo">
 <% if session[:uid].nil? %>
-<%= link_to "login", :controller =>'user', :action => 'login' %>
+<!-- <%= button_to "login", :controller =>'user', :action => 'login' %> -->
 <% else %>
-<%= link_to "logout", :controller =>'user', :action => 'logout' %>
+<%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
 <% end %>
 </div>
 </center>

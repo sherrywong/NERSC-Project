@@ -1,6 +1,6 @@
 
   <% for user in @users %>
-<tr>
+<tr class="warning">
   <td class='first'>
   <%= link_to user.username, edit_user_path(user.id) %>
   </td>
@@ -8,7 +8,7 @@
   </td>
   <td><%= user.status %>
   </td>
-          <td class='last'><center><%= link_to "X", {:action => 'destroy', :uid => user.id} -%></center>
+  <td class='last'><%= link_to "X", {:action => 'destroy', :uid => user.id} -%>
   </td>
 </tr>
 <% end %>
