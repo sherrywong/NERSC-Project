@@ -11,7 +11,24 @@
     <div>
     Owner: <%= text_field 'project', 'owner_username', :placeholder => "Owner", :required => true%>
     </div>
-    <div>
+    <%= content_tag "div", name: "risk_mx" do %>Risk Matrix
+<table id="risk_mx">
+<% (0..2).each do |i| %>
+<tr>
+<% (0..2).each do |p| %>
+<td>
+    <select name = "risk_matrix[<%= i %><%= p %>]">
+      <option value="Low">Low</option>
+      <option value="Med">Med</option>
+      <option value="High">High</option>
+    </select>
+</td>
+<% end %>
+</tr>
+<% end %>
+</table>
+<% end %>
+<div>
     <br>
     <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
     </div>

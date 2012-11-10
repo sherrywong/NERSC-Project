@@ -94,3 +94,8 @@ td {
 th {
  padding-left: 20px;
 }
+#risk_mx {
+ border: dotted 1px #0d9ee5;
+ width: 100px;
+ height: 100px;
+}
