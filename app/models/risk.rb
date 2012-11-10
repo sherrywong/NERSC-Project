@@ -4,8 +4,8 @@ class Risk < ActiveRecord::Base
    
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
-   validates_inclusion_of :probability, :in => %w(High Medium Low)
-   validates_inclusion_of :cost, :in => %w(High Medium Low)
+   validates_inclusion_of :probability, :in => %w(3 2 1)
+   validates_inclusion_of :cost, :in => %w(3 2 1)
    validates_uniqueness_of :title, :scope => :project_id
    validates :project, :presence => true
    #validate :creator_exists
