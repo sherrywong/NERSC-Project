@@ -4,6 +4,7 @@
   <h1> Risks for <%= @project.name %></h1>
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
+<%= link_to "+ Return to project", edit_project_path(params[:pid])%>
 <%= link_to "+ Create New Risk", new_risk_path(params[:pid])%>
 
 
@@ -11,6 +12,9 @@
     <tr>
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
+    <% if @user.admin? %>
+    <th><%= "Delete?" %></th>
+    <% end %>
     </tr>
 <%= render 'risk_list', {:risks => @risks } -%>
 </table>

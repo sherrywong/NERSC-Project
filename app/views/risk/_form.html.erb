@@ -8,7 +8,10 @@
     Description: <%= text_field 'risk', 'description', :placeholder => "Description", :required => true %>
     </div>
     <div>
-    <%= label_tag 'cost', 'Cost' %>
+    Probability: <%= text_field 'risk', 'probability', :placeholder => "Probability", :required => true %>
+    </div>
+    <div>
+    Cost:
     <select name="risk[cost]">
       <option value='High'> High </option>
       <option value='Medium'> Medium </option>
@@ -16,12 +19,29 @@
     </select>
     </div>
     <div>
-    <%= label_tag 'probability', 'Probability' %>
-    <select name="risk[probability]">
+   Schedule:
+    <select name="risk[schedule]">
       <option value='High'> High </option>
       <option value='Medium'> Medium </option>
       <option value='Low'> Low </option>
     </select>
+    </div>
+    <div>
+    Technical:
+    <select name="risk[technical]">
+      <option value='High'> High </option>
+      <option value='Medium'> Medium </option>
+      <option value='Low'> Low </option>
+    </select>
+    </div>
+    <div>
+    Status: <%= text_field 'risk', 'status', :placeholder => "Status", :required => true %>
+    </div>
+    <div>
+    Early Impact:
+    </div>
+    <div>
+    Late Impact:
     </div>
     <%= submit_tag "Save" %>
   </div>
