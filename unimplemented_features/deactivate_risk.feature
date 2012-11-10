@@ -7,12 +7,7 @@ Background:
     Given the following users exist:
     | username  | email             | first       | last         | admin | password        |
     | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
-
-    Given the following projects exist: 
-    | name           | description |
-    | First Project  | proj1       |
-    | Second Project | proj2       |
-    | Third Project  | proj3       |
+    Given a set of projects exist
 
     And the following risks exist:
     |cost | description | probability | title | user_id | proj_id |

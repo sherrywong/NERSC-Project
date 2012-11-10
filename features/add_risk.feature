@@ -18,11 +18,7 @@ Background: some projects and no risks have been added to database
     | username | email             | first  | last  | admin | password | status  |
     | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
     Given I am logged in as an admin
-    Given the following projects exist:
-    | name           | description | 
-    | First Project  | proj1       |  
-    | Second Project | proj2       |  
-    | Third Project  | proj3       |
+    Given a set of projects exist
     And I am on the project page 
 	
 Scenario: add and edit valid risk

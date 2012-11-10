@@ -39,6 +39,12 @@ Given /^the following projects exist:$/ do |table|
   end
 end
 
+Given /^a set of projects exist$/ do
+  @usr.create_project({"name"=>"First Project", "description"=>"proj1", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Second Project", "description"=>"proj2", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Third Project", "description"=>"proj2", "owner_username"=>"admin"})
+end
+
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
     User.create(user_hash);

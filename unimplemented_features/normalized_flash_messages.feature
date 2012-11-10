@@ -8,9 +8,7 @@ Background: Some projects have already been added to database.
     | username  | email             | first       | last         | admin | password        |
     | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |
+    Given a set of projects exist
 
 Scenario: view a project that the user doesn't have read permissions
     Given I am logged in as an admin

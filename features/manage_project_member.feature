@@ -13,11 +13,7 @@ Background: some users and projects have already been added to database
     | jt        | jason@gmail.com   | Jia         | Teoh         | false | jteoh           |
     | lz        | linda@gmail.com   | Lingbo      | Zhang        | false | lzhang          |
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |  
-    | Second Project | proj2       |  
-    | Third Project  | proj3       |  
+    Given a set of projects exist  
 
 Scenario: Add and delete user to project as an admin
     Given I am logged in as an admin

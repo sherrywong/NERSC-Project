@@ -13,11 +13,7 @@ Background: Some projects have already been added to database.
     | username | email             | first  | last  | admin | password | status  |
     | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | owner_username |
-    | First Project  | proj1       |  admin         |
-    | Second Project | proj2       |  admin         |
-    | Third Project  | proj3       |  admin         |
+    Given a set of projects exist
 
 Scenario: add valid project
     Given I am logged in as an admin

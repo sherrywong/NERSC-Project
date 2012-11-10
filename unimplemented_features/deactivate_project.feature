@@ -8,11 +8,12 @@ Background: some projects and risks are already in the database.
     | username  | email             | first       | last         | admin | password        |
     | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
 
-    Given the following projects exist:
-    | title          | manager | coordinators  | project_id | department | start      | end         |
-    | First Project  | Linda   | Anna	       | 1          | CS         | 02-10-2012 | 05-10-2012  |
-    | Second Project | Jason   | Elise, Sherry | 2          | CS	 | 03-10-2012 | 06-10-2012  |
-    | Third Project  | Anna    | Sherry        | 3          | Art        | 04-10-2012 | 07-10-2012  |
+    Given a set of projects exist
+#    Given the following projects exist:
+#    | title          | manager | coordinators  | project_id | department | start      | end         |
+#    | First Project  | Linda   | Anna	       | 1          | CS         | 02-10-2012 | 05-10-2012  |
+#    | Second Project | Jason   | Elise, Sherry | 2          | CS	 | 03-10-2012 | 06-10-2012  |
+#    | Third Project  | Anna    | Sherry        | 3          | Art        | 04-10-2012 | 07-10-2012  |
     
     And the following risks exist:
     | title       | project   | risk_id | originator | owner  | description        | id_date    |

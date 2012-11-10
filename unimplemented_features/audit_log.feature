@@ -8,9 +8,7 @@ Background: Some projects have already been added to database.
     | username  | email             | first       | last         | admin | password        |
     | admin     | admin@gmail.com   | admin       | admin        | true  | admin           | 
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |
+    Given a set of projects exist
     And I am on the project page 
     
 Scenario: Audit log modified when risk edited
