@@ -7,6 +7,10 @@
     <div>
     <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>
+    <%# JT - added owner_username for owner setting at creation%>
+    <div>
+    <%= text_field 'project', 'owner_username', :placeholder => "Owner", :required => true%>
+    </div>
     <div>
     <br>
     <% if not @project.nil? %> <%= render 'member_list' %> <% end %>

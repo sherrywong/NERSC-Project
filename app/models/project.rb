@@ -73,6 +73,8 @@ class Project < ActiveRecord::Base
     ProjectMembership.set_owner_of_project(self, new_owner)
   end
 
-
+  def owner_username #mostly for view.
+    owner.username
+  end
 
 end
