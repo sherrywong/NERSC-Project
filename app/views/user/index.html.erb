@@ -12,7 +12,7 @@
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
     <% if @user.admin? %>
-    <th><%= "Delete?" %></th>
+    <th><%= "Deactivate?" %></th>
     <% end %>
     </tr>
     <%= render 'project_list', {:projects => @projects } -%>
