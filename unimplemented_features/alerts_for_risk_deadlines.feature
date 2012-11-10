@@ -4,13 +4,8 @@ Feature: Alerts for risk deadlines
   I want to be notified when one of my risks hasn't been reviewed in a few weeks or moves into critical condition
 	
 Background: some projects and risks have already been added to database
-	
-  Given the following projects exist:
-  | title          | manager | coordinators  | project_id | department | start      | end         |
-  | First Project  | Linda   | Anna          | 1          | CS	       | 02-10-2012 | 05-10-2012  |
-  | Second Project | Jason   | Elise, Sherry | 2          | CS	       | 03-10-2012 | 06-10-2012  |
-  | Third Project  | Anna    | Sherry        | 3          | Art        | 04-10-2012 | 07-10-2012  |
-    
+  Given a set of users exist
+  Given a set of projects exist
   And the following risks exist:
   | title       | project        | risk_id | originator | owner  | description                   | id_date    | last-reviewed | deadline   | review-frequency | condition |
   | First Risk  | First Project  | 1-1     | Linda      | Anna   | Our first risk for project 1. | 02-11-2012 | 02-11-2012    | 01-11-2014 | 14               | stable    |

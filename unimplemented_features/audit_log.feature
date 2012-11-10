@@ -4,13 +4,9 @@ Feature: Maintain an audit log of changes to risks
     I want the audit logs to only show actual modifications made to risks
 
 Background: Some projects have already been added to database.
-    Given the following users exist:
-    | username  | email             | first       | last         | admin | password        |
-    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           | 
+    Given a set of users exist 
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |
+    Given a set of projects exist
     And I am on the project page 
     
 Scenario: Audit log modified when risk edited

@@ -4,18 +4,13 @@ Feature: Manage users
     I want to be able to add, edit, and delete users.
 
 Background: Some user logins exist.
-    Given the following users exist:
-    | username | email             | first      | last         | admin | password        | status  |
-    | admin    | admin@gmail.com   | admin      | admin        | true  | admin           | active  |
-    | ag       | anna@gmail.com    | Anensshiya | Govinthasamy | true  | agovinthasamy   | active  |
-    | sw       | bob@gmail.com     | Sherry     | Wong         | true  | swong           | active  |
-   
+    Given a set of users exist
     And I am logged in as an admin
 
-Scenario: create
+Scenario: Create a user.
     When I go to the project page
     And I go to the show users page
-    And I follow "Add new user"
+    And I go to the Add New User page
     And I fill in "user_username" with "Starfish"
     And I fill in "user_email" with "zhang.lynda@gmail.com"
     And I fill in "user_first" with "Linda"
@@ -27,9 +22,8 @@ Scenario: create
     #Then I should see "User created."
     And I should see "Starfish"
 
-Scenario: edit
+Scenario: Edit a user.
    When I go to ag's Edit User page
    And I fill in "user_first" with "Sherry"
    And I press "Save" 
    Then I should see "User Sherry Govinthasamy was successfully updated."
-

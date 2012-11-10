@@ -4,16 +4,9 @@ Feature: Validate a project
     I want to be notified if a project is missing fields.
      
 Background: Some projects have already been added to database.
-    Given the following users exist:
-    | username  | email             | first       | last         | admin | password        |
-    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
- 
+    Given a set of users exist
     Given I am logged in as an admin
-    Given the following projects exist: 
-    | name           | description | 
-    | First Project  | proj1       |  
-    | Second Project | proj2       |  
-    | Third Project  | proj3       |
+    Given a set of projects exist
 
 Scenario: Add project with missing fields
     And I am on the project page
@@ -39,3 +32,17 @@ Scenario: Add existing project
     Then I press "Save" 
     Then I should be on the new project page 
     And I should see "Error: Project already exists with that name."
+
+Scenario: Set a user that doesn't exist as project owner. 
+    And I am on the project page 
+    When I go to the new project page 
+    When I fill in "project_name" with "First Project"
+    When I fill in "project_description" with "Project 5"
+#    When I fill in "project_members" with "User3"
+    When I fill in "project_owner_username" with "blah" 
+#    When I fill in "risk_coords" with "Anna" 
+#    When I fill in "proj_id" with 1 
+#    When I fill in "dept" with "CS" 
+    Then I press "Save" 
+    Then I should be on the new project page 
+    And I should see "Error: Invalid username."

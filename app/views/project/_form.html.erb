@@ -4,6 +4,10 @@
     <div>
     Name: <%= text_field 'project', 'name', :placeholder => "Name", :required => true %>
     </div>
+    <%# JT - added prefix at creation time (optional)%>
+    <div>
+    Prefix: <%= text_field 'project', 'prefix', :placeholder => "Prefix", :required => true%>
+    </div>
     <div>
     Description: <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
     </div>

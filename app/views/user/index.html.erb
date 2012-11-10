@@ -3,19 +3,18 @@
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
 <% if @user.admin? %>
-<%= link_to "+ Manage System Users", "/user/show_users" %>
-<br/>
-<%= link_to "+ Create New Project", "/user/project/new"%>
+<%= button_to "+ Manage System Users", "/user/show_users", :class => 'btn btn-info', :method => :get %>
+<%= button_to "+ Create New Project", "/user/project/new", :class => 'btn btn-info', :method => :get%>
 <% end %>
-<h3>My Projects </h3>
-<table class="zebra-striped clearfix" id="projects">
+<h2>My Projects </h2>
+<table class="table table-striped" id="projects">
     <tr>
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
     <% if @user.admin? %>
-    <th><%= "Delete?" %></th>
+    <th><%= "Deactivate?" %></th>
     <% end %>
     </tr>
-<%= render 'project_list', {:projects => @projects } -%>
+    <%= render 'project_list', {:projects => @projects } -%>
 </table>
 
