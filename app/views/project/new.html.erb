@@ -1,4 +1,19 @@
 <h1>Create New Project</h1>
 <br/>
+<script type="text/javascript">
+
+function changeColor(cell) {
+  if (cell.value == "Low") {
+      cell.style.background = "green";
+    }
+    if (cell.value == "Med") {
+        cell.style.background = "yellow";
+      }
+      if (cell.value == "High") {
+          cell.style.background = "red";
+        }
+
+}
+</script>
   <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "new", :class => ('autosave')}} %>
 
