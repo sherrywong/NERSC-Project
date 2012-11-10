@@ -1,0 +1,148 @@
+#frontpage {
+	background-image: url('upe.jpg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	!background-position:center;
+}
+
+.events_table {
+	border-style: none;
+}
+
+.hero-events {
+  background-color: #f5f5f5;
+  margin-bottom: 30px;
+  padding: 15px 10px 10px 25px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  height: 150px;
+  border-style: solid;
+  border-width:1px;
+  border-color:#484848;
+}
+
+.event_date{
+	text-align: right;
+}
+
+.removeTopBorder{
+	border-top-width: 0px;
+}
+
+.stylishFont{
+	font-family: "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+}
+
+.hero-tile {
+  background-color: #f5f5f5;
+  margin-bottom: 30px;
+  !padding: 25px 10px 10px 25px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  height: 200px;
+  border-style:solid;
+  border-width:1px;
+  border-color:#484848;
+}
+
+.tile1 {
+	background-image: url('TileUpsilon.jpg');
+}
+.tile2 {
+	background-image: url('TilePi.jpg');
+}
+.tile3 {
+	background-image: url('TileEpsilon.jpg');
+}
+
+/*
+ *	Subcategories
+*/
+
+/*
+ *	Login Menu
+*/
+#login_menu {
+	background: #282828;
+	width: 250px;
+}
+
+#login_menu label {
+	color: #FFFFFF;
+}
+
+#login_menu input[type="text"], #login_menu input[type="password"] {
+	width: 160px;
+	height: 18px;	
+	background: #CCC;
+	color: #000000;
+}
+
+#login_menu input[type="submit"] {
+	width: 100px;
+	background: #CCC;
+	color: #111;
+	font-weight: bold;
+}
+
+/*
+ *	jQuery UI: Selectable 
+*/
+
+#selectable .ui-selecting { 
+	border-style: solid;
+	border-width: 3px;
+	border-color: #CCC;
+}
+
+#selectable .ui-selected { 
+	border-style: solid;
+	border-width: 3px;
+	border-color: #0066CC;
+}
+
+#selectable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+}
+
+#selectable li { 
+	margin: 3px; 
+	padding: 1px; 
+	float: left; 
+	width: 100px; 
+	height: 100px; 
+	font-size: 4em; 
+	text-align: center; 
+}
+
+/*
+*	Mock Interviews
+*/
+#comments {
+	width: 86%;
+	height: 100px;
+}
+
+.error {
+	color: #C80000;
+}
+
+.noRightBorder {
+	border-right: none;
+}
+
+.noLeftBorder {
+	border-left: none;
+}
+
+.noBottomBorder {
+	border-bottom: none;
+}
+
+.noTopBorder {
+	border-top: none;
+}
