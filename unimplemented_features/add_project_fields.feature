@@ -4,6 +4,9 @@ Feature: Add Project Fields
     I want to be able to add and edit a variety of information to each project.
      
 Background: Some projects have already been added to database.
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 

@@ -4,6 +4,9 @@ Feature: Create a risk
     I want to be able to document the specifics of the risk and add it to the risk log.
 	
 Background: some projects and no risks have been added to database
+    Given the following users exist:
+    | username | email             | first  | last  | admin | password | status  |
+    | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
     Given I am logged in as an admin
     Given the following projects exist:
     | name           | description | 

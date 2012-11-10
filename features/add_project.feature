@@ -3,7 +3,10 @@ Feature: Create a project
     So that I can capture and share information about a project I am working on 
     I want to be able to create a project and share it with project members 
      
-Background: some projects have already been added to database 
+Background: some projects have already been added to database
+    Given the following users exist:
+    | username | email             | first  | last  | admin | password | status  |
+    | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
     Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 

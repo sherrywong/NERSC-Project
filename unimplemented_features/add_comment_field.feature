@@ -4,6 +4,9 @@ Feature: Add comment field (edit status/history of risk changes)
     I want to record changes made to the risk in a comment field.
 
 Background: some projects and no risks have been added to database
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     Given I am logged in as an admin
     Given the following projects exist:
     | name           | description | 

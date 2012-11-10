@@ -3,7 +3,11 @@ Feature: Deactivate a risk
     So that I can manage risks
     I want to be able to delete unnecesary or duplicate risks.
 
-Background:   
+Background:
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
+
     Given the following projects exist: 
     | name           | description |
     | First Project  | proj1       |

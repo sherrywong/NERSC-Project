@@ -3,7 +3,11 @@ Feature: Validate a project
     So that I can catch my own mistakes
     I want to be notified if a project is missing fields.
      
-Background: some projects have already been added to database 
+Background: Some projects have already been added to database.
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
+ 
     Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 

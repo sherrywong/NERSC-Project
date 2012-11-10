@@ -3,9 +3,10 @@ Feature: Manage project members
     So that I can manage who is on the project team and what they can do,
     I want to be able to add and remove members and manage their permissions. 
      
-Background: some users and projects have already been added to database 
+Background: some users and projects have already been added to database
     Given the following users exist:
     | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     | ag        | anna@gmail.com    | Anensshiya  | Govinthasamy | true  | agovinthasamy   |
     | sw        | bob@gmail.com     | Shery       | Wong         | true  | swong           |
     | em        | elise@gmail.com   | Elise       | McCallum     | false | emccallum       |

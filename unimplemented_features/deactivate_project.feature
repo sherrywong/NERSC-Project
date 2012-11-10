@@ -4,6 +4,10 @@ Feature: Deactivate a project
     I want to be able to delete projects
     
 Background: some projects and risks are already in the database.
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
+
     Given the following projects exist:
     | title          | manager | coordinators  | project_id | department | start      | end         |
     | First Project  | Linda   | Anna	       | 1          | CS         | 02-10-2012 | 05-10-2012  |

@@ -3,7 +3,10 @@ Feature: Maintain an audit log of changes to risks
     So that I can easily see and track changes made to risks,
     I want the audit logs to only show actual modifications made to risks
 
-Background: Some projects have already been added to database. 
+Background: Some projects have already been added to database.
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           | 
     Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 

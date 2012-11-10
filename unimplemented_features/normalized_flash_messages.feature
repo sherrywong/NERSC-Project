@@ -3,7 +3,10 @@ Feature: Normalize flash messages
     So that I can display all error messages
     I want to display all messages using flash and display the proper error message when generated.
 
-Background: some projects have already been added to database 
+Background: Some projects have already been added to database.
+    Given the following users exist:
+    | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     Given I am logged in as an admin
     Given the following projects exist: 
     | name           | description | 
