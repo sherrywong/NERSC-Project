@@ -6,6 +6,7 @@ Feature: Manage users
 Background: Some user logins exist.
     Given the following users exist:
     | username  | email             | first       | last         | admin | password        |
+    | admin     | admin@gmail.com   | admin       | admin        | true  | admin           |
     | annag     | anna@gmail.com    | Anensshiya  | Govinthasamy | true  | agovinthasamy   |
     | bobw      | bob@gmail.com     | Shery       | Wong         | true  | swong           |
    

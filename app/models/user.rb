@@ -56,12 +56,20 @@ class User < ActiveRecord::Base
   #If another person should be owner, use Proj.owner =
   #(Future change expected)
 
+  def extract_owner_username(project_hash)
+    if new_owner = User.find_by_username(project_hash.delete("owner_username"))
+        #print "FOUND AN OWNER: #{new_owner}\n"
+        #print "NEW HASH: #{project_hash}\n"
+    end
+    return new_owner
+  end
   def create_project(project_hash)
+    new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
     if self.admin? and @proj.save
         #@proj.add_member(self.id) don't need this line- all admins have access to all projects
         #@proj.edit_member_permission(self, "write")
-        @proj.owner = self
+        @proj.owner = new_owner || self
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
@@ -80,6 +88,12 @@ class User < ActiveRecord::Base
     return @proj #check @proj.errors
   end
 
+  def update_project(project, project_hash)
+    new_owner = extract_owner_username(project_hash)
+    project.update_attributes(project_hash)
+    project.owner = new_owner unless new_owner.nil?
+  end
+  
   def create_risk_for_project(project_id, risk_hash)
     #risk_hash[:creator_id] = self.id
     risk_hash[:owner_id] = self.id #default owner = creator
@@ -104,8 +118,16 @@ class User < ActiveRecord::Base
     return @proj
   end
 
+  def deactivate_risk(risk_id)
+    @risk = Risk.find_by_id(risk_id)
+    if @risk
+        @risk.status = "retired"
+        @risk.save
+    end
+    return @risk
+  end
+
   def deactivate_user(user_id)
-    puts "HERE", user_id
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
       @usr.status = "retired"

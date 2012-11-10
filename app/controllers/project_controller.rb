@@ -22,7 +22,6 @@ class ProjectController < ApplicationController
     @project = Project.find(params[:pid])
     if @project != nil
       get_current_user.deactivate_project(params[:pid])
-      @project.destroy
     end
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
@@ -38,8 +37,10 @@ class ProjectController < ApplicationController
   end
 
   def update
+    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    @project.update_attributes!(params[:project])
+    @user.update_project(@project, params[:project])
+    #@project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{@project.name}' was succesfully updated."
     redirect_to "/user/index"
   end

@@ -5,12 +5,13 @@ Feature: User login
     
 Background: Some user logins exist.
     Given the following users exist:
-    | username  | email            | first       | last         | admin | password        | status  |
-    | ag        | anna@gmail.com   | Anensshiya  | Govinthasamy | true  | agovinthasamy   | active  |
-    | bobw      | bob@gmail.com    | Sherry      | Wong         | true  | swong           | retired |
-    | em        | elise@gmail.com  | Elise       | McCallum     | false | emccallum       | active  |
-    | jt        | jason@gmail.com  | Jia         | Teoh         | false | jteoh           | active  |
-    | lz        | linda@gmail.com  | Lingbo      | Zhang        | false | lzhang          | active  |
+    | username | email            | first       | last         | admin | password       | status  |
+    | admin    | admin@gmail.com  | admin       | admin        | true  | admin          | active  |
+    | ag       | anna@gmail.com   | Anensshiya  | Govinthasamy | true  | agovinthasamy  | active  |
+    | bobw     | bob@gmail.com    | Sherry      | Wong         | true  | swong          | retired |
+    | em       | elise@gmail.com  | Elise       | McCallum     | false | emccallum      | active  |
+    | jt       | jason@gmail.com  | Jia         | Teoh         | false | jteoh          | active  |
+    | lz       | linda@gmail.com  | Lingbo      | Zhang        | false | lzhang         | active  |
     
     And I am not logged in
     

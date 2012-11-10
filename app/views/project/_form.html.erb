@@ -2,10 +2,14 @@
 <div class='editor-left'>
   <div>
     <div>
-    <%= text_field 'project', 'name', :placeholder => "Name", :required => true %>
+    Name: <%= text_field 'project', 'name', :placeholder => "Name", :required => true %>
     </div>
     <div>
-    <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
+    Description: <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
+    </div>
+    <%# JT - added owner_username for owner setting at creation%>
+    <div>
+    Owner: <%= text_field 'project', 'owner_username', :placeholder => "Owner", :required => true%>
     </div>
     <div>
     <br>

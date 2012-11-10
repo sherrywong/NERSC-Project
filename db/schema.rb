@@ -48,8 +48,9 @@ ActiveRecord::Schema.define(:version => 20121110080044) do
     t.text     "description"
     t.string   "probability"
     t.string   "cost"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "status",      :default => "active"
   end
 
   create_table "users", :force => true do |t|

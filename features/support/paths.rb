@@ -18,12 +18,18 @@ module NavigationHelpers
 
     when /^the project\s?page$/
       '/user/index'
+
+    when /^the show users page$/
+      '/user/show_users'
       
     when /^the project index page$/
       '/user/project/index'
       
     when /^the new project page$/
       '/user/project/new'
+
+    when /^the project page for "(.*)"$/i
+      "/project/#{Project.find_by_name($1).id}/edit"
       
     when /^(.*)'s Edit User page$/i
       "/user/#{User.find_by_username($1).id}/edit"
@@ -37,17 +43,8 @@ module NavigationHelpers
     when /^the first project's Risk page$/i
       "/user/project/1/risk/index"
 
-    when /^the show users page$/
-      '/user/show_users'
-
-    when /^the first project$/
-      '/project/1/edit'
-
     when /^the first project's (.*)'s Edit page$/i
       "/user/project/1/risk/#{Risk.find_by_title($1).id}/edit"
-
-    #when /^the project page for (.*)$/
-    #  '/project/#{User.find_by_username($)1.id}/edit'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

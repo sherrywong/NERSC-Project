@@ -5,9 +5,10 @@ Feature: Manage users
 
 Background: Some user logins exist.
     Given the following users exist:
-    | username | email             | first      | last         | admin | password        |
-    | ag       | anna@gmail.com    | Anensshiya | Govinthasamy | true  | agovinthasamy   |
-    | sw       | bob@gmail.com     | Sherry     | Wong         | true  | swong           |
+    | username | email             | first      | last         | admin | password        | status  |
+    | admin    | admin@gmail.com   | admin      | admin        | true  | admin           | active  |
+    | ag       | anna@gmail.com    | Anensshiya | Govinthasamy | true  | agovinthasamy   | active  |
+    | sw       | bob@gmail.com     | Sherry     | Wong         | true  | swong           | active  |
    
     And I am logged in as an admin
 

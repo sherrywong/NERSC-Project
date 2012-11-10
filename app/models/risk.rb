@@ -7,6 +7,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :probability, :in => %w(3 2 1)
    validates_inclusion_of :cost, :in => %w(3 2 1)
    validates_uniqueness_of :title, :scope => :project_id
+   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
    validates :project, :presence => true
    #validate :creator_exists
    #validate :owner_exists

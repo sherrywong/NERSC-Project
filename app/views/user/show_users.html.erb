@@ -2,11 +2,11 @@
 
   <h1> System Users </h1>
   <p><center><%= flash[:notice] %></center></p>
-<%= link_to "+ Add new user", "/user/new"%>
+<%= button_to "+ Add new user", "/user/new", :class => 'btn btn-info', :method => :get%>
 
 
 <table class="zebra-striped clearfix" id="users">
-    <tr>
+    <tr = "warning">
     <th class = 'first'><%= "Username" %></th>
     <th><%= "Email" %></th>
     <th><%= "Status" %></th>
