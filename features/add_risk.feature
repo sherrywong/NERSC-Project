@@ -26,6 +26,14 @@ Scenario: add and edit valid risk
     Then I should be on the Risk page for First Project
     And I should see "Risk 'Test Risk' created."
     When I go to the first project's Test Risk's Edit page
+    Then I should see "Title"
+    Then I should see "Description"
+    Then I should see "Cost"
+    Then I should see "Probability"
+    Then I should see "Risk Owner"
+    Then I should see "Risk Creator"
+    Then I should see "Risk Date"
+    Then I should see "Comments"
     When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
     Then I should be on the first project's Risk page

@@ -2,8 +2,13 @@ Feature: Create a project
     As an administrator, 
     So that I can capture and share information about a project I am working on 
     I want to be able to create a project and share it with project members 
-     
-Background: some projects have already been added to database
+
+Feature: Add Project Fields
+    As a project owner,
+    So I can have more comprehensive information about my projects,
+    I want to be able to add and edit a variety of information to each project.
+  
+Background: Some projects have already been added to database.
     Given the following users exist:
     | username | email             | first  | last  | admin | password | status  |
     | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
@@ -29,6 +34,8 @@ Scenario: add valid project
 Scenario: edit project
     Given I am logged in as an admin
     When I go to the project page for "First Project"
+    Then I should see "Prefix"
+    Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
 
