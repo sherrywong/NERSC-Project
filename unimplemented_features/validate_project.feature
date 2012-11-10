@@ -11,19 +11,18 @@ Background: some projects have already been added to database
     | Second Project | proj2       |  
     | Third Project  | proj3       |
 
-Scenario: add project with missing fields
+Scenario: Add project with missing fields
     And I am on the project page
     When I go to the new project page 
-    When I fill in "project_name" with "Test Title"
+    #When I fill in "project_name" with "Test Title"
     When I fill in "project_description" with "Project 5"
 #    When I fill in "project_members" with "User2"
 #    When I fill in "project_manager" with "Elise" 
-#    Then I press "Save" 
-#    Then I should be on the new project page 
+    Then I press "Save" 
+    Then I should be on the new project page 
 #    And I should see "Error: missing fields" 
      
-Scenario: add existing project
-    Given I am logged in as an admin
+Scenario: Add existing project
     And I am on the project page 
     When I go to the new project page 
     When I fill in "project_name" with "First Project"
@@ -33,6 +32,6 @@ Scenario: add existing project
 #    When I fill in "risk_coords" with "Anna" 
 #    When I fill in "proj_id" with 1 
 #    When I fill in "dept" with "CS" 
-#    Then I press "Save" 
-#    Then I should be on the new project page 
-#    And I should see "Error: Project already exists with that title."
+    Then I press "Save" 
+    Then I should be on the new project page 
+    And I should see "Error: Project already exists with that title."
