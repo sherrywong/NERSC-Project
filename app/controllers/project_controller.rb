@@ -22,7 +22,6 @@ class ProjectController < ApplicationController
     @project = Project.find(params[:pid])
     if @project != nil
       get_current_user.deactivate_project(params[:pid])
-      @project.destroy
     end
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end

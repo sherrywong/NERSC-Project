@@ -17,7 +17,6 @@ class RiskController < ApplicationController
     @risk = Risk.find(params[:rid])
     if @risk != nil
       get_current_user.deactivate_risk(params[:rid])
-      @risk.destroy
     end
     redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
