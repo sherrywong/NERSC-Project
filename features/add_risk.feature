@@ -2,6 +2,16 @@ Feature: Create a risk
     As a project member,
     So that I can capture risk associated with a particular project,
     I want to be able to document the specifics of the risk and add it to the risk log.
+
+Feature: Add Risk Fields
+    As a project member,
+    So I can have more comprehensive information about the projects risks,
+    I want to be able to add and edit a variety of information to risk.
+
+Feature: Add comment field (edit status/history of risk changes)
+    As an admin or project member,
+    So that I can make comments on the status or history of risk changes
+    I want to record changes made to the risk in a comment field.
 	
 Background: some projects and no risks have been added to database
     Given the following users exist:
@@ -21,6 +31,7 @@ Scenario: add and edit valid risk
 #    When I fill in "risk_originator" with "Linda"
 #    When I fill in "risk_owner" with "Linda"
     When I fill in "risk_description" with "Our second risk for project 1."
+    When I fill in "risk_comment" with "Risk comment."
 #    When I fill in "risk_date" with "02-12-2012"
     Then I press "Save"
     Then I should be on the Risk page for First Project
