@@ -3,10 +3,10 @@ Feature: Create a project
     So that I can capture and share information about a project I am working on 
     I want to be able to create a project and share it with project members 
 
-Feature: Add Project Fields
-    As a project owner,
-    So I can have more comprehensive information about my projects,
-    I want to be able to add and edit a variety of information to each project.
+#Feature: Add Project Fields
+#    As a project owner,
+#    So I can have more comprehensive information about my projects,
+#    I want to be able to add and edit a variety of information to each project.
   
 Background: Some projects have already been added to database.
     Given the following users exist:
