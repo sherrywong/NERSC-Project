@@ -32,6 +32,7 @@ class RiskController < ApplicationController
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid])
     end #otherwise, stay on same page, show all error messages in view
+    puts @risk.versions
   end
 
   def index

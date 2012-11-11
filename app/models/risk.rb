@@ -1,4 +1,7 @@
 class Risk < ActiveRecord::Base
+  #to maintain a history log
+  has_paper_trail :on => [:update, :destroy]
+
   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
    validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :risk_rating, :early_impact, :last_impact, :days_to_impact, :type, :project_id, :owner_id
 
@@ -49,7 +52,7 @@ class Risk < ActiveRecord::Base
       @risk.owner_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
-      @risk.days_to_impact = @risk.calculated_days_to_impact
+      @risk.days_to_impact = @risk.calculate_days_to_impact
       if !@risk.save?
     return false
       end
