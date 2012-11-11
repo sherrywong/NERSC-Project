@@ -53,6 +53,7 @@ class Risk < ActiveRecord::Base
           risk_hash[:owner] = User.find_by_username(risk_hash[:owner]).id
         else
           risk_hash[:owner] = nil
+        end
       end
       @risk = Risk.new(risk_hash)
       # @risk.creator_id = uid
