@@ -22,16 +22,6 @@ class RiskController < ApplicationController
     redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
 
-  def destroy
-    @project = Project.find(params[:pid])
-    if @project != nil
-      get_current_user.deactivate_project(params[:pid])
-      @project.destroy
-    end
-    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
-  end
-
-
   def edit
     @risk = Risk.find_by_id(params[:rid])
   end
