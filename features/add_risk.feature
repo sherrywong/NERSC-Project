@@ -22,11 +22,16 @@ Background: some projects and no risks have been added to database
 Scenario: add and edit valid risk
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-#    When I fill in "risk_originator" with "Linda"
-#    When I fill in "risk_owner" with "Linda"
+    When I fill in "risk_owner" with "admin"
+    When I fill in "risk_cost" with "1"
+    When I fill in "risk_schedule" with "2"
+    When I fill in "risk_technical" with "1"
+    When I fill in "risk_probability" with "2"
+    When I fill in "risk_status" with "active"
+    When I fill in "risk_early_impact" with "1/2/13"
+    When I fill in "risk_last_impact" with "3/2/13"
+    When I fill in "risk_type" with "Cost/Technical"
     When I fill in "risk_description" with "Our second risk for project 1."
-    When I fill in "risk_comment" with "Risk comment."
-#    When I fill in "risk_date" with "02-12-2012"
     Then I press "Save"
     Then I should be on the Risk page for First Project
     And I should see "Risk 'Test Risk' created."
@@ -39,6 +44,14 @@ Scenario: add and edit valid risk
     Then I should see "Risk Creator"
     Then I should see "Risk Date"
     Then I should see "Comments"
+    Then I should see "Short Title"
+    Then I should see "Root Cause"
+    Then I should see "Mitigation"
+    Then I should see "Contingency"
+    Then I should see "Cost"
+    Then I should see "Schedule"
+    Then I should see "Technical"
+    Then I should see "Other Risks"
     When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
     Then I should be on the first project's Risk page
@@ -51,7 +64,8 @@ Scenario: add and edit valid risk
 #    Then I fill in "risk_description" with "Risk 4" 
 #    Then I press "Save"
 #    Then I should be on First Project's Add Risk page 
-#    And I should see "Please fill out this field."
+#    And I should see "Please fill out" 
+#we will show all the fields the didn't fill out
 
 Scenario: View a risk that the user doesn't have read permission
     When I go to Second Project's Add Risk page
