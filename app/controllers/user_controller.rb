@@ -24,18 +24,10 @@ class UserController < ApplicationController
       if @new.errors.empty?
         flash[:notice]= "User '#{@new.first}' '#{@new.last}'created."
         redirect_to "/user/show_users"
+      else
+        flash[:notice] = "Error occurred when creating user."
       end
     end
-  end
-
-  def destroy
-    @user = get_current_user
-    if @user.deactivate_user(params[:uid])
-      flash[:notice] = "User deactivated."
-    else 
-      flash[:notice] = "You cannot deactivate this user."
-    end
-    redirect_to "/user/show_users"
   end
 
   def edit
@@ -46,6 +38,16 @@ class UserController < ApplicationController
     @user = User.find_by_username(params[:user]["username"])
     @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
     flash[:notice] = "User #{@user.first} #{@user.last} was successfully updated."
+    redirect_to "/user/show_users"
+  end
+
+  def destroy
+    @user = get_current_user
+    if @user.deactivate_user(params[:uid])
+      flash[:notice] = "User deactivated."
+    else 
+      flash[:notice] = "You cannot deactivate this user."
+    end
     redirect_to "/user/show_users"
   end
 
