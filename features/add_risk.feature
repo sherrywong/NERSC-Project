@@ -14,15 +14,9 @@ Feature: Create a risk
 #    I want to record changes made to the risk in a comment field.
 	
 Background: some projects and no risks have been added to database
-    Given the following users exist:
-    | username | email             | first  | last  | admin | password | status  |
-    | admin    | admin@gmail.com   | admin  | admin | true  | admin    | active  |
+    Given a set of users exist
     Given I am logged in as an admin
-    Given the following projects exist:
-    | name           | description | 
-    | First Project  | proj1       |  
-    | Second Project | proj2       |  
-    | Third Project  | proj3       |
+    Given a set of projects exist
     And I am on the project page 
 	
 Scenario: add and edit valid risk

@@ -1,10 +1,16 @@
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name
-  #not included: status
+  attr_accessible :description, :name, :prefix
+  #not included: status should not be assignable by the normal user.
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_uniqueness_of :prefix
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
 
+  before_validation :init_prefix
+  def init_prefix
+    self.prefix ||= self.name
+  end
+  
   has_many :project_memberships, :dependent => :destroy #assume destroy for now.
   has_many :users, :through => :project_memberships #identical to members
   has_many :members, :through => :project_memberships, :source => :user   #identical to users, this is preferred.

@@ -4,8 +4,12 @@ class Risk < ActiveRecord::Base
    
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
+
    validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type, :in => %w(3 2 1)
    validates_uniqueness_of :title, :short_title, :scope => :project_id
+   #validates_uniqueness_of :title, :scope => :project_id #no longer required!
+    #risks are uniquely identified by proj-prefix + risk_id.
+
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
     
    #validate :creator_exists
