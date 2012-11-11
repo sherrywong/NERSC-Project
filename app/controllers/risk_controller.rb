@@ -6,10 +6,11 @@ class RiskController < ApplicationController
 
   def new
     if request.post?
-      @usr = get_current_user
-      @rsk = @usr.create_risk_for_project(params[:pid],params[:risk])
-      flash[:notice] = "Risk '#{@rsk.title}' created."
-      redirect_to risk_index_path(params[:pid])
+      @rsk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
+      if @rsk != false
+        flash[:notice] = "Risk '#{@rsk.title}' created."
+        redirect_to risk_index_path(params[:pid]
+      end #otherwise, stay on the same page, show all error messages in view
     end
   end
 
@@ -37,9 +38,10 @@ class RiskController < ApplicationController
 
   def update
     @risk = Risk.find_by_id(params[:rid])
-    @risk.update_attributes!(params[:risk])
-    flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
-    redirect_to risk_index_path(params[:pid])
+    if @risk.update_attributes!(params[:risk])!=false
+      flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
+      redirect_to risk_index_path(params[:pid] 
+    end #otherwise, stay on same page, show all error messages in view
   end
 
   def index

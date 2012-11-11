@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
     end
     return new_owner
   end
+
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
@@ -92,21 +93,6 @@ class User < ActiveRecord::Base
     new_owner = extract_owner_username(project_hash)
     project.update_attributes(project_hash)
     project.owner = new_owner unless new_owner.nil?
-  end
-  
-  def create_risk_for_project(project_id, risk_hash)
-    #risk_hash[:creator_id] = self.id
-    risk_hash[:owner_id] = self.id #default owner = creator
-    risk_hash[:project_id] = project_id
-    @proj = Project.find_by_id(project_id)
-    @rsk = Risk.new(risk_hash)
-    if @proj and self.projects.include? @proj#not nil
-        @rsk.save
-    end
-    if not @proj
-        @rsk.errors[:project] << "Given project does not exist"
-    end
-    return @rsk
   end
 
   def deactivate_project(project_id)
