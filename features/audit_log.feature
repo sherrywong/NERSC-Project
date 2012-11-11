@@ -7,15 +7,12 @@ Background: Some projects have already been added to database.
     Given a set of users exist 
     Given I am logged in as an admin
     Given a set of projects exist
-    And I am on the project page 
+    And I am on the project page
+    Given a set of risks exist
     
 Scenario: Audit log modified when risk edited
     Given I am logged in as an admin
-    When I go to First Project's Add Risk page
-    When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_description" with "RDescrip"
-    Then I press "Save"
-    Then I should be on the Risk page for First Project
+    When I go to the Risk page for First Project
     When I go to the first project's Test Risk's Edit page
     When I fill in "risk_description" with "Description Changed"
     Then I press "Save"

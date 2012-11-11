@@ -62,9 +62,9 @@ end
 
 Given /^a set of risks exist$/ do
   #coordinators, project_id, department, start, end
-  @usr.create_risk_for_project(1, {"title"=>"First Risk", "project"=>"First Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"em", "description"=>"Risk1 for P1", "id_date"=>"02-11-2012", "cost"=>"10", "probability"=>"high"})
-  @usr.create_risk_for_project(2, {"title"=>"Second Risk", "project"=>"Second Project", "risk_id"=>"1-1", "originator"=>"jt", "owner"=>"em", "description"=>"Risk1 for P2", "id_date"=>"03-11-2012"}, "cost"=>"10", "probability"=>"high")
-  @usr.create_risk_for_project(3, {"title"=>"Third Risk", "project"=>"Third Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"bobw", "description"=>"Risk1 for P3", "id_date"=>"04-11-2012"}, "cost"=>"10", "probability"=>"high")
+  Risk.create_risk(@usr.id, 1, {"title"=>"First Risk", "project"=>"First Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"em", "description"=>"Risk1 for P1", "id_date"=>"02-11-2012", "cost"=>"10", "probability"=>"high"})
+  Risk.create_risk(@usr.id, 2, {"title"=>"Second Risk", "project"=>"Second Project", "risk_id"=>"1-1", "originator"=>"jt", "owner"=>"em", "description"=>"Risk1 for P2", "id_date"=>"03-11-2012"}, "cost"=>"10", "probability"=>"high")
+  Risk.create_risk(@usr.id, 3, {"title"=>"Third Risk", "project"=>"Third Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"bobw", "description"=>"Risk1 for P3", "id_date"=>"04-11-2012", "cost"=>"10", "probability"=>"high"})
 end
 
 Given /^I am logged in( as an admin)?$/ do |ignore|
