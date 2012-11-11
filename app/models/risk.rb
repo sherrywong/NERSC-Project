@@ -1,14 +1,13 @@
 class Risk < ActiveRecord::Base
-  attr_accessible :cost, :description, :probability, :title, :project_id, :owner_id #, creator_id
-   validates_presence_of :cost, :description, :probability, :title, :project_id, :owner_id
+  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
+   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :risk_rating, :early_impact, :last_impact, :days_to_impact, :type, :project_id, :owner_id
    
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
-   validates_inclusion_of :probability, :in => %w(3 2 1)
-   validates_inclusion_of :cost, :in => %w(3 2 1)
-   validates_uniqueness_of :title, :scope => :project_id
+   validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type, :in => %w(3 2 1)
+   validates_uniqueness_of :title, :short_title, :scope => :project_id
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
-   validates :project, :presence => true
+    
    #validate :creator_exists
    #validate :owner_exists
 
@@ -20,11 +19,24 @@ class Risk < ActiveRecord::Base
     def creator_exists
         errors[:creator] << "Creator does not exist" unless User.find_by_id(self.creator_id)
     end
-
-
-    def owner_exists
-        errors[:owner] << "Owner does not exist" unless User.find_by_id(self.owner_id)
-    end
 =end
+
+
+    def owner_exists(username)
+        if User.find_by_username(username)==nil
+          errors[:owner] << "Owner does not exist"
+          return false
+        end
+        return true
+    end
+
+    def calculate_risk_rating
+      return self.probability * [self.cost, self.schedule, self.technical].max
+    end
+   
+
+    def calculate_days_to_impact
+       return [self.early_impact-Date.today, 0].max
+    end
 
 end
