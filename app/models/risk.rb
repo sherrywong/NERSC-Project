@@ -2,14 +2,13 @@ class Risk < ActiveRecord::Base
   #to maintain a history log
   has_paper_trail :on => [:update, :destroy]
 
-  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
-   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :risk_rating, :early_impact, :last_impact, :days_to_impact, :type, :project_id, :owner_id
-
+   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
+   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
 
-   validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type, :in => %w(3 2 1)
-   validates_uniqueness_of :title, :short_title, :scope => :project_id
+   validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   
    #validates_uniqueness_of :title, :scope => :project_id #no longer required!
     #risks are uniquely identified by proj-prefix + risk_id.
 
@@ -28,7 +27,7 @@ class Risk < ActiveRecord::Base
     end
 =end
 
-    private
+
     def owner_exists?(username)
         if User.find_by_username(username)==nil
           errors[:owner] << "Owner does not exist"
@@ -48,11 +47,13 @@ class Risk < ActiveRecord::Base
 
     def self.create_risk(uid, pid, risk_hash)
       #because user specify owner by username but our db stores a owner id
-      if risk_hash[:owner] != nil
-        if owner_exists?(risk_hash[:owner])
-          risk_hash[:owner] = User.find_by_username(risk_hash[:owner]).id
+      if risk_hash[:owner_id] != nil
+        @owner = User.find_by_username(risk_hash[:owner_id])
+        if @owner!=nil
+          risk_hash[:owner_id] = @owner.id
         else
-          risk_hash[:owner] = nil
+          risk_hash[:owner_id] = nil
+        end
       end
       @risk = Risk.new(risk_hash)
       #@risk.creator_id = uid
@@ -64,13 +65,16 @@ class Risk < ActiveRecord::Base
       return @risk
     end
 
+=begin
     def update_risk(risk_hash)
       if risk_hash[:owner] != nil
-        if owner_exists?(risk_hash[:owner])
+        if Risk.owner_exists?(risk_hash[:owner])
           risk_hash[:owner] = User.find_by_username(risk_hash[:owner]).id
         else
           risk_hash[:owner] = nil # will trigger an error message
+        end
       end
       return this.update_attributes!(risk_hash)
     end
+=end
 end
