@@ -22,30 +22,21 @@ class RiskController < ApplicationController
     redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
 
-  def destroy
-    @project = Project.find(params[:pid])
-    if @project != nil
-      get_current_user.deactivate_project(params[:pid])
-      @project.destroy
-    end
-    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
-  end
-
-
   def edit
     @risk = Risk.find_by_id(params[:rid])
   end
 
   def update
     @risk = Risk.find_by_id(params[:rid])
-    if @risk.update_attributes!(params[:risk]).errors.empty?
+    if @risk.update_risk(params[:risk]).errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid] 
     end #otherwise, stay on same page, show all error messages in view
+    puts @risk.versions
   end
 
   def index
-    puts "PARAMS", params[:pid]
+    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     @risks = @project.risks
   end
