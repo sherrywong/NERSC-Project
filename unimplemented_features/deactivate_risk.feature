@@ -6,9 +6,7 @@ Feature: Deactivate a risk
 Background:
     Given a set of users exist
     Given a set of projects exist
-    And the following risks exist:
-    |cost | description | probability | title | user_id | proj_id |
-    |10   | testing     | high        | test  | 1       | 1       |
+    Given a set of risks exist
 
 Scenario: non-owner/admins cannot delete risk
     Given I am logged in as a non-owner user

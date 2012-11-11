@@ -31,23 +31,16 @@ module WithinHelpers
 end
 World(WithinHelpers)
 @usr
+Given /^the following users exist:$/ do |table|
+  table.hashes.each do |user_hash|
+    User.create(user_hash);
+  end
+end
 Given /^the following projects exist:$/ do |table|
   table.hashes.each do |project_hash|
     # This needs to be generalized
     @usr.create_project(project_hash)
     #Project.new(project_hash).save;
-  end
-end
-
-Given /^a set of projects exist$/ do
-  @usr.create_project({"name"=>"First Project", "description"=>"proj1", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Second Project", "description"=>"proj2", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Third Project", "description"=>"proj2", "owner_username"=>"admin"})
-end
-
-Given /^the following users exist:$/ do |table|
-  table.hashes.each do |user_hash|
-    User.create(user_hash);
   end
 end
 
@@ -59,6 +52,19 @@ Given /^a set of users exist$/ do
   User.create({"username"=>"lz", "email"=>"linda@gmail.com", "first"=>"Lingbo", "last"=>"Zhang", "admin"=>"false", "password"=>"lzhang", "status"=>"active"})
   User.create({"username"=>"bobw", "email"=>"bob@gmail.com", "first"=>"Sherry", "last"=>"Wong", "admin"=>"true", "password"=>"swong", "status"=>"active" })
 end
+
+Given /^a set of projects exist$/ do
+  #coordinators, project_id, department, start, end
+  @usr.create_project({"name"=>"First Project", "description"=>"proj1", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Second Project", "description"=>"proj2", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Third Project", "description"=>"proj2", "owner_username"=>"admin"})
+end
+
+Given /^a set of risk exist$/ do
+  #coordinators, project_id, department, start, end
+  @usr.create_risk_for_project(1, {"title"=>"First Risk", "project"=>"First Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"em", "description"=>"Risk1 for P1", "id_date"=>"02-11-2012", "cost"=>"10", "probability"=>"high"})
+  @usr.create_risk_for_project(2, {"title"=>"Second Risk", "project"=>"Second Project", "risk_id"=>"1-1", "originator"=>"jt", "owner"=>"em", "description"=>"Risk1 for P2", "id_date"=>"03-11-2012"}, "cost"=>"10", "probability"=>"high")
+  @usr.create_risk_for_project(3, {"title"=>"Third Risk", "project"=>"Third Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"bobw", "description"=>"Risk1 for P3", "id_date"=>"04-11-2012"}, "cost"=>"10", "probability"=>"high")
 
 Given /^I am logged in( as an admin)?$/ do |ignore|
   visit '/'

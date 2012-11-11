@@ -27,4 +27,3 @@ Scenario: Edit a user.
    And I fill in "user_first" with "Sherry"
    And I press "Save" 
    Then I should see "User Sherry Govinthasamy was successfully updated."
-
