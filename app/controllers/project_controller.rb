@@ -4,17 +4,18 @@ class ProjectController < ApplicationController
   before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
   before_filter :is_admin, :only =>[:new]
 
-
   def new
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
-      if @proj
-        flash[:notice] = "Project '#{@proj.name}' created."
-      else
-        flash[:notice] = "Error occured when creating project."
-      end
-      redirect_to "/user/index"
+      if @proj.errors.empty?
+        if @proj
+          flash[:notice] = "Project '#{@proj.name}' created."
+        else
+          flash[:notice] = "Error occured when creating project."
+        end
+        redirect_to "/user/index"
+      end #Stays on same page.
     end
   end
 
