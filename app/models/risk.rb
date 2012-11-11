@@ -13,7 +13,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
     
    #validate :creator_exists
-   #validate :owner_exists
+   validate :owner_exists
 
    belongs_to :project
    #belongs_to :creator, :class_name => "User"   
@@ -40,7 +40,21 @@ class Risk < ActiveRecord::Base
    
 
     def calculate_days_to_impact
-       return [self.early_impact-Date.today, 0].max
+      return [self.early_impact-Date.today, 0].max
     end
+
+    def self.create_risk(uid, pid, risk_hash)
+      @risk = Risk.new(risk_hash)
+      @risk.creator_id = uid
+      @risk.owner_id = uid
+      @risk.project_id = pid
+      @risk.risk_rating = @risk.calculate_risk_rating
+      @risk.days_to_impact = @risk.calculated_days_to_impact
+      if !@risk.save?
+	  return false
+      end
+      return @risk
+    end
+      
 
 end
