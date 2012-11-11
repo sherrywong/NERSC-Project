@@ -6,7 +6,8 @@ class Risk < ActiveRecord::Base
    #three limited values for a probability and cost
    validates_inclusion_of :probability, :in => %w(High Medium Low)
    validates_inclusion_of :cost, :in => %w(High Medium Low)
-   validates_uniqueness_of :title, :scope => :project_id
+   #validates_uniqueness_of :title, :scope => :project_id #no longer required!
+    #risks are uniquely identified by proj-prefix + risk_id.
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
    validates :project, :presence => true
    #validate :creator_exists
