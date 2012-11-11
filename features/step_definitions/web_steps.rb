@@ -55,9 +55,9 @@ end
 
 Given /^a set of projects exist$/ do
   #coordinators, project_id, department, start, end
-  @usr.create_project({"name"=>"First Project", "description"=>"proj1", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Second Project", "description"=>"proj2", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Third Project", "description"=>"proj2", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"admin"})
+  @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"admin"})
 end
 
 Given /^a set of risk exist$/ do

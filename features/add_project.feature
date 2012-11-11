@@ -18,6 +18,7 @@ Scenario: add valid project
     And I am on the project page
     When I go to the new project page
     When I fill in "project_name" with "Test Project" 
+    And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
     And I fill in "project_owner_username" with "admin"
     Then I press "Save" 
