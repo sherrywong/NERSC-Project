@@ -1,7 +1,7 @@
 Feature: Create a risk
-    As a project member,
-    So that I can capture risk associated with a particular project,
-    I want to be able to document the specifics of the risk and add it to the risk log.
+#    As a project member,
+#    So that I can capture risk associated with a particular project,
+#    I want to be able to document the specifics of the risk and add it to the risk log.
 
 #Feature: Add Risk Fields
 #    As a project member,
