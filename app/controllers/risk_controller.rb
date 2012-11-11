@@ -39,6 +39,7 @@ class RiskController < ApplicationController
   def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    puts "HEEEEEEEEEEEEEEEEEEERE", @project.risks
     @risks = @project.risks
   end
 
