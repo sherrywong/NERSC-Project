@@ -25,7 +25,7 @@ class Risk < ActiveRecord::Base
     end
 =end
 
-
+    private
     def owner_exists(username)
         if User.find_by_username(username)==nil
           errors[:owner] << "Owner does not exist"
@@ -46,13 +46,11 @@ class Risk < ActiveRecord::Base
     def self.create_risk(uid, pid, risk_hash)
       @risk = Risk.new(risk_hash)
       @risk.creator_id = uid
-      @risk.owner_id = uid
+      #@risk.owner_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculated_days_to_impact
-      if !@risk.save?
-	  return false
-      end
+      @risk.save
       return @risk
     end
       
