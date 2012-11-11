@@ -3,7 +3,7 @@ class Risk < ActiveRecord::Base
   has_paper_trail :on => [:update, :destroy]
 
    attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
-   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id
+   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
 
@@ -62,7 +62,6 @@ class Risk < ActiveRecord::Base
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculate_days_to_impact
       @risk.save
-        end
       return @risk
     end
 
@@ -77,5 +76,4 @@ class Risk < ActiveRecord::Base
       return this.update_attributes!(risk_hash)
       end
     end
-   end
 end
