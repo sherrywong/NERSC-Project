@@ -5,11 +5,12 @@ class RiskController < ApplicationController
   before_filter :is_admin, :only =>[:destroy]
 
   def new
+    @user = get_current_user
     if request.post?
       @rsk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
       if @rsk.errors.empty?
         flash[:notice] = "Risk '#{@rsk.title}' created."
-        redirect_to risk_index_path(params[:pid]
+        redirect_to risk_index_path(params[:pid])
       end #otherwise, stay on the same page, show all error messages in view
     end
   end
@@ -30,7 +31,7 @@ class RiskController < ApplicationController
     @risk = Risk.find_by_id(params[:rid])
     if @risk.update_risk(params[:risk]).errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
-      redirect_to risk_index_path(params[:pid] 
+      redirect_to risk_index_path(params[:pid])
     end #otherwise, stay on same page, show all error messages in view
     puts @risk.versions
   end
@@ -38,6 +39,7 @@ class RiskController < ApplicationController
   def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    puts "HEEEEEEEEEEEEEEEEEEERE", @project.risks
     @risks = @project.risks
   end
 

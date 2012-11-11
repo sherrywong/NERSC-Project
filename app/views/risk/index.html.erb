@@ -4,8 +4,8 @@
   <h1> Risks for <%= @project.name %></h1>
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
-<%= button_to "<< Return to project", edit_project_path(params[:pid]), :class => 'btn btn-inverse', :method => :get%>
-<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
+<%= button_to "<< Return to project", edit_project_path(params[:pid]), :class => 'btn btn info', :method => :get%>
+<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn info', :method => :get%>
 
 
 <table class="zebra-striped clearfix" id="risks">

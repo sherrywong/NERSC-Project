@@ -56,25 +56,26 @@ class Risk < ActiveRecord::Base
         end
       end
       @risk = Risk.new(risk_hash)
-      #@risk.creator_id = uid
-      #@risk.owner_id = uid
+      # @risk.creator_id = uid
+      # @risk.owner_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculate_days_to_impact
       @risk.save
+        end
       return @risk
     end
 
-=begin
+
     def update_risk(risk_hash)
-      if risk_hash[:owner] != nil
-        if Risk.owner_exists?(risk_hash[:owner])
-          risk_hash[:owner] = User.find_by_username(risk_hash[:owner]).id
+      if risk_hash[:owner_id] != nil
+        if Risk.owner_exists?(risk_hash[:owner_id])
+          risk_hash[:owner_id] = User.find_by_username(risk_hash[:owner]).id
         else
-          risk_hash[:owner] = nil # will trigger an error message
+          risk_hash[:owner_id] = nil # will trigger an error message
         end
-      end
       return this.update_attributes!(risk_hash)
+      end
     end
-=end
+   end
 end
