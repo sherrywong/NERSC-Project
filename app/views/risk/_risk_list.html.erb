@@ -6,5 +6,9 @@
 <td class='last'>
 <%= risk.description %>
 </td>
+<% if @user.admin? %>
+       <td><%= link_to "X", {:controller => 'risk', :action=> 'destroy', :rid => risk.id} -%>
+</td>
+       <% end %>
 </tr>
 <% end %>

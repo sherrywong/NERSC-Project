@@ -71,7 +71,7 @@ NerscProject::Application.routes.draw do
   #match "/risk/logout" => 'user#logout'
   match "/user/risk/index" => 'risk#index'
   match "/project/:pid/edit" => 'project#edit', :as => :edit_project
-  match "/project/update" => 'project#update', :as => :update_project
+  match "/project/:pid/update" => 'project#update', :as => :update_project
   match "/user/project/:pid/risk/new" => 'risk#new', :as => :new_risk
   match "/user/project/:pid/risk/:rid/edit" => 'risk#edit', :as => :edit_risk
   match "/user/project/:pid/risk/:rid/update" => 'risk#update', :as => :update_risk

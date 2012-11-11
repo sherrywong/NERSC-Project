@@ -4,13 +4,17 @@
   <h1> Risks for <%= @project.name %></h1>
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
-<%= link_to "+ Create New Risk", new_risk_path(params[:pid])%>
+<%= button_to "<< Return to project", edit_project_path(params[:pid]), :class => 'btn btn-inverse', :method => :get%>
+<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
 
 
 <table class="zebra-striped clearfix" id="risks">
     <tr>
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
+    <% if @user.admin? %>
+    <th><%= "Delete?" %></th>
+    <% end %>
     </tr>
 <%= render 'risk_list', {:risks => @risks } -%>
 </table>

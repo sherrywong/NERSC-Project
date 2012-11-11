@@ -7,7 +7,7 @@ class RiskController < ApplicationController
   def new
     if request.post?
       @rsk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
-      if @rsk.valid?
+      if @rsk.errors.empty?
         flash[:notice] = "Risk '#{@rsk.title}' created."
         redirect_to risk_index_path(params[:pid]
       end #otherwise, stay on the same page, show all error messages in view
@@ -38,7 +38,7 @@ class RiskController < ApplicationController
 
   def update
     @risk = Risk.find_by_id(params[:rid])
-    if @risk.update_attributes!(params[:risk]).error.empty?
+    if @risk.update_attributes!(params[:risk]).errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid] 
     end #otherwise, stay on same page, show all error messages in view

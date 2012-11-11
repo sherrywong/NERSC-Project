@@ -6,9 +6,9 @@ class ProjectController < ApplicationController
 
 
   def new
+    @user = get_current_user
     if request.post?
-      @usr = get_current_user
-      @proj = @usr.create_project(params[:project])
+      @proj = @user.create_project(params[:project])
       if @proj
         flash[:notice] = "Project '#{@proj.name}' created."
       else

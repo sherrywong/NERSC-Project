@@ -78,6 +78,7 @@ NerscProject::Application.routes.draw do
   match "/user/project/:pid/risk/index" => 'risk#index', :as => :risk_index
   match "/project/destroy" => 'project#destroy'
   match "/project/:pid/remove_member" => 'project#remove_member', :as => :remove_member
+  match "/risk/destroy" => 'risk#destroy'
 
 
   # See how all your routes lay out with "rake routes"

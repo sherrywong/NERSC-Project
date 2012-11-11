@@ -15,28 +15,30 @@
     <div>
     Owner: <%= text_field 'project', 'owner_username', :placeholder => "Owner", :required => true%>
     </div>
-    <%= content_tag "div", name: "risk_mx" do %>Risk Matrix
-<table id="risk_mx">
-<% (0..2).each do |i| %>
-<tr>
-<% (0..2).each do |p| %>
-<td>
-    <select name = "risk_matrix[<%= i %><%= p %>]">
-      <option value="Low">Low</option>
-      <option value="Med">Med</option>
-      <option value="High">High</option>
-    </select>
-</td>
-<% end %>
-</tr>
-<% end %>
-</table>
-<% end %>
+    <div>Risk Matrix
+      <table id="risk_mx">
+      <% (0..2).each do |i| %>
+        <tr>
+        <% (0..2).each do |p| %>
+          <td class = 'risk_cell' id="risk_matrix[<%= i%><%= p%>]">
+             <select class='risk_menu' onchange="changeColor(this);" name = 'risk_matrix[<%= i %><%= p %>]'>
+                <option value="Low">Low</option>
+                <option value="Med">Med</option>
+                <option value="High">High</option>
+             </select>
+         </td>
+        <% end %>
+        </tr>
+       <% end %>
+       </table>
+     </div>
 <div>
     <br>
     <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
     </div>
     <br>
+    <% if @user.admin? %>
     <%= submit_tag "Save" %>
+<% end %>
   </div>
 </div>
