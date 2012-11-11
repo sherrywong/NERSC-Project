@@ -67,10 +67,21 @@ Given /^a set of risks exist$/ do
   Risk.create_risk(@usr.id, 3, {"title"=>"Third Risk", "project"=>"Third Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"bobw", "description"=>"Risk1 for P3", "id_date"=>"04-11-2012", "cost"=>"10", "probability"=>"high"})
 end
 
-Given /^I am logged in( as an admin)?$/ do |ignore|
+Given /^I am logged in as (.+)$/ do |user|
   visit '/'
-  fill_in 'username', :with => 'admin'
-  fill_in 'password', :with => 'admin'
+  if user == "an admin"
+    fill_in 'username', :with => 'admin'
+    fill_in 'password', :with => 'admin'
+  elsif user == "Linda"
+    fill_in 'username', :with => 'lz'
+    fill_in 'password', :with => 'lzhang'
+  elsif user == "Elise"
+    fill_in 'username', :with => 'em'
+    fill_in 'password', :with => 'emccallum'
+  elsif user == "Jason"
+    fill_in 'username', :with => 'jt'
+    fill_in 'password', :with => 'jteoh'
+  end
   click_button 'Login'
   @usr = User.find_by_username('admin')
   if page.respond_to? :should
