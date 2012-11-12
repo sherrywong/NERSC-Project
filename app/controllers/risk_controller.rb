@@ -4,6 +4,12 @@ class RiskController < ApplicationController
   before_filter :is_admin_or_member, :only => [:new, :edit]
   before_filter :is_admin, :only =>[:destroy]
 
+  def index
+    @user = get_current_user
+    @project = Project.find_by_id(params[:pid])
+    @risks = @project.risks
+  end
+
   def new
     @user = get_current_user
     if request.post?
@@ -11,16 +17,10 @@ class RiskController < ApplicationController
       if @rsk.errors.empty?
         flash[:notice] = "Risk '#{@rsk.title}' created."
         redirect_to risk_index_path(params[:pid])
-      end #otherwise, stay on the same page, show all error messages in view
+      else #Otherwise, stay on the same page, show all error messages in view
+        flash[:notice] = "Error occurred when creating risk."
+      end
     end
-  end
-
-  def destroy
-    @risk = Risk.find(params[:rid])
-    if @risk != nil
-      get_current_user.deactivate_risk(params[:rid])
-    end
-    redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
 
   def edit
@@ -36,11 +36,12 @@ class RiskController < ApplicationController
     puts @risk.versions
   end
 
-  def index
-    @user = get_current_user
-    @project = Project.find_by_id(params[:pid])
-    puts "HEEEEEEEEEEEEEEEEEEERE", @project.risks
-    @risks = @project.risks
+  def destroy
+    @risk = Risk.find(params[:rid])
+    if @risk != nil
+      get_current_user.deactivate_risk(params[:rid])
+    end
+    redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
   end
 
 end

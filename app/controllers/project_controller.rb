@@ -4,26 +4,27 @@ class ProjectController < ApplicationController
   before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
   before_filter :is_admin, :only =>[:new]
 
+  def index
+    @user = get_current_user
+    @projects = @user.projects
+    #Project.all if we want to show all users
+  end
 
   def new
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
-      if @proj
-        flash[:notice] = "Project '#{@proj.name}' created."
-      else
-        flash[:notice] = "Error occured when creating project."
+      if @proj.errors.empty?
+        if @proj
+          flash[:notice] = "Project '#{@proj.name}' created."
+        else
+          flash[:notice] = "Error occurred when creating project."
+        end
+        redirect_to "/user/index"
+      else #Stays on same page.
+        flash[:notice] = "Error occurred when creating project."
       end
-      redirect_to "/user/index"
     end
-  end
-
-  def destroy
-    @project = Project.find(params[:pid])
-    if @project != nil
-      get_current_user.deactivate_project(params[:pid])
-    end
-    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
   def edit
@@ -43,6 +44,14 @@ class ProjectController < ApplicationController
     #@project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{@project.name}' was succesfully updated."
     redirect_to "/user/index"
+  end
+
+  def destroy
+    @project = Project.find(params[:pid])
+    if @project != nil
+      get_current_user.deactivate_project(params[:pid])
+    end
+    redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
   def add_members
@@ -73,12 +82,6 @@ class ProjectController < ApplicationController
     @project.remove_member(params[:uid])
     flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
     redirect_to edit_project_path(params[:pid])
-  end
-
-  def index
-    @user = get_current_user
-    @projects = @user.projects
-    #Project.all if we want to show all users
   end
 
 end
