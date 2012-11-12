@@ -38,10 +38,10 @@
     Status: <%= text_field 'risk', 'status', :placeholder => "Status", :required => true %>
     </div>
     <div>
-    Early Impact:
+    Early Impact: <%= calendar_date_select 'risk', 'early_impact' %>
     </div>
     <div>
-    Lates Impact:
+    Last Impact:
     </div>
     <form>
      Comments:

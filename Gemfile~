@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
-
+gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem "twitter-bootstrap-rails"
+#gem "twitter-bootstrap-rails"
 
 
 group :production do
@@ -22,6 +22,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
@@ -50,9 +51,7 @@ group :test, :development do
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'sqlite3'
-#  gem 'simplecov'
-<<<<<<< HEAD
-   gem 'bcrypt-ruby'
-=======
->>>>>>> 1b2c8a2889a2d09380a2f49d137571d941452537
+  gem 'simplecov'
+  gem 'paper_trail', '~> 2'
+  gem 'calendar_date_select'
 end

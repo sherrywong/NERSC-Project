@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
-
+gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -53,4 +53,5 @@ group :test, :development do
   gem 'sqlite3'
   gem 'simplecov'
   gem 'paper_trail', '~> 2'
+  
 end
