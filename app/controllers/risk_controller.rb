@@ -19,6 +19,7 @@ class RiskController < ApplicationController
         redirect_to risk_index_path(params[:pid])
       else #Otherwise, stay on the same page, show all error messages in view
         flash[:notice] = "Error occurred when creating risk."
+        redirect_to risk_index_path(params[:pid])
       end
     end
   end
@@ -41,7 +42,7 @@ class RiskController < ApplicationController
     if @risk != nil
       get_current_user.deactivate_risk(params[:rid])
     end
-    redirect_to risk_path, :notice => "Risk '#{@risk.name}' deactivated."
+    redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@risk.title}' deactivated."
   end
 
 end

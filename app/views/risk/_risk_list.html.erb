@@ -3,10 +3,13 @@
     <td class='first'>
             <%= link_to risk.title, edit_risk_path(params[:pid], risk.id) %>
             </td>
-<td class='last'>
+<td>
 <%= risk.description %>
 </td>
-<% if @user.admin? %>
+<td class='last'>
+<%= risk.status %>
+</td>
+<% if @user.admin? or @project.owner == @user%>
        <td><%= link_to "X", {:controller => 'risk', :action=> 'destroy', :rid => risk.id} -%>
 </td>
        <% end %>

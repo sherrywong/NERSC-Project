@@ -12,7 +12,8 @@
     <tr>
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
-    <% if @user.admin? %>
+    <th><%= "Status" %></th>
+    <% if @user.admin? or @project.owner == @user%>
     <th><%= "Delete?" %></th>
     <% end %>
     </tr>
