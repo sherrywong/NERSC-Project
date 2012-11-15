@@ -44,7 +44,7 @@ Scenario: invalid login - username nonexistent
     And I should see "We don't have a user by this username."
     
 Scenario: after logout should require login access
-    Given I am logged in
+    Given I am logged in as an admin
     And I log out
     And I go to the project page
     Then I should not see "My Projects"

@@ -45,7 +45,7 @@ Given /^the following projects exist:$/ do |table|
 end
 
 Given /^a set of users exist$/ do
-  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active"})
+  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active", "admin" => true})
   User.create({"username"=>"ag", "email"=>"anna@gmail.com", "first"=>"Anensshiya", "last"=>"Govinthasamy", "admin"=>"true", "password"=>"agovinthasamy", "status"=>"active"})
   User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
   User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
