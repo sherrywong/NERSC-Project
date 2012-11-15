@@ -25,7 +25,13 @@ class RiskController < ApplicationController
   end
 
   def edit
+    @user = get_current_user
     @risk = Risk.find_by_id(params[:rid])
+    if @risk.nil?
+        flash[:notice] = "That risk does not exist."
+        redirect_to "/user/index"
+    end
+    #include error handling...
   end
 
   def update
