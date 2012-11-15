@@ -3,11 +3,13 @@ class Risk < ActiveRecord::Base
   has_paper_trail :on => [:update, :destroy]
 
    attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
-   validates_presence_of :title, :description, :cost, :schedule, :technical, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id
+   validates_presence_of :title, :description, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id
+
+   #should be included: in validates presence and inclusion, :cost, :schedule, :technical
    #not included:   :project_id, :creator_id, :owner_id
    #three limited values for a probability and cost
 
-   validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   validates_inclusion_of :probability, :other_type,  :in => [3, 2, 1], :allow_nil=> true
 
    #validates_uniqueness_of :title, :scope => :project_id #no longer required!
     #risks are uniquely identified by proj-prefix + risk_id.
@@ -28,8 +30,8 @@ class Risk < ActiveRecord::Base
 =end
 
 
-    def owner_exists?(username)
-        if User.find_by_username(username)==nil
+    def owner_exists?(user_id)
+        if User.find_by_id(user_id)==nil
           errors[:owner] << "Owner does not exist"
           return false
         end
@@ -65,15 +67,16 @@ class Risk < ActiveRecord::Base
       return @risk
     end
 
-
-    def update_risk(risk_hash)
+  ##this is probably not needed anymore? since i'm updating risk in user.rb##
+    def update_risk(risk_hash, risk)
       if risk_hash[:owner_id] != nil
-        if Risk.owner_exists?(risk_hash[:owner_id])
-          risk_hash[:owner_id] = User.find_by_username(risk_hash[:owner]).id
+        if risk.owner_exists?(risk_hash[:owner_id])
+          risk_hash[:owner_id] = User.find_by_id(risk_hash[:owner_id])
         else
           risk_hash[:owner_id] = nil # will trigger an error message
         end
-      return this.update_attributes!(risk_hash)
+      risk.update_attributes!(risk_hash)
+      return risk
       end
     end
 end

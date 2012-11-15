@@ -13,9 +13,9 @@
     <th class = 'first'><%= "Title" %></th>
     <th><%= "Description" %></th>
     <th><%= "Status" %></th>
-    <% if @user.admin? or @project.owner == @user%>
-    <th><%= "Delete?" %></th>
-    <% end %>
+
+    <th><%= "Deactivate?" %></th>
+
     </tr>
 <%= render 'risk_list', {:risks => @risks } -%>
 </table>

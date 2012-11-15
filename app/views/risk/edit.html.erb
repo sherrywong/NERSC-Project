@@ -1,2 +1,4 @@
 <h1> <%= @risk.title %> </h1>
+<%= button_to "<< Return to Risks", risk_index_path, :class => 'btn btn-info', :method => :get %>
+
   <%= render "home/shared/edit", { :form_type => "risk", :form_action => {:action => "update", :class => ('autosave')}} %>

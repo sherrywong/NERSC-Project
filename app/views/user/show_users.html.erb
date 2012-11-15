@@ -2,8 +2,8 @@
 
   <h1> System Users </h1>
   <p><center><%= flash[:notice] %></center></p>
+<%= button_to "<< Return to My Projects", user_index_path, :class => 'btn btn-info', :method => :get%>
 <%= button_to "+ Add new user", "/user/new", :class => 'btn btn-info', :method => :get%>
-
 
 <table class="zebra-striped clearfix" id="users">
     <tr = "warning">

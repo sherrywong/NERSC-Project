@@ -29,8 +29,9 @@ class RiskController < ApplicationController
   end
 
   def update
+    @user = get_current_user
     @risk = Risk.find_by_id(params[:rid])
-    if @risk.update_risk(params[:risk]).errors.empty?
+    if @user.update_risk(params[:risk], @risk).errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid])
     end #otherwise, stay on same page, show all error messages in view

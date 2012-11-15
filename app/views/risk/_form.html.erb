@@ -43,12 +43,18 @@
     <div>
     Last Impact:
     </div>
+    <div>
+    Owner: <%= text_field 'risk', 'owner_id', :placeholder => "Owner", :required => true%>
+    </div>
     <form>
      Comments:
      </br>
      <textarea rows="3" placeholder="Comment on this risk"></textarea>
     </form>
     </br>
+
+    <% if @risk.status == "active" %>
     <%= submit_tag "Save" %>
+    <% end %>
   </div>
 </div>
