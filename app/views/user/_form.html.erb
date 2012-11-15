@@ -16,8 +16,8 @@
     <div>
     Password: <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
     </div>
-    <% if @user.status == 'active' %>
-    <%= submit_tag "Save" %>
+    <% if @user.nil? or @user.status == 'active' %>
+      <%= submit_tag "Save" %>
     <% end %>
-  </div>
+    </div>
 </div>
