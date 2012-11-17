@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117063129) do
+ActiveRecord::Schema.define(:version => 20121117223200) do
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20121117063129) do
     t.string   "critical_path"
     t.string   "wbs_spec"
     t.text     "comment"
+    t.integer  "creator_id"
   end
 
   create_table "users", :force => true do |t|

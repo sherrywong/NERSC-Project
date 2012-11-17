@@ -2,14 +2,10 @@ class Risk < ActiveRecord::Base
   #to maintain a history log
   has_paper_trail :on => [:update, :destroy]
 
-   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id
-   validates_presence_of :title, :description, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id
+   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id
+   validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
 
-   #should be included: in validates presence and inclusion, :cost, :schedule, :technical
-   #not included:   :project_id, :creator_id, :owner_id
-   #three limited values for a probability and cost
-
-   validates_inclusion_of :probability, :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   validates_inclusion_of :probability, :cost, :schedule, :technical, :other_type,  :in => [3, 2, 1], :allow_nil=> true
 
    #validates_uniqueness_of :title, :scope => :project_id #no longer required!
     #risks are uniquely identified by proj-prefix + risk_id.
@@ -20,7 +16,7 @@ class Risk < ActiveRecord::Base
    #validate :owner_exists
 
    belongs_to :project
-   #belongs_to :creator, :class_name => "User"
+   belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
 
 =begin clients no longer require a creator.
@@ -58,8 +54,7 @@ class Risk < ActiveRecord::Base
         end
       end
       @risk = Risk.new(risk_hash)
-      # @risk.creator_id = uid
-      # @risk.owner_id = uid
+      @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculate_days_to_impact
