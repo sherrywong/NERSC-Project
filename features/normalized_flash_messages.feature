@@ -8,21 +8,18 @@ Background: Some projects have already been added to database.
     Given I am logged in as an admin
     Given a set of projects exist
 
-Scenario: view a project that the user doesn't have read permissions
-    Given I am logged in as an admin
+Scenario: View a project that the user is not a member of.
+    Given I am logged in as Linda
     And I am on the project page
-    When I go to the project page for "First Project"
-    Then I should see "Don't have permission to view this project."
+    When I go to the project page for "Second Project"
+    Then I should see "Sorry, you don't have access to the requested project."
 
-Scenario: Add project with missing fields
-    And I am on the project page
-    When I go to the new project page
-    When I fill in "project_description" with "Project 5"
-    Then I press "Save" 
-    Then I should be on the new project page 
-    And I should see "Error: missing fields" 
+Scenario: Add risk to a project when user doesn't have permission to add risk.
+    Given I am logged in as Linda
+    When I go to Second Project's Add Risk page
+    Then I should see "Sorry, you don't have access to the requested project."
      
-Scenario: Add existing project
+Scenario: Add an existing project.
     And I am on the project page 
     When I go to the new project page 
     When I fill in "project_name" with "First Project"
@@ -30,14 +27,3 @@ Scenario: Add existing project
     Then I press "Save" 
     Then I should be on the new project page 
     And I should see "Error: Project already exists with that name."
-
-Scenario: add risk with missing fields
-    When I go to First Project's Add Risk page
-    Then I fill in "risk_description" with "Risk 4" 
-    Then I press "Save"
-    Then I should be on First Project's Add Risk page 
-    And I should see "Error: Missing field"
-   
-Scenario: Add risk to a project when user doesn't have permission to add risk
-    When I go to Third Project's Add Risk page
-    Then I should see "Error: Don't have permission to add risks to this project."

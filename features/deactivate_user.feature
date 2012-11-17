@@ -7,7 +7,7 @@ Background: Some user logins exist.
     Given a set of users exist   
     And I am logged in as an admin
 
-Scenario: Delete a user
+Scenario: Deactivate a user.
     When I am on the project page
     And I go to the show users page
     And I click on deactivate user for "bobw"

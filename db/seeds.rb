@@ -21,7 +21,7 @@ proj1 = admin.create_project(:name=>:MyFirstProject, :description => "This is th
 #proj1.owner = admin
 proj1.add_members(User.all.map {|x| x.id})
 Risk.create_risk(admin.id, 1, {:cost=> 3, :schedule => 2, :technical => 1, :status=> "active", :early_impact=> "2008-11-20", :last_impact=> "2013-10-20", :owner_id=>"admin", :description => "Project 1 risk 1", :probability => 2, :title => "Risk"}) 
-Risk.create_risk(admin.id, 1, {:cost=> 1, :schedule => 2, :technical => 3, :status=> "active", :early_impact=> "2013-11-20", :last_impact=> "2013-11-2", :owner_id=>"admin", :description => "Project 1 risk 2", :probability => 3, :title => "Risk 2"})
+Risk.create_risk(admin.id, 1, {:cost=> 1, :schedule => 2, :technical => 3, :status=> "active", :early_impact=> "2013-11-20", :last_impact=> "2013-11-2", :owner_id=>"jason", :description => "Project 1 risk 2", :probability => 3, :title => "Risk 2"})
 
 
 proj2 = admin.create_project(:name=>:MySecondProject, :description => "This is my second test project") #only admin can create, set owner to jason after.

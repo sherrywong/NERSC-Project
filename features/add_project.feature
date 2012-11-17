@@ -33,6 +33,13 @@ Scenario: Edit a project.
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
 
+Scenario: Add project with missing fields.
+    And I am on the project page
+    When I go to the new project page
+    When I fill in "project_description" with "Project 5"
+    Then I press "Save" 
+    Then I should be on the new project page 
+
 Scenario: View a project that the user doesn't have read permissions.
     Given I am logged in as an admin
     And I am on the project page
