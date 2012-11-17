@@ -25,15 +25,14 @@ Scenario: Add valid risk.
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
     When I fill in "risk_owner_id" with "admin"
-    When I fill in "risk_description" with "Our second risk for project 1."
+    When I fill in "risk_description" with "Our test risk for First Project."
     Then I should see "Root Cause"
     When I fill in "risk_probability" with "2"
     When I select "High" from "risk[cost]"
     When I select "Medium" from "risk[schedule]"
-    When I select "High" from "risk[technical]"
-    When I fill in "risk_status" with "Active"
-    When I fill in "risk_early_impact" with "01/02/13"
-    When I fill in "risk_last_impact" with "03/02/13"
+    When I select "Low" from "risk[technical]"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
     Then I should see "Mitigation"
     Then I should see "Contingency"
     Then I should see "Critical Path"
@@ -43,7 +42,7 @@ Scenario: Add valid risk.
     Then I should see "Comments"
     Then I press "Save"
     Then I should be on the Risk page for First Project
-    And I should see "Risk 'Test Risk' created."
+    Then there should be this message: "Risk 'Test Risk' created."
 
 Scenario: Edit a valid risk.
     When I go to the Risk page for First Project
@@ -58,8 +57,7 @@ Scenario: Add a risk with missing fields.
     Then I fill in "risk_title" with "Test Risk2" 
     Then I fill in "risk_description" with "Risk 4" 
     Then I press "Save"
-    Then I should be on First Project's Add Risk page 
-    And I should see "Please fill out" 
+    Then I should be on First Project's Add Risk page
 #we will show all the fields they didn't fill out
 
 Scenario: View a risk that the user doesn't have read permission
