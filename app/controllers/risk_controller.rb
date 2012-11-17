@@ -7,7 +7,16 @@ class RiskController < ApplicationController
   def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    @risks = @project.risks
+    sort = params[:sort] || session[:sort]
+    case sort
+      when "title"
+      @risks = @project.risks.sort_by { |risk| risk.title }
+      when "status"
+      @risks = @project.risks.sort_by { |risk| risk.status }
+      else
+        @risks = @project.risks
+    end
+    # @risks = @project.risks
   end
 
   def new

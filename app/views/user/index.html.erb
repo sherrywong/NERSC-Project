@@ -9,9 +9,9 @@
 <h2>My Projects </h2>
 <table class="table table-striped" id="projects">
     <tr>
-    <th class = 'first'><%= "Title" %></th>
+    <th><%= link_to "Title", user_index_path(:sort => "title") %></th>
     <th><%= "Description" %></th>
-    <th><%= "Status" %></th>
+    <th><%= link_to "Status", user_index_path(:sort => "status") %></th>
 
     <th><%= "Deactivate?" %></th>
 

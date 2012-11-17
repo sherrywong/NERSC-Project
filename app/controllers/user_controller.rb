@@ -8,13 +8,33 @@ class UserController < ApplicationController
     if @user.nil?
        @projects = []
     else
-       @projects = @user.projects
+       sort = params[:sort] || session[:sort]
+       case sort
+          when "title"
+         @projects = @user.projects.sort_by { |project| project.name }
+          when "status"
+         @projects = @user.projects.sort_by { |project| project.status }
+         else
+           @projects = @user.projects
+       end
+      #  @projects = @user.projects
     end
     # @projects = Project.find(:all)
   end
 
   def show_users
-    @users= User.all
+    sort = params[:sort] || session[:sort]
+    case sort
+      when "username"
+        @users = User.order("username")
+      when "email"
+        @users = User.order("email")
+      when "status"
+        @users = User.order("status")
+      else
+        @users = User.all
+    end
+    # @users= User.all
   end
 
   def new
@@ -45,7 +65,7 @@ class UserController < ApplicationController
     @user = get_current_user
     if @user.deactivate_user(params[:uid])
       flash[:notice] = "User deactivated."
-    else 
+    else
       flash[:notice] = "You cannot deactivate this user."
     end
     redirect_to "/user/show_users"

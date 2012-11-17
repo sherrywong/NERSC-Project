@@ -9,7 +9,7 @@
 
 <table class="zebra-striped clearfix" id="projects">
     <tr>
-    <th class = 'first'><%= "Title" %></th>
+    <th><%= link_to "Title", project_index_path(:sort => "title") %></th>
     <th><%= "Description" %></th>
     </tr>
 <%= render 'project_list', {:projects => @projects } -%>
