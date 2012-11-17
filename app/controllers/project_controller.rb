@@ -12,6 +12,7 @@ class ProjectController < ApplicationController
   end
 
   def new
+    print "\n\n LOOK HERE\n #{params} \n\n\n"
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
@@ -51,6 +52,7 @@ class ProjectController < ApplicationController
   end
 
   def update
+    print "\n\n LOOK HERE\n #{params[:project]} \n\n\n"
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     @user.update_project(@project, params[:project])

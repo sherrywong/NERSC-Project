@@ -1,15 +1,26 @@
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name, :prefix
+  attr_accessible :description, :name, :prefix, :probability_impact_11, :probability_impact_12, :probability_impact_13, :probability_impact_21, :probability_impact_22, :probability_impact_23, :probability_impact_31, :probability_impact_32, :probability_impact_33
   #not included: status should not be assignable by the normal user.
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_uniqueness_of :prefix
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
-
+  validates_inclusion_of :probability_impact_11, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_12, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_13, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_21, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_22, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_23, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_31, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_32, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_33, :in => [1,2,3]
+  
   before_validation :init_prefix
   def init_prefix
     self.prefix ||= self.name
   end
+  
+  
   
   has_many :project_memberships, :dependent => :destroy #assume destroy for now.
   has_many :users, :through => :project_memberships #identical to members
