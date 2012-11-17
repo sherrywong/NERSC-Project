@@ -1,9 +1,10 @@
 <table class ="table table-striped">
-  <th><%= "Members" %> </th>
+  <th><%= link_to "Members", edit_project_path(@project.id, :sort =>
+                                               "members") %> </th>
   <% if @user.admin? %>
   <th><%= "Remove?" %></th>
   <% end %>
-  <% for member in @project.members %>
+  <% for member in @proj_members %>
   <tr class="success">
       <td><%= member.username %></td>
       <% if @user.admin? %>

@@ -44,7 +44,7 @@ class Risk < ActiveRecord::Base
 
 
     def calculate_days_to_impact
-      return [self.early_impact-Date.today, 0].max
+      return [self.early_impact - Date.today, 0].max
     end
 
     def self.create_risk(uid, pid, risk_hash)

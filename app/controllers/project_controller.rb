@@ -1,4 +1,5 @@
 class ProjectController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
   before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
@@ -27,9 +28,21 @@ class ProjectController < ApplicationController
     end
   end
 
+
+
   def edit
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    sort = params[:sort] || session[:sort]
+    case sort
+      when "members"
+      @proj_members = @project.members
+      @proj_members = @proj_members.sort_by {|usr| usr.username}
+      else
+        @proj_members = @project.members
+    end
+
+
     if @project.nil?
         flash[:notice] = "That project does not exist."
         redirect_to "/user/index"
@@ -82,6 +95,14 @@ class ProjectController < ApplicationController
     @project.remove_member(params[:uid])
     flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
     redirect_to edit_project_path(params[:pid])
+  end
+
+  def sort_column
+    Project.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
 end

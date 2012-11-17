@@ -10,7 +10,7 @@
 <%= risk.status %>
 </td>
 <% if @user.admin? or risk.owner_id == @user.id%>
-       <td><%= link_to "X", {:controller => 'risk', :action=> 'destroy', :rid => risk.id} -%></td>
+       <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id) -%></td>
 <% else %>
        <td><%= 'N/A' %>
 <% end %>
