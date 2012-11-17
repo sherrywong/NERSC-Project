@@ -60,8 +60,11 @@ end
 
 Given /^a set of projects exist$/ do
   #coordinators, project_id, department, start, end
-  @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
+  proj1 = @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
+  proj1.add_members(User.all.map {|x| x.id})
+
   proj2 = @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"jt"})
+
   proj3 = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"admin"})
   proj3.add_members(User.all.map {|x| x.id})
 end
@@ -69,7 +72,7 @@ end
 Given /^a set of risks exist$/ do
   #coordinators, project_id, department, start, end, risk_id, originator
   Risk.create_risk(@admin_user.id, 1, {:title => "First Risk", :owner_id=>"admin" , :description => "Risk1 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
-  Risk.create_risk(@admin_user.id, 1, {:title => "Second Risk", :owner_id=>"admin" , :description => "Risk2 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, 1, {:title => "Second Risk", :owner_id=>"jt" , :description => "Risk2 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
   Risk.create_risk(@admin_user.id, 1, {:title => "Third Risk", :owner_id=>"admin" , :description => "Risk3 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
 end
 
@@ -133,7 +136,6 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 And /^(?:|I )click on deactivate user for "([^"]*)"$/ do |user|
-  #visit "/user/destroy?uid=2"
   visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
@@ -141,8 +143,8 @@ And /^(?:|I )click on deactivate project for "([^"]*)"$/ do |project|
   visit("/project/destroy?pid=" + Project.find_by_name(project).id.to_s)
 end
 
-And /^(?:|I )click on deactivate risk for "([^"]*)"$/ do |risk|
-  visit("/risk/destroy?rid=" + Risk.find_by_name(risk).id.to_s)
+And /^(?:|I )click on deactivate risk for "([^"]*)" in "([^"]*)"$/ do |risk, project|
+  visit("/project/" + Project.find_by_name(project).id.to_s + "/risk/destroy?rid=" + Risk.find_by_title(risk).id.to_s)
 end
 
 And /^(?:|I )click on delete project member "([^"]*)" for "([^"]*)"$/ do |user, project|
@@ -353,8 +355,12 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-Then /^there should not be deactivate for "([^"]*)"$/ do |project|
-  page.body.match /<tr.*\/#{project}\/.*N\/A.*<\/tr>/
+Then /^there should not be deactivate project for "([^"]*)"$/ do |project|
+  page.body.match /<tr>.*\/#{project}\/.*N\/A.*<\/tr>/
+end
+
+Then /^there should not be deactivate risk for "([^"]*)"$/ do |risk|
+  page.body.match /<tr>.*\/#{risk}\/.*N\/A.*<\/tr>/
 end
 
 Then /^there should be this message: "([^"]*)"$/ do |error|

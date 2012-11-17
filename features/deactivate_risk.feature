@@ -12,14 +12,13 @@ Background:
 Scenario: Admin or owners should be able to deactivate risk.
     Given I am logged in as an admin
     And I go to the Risk page for First Project
-    And I click on deactivate risk for "Second Risk" 
+    And I click on deactivate risk for "First Risk" in "First Project"
 #    Then I should see "Are you sure you want to delete test?"
 #    Then I press "Yes"
-    And I go to the Risk page for First Project
-    And I should see "Risk 'Second Risk' deactivated."
+    Then I should be on the Risk page for First Project
+    And I should see "Risk 'First Risk' deactivated."
 
-Scenario: non-owner/admins cannot deactivate a risk.
-    Given I am logged in as a non-owner user
+Scenario: A user that is neither an owner nor an admin cannot deactivate a risk.
+    Given I am logged in as Linda
     And I go to the Risk page for First Project
-    And I click on deactivate risk for "First Risk"
-    Then I should see "You do have permission to delete this risk."
+    Then there should not be deactivate project for "Second Risk"

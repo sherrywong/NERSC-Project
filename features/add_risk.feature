@@ -46,7 +46,6 @@ Scenario: Add valid risk.
     And I should see "Risk 'Test Risk' created."
 
 Scenario: Edit a valid risk.
-    Given I am logged in as an admin
     When I go to the Risk page for First Project
     When I go to the first project's First Risk's Edit page
     When I fill in "risk_title" with "Title Changed"
