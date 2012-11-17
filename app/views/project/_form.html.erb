@@ -22,9 +22,9 @@
         <% (0..2).each do |p| %>
           <td class = 'risk_cell' id="risk_matrix[<%= i%><%= p%>]">
              <select class='risk_menu' onchange="changeColor(this);" name = 'risk_matrix[<%= i %><%= p %>]'>
-                <option value="Low">Low</option>
-                <option value="Med">Med</option>
-                <option value="High">High</option>
+                <option value="1">Low</option>
+                <option value="2">Med</option>
+                <option value="3">High</option>
              </select>
          </td>
         <% end %>

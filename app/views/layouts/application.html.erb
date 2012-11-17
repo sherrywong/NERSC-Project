@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <title>NERSC Risk Tracker</title>
+  <%= javascript_include_tag "prototype" %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+
   <%= calendar_date_select_includes %>
   <%= csrf_meta_tags %>
 
@@ -24,7 +26,7 @@
     <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
     <a class="brand" href="/user/index">NERSC Risk Tracker</a>
-    </ul>
+
     </div>
     </div>
 
@@ -65,9 +67,6 @@
 <% else %>
 <%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
 <% end %>
-</div>
-</center>
-</div>
 </div>
 </body>
 </html>
