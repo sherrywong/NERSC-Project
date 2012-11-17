@@ -5,10 +5,16 @@
     Title: <%= text_field 'risk', 'title', :required => true%>
     </div>
     <div>
+    Short Title: <%= text_field 'risk', 'short_title'%>
+    </div>
+    <div>
     Owner: <%= text_field 'risk', 'owner_id', :required => true%>
     </div>
     <div>
     Description: <%= text_field 'risk', 'description', :required => true %>
+    </div>
+    <div>
+    Root Cause: <%= text_field 'risk', 'root_cause'%>
     </div>
     <div>
     Probability: <%= text_field 'risk', 'probability', :required => true %>
@@ -45,6 +51,24 @@
     </div>
     <div>
     Last Impact: <%= calendar_date_select 'risk', 'last_impact' %>
+    </div>
+    <div>
+    Mitigation: <%= text_field 'risk', 'mitigation' %>
+    </div>
+    <div>
+    Contingency: <%= text_field 'risk', 'contingency' %>
+    </div>
+    <div>
+    Critical Path: <%= text_field 'risk', 'critical_path' %>
+    </div>
+    <div>
+    WBS Spec: <%= text_field 'risk', 'wbs_spec' %>
+    </div>
+     <div>
+    Type: <%= text_field 'risk', 'type' %>
+    </div>
+    <div>
+    Other Type: <%= text_field 'risk', 'other_type' %>
     </div>
     <form>
      Comments:

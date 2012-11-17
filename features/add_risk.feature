@@ -23,8 +23,10 @@ Background: some projects and no risks have been added to database
 Scenario: Add valid risk.
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
+    Then I should see "Short Title"
     When I fill in "risk_owner_id" with "admin"
     When I fill in "risk_description" with "Our second risk for project 1."
+    Then I should see "Root Cause"
     When I fill in "risk_probability" with "2"
     When I select "High" from "risk[cost]"
     When I select "Medium" from "risk[schedule]"
@@ -32,6 +34,13 @@ Scenario: Add valid risk.
     When I fill in "risk_status" with "Active"
     When I fill in "risk_early_impact" with "01/02/13"
     When I fill in "risk_last_impact" with "03/02/13"
+    Then I should see "Mitigation"
+    Then I should see "Contingency"
+    Then I should see "Critical Path"
+    Then I should see "WBS Spec"
+    Then I should see "Type"
+    Then I should see "Other Type"
+    Then I should see "Comments"
     Then I press "Save"
     Then I should be on the Risk page for First Project
     And I should see "Risk 'Test Risk' created."
@@ -40,12 +49,6 @@ Scenario: Edit a valid risk.
     Given I am logged in as an admin
     When I go to the Risk page for First Project
     When I go to the first project's First Risk's Edit page
-    Then I should see "Comments"
-    Then I should see "Short Title"
-    Then I should see "Root Cause"
-    Then I should see "Mitigation"
-    Then I should see "Contingency"
-    Then I should see "Other Risks"
     When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
     Then I should be on the first project's Risk page
