@@ -55,7 +55,7 @@ NerscProject::Application.routes.draw do
   match "/user/login" => 'user#login'
   match "/user/index" => 'user#index'
   match "/user/destroy" => 'user#destroy', :as => :destroy_user
-  match "/user/show_users" => 'user#show_users'
+  match "/user/show_users" => 'user#show_users', :as => :show_users
   match "/user/new" => 'user#new'
   match "/user/project/index" => 'project#index'
   match "/user/project/new" => 'project#new'
