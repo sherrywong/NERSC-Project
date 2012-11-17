@@ -61,8 +61,9 @@ end
 Given /^a set of projects exist$/ do
   #coordinators, project_id, department, start, end
   @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"admin"})
-  @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"admin"})
+  proj2 = @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"jt"})
+  proj3 = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"admin"})
+  proj3.add_members(User.all.map {|x| x.id})
 end
 
 Given /^a set of risks exist$/ do
@@ -350,4 +351,8 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+When /^there should not be deactivate for "([^"]*)"$/ do |project|
+  page.body.match /<tr.*\/#{project}\/.*N\/A.*<\/tr>/
 end

@@ -20,6 +20,6 @@ Scenario: admin or owners should be able to delete risk
     And I go to the Risk page for First Project
     And I click on deactivate risk for "test" 
     Then I should see "Are you sure you want to delete test?"
-    And I click "Yes"
+    Then I press "Yes"
     And I go to the Risk page for First Project
     And I should not see "test"
