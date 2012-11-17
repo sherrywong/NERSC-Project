@@ -131,13 +131,17 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
-And /^(?:|I )click on delete user for "([^"]*)"$/ do |user|
+And /^(?:|I )click on deactivate user for "([^"]*)"$/ do |user|
   #visit "/user/destroy?uid=2"
   visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
-And /^(?:|I )click on delete project for "([^"]*)"$/ do |project|
+And /^(?:|I )click on deactivate project for "([^"]*)"$/ do |project|
   visit("/project/destroy?pid=" + Project.find_by_name(project).id.to_s)
+end
+
+And /^(?:|I )click on deactivate risk for "([^"]*)"$/ do |risk|
+  visit("/risk/destroy?rid=" + Risk.find_by_name(risk).id.to_s)
 end
 
 And /^(?:|I )click on delete project member "([^"]*)" for "([^"]*)"$/ do |user, project|

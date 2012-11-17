@@ -11,13 +11,13 @@ Background: some projects and risks are already in the database.
 Scenario: Delete project
     Given I am logged in as an admin
     And I am on the project page
-    And I click on delete project for "First Project"
+    And I click on deactivate project for "First Project"
     And I should see "Project 'First Project' deactivated."	
 
 Scenario: Admins can delete
     Given I am logged in as an admin
     And I am on the project page for "Second Project"
-    And I click on delete project for "First Project"
+    And I click on deactivate project for "First Project"
 #confirmation?
     Then I should be on the project page
     And I should see "Project 'First Project' deactivated."
@@ -25,7 +25,7 @@ Scenario: Admins can delete
 Scenario: Project managers (owners) can delete their own projects
     Given I am logged in as Jason
     And I am on the project page for "Second Project"
-    And I click on delete project for "First Project"
+    And I click on deactivate project for "First Project"
 #confirmation?
     Then I should be on the project page
     And I should see "Project 'First Project' deactivated."
