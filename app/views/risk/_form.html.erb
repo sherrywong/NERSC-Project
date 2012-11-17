@@ -2,13 +2,16 @@
 <div class='editor-left'>
   <div>
     <div>
-    Title: <%= text_field 'risk', 'title', :placeholder => "Title", :required => true%>
+    Title: <%= text_field 'risk', 'title', :required => true%>
     </div>
     <div>
-    Description: <%= text_field 'risk', 'description', :placeholder => "Description", :required => true %>
+    Owner: <%= text_field 'risk', 'owner_id', :required => true%>
     </div>
     <div>
-    Probability: <%= text_field 'risk', 'probability', :placeholder => "Probability", :required => true %>
+    Description: <%= text_field 'risk', 'description', :required => true %>
+    </div>
+    <div>
+    Probability: <%= text_field 'risk', 'probability', :required => true %>
     </div>
     <div>
     Cost:
@@ -35,16 +38,13 @@
     </select>
     </div>
     <div>
-    Status: <%= text_field 'risk', 'status', :placeholder => "Status", :required => true %>
+    Status: <%= text_field 'risk', 'status', :required => true %>
     </div>
     <div>
     Early Impact: <%= calendar_date_select 'risk', 'early_impact' %>
     </div>
     <div>
-    Last Impact:
-    </div>
-    <div>
-    Owner: <%= text_field 'risk', 'owner_id', :placeholder => "Owner", :required => true%>
+    Last Impact: <%= calendar_date_select 'risk', 'last_impact' %>
     </div>
     <form>
      Comments:

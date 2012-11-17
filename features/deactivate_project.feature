@@ -28,7 +28,6 @@ Scenario: Project managers (owners) can delete their own projects
     And I click on delete project for "First Project"
 #confirmation?
     Then I should be on the project page
-    And I should not see "First Project"
     And I should see "Project 'First Project' deactivated."
     
 Scenario: Project managers (owners) cannot delete other projects

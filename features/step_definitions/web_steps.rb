@@ -31,6 +31,7 @@ module WithinHelpers
 end
 World(WithinHelpers)
 @usr
+@admin_user
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
     User.create(user_hash);
@@ -45,7 +46,11 @@ Given /^the following projects exist:$/ do |table|
 end
 
 Given /^a set of users exist$/ do
-  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active", "admin" => true})
+#  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active", "admin" => true})
+
+  @admin_user = User.create(:first=>:ADMIN, :last => :ACCOUNT, :email => "admin@gmail.com", :username => :admin, :password => :admin, :status => "active")
+  @admin_user.admin = true; @admin_user.save
+
   User.create({"username"=>"ag", "email"=>"anna@gmail.com", "first"=>"Anensshiya", "last"=>"Govinthasamy", "admin"=>"true", "password"=>"agovinthasamy", "status"=>"active"})
   User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
   User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
@@ -61,10 +66,10 @@ Given /^a set of projects exist$/ do
 end
 
 Given /^a set of risks exist$/ do
-  #coordinators, project_id, department, start, end
-  Risk.create_risk(@usr.id, 1, {"title"=>"First Risk", "project"=>"First Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"em", "description"=>"Risk1 for P1", "id_date"=>"02-11-2012", "cost"=>"10", "probability"=>"high"})
-  Risk.create_risk(@usr.id, 2, {"title"=>"Second Risk", "project"=>"Second Project", "risk_id"=>"1-1", "originator"=>"jt", "owner"=>"em", "description"=>"Risk1 for P2", "id_date"=>"03-11-2012"}, "cost"=>"10", "probability"=>"high")
-  Risk.create_risk(@usr.id, 3, {"title"=>"Third Risk", "project"=>"Third Project", "risk_id"=>"1-1", "originator"=>"ag", "owner"=>"bobw", "description"=>"Risk1 for P3", "id_date"=>"04-11-2012", "cost"=>"10", "probability"=>"high"})
+  #coordinators, project_id, department, start, end, risk_id, originator
+  Risk.create_risk(@admin_user.id, 1, {:title => "First Risk", :owner_id=>"admin" , :description => "Risk1 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, 1, {:title => "Second Risk", :owner_id=>"admin" , :description => "Risk2 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, 1, {:title => "Third Risk", :owner_id=>"admin" , :description => "Risk3 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
 end
 
 Given /^I am logged in as (.+)$/ do |user|
