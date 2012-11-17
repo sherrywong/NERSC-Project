@@ -84,9 +84,6 @@ Given /^I am logged in as (.+)$/ do |user|
   elsif user == "Linda"
     fill_in 'username', :with => 'lz'
     fill_in 'password', :with => 'lzhang'
-  elsif user == "Elise"
-    fill_in 'username', :with => 'em'
-    fill_in 'password', :with => 'emccallum'
   elsif user == "Jason"
     fill_in 'username', :with => 'jt'
     fill_in 'password', :with => 'jteoh'
