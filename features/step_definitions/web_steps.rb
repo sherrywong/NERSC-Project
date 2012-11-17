@@ -353,6 +353,10 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-When /^there should not be deactivate for "([^"]*)"$/ do |project|
+Then /^there should not be deactivate for "([^"]*)"$/ do |project|
   page.body.match /<tr.*\/#{project}\/.*N\/A.*<\/tr>/
+end
+
+Then /^there should be this message: "([^"]*)"$/ do |error|
+  page.body.include?(error)
 end
