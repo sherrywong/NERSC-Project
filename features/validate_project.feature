@@ -25,9 +25,7 @@ Scenario: Add existing project
     When I fill in "project_name" with "First Project"
     When I fill in "project_description" with "Project 5"
 #    When I fill in "project_members" with "User3"
-#    When I fill in "project_manager" with "Linda" 
-#    When I fill in "risk_coords" with "Anna" 
-#    When I fill in "proj_id" with 1 
+#    When I fill in "project_manager" with "Linda"
 #    When I fill in "dept" with "CS" 
     Then I press "Save" 
     Then I should be on the new project page 
