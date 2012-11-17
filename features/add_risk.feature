@@ -58,8 +58,7 @@ Scenario: Add a risk with missing fields.
     Then I fill in "risk_title" with "Test Risk2" 
     Then I fill in "risk_description" with "Risk 4" 
     Then I press "Save"
-    Then I should be on First Project's Add Risk page 
-    And I should see "Please fill out" 
+    Then I should be on First Project's Add Risk page
 #we will show all the fields they didn't fill out
 
 Scenario: View a risk that the user doesn't have read permission
