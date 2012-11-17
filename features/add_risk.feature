@@ -17,6 +17,7 @@ Background: some projects and no risks have been added to database
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
+    Given a set of risks exist
     And I am on the project page 
 	
 Scenario: Add valid risk.
@@ -36,9 +37,9 @@ Scenario: Add valid risk.
     And I should see "Risk 'Test Risk' created."
 
 Scenario: Edit a valid risk.
+    Given I am logged in as an admin
+    When I go to the Risk page for First Project
     When I go to the first project's First Risk's Edit page
-    Then I should see "Risk Creator"
-    Then I should see "Risk Date"
     Then I should see "Comments"
     Then I should see "Short Title"
     Then I should see "Root Cause"
