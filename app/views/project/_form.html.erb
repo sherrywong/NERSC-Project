@@ -38,7 +38,7 @@
     </div>
     <br>
     <% if (not @user.nil?) and (not @project.nil?) %>
-      <% if (@user.admin? and @project.status == 'active') or (@project.owner = @user and @project.status == 'active')%>
+      <% if (@user.admin? and @project.status == 'active') or (@project.owner == @user and @project.status == 'active')%>
       <%= submit_tag "Save" %>
       <% end %>
     <% else %>
