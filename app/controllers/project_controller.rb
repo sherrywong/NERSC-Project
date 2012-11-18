@@ -1,5 +1,5 @@
 class ProjectController < ApplicationController
-  autocomplete :members
+
   helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
