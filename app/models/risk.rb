@@ -48,7 +48,8 @@ class Risk < ActiveRecord::Base
     end
 
     def calculate_risk_rating
-      return self.probability * [self.cost, self.schedule, self.technical].max
+      proj = self.project
+      return eval(%Q{proj.probability_impact_#{self.probability}#{[self.cost, self.schedule, self.technical].max}})
     end
 
 

@@ -17,15 +17,15 @@
     </div>
     <div>Risk Matrix
       <table id="risk_mx">
-      <% (1..3).each do |i| %>
+      <% 3.downto(1).each do |p| %>
         <tr>
-        <% (1..3).each do |p| %>
-          <td class = 'risk_cell' id="project[probability_impact_<%= i%><%= p%>]">
-             <select class='risk_menu' onchange="changeColor(this);" name = 'project[probability_impact_<%= i %><%= p %>]'>
+        <% (1..3).each do |i| %>
+          <td class = 'risk_cell' id="project[probability_impact_<%= p%><%= i%>]">
+             <select class='risk_menu' onchange="changeColor(this);" name = 'project[probability_impact_<%= p %><%= i %>]'>
              <%# JT - changed values to 1 2 3 - database dependent information sorry for the bad style!%>
-                <option value="3" <%= "selected" if @project and eval  "@project.probability_impact_#{i}#{p} == 3"%>>High</option>
-                <option value="2" <%= "selected" if @project and eval  "@project.probability_impact_#{i}#{p} == 2"%>>Med</option>
-                <option value="1" <%= "selected" if @project and eval  "@project.probability_impact_#{i}#{p} == 1"%>>Low</option>
+                <option value="3" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 3"%>>High</option>
+                <option value="2" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 2"%>>Med</option>
+                <option value="1" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 1"%>>Low</option>
              </select>
          </td>
         <% end %>
