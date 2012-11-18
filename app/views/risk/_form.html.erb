@@ -2,8 +2,8 @@
 
 <div class='editor-left'>
 
-  <% if @rsk!=nil%>
-   <%= render "home/shared/error_messages", :target => @rsk %>
+  <% if @risk!=nil%>
+   <%= render "home/shared/error_messages", :target => @risk %>
   <% end %>
 
 
@@ -15,7 +15,11 @@
     Short Title: <%= text_field 'risk', 'short_title'%>
     </div>
     <div>
-    Owner: <%= text_field 'risk', 'owner_id', :required => true%>
+    Owner: <% if @risk.nil? %>
+<%= text_field 'risk', 'owner_id', :required => true%>
+<% else %>
+<%= text_field 'risk', 'owner_id', :value => @risk_owner_username %>
+<% end %>
     </div>
     <div>
     Description: <%= text_field 'risk', 'description', :required => true %>

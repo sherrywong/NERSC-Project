@@ -27,11 +27,11 @@ class RiskController < ApplicationController
 
   def new
     @user = get_current_user
-    @rsk = nil
+    @risk = nil
     if request.post?
-      @rsk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
-      if @rsk.errors.empty?
-        flash[:notice] = "Risk '#{@rsk.title}' created."
+      @risk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
+      if @risk.errors.empty?
+        flash[:notice] = "Risk '#{@risk.title}' created."
         redirect_to risk_index_path(params[:pid])
       end
     end
@@ -44,20 +44,49 @@ class RiskController < ApplicationController
       flash[:notice] = "That risk does not exist."
       redirect_to user_index_path
     end
-    @risk_creator_username = @risk.find_username(@risk.creator_id)
-    @risk_owner_username = @risk.find_username(@risk.owner_id)
+    if not @risk.creator_id.nil?
+      @risk_creator_username = @risk.find_username(@risk.creator_id)
+      end
+    if not @risk.owner_id.nil?
+      @risk_owner_username = @risk.find_username(@risk.owner_id)
+      end
+    if not @risk.probability.nil?
+      @risk_probability = int_to_value(@risk.probability)
+    end
+    if not @risk.cost.nil?
+      @risk_cost = int_to_value(@risk.cost)
+    end
+    if not @risk.schedule.nil?
+      @risk_schedule = int_to_value(@risk.schedule)
+    end
+    if not @risk.technical.nil?
+      @risk_technical = int_to_value(@risk.technical)
+    end
+  end
+
+  def int_to_value(int)
+    if int == 1
+      return "Low"
+    elsif int == 2
+      return "Med"
+    elsif int == 3
+      return "High"
+    end
   end
 
   def edit
     @user = get_current_user
-    if params[:risk] ==nil 
+    if params[:risk] ==nil
       @risk = Risk.find_by_id(params[:rid])
-    else 
+    else
       @risk = params[:risk]
     end
     if @risk.nil?
       flash[:notice] = "That risk does not exist."
       redirect_to risk_index_path(params[:pid])
+    end
+    if not @risk.owner_id.nil?
+      @risk_owner_username = @risk.find_username(@risk.owner_id)
     end
   end
 
