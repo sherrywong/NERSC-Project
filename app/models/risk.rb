@@ -1,6 +1,6 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
-  has_paper_trail :only => [:update, :destroy]
+  # has_paper_trail :only => [:update, :destroy]
   audited
    attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id
 
@@ -74,14 +74,14 @@ class Risk < ActiveRecord::Base
   ##this is probably not needed anymore? since i'm updating risk in user.rb##
     def self.update_risk(risk_hash, risk)
       if risk_hash[:owner_id]!=nil
-	 @owner = User.find_by_username(risk_hash[:owner_id])
+   @owner = User.find_by_username(risk_hash[:owner_id])
         if @owner==nil
           risk.errors[:owner] << "does not exist"
         else
           risk_hash[:owner_id] = @owner.id
-        end 
+        end
       end
-      if risk.errors.empty? 
+      if risk.errors.empty?
         risk.update_attributes!(risk_hash)
         risk.risk_rating = risk.calculate_risk_rating
         risk.days_to_impact = risk.calculate_days_to_impact
