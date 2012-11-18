@@ -4,8 +4,8 @@ Feature: Deactivate a risk
     I want to be able to delete unnecesary or duplicate risks.
 
 Background:
-    Given I am logged in as an admin
     Given a set of users exist
+    Given I am logged in as an admin
     Given a set of projects exist
     Given a set of risks exist
 

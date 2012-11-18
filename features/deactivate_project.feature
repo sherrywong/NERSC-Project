@@ -4,8 +4,8 @@ Feature: Deactivate a project
     I want to be able to delete projects
     
 Background: some projects and risks are already in the database.
-    Given I am logged in as an admin
     Given a set of users exist
+    Given I am logged in as an admin
     Given a set of projects exist
 
 Scenario: Admins can deactivate a project.

@@ -52,10 +52,16 @@ Scenario: Edit a valid risk.
     Then I should be on the first project's Risk page
     And I should see "Risk 'Title Changed' was successfully updated."
 
-Scenario: Add a risk with missing fields.
+Scenario: Add a risk with missing fields. #Doesn't have title.
     When I go to First Project's Add Risk page
-    Then I fill in "risk_title" with "Test Risk2" 
-    Then I fill in "risk_description" with "Risk 4" 
+    When I fill in "risk_owner_id" with "admin"
+    When I fill in "risk_description" with "Our test risk for First Project."
+    When I select "High" from "risk[probability]"
+    When I select "High" from "risk[cost]"
+    When I select "Medium" from "risk[schedule]"
+    When I select "Low" from "risk[technical]"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
     Then I should be on First Project's Add Risk page
 #we will show all the fields they didn't fill out

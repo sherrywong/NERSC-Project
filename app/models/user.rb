@@ -58,8 +58,6 @@ class User < ActiveRecord::Base
 
   def extract_owner_username(project_hash)
     if new_owner = User.find_by_username(project_hash.delete("owner_username"))
-        #print "FOUND AN OWNER: #{new_owner}\n"
-        #print "NEW HASH: #{project_hash}\n"
     end
     return new_owner
   end
@@ -90,10 +88,8 @@ class User < ActiveRecord::Base
   end
 
   def update_project(project, project_hash)
-    print "FOUND THE PROJECT HASH HERE! #{project_hash}\n\n\n"
     new_owner = extract_owner_username(project_hash)
     temp = project.update_attributes(project_hash)
-    print "The attribute update was successful?: #{temp}\n\n\n"
     if not temp
         print project.errors.full_messages
     end
