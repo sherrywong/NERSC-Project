@@ -1,4 +1,5 @@
 class ProjectController < ApplicationController
+  autocomplete :members
   helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
@@ -10,6 +11,8 @@ class ProjectController < ApplicationController
     @projects = @user.projects
     #Project.all if we want to show all users
   end
+
+
 
   def new
     @user = get_current_user

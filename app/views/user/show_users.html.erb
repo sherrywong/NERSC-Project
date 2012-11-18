@@ -10,7 +10,7 @@
     <th><%= link_to "Username", show_users_path(:sort => "username") %></th>
     <th><%= link_to "Email", show_users_path(:sort => "email") %></th>
     <th><%= link_to "Status", show_users_path(:sort => "status") %></th>
-    <th><%= link_to "Deactivate?" %></th>
+    <th><%= "Deactivate?" %></th>
     </tr>
 <%= render 'user_list', {:users => @users } -%>
 </table>
