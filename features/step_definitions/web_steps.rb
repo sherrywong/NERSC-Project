@@ -365,6 +365,10 @@ Then /^there should be this message: "([^"]*)"$/ do |error|
   page.body.include?(error)
 end
 
+Then /^(?:|I )sort users by "([^"]*)"$/ do |field|
+  visit ('/user/show_users?sort=' + field.to_s)
+end
+
 Then /^(?:|I )sort projects by "([^"]*)"$/ do |field|
   visit ('/user/index?sort=' + field.to_s)
 end

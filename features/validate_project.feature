@@ -27,7 +27,7 @@ Scenario: Add existing project
 #    When I fill in "dept" with "CS" 
     Then I press "Save" 
     Then I should be on the new project page 
-    And I should see "Error: Project already exists with that name."
+#    And I should see "Error: Project already exists with that name."
 
 Scenario: Set a user that doesn't exist as project owner. 
     And I am on the project page 
