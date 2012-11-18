@@ -22,33 +22,33 @@
     <div>
     Probability:
     <select name="risk[probability]">
-      <option value='3'> High </option>
-      <option value='2'> Medium </option>
-      <option value='1'> Low </option>
+      <option value='3' <%= "selected" if @risk and @risk.probability == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.probability == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.probability == 1%>> Low </option>
     </select>
     </div>
     <div>
     Cost:
     <select name="risk[cost]">
-      <option value='3'> High </option>
-      <option value='2'> Medium </option>
-      <option value='1'> Low </option>
+      <option value='3' <%= "selected" if @risk and @risk.cost == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.cost == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.cost == 1%>> Low </option>
     </select>
     </div>
     <div>
    Schedule:
     <select name="risk[schedule]">
-      <option value='3'> High </option>
-      <option value='2'> Medium </option>
-      <option value='1'> Low </option>
+      <option value='3' <%= "selected" if @risk and @risk.schedule == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.schedule == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.schedule == 1%>> Low </option>
     </select>
     </div>
     <div>
     Technical:
     <select name="risk[technical]">
-      <option value='3'> High </option>
-      <option value='2'> Medium </option>
-      <option value='1'> Low </option>
+      <option value='3' <%= "selected" if @risk and @risk.technical == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.technical == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.technical == 1%>> Low </option>
     </select>
     </div>
     <div>
