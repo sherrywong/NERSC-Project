@@ -13,6 +13,12 @@ class RiskController < ApplicationController
       @risks = @project.risks.sort_by { |risk| risk.title }
       when "status"
       @risks = @project.risks.sort_by { |risk| risk.status }
+      when "owner"
+      @risks = @project.risks.sort_by { |risk| User.find_by_id(risk.owner_id).username }
+      when "early_impact"
+      @risks = @project.risks.sort_by { |risk| risk.early_impact }
+      when "last_impact"
+      @risks = @project.risks.sort_by { |risk| risk.last_impact }
       else
         @risks = @project.risks
     end

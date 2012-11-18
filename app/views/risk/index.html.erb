@@ -10,8 +10,11 @@
 
 <table class="zebra-striped clearfix" id="risks">
     <tr>
-    <th><%= link_to "Title", risk_index_path(params[:pid], :sort => "title")%></th>
+    <th><%= link_to "Title", risk_index_path(params[:pid], :sort => "title") %></th>
     <th><%= "Description" %></th>
+    <th><%= link_to "Risk Owner", risk_index_path(params[:pid], :sort => "owner") %></th>
+    <th><%= link_to "Early Impact", risk_index_path(params[:pid], :sort => "early_impact") %></th>
+    <th><%= link_to "Last Impact", risk_index_path(params[:pid], :sort => "last_impact") %></th>
     <th><%= link_to "Status", risk_index_path(params[:pid], :sort => "status")%></th>
 
     <th><%= "Deactivate?" %></th>

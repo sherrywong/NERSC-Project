@@ -49,10 +49,10 @@
     </select>
     </div>
     <div>
-    Early Impact: <%= calendar_date_select 'risk', 'early_impact' %>
+    Early Impact: <%= calendar_date_select 'risk', 'early_impact', :required => true %>
     </div>
     <div>
-    Last Impact: <%= calendar_date_select 'risk', 'last_impact' %>
+    Last Impact: <%= calendar_date_select 'risk', 'last_impact', :required => true %>
     </div>
     <div>
     Mitigation: <%= text_field 'risk', 'mitigation' %>

@@ -6,6 +6,15 @@
 <td>
 <%= risk.description %>
 </td>
+<td>
+<%= User.find_by_id(risk.owner_id).username %>
+</td>
+<td>
+<%= risk.early_impact %>
+</td>
+<td>
+<%= risk.last_impact %>
+</td>
 <td class='last'>
 <%= risk.status %>
 </td>
