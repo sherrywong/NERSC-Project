@@ -8,6 +8,8 @@
 <table class="zebra-striped clearfix" id="users">
     <tr = "warning">
     <th><%= link_to "Username", show_users_path(:sort => "username") %></th>
+    <th><%= link_to "First Name", show_users_path(:sort => "first") %></th>
+    <th><%= link_to "Last Name", show_users_path(:sort => "last") %></th>
     <th><%= link_to "Email", show_users_path(:sort => "email") %></th>
     <th><%= link_to "Status", show_users_path(:sort => "status") %></th>
     <th><%= "Deactivate?" %></th>
