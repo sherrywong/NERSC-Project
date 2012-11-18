@@ -10,12 +10,25 @@ Background: some projects and no risks have been added to database
     And I am on the project page 
 
 Scenario: set project specific risk parameters
-    When I fill in "risk_matrix[0][0]" with "Low"
-    Then "risk_matrix[0][0]" should be "Low"
-    And "risk_matrix[0][0]" should be "green"
-    When I fill in "risk_matrix[2][1]" with "High"
-    Then "risk_matrix[2][1]" should be "High"
-    And "risk_matrix[2][1]" should be "red"
-    When I fill in "risk_matrix[1][2]" with "Med"
-    Then "risk_matrix[1][2]" should be "Med"
-    And "risk_matrix[1][2]" should be "yellow"
+    When I go to the new project page
+    When I fill in "project_name" with "Test Project" 
+    And I fill in "project_prefix" with "test"
+    And I fill in "project_description" with "Project 4"
+    And I fill in "project_owner_username_members" with "admin"
+    When I select "Low" from "project[probability_impact_11]"
+    Then "project[probability_impact_11]" should be "Low"
+    And "project[probability_impact_11]" should be "green"
+    When I select "High" from "project[probability_impact_21]"
+    Then "project[probability_impact_21]" should be "High"
+    And "project[probability_impact_21]" should be "red"
+    When I select "Medium" from "project[probability_impact_12]"
+    Then "project[probability_impact_12]" should be "Med"
+    And "project[probability_impact_12]" should be "yellow"
+    Then I press "Save" 
+    Then I should be on the project page
+    And I should see "Project 'Test Project' created."
+    And I should see "Test Project"
+    Then I sort projects by "title"
+    Then I sort projects by "status"
+
+    
