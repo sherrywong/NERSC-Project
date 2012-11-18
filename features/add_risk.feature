@@ -49,6 +49,7 @@ Scenario: Add and edit a valid risk.
     Then I sort risks for "First Project" by "last_impact"
     Then I sort risks for "First Project" by "status"
     When I go to the first project's Test Risk's Edit page
+    When I fill in "risk_owner_id" with "admin"
     When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
     Then I should be on the risk page for First Project

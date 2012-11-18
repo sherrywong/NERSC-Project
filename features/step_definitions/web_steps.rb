@@ -380,3 +380,11 @@ end
 Then /^(?:|I )sort risks for "([^"]*)" by "([^"]*)"$/ do |project, field|
   visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + field.to_s)
 end
+
+Then /^there should a log on field "([^"]*)", old value "([^"]*)", and new value "([^"]*)"$/ do |field, oldV, newV|
+  page.body.match /<tr class="info">.*\/#{field}\/.*\/#{oldV}\/.*\/#{newV}\/.*<\/tr>/
+end
+
+When /^(?:|I )check the logs for "([^"]*)" in project "([^"]*)"$/ do |risk, project|
+  visit ('/project/' + Project.find_by_name(project).object_id.to_s + '/risk/' + Risk.find_by_title(risk).object_id.to_s)
+end

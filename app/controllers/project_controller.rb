@@ -66,6 +66,7 @@ class ProjectController < ApplicationController
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
+=begin
   def add_members
     members = params[:members]
     puts "MEMBERS", members
@@ -87,6 +88,7 @@ class ProjectController < ApplicationController
     @project.add_members(member_id_list)
     redirect_to edit_project_path(params[:pid])
   end
+=end
 
   def remove_member
     @project = Project.find_by_id(params[:pid])

@@ -45,7 +45,13 @@ module NavigationHelpers
 
     when /^the first project's (.*)'s Edit page$/i
       pid = Project.find_by_name("First Project").id
-      "/user/project/#{pid}/risk/#{Risk.find_by_title($1).id}/edit"
+      rid = 0
+      if Risk.find_by_title($1) == nil
+        rid = Risk.find_by_title($1).object_id
+      else
+        rid = Risk.find_by_title($1).id
+      end
+      "/user/project/#{pid}/risk/#{rid}/edit"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
