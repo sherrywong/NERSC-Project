@@ -34,6 +34,7 @@ Scenario: Edit a project.
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
+    Then I should see "Project 'Test Project2' was succesfully updated."
 
 Scenario: Add project with missing fields.
     And I am on the project page

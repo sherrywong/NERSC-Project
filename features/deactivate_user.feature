@@ -7,7 +7,7 @@ Background: Some user logins exist.
     Given a set of users exist   
     And I am logged in as an admin
 
-Scenario: Deactivate a user.
+Scenario: Deactivate a user and should not be able to edit retired user.
     When I am on the project page
     And I go to the show users page
     And I click on deactivate user for "bobw"
@@ -15,3 +15,5 @@ Scenario: Deactivate a user.
 #    And I click "Yes"
 #    And I should see "User Sherry Wong deleted."
     And "Sherry Wong" should be retired
+    When I go to bobw's Edit User page
+    Then I should not see "Save"
