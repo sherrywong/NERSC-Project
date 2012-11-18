@@ -27,6 +27,7 @@ Scenario: Add a valid project.
     And I should see "Test Project"
     Then I sort projects by "title"
     Then I sort projects by "status"
+    Then I sort projects by "owner"
 
 Scenario: Edit a project.
     Given I am logged in as an admin
