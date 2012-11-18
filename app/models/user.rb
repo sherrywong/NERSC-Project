@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
         #@proj.edit_member_permission(self, "write")
         @proj.owner = new_owner || self
         if new_owner.nil?
-            @proj.errors[:owner] = "Warning: Owner not found in database. Set to current admin instead."
+            @proj.errors[:owner] = "Warning: User not found in database. Owner set to admin instead."
         end
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"

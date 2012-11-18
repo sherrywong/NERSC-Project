@@ -40,7 +40,7 @@ Scenario: Add project with missing fields.
     When I go to the new project page
     When I fill in "project_description" with "Project 5"
     Then I press "Save" 
-    Then I should be on the new project page 
+#    Then I should be on the new project page 
 
 Scenario: View a project that the user doesn't have read permissions.
     Given I am logged in as an admin
