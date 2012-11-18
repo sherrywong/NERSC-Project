@@ -17,7 +17,12 @@
     Root Cause: <%= text_field 'risk', 'root_cause'%>
     </div>
     <div>
-    Probability: <%= text_field 'risk', 'probability', :required => true %>
+    Probability:
+    <select name="risk[probability]">
+      <option value='High'> High </option>
+      <option value='Medium'> Medium </option>
+      <option value='Low'> Low </option>
+    </select>
     </div>
     <div>
     Cost:
