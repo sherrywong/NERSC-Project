@@ -32,6 +32,7 @@ end
 World(WithinHelpers)
 @usr
 @admin_user
+@first_project
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
     User.create(user_hash);
@@ -60,8 +61,8 @@ end
 
 Given /^a set of projects exist$/ do
   #coordinators, project_id, department, start, end
-  proj1 = @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
-  proj1.add_members(User.all.map {|x| x.id})
+  @first_project = @usr.create_project({"name"=>"First Project", "prefix" => "proj1", "description"=>"prefix = proj1", "owner_username"=>"admin"})
+  @first_project.add_members(User.all.map {|x| x.id})
 
   proj2 = @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"jt"})
 
@@ -71,9 +72,9 @@ end
 
 Given /^a set of risks exist$/ do
   #coordinators, project_id, department, start, end, risk_id, originator
-  Risk.create_risk(@admin_user.id, 1, {:title => "First Risk", :owner_id=>"admin" , :description => "Risk1 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
-  Risk.create_risk(@admin_user.id, 1, {:title => "Second Risk", :owner_id=>"jt" , :description => "Risk2 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
-  Risk.create_risk(@admin_user.id, 1, {:title => "Third Risk", :owner_id=>"admin" , :description => "Risk3 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, @first_project.id, {:title => "First Risk", :owner_id=>"admin" , :description => "Risk1 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, @first_project.id, {:title => "Second Risk", :owner_id=>"jt" , :description => "Risk2 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
+  Risk.create_risk(@admin_user.id, @first_project.id, {:title => "Third Risk", :owner_id=>"admin" , :description => "Risk3 for P1", :probability => 2, :cost => 3, :schedule => 2, :technical => 1, :status=>"active", :early_impact => "2008-11-20", :last_impact=> "2013-10-20"})
 end
 
 Given /^I am logged in as (.+)$/ do |user|
