@@ -19,15 +19,11 @@ class ProjectController < ApplicationController
     if request.post?
       @proj = @user.create_project(params[:project])
       if @proj.errors.empty?
-        if @proj
-          flash[:notice] = "Project '#{@proj.name}' created."
-        else
-          flash[:notice] = "Error occurred when creating project."
-        end
-        redirect_to "/user/index"
+        flash[:notice] = "Project '#{@proj.name}' created."
       else #Stays on same page.
-        flash[:notice] = "Error occurred when creating project."
+        flash[:notice] = @proj.errors[:owner].to_s
       end
+        redirect_to "/user/index"
     end
   end
 

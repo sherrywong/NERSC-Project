@@ -86,6 +86,8 @@ class User < ActiveRecord::Base
             #return false
         #end
       #end
+    else
+      @proj.errors[:owner] = "Error: This project name already exists. Please use another name and try again."
     end
     return @proj #check @proj.errors
   end
