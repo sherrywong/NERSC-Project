@@ -12,14 +12,12 @@ Scenario: Add and delete user to project as an admin
     Given I am logged in as an admin
     When I go to the project page for "First Project"
     Then I press "+"
-    When I fill in "members_" with "bobw"
-#    And I check "read" and "write"
+    When I fill in "members_" with "ag"
     And I press "Add"
     And I should be on the project page for "First Project"
     Then there should be this message: "Members updated."
-    And I should see "bobw"
-#    And I should see "Sherry Wong" as a project member with permissions "read" and "write"
-    And I click on delete project member "bobw" for "First Project"
+    And I should see "ag"
+    And I click on delete project member "ag" for "First Project"
 #    Then I should see "Are you sure you want to delete user: Sherry Wong from First Project?"
 #    And I click "Yes"
 #    And I should be on the first project
