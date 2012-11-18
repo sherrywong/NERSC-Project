@@ -40,14 +40,12 @@ module NavigationHelpers
     when /^(.*)'s Add Risk page$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/new"
 
-    when /^the Risk page for (.*)$/i
+    when /^the risk page for (.*)$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/index"
 
-    when /^the first project's Risk page$/i
-      "/user/project/1/risk/index"
-
     when /^the first project's (.*)'s Edit page$/i
-      "/user/project/1/risk/#{Risk.find_by_title($1).id}/edit"
+      pid = Project.find_by_name("First Project").id
+      "/user/project/#{pid}/risk/#{Risk.find_by_title($1).id}/edit"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

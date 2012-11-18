@@ -20,7 +20,7 @@ Background: some projects and no risks have been added to database
     Given a set of risks exist
     And I am on the project page 
 	
-Scenario: Add valid risk.
+Scenario: Add and edit a valid risk.
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
@@ -41,15 +41,12 @@ Scenario: Add valid risk.
     Then I should see "Other Type"
     Then I should see "Comments"
     Then I press "Save"
-    Then I should be on the Risk page for First Project
+    Then I should be on the risk page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
-
-Scenario: Edit a valid risk.
-    When I go to the Risk page for First Project
-    When I go to the first project's First Risk's Edit page
+    When I go to the first project's Test Risk's Edit page
     When I fill in "risk_title" with "Title Changed"
     Then I press "Save"
-    Then I should be on the first project's Risk page
+    Then I should be on the risk page for First Project
     And I should see "Risk 'Title Changed' was successfully updated."
 
 Scenario: Add a risk with missing fields. #Doesn't have title.
