@@ -78,7 +78,6 @@
      <textarea rows="3" placeholder="Comment on this risk"></textarea>
     </form>
     </br>
-
     <% if @risk.nil? or @risk.status == "active" %>
     <%= submit_tag "Save" %>
     <% end %>
