@@ -40,6 +40,9 @@ class RiskController < ApplicationController
        flash[:notice] = "That risk does not exist."
        redirect_to user_index_path
     end
+
+    @risk_creator_username = @risk.find_username(@risk.creator_id)
+    @risk_owner_username = @risk.find_username(@risk.owner_id)
   end
 
   def edit

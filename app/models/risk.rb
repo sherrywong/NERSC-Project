@@ -26,8 +26,8 @@ class Risk < ActiveRecord::Base
 =end
 
     def map_to_int(string)
-	if string == "High"
-	  return 3
+  if string == "High"
+    return 3
        elsif string == "Medium"
          return 2
        else
@@ -36,7 +36,7 @@ class Risk < ActiveRecord::Base
     end
 
     def find_username(user_id)
-	return User.find_by_id(user_id).username
+      return User.find_by_id(user_id).username
     end
 
     def owner_exists?(user_id)
