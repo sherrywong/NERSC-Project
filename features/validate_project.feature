@@ -13,7 +13,6 @@ Scenario: Add project with missing fields
     When I go to the new project page 
     #When I fill in "project_name" with "Test Title"
     When I fill in "project_description" with "Project 5"
-#    When I fill in "project_members" with "User2"
 #    When I fill in "project_manager" with "Elise" 
     Then I press "Save" 
     Then I should be on the new project page 
@@ -25,7 +24,6 @@ Scenario: Add existing project
     When I fill in "project_name" with "First Project"
     When I fill in "project_description" with "Project 5"
 #    When I fill in "project_members" with "User3"
-#    When I fill in "project_manager" with "Linda"
 #    When I fill in "dept" with "CS" 
     Then I press "Save" 
     Then I should be on the new project page 
@@ -38,9 +36,7 @@ Scenario: Set a user that doesn't exist as project owner.
     When I fill in "project_description" with "Project 5"
 #    When I fill in "project_members" with "User3"
     When I fill in "project_owner_username" with "blah" 
-#    When I fill in "risk_coords" with "Anna" 
-#    When I fill in "proj_id" with 1 
+#    When I fill in "risk_coords" with "Anna"
 #    When I fill in "dept" with "CS" 
     Then I press "Save" 
-    Then I should be on the new project page 
-    And I should see "Error: Invalid username."
+    And I am on the project page

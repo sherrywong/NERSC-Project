@@ -364,3 +364,15 @@ end
 Then /^there should be this message: "([^"]*)"$/ do |error|
   page.body.include?(error)
 end
+
+Then /^(?:|I )sort projects by "([^"]*)"$/ do |field|
+  visit ('/user/index?sort=' + field.to_s)
+end
+
+Then /^(?:|I )sort "([^"]*)" project members by "([^"]*)"$/ do |project, field|
+  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + field.to_s)
+end
+
+Then /^(?:|I )sort risks for "([^"]*)" by "([^"]*)"$/ do |project, field|
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + field.to_s)
+end

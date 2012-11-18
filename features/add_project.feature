@@ -25,6 +25,8 @@ Scenario: Add a valid project.
     Then I should be on the project page
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
+    Then I sort projects by "title"
+    Then I sort projects by "status"
 
 Scenario: Edit a project.
     Given I am logged in as an admin
