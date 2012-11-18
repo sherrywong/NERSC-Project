@@ -27,7 +27,7 @@ Scenario: Add valid risk.
     When I fill in "risk_owner_id" with "admin"
     When I fill in "risk_description" with "Our test risk for First Project."
     Then I should see "Root Cause"
-    When I fill in "risk_probability" with "2"
+    When I select "High" from "risk[probability]"
     When I select "High" from "risk[cost]"
     When I select "Medium" from "risk[schedule]"
     When I select "Low" from "risk[technical]"

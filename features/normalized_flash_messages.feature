@@ -18,12 +18,3 @@ Scenario: Add risk to a project when user doesn't have permission to add risk.
     Given I am logged in as Linda
     When I go to Second Project's Add Risk page
     Then I should see "Sorry, you don't have access to the requested project."
-     
-Scenario: Add an existing project.
-    And I am on the project page 
-    When I go to the new project page 
-    When I fill in "project_name" with "First Project"
-    When I fill in "project_description" with "Project 5"
-    Then I press "Save" 
-    Then I should be on the new project page 
-    And I should see "Error: Project already exists with that name."
