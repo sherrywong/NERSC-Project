@@ -182,8 +182,8 @@ textarea {
  * ------------------------------------------------------------------------------------------- */
 body {
   margin: 0;
-  background-image: url('binary-code.jpg');
-  background-repeat: repeat
+  
+  background-repeat: repeat;
   background-color: transparent;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
