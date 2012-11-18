@@ -69,6 +69,9 @@ class User < ActiveRecord::Base
         #@proj.add_member(self.id) don't need this line- all admins have access to all projects
         #@proj.edit_member_permission(self, "write")
         @proj.owner = new_owner || self
+        if new_owner.nil?
+            @proj.errors[:owner] = "Warning: Owner not found in database. Set to current admin instead."
+        end
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
