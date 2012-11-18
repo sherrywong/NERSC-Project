@@ -33,6 +33,15 @@ class RiskController < ApplicationController
     end
   end
 
+  def show
+    @user = get_current_user
+    @risk = Risk.find_by_id(params[:rid])
+    if @risk.nil?
+       flash[:notice] = "That risk does not exist."
+       redirect_to user_index_path
+    end
+  end
+
   def edit
     @user = get_current_user
     @risk = Risk.find_by_id(params[:rid])
@@ -49,7 +58,7 @@ class RiskController < ApplicationController
     if @user.update_risk(params[:risk], @risk).errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid])
-    else 
+    else
         #otherwise, stay on same page, show all error messages in view
         flash[:notice] = "Risk was not successfully updated"
         redirect_to edit_risk_path(params[:pid], params[:rid])

@@ -1,0 +1,25 @@
+<h1><center> <%= @risk.title %></center> </h1>
+  <%= button_to "<< Return to Risks", risk_index_path, :class => 'btn btn-info', :method => :get %>
+<%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
+
+Title: <%= @risk.title %> <br/>
+Short Title: <%= @risk.short_title %> <br/>
+Owner: <%= @risk.owner_id %> <br/>
+Creator: <%= @risk.creator_id %> <br/>
+Description: <%= @risk.description %> <br/>
+Risk Rating: <%= @risk.risk_rating %> <br/>
+Root Cause: <%= @risk.root_cause %> <br/>
+Probability: <%= @risk.probability %> <br/>
+Cost: <%= @risk.cost %> <br/>
+Schedule: <%= @risk.schedule %> <br/>
+Technical: <%= @risk.technical %> <br/>
+Days to Impact: <%= @risk.days_to_impact %> <br/>
+Early Impact Date: <%= @risk.early_impact %> <br/>
+Last Impact Date: <%= @risk.last_impact %> <br/>
+Mitigation: <%= @risk.mitigation %> <br/>
+Contingency: <%= @risk.contingency %> <br/>
+Critical Path: <%= @risk.critical_path %> <br/>
+WBS Spec: <%= @risk.wbs_spec %> <br/>
+Type: <%= @risk.type %> <br/>
+Other Type: <%= @risk.other_type %> <br/>
+Comments: <%= @risk.comment %> <br/>

@@ -1,7 +1,7 @@
 <% for risk in @risks %>
 <tr>
     <td class='first'>
-            <%= link_to risk.title, edit_risk_path(params[:pid], risk.id) %>
+            <%= link_to risk.title, show_risk_path(params[:pid], risk.id) %>
             </td>
 <td>
 <%= risk.description %>
