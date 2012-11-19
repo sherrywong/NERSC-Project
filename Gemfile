@@ -53,6 +53,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'simplecov'
-  gem 'paper_trail', '~> 2'
   gem "audited-activerecord", "~> 3.0"  
 end
