@@ -95,7 +95,7 @@ class RiskController < ApplicationController
     @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]))
     if @risk.errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
-      redirect_to risk_index_path(params[:pid])
+      redirect_to show_risk_path(params[:pid], params[:rid])
       puts @risk.versions
     else
       redirect_to edit_risk_path(params[:pid], params[:rid]), :risk =>@risk
