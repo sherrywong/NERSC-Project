@@ -7,13 +7,14 @@ class ApplicationController < ActionController::Base
      end
   end
 
+=begin
   def sortable(column, title=nil)
     title || column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
-
   end
+=end
 
   def project_id_matches_user
     if !get_current_user.admin? and ProjectMembership.where(:user_id => session[:uid]).where(:project_id=>params[:pid]).first == nil

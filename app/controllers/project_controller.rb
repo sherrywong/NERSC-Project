@@ -75,10 +75,8 @@ class ProjectController < ApplicationController
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
-=begin
   def add_members
     members = params[:members]
-    puts "MEMBERS", members
     @project = Project.find_by_id(params[:pid])
     members_list = members[0].split(", ")
     @members = members_list
@@ -93,11 +91,9 @@ class ProjectController < ApplicationController
         flash[:notice] = "Error: This person is not a current user."
       end
     end
-    puts "MEM LIST", members_list
     @project.add_members(member_id_list)
     redirect_to edit_project_path(params[:pid])
   end
-=end
 
   def remove_member
     @project = Project.find_by_id(params[:pid])

@@ -13,6 +13,7 @@ class Risk < ActiveRecord::Base
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
 
+=begin
     def map_to_int(string)
       if string == "High"
         return 3
@@ -22,6 +23,7 @@ class Risk < ActiveRecord::Base
          return 1
        end
     end
+=end
 
     def find_username(user_id)
       return User.find_by_id(user_id).username
