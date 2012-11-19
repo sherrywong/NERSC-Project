@@ -50,7 +50,11 @@ class RiskController < ApplicationController
 
   def edit
     @user = get_current_user
-    @risk = Risk.find_by_id(params[:rid])
+    if params[:risk] ==nil 
+      @risk = Risk.find_by_id(params[:rid])
+    else 
+      @risk = params[:risk]
+    end
     if @risk.nil?
       flash[:notice] = "That risk does not exist."
       redirect_to risk_index_path(params[:pid])
@@ -65,7 +69,7 @@ class RiskController < ApplicationController
       redirect_to risk_index_path(params[:pid])
       puts @risk.versions
     else
-      redirect_to edit_risk_path(params[:pid], params[:rid])
+      redirect_to edit_risk_path(params[:pid], params[:rid]), :risk =>@risk
     end
   end
 
