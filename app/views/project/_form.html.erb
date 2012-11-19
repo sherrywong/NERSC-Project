@@ -36,18 +36,15 @@
         </tr>
        <% end %>
        </table>
-
+</div>
 <div>
-    <br>
+    <br/>
     <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
     </div>
-    <br>
-    <% if (not @user.nil?) and (not @project.nil?) %>
-      <% if (@user.admin? and @project.status == 'active') or (@project.owner == @user and @project.status == 'active')%>
-      <%= submit_tag "Save" %>
-      <% end %>
-    <% else %>
+    <br/>
+    <% if (not @user.nil?) and (not @project.nil?) and (@user.admin? and @project.status == 'active') or (@project.owner == @user and @project.status == 'active')%>
      <%= submit_tag "Save" %>
     <% end %>
+
   </div>
 </div>
