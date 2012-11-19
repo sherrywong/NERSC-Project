@@ -7,36 +7,22 @@ Background: Some projects have already been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-
-Scenario: Add project with missing fields
-    And I am on the project page
-    When I go to the new project page 
-    #When I fill in "project_name" with "Test Title"
-    When I fill in "project_description" with "Project 5"
-#    When I fill in "project_manager" with "Elise" 
-    Then I press "Save" 
-    Then I should be on the new project page 
-#    And I should see "Error: missing fields" 
      
-Scenario: Add existing project
+Scenario: Add a project that doesn't have a unique name.
     And I am on the project page 
     When I go to the new project page 
     When I fill in "project_name" with "First Project"
     When I fill in "project_description" with "Project 5"
-#    When I fill in "project_members" with "User3"
-#    When I fill in "dept" with "CS" 
     Then I press "Save" 
-    Then I should be on the new project page 
-#    And I should see "Error: Project already exists with that name."
+    Then I should be on the project page 
+    And I should see "Error: This project name already exists. Please use another name and try again."
 
 Scenario: Set a user that doesn't exist as project owner. 
     And I am on the project page 
     When I go to the new project page 
     When I fill in "project_name" with "First Project"
     When I fill in "project_description" with "Project 5"
-#    When I fill in "project_members" with "User3"
-    When I fill in "project_owner_username" with "blah" 
-#    When I fill in "risk_coords" with "Anna"
-#    When I fill in "dept" with "CS" 
-    Then I press "Save" 
+    When I fill in "project_owner_username" with "blah"
+    Then I press "Save"
     And I am on the project page
+    Then there should be this message: "Warning: User not found in database. Owner set to admin instead."

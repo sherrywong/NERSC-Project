@@ -11,10 +11,12 @@ class UserController < ApplicationController
        sort = params[:sort] || session[:sort]
        case sort
           when "title"
-         @projects = @user.projects.sort_by { |project| project.name }
+           @projects = @user.projects.sort_by { |project| project.name }
+          when "owner"
+           @projects = @user.projects.sort_by { |project| project.owner_username }
           when "status"
-         @projects = @user.projects.sort_by { |project| project.status }
-         else
+           @projects = @user.projects.sort_by { |project| project.status}
+          else
            @projects = @user.projects
        end
       #  @projects = @user.projects

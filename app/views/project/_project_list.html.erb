@@ -1,13 +1,15 @@
-
-  <% for project in @projects %>
-<tr>
-         <td class='first'>
-                 <%= link_to project.name, edit_project_path(project.id) %>
-</td>
-                 <td><%= project.description %>
-</td>
-
-</tr>
+<% for project in @projects %>
+  <tr>
+    <td class='first'>
+      <%= link_to project.name, edit_project_path(project.id) %>
+    </td>
+    <td>
+      <%= project.description %>
+    </td>
+    <td>
+      <%= project.owner_username %>
+    </td>
+  </tr>
 <% end %>
 
 

@@ -27,6 +27,7 @@ Scenario: Add a valid project.
     And I should see "Test Project"
     Then I sort projects by "title"
     Then I sort projects by "status"
+    Then I sort projects by "owner"
 
 Scenario: Edit a project.
     Given I am logged in as an admin
@@ -34,13 +35,14 @@ Scenario: Edit a project.
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
+    Then I should see "Project 'Test Project2' was succesfully updated."
 
 Scenario: Add project with missing fields.
     And I am on the project page
     When I go to the new project page
     When I fill in "project_description" with "Project 5"
     Then I press "Save" 
-    Then I should be on the new project page 
+#    Then I should be on the new project page 
 
 Scenario: View a project that the user doesn't have read permissions.
     Given I am logged in as an admin

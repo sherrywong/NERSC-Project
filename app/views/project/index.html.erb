@@ -11,6 +11,7 @@
     <tr>
     <th><%= link_to "Title", project_index_path(:sort => "title") %></th>
     <th><%= "Description" %></th>
+    <th><%= "Project Owner" %></th>
     </tr>
 <%= render 'project_list', {:projects => @projects } -%>
 </table>

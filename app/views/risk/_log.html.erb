@@ -1,0 +1,22 @@
+<% for audit in @risk.audits %>
+  <% for change in audit.audited_changes %>
+    <tr class="info">
+       <% if not change[1].nil? and not (change[1].class == Array and change[1][0].nil?)%>
+         <td><%= audit.created_at%></td>
+         <td><%= change[0]%></td>
+         <% if change[1].class == Array%>
+           <% if (not (change[1][0].class == Fixnum)) and change[1][0].empty? %>
+             <td><%= 'nil' %>
+             <td><%= change[1][1]%></td>
+           <% else %>
+             <td><%= change[1][0]%></td>
+             <td><%= change[1][1]%></td>
+           <% end %>
+         <% else%>
+           <td><%= 'nil' %>
+           <td><%= change[1] %>
+         <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>
