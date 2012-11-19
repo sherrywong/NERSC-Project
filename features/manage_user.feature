@@ -11,6 +11,8 @@ Scenario: Create a user.
     When I go to the project page
     And I go to the show users page
     Then I sort users by "username"
+    Then I sort users by "first"
+    Then I sort users by "last"
     Then I sort users by "email"
     Then I sort users by "status"
     And I go to the Add New User page

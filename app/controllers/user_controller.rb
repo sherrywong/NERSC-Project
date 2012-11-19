@@ -29,6 +29,10 @@ class UserController < ApplicationController
     case sort
       when "username"
         @users = User.order("username")
+      when "first"
+        @users = User.order("first")
+      when "last"
+        @users = User.order("last")
       when "email"
         @users = User.order("email")
       when "status"
