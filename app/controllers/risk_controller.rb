@@ -27,13 +27,11 @@ class RiskController < ApplicationController
 
   def new
     @user = get_current_user
+    @rsk = nil
     if request.post?
       @rsk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
       if @rsk.errors.empty?
         flash[:notice] = "Risk '#{@rsk.title}' created."
-        redirect_to risk_index_path(params[:pid])
-      else #Otherwise, stay on the same page, show all error messages in view
-        flash[:notice] = "Error occurred when creating risk."
         redirect_to risk_index_path(params[:pid])
       end
     end
@@ -43,10 +41,9 @@ class RiskController < ApplicationController
     @user = get_current_user
     @risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
-       flash[:notice] = "That risk does not exist."
-       redirect_to user_index_path
+      flash[:notice] = "That risk does not exist."
+      redirect_to user_index_path
     end
-
     @risk_creator_username = @risk.find_username(@risk.creator_id)
     @risk_owner_username = @risk.find_username(@risk.owner_id)
   end
@@ -55,24 +52,21 @@ class RiskController < ApplicationController
     @user = get_current_user
     @risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
-        flash[:notice] = "That risk does not exist."
-        redirect_to "/user/index"
+      flash[:notice] = "That risk does not exist."
+      redirect_to risk_index_path(params[:pid])
     end
-    #include error handling...
   end
 
   def update
     @user = get_current_user
-    @risk = Risk.find_by_id(params[:rid])
-    if @user.update_risk(params[:risk], @risk).errors.empty?
+    @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]))
+    if @risk.errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to risk_index_path(params[:pid])
+      puts @risk.versions
     else
-        #otherwise, stay on same page, show all error messages in view
-        flash[:notice] = "Risk was not successfully updated"
-        redirect_to edit_risk_path(params[:pid], params[:rid])
+      redirect_to edit_risk_path(params[:pid], params[:rid])
     end
-    puts @risk.versions
   end
 
   def destroy

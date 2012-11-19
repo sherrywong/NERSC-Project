@@ -112,8 +112,8 @@ class User < ActiveRecord::Base
   def deactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
     if @proj
-        @proj.status = "retired"
-        @proj.save
+      @proj.status = "retired"
+      @proj.save
     end
     return @proj
   end

@@ -1,5 +1,12 @@
 <div id="autosave"></div>
+
 <div class='editor-left'>
+
+  <% if @rsk!=nil%>
+   <%= render "home/shared/error_messages", :target => @rsk %>
+  <% end %>
+
+
   <div>
     <div>
     Title: <%= text_field 'risk', 'title', :required => true%>

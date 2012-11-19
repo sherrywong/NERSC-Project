@@ -7,30 +7,19 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
    validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
    validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
-   #validates_uniqueness_of :title, :scope => :project_id #no longer required!
-    #risks are uniquely identified by proj-prefix + risk_id.
 
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
-
-   #validate :creator_exists
-   #validate :owner_exists
 
    belongs_to :project
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
 
-=begin clients no longer require a creator.
-    def creator_exists
-        errors[:creator] << "Creator does not exist" unless User.find_by_id(self.creator_id)
-    end
-=end
-
     def map_to_int(string)
-  if string == "High"
-    return 3
-       elsif string == "Medium"
+      if string == "High"
+        return 3
+      elsif string == "Medium"
          return 2
-       else
+      else
          return 1
        end
     end
@@ -39,12 +28,12 @@ class Risk < ActiveRecord::Base
       return User.find_by_id(user_id).username
     end
 
-    def owner_exists?(user_id)
-        if User.find_by_id(user_id)==nil
-          errors[:owner] << "Owner does not exist"
-          return false
-        end
+    def owner_exists?(username)
+      if User.find_by_username(username)==nil
+        return false
+      else
         return true
+      end
     end
 
     def calculate_risk_rating
@@ -64,28 +53,40 @@ class Risk < ActiveRecord::Base
         if @owner!=nil
           risk_hash[:owner_id] = @owner.id
         else
-          risk_hash[:owner_id] = nil
+          risk_hash[:owner_id] = 0 # invalid id number
         end
       end
       @risk = Risk.new(risk_hash)
+      if @risk.owner_id == 0
+        @risk.errors[:owner] << "does not exist"
+      end
       @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculate_days_to_impact
-      @risk.save
+      if @risk.errors.empty?
+        @risk.save
+      end
       return @risk
     end
 
+
   ##this is probably not needed anymore? since i'm updating risk in user.rb##
-    def update_risk(risk_hash, risk)
-      if risk_hash[:owner_id] != nil
-        if risk.owner_exists?(risk_hash[:owner_id])
-          risk_hash[:owner_id] = User.find_by_id(risk_hash[:owner_id])
+    def self.update_risk(risk_hash, risk)
+      if risk_hash[:owner_id]!=nil
+	 @owner = User.find_by_username(risk_hash[:owner_id])
+        if @owner==nil
+          risk.errors[:owner] << "does not exist"
         else
-          risk_hash[:owner_id] = nil # will trigger an error message
-        end
-      risk.update_attributes!(risk_hash)
-      return risk
+          risk_hash[:owner_id] = @owner.id
+        end 
       end
+      if risk.errors.empty? 
+        risk.update_attributes!(risk_hash)
+        risk.risk_rating = risk.calculate_risk_rating
+        risk.days_to_impact = risk.calculate_days_to_impact
+        risk.save
+      end
+      return risk
     end
 end
