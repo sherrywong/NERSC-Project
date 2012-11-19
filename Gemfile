@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
+gem "audited-activerecord", "~> 3.0"
+gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 # Bundle edge Rails instead:
@@ -53,5 +55,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'simplecov'
-  gem "audited-activerecord", "~> 3.0"  
+#  gem "audited-activerecord", "~> 3.0"  
 end

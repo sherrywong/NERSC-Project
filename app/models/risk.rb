@@ -1,7 +1,6 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
-  # has_paper_trail :only => [:update, :destroy]
-  audited
+#  audited
    attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id
 
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
