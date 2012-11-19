@@ -18,14 +18,14 @@ Scenario: Admin or owners should be able to deactivate risk.
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
-    Then I should be on the risk page for First Project
+    Then I should be on the risk index page for First Project
     And I click on deactivate risk for "Deactivate Test Risk" in "First Project"
 #    Then I should see "Are you sure you want to delete test?"
 #    Then I press "Yes"
-    Then I should be on the risk page for First Project
+    Then I should be on the risk index page for First Project
     And I should see "Risk 'Deactivate Test Risk' deactivated."
 
 Scenario: A user that is neither an owner nor an admin cannot deactivate a risk.
     Given I am logged in as Linda
-    And I go to the risk page for First Project
+    And I go to the risk index page for First Project
     Then there should not be deactivate project for "Second Risk"

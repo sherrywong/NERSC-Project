@@ -41,19 +41,18 @@ Scenario: Add and edit a valid risk.
     Then I should see "Other Type"
     Then I should see "Comments"
     Then I press "Save"
-    Then I should be on the risk page for First Project
+    Then I should be on the risk index page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
     Then I sort risks for "First Project" by "title"
     Then I sort risks for "First Project" by "owner"
     Then I sort risks for "First Project" by "early_impact"
     Then I sort risks for "First Project" by "last_impact"
     Then I sort risks for "First Project" by "status"
-    When I go to the first project's Test Risk's Edit page
-    When I fill in "risk_owner_id" with "admin"
-    When I fill in "risk_title" with "Title Changed"
+    When I go to the Edit Risk page for Test Risk in the first project
+    When I fill in "risk_description" with "D Changed"
     Then I press "Save"
-    Then I should be on the risk page for First Project
-    And I should see "Risk 'Title Changed' was successfully updated."
+    Then I should be on the Risk page for Test Risk in the first project
+#    And I should see "Risk 'Title Risk' was successfully updated."
 
 Scenario: Add a risk with missing fields. #Doesn't have title.
     When I go to First Project's Add Risk page

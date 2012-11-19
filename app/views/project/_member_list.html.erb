@@ -1,12 +1,30 @@
 <table class ="table table-striped">
-  <th><%= link_to "Members", edit_project_path(@project.id, :sort =>
-                                               "members") %> </th>
+  <th>
+    <%= link_to "Members", edit_project_path(@project.id, :sort =>
+                                               "members") %>
+  </th>
+  <th>
+    <%= link_to "First Name", edit_project_path(@project.id, :sort =>
+                                               "first") %>
+  </th>
+  <th>
+    <%= link_to "Last Name", edit_project_path(@project.id, :sort =>
+                                               "last") %>
+  </th>
+  <th>
+    <%= link_to "Email", edit_project_path(@project.id, :sort =>
+                                               "email") %>
+  </th>
+
   <% if @user.admin? %>
   <th><%= "Remove?" %></th>
   <% end %>
   <% for member in @proj_members %>
   <tr class="success">
       <td><%= member.username %></td>
+      <td><%= member.first %></td>
+      <td><%= member.last %></td>
+      <td><%= member.email %></td>
       <% if @user.admin? %>
   <td><%= link_to "X", {:action => 'remove_member', :uid => member.id} %></td><% end %>
   </tr>

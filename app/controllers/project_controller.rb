@@ -35,8 +35,17 @@ class ProjectController < ApplicationController
     sort = params[:sort] || session[:sort]
     case sort
       when "members"
-      @proj_members = @project.members
-      @proj_members = @proj_members.sort_by {|usr| usr.username}
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.username}
+      when "first"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.first}
+      when "last"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.last}
+      when "email"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.email}
       else
         @proj_members = @project.members
     end

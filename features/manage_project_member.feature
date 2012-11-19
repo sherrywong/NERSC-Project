@@ -12,6 +12,9 @@ Scenario: Add aa user to project as an admin.
     Given I am logged in as an admin
     When I go to the project page for "First Project"
     Then I sort "First Project" project members by "members"
+    Then I sort "First Project" project members by "first"
+    Then I sort "First Project" project members by "last"
+    Then I sort "First Project" project members by "email"
     Then I press "+"
     When I fill in "members_" with "ag"
     And I press "Add"

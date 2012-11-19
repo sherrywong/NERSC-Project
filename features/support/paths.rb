@@ -40,10 +40,10 @@ module NavigationHelpers
     when /^(.*)'s Add Risk page$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/new"
 
-    when /^the risk page for (.*)$/i
+    when /^the risk index page for (.*)$/i
       "/user/project/#{Project.find_by_name($1).id}/risk/index"
 
-    when /^the first project's (.*)'s Edit page$/i
+    when /^the Edit Risk page for (.*) in the first project$/i
       pid = Project.find_by_name("First Project").id
       rid = 0
       if Risk.find_by_title($1) == nil
@@ -52,6 +52,21 @@ module NavigationHelpers
         rid = Risk.find_by_title($1).id
       end
       "/user/project/#{pid}/risk/#{rid}/edit"
+    
+    when /^the Risk page for (.*) in the first project$/i
+      puts "AAAAA"
+      pid = Project.find_by_name("First Project").id
+      rid = 0
+      puts "ZZZZ1"
+      puts $1
+      puts "ZZZZ2"
+      if Risk.find_by_title($1) == nil
+        rid = Risk.find_by_title($1).object_id
+      else
+        rid = Risk.find_by_title($1).id
+      end
+      "/project/#{pid}/risk/#{rid}"
+
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
