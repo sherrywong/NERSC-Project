@@ -13,7 +13,7 @@ Background: Some projects have already been added to database.
     Given I am logged in as an admin
     Given a set of projects exist
 
-Scenario: Add a valid project.
+Scenario: Admins can add a valid project.
     Given I am logged in as an admin
     And I am on the project page
     When I go to the new project page
@@ -25,11 +25,21 @@ Scenario: Add a valid project.
     Then I should be on the project page
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
-    Then I sort projects by "title"
-    Then I sort projects by "status"
-    Then I sort projects by "owner"
 
-Scenario: Edit a project.
+Scenario: Add project with missing fields.
+    And I am on the project page
+    When I go to the new project page
+    When I fill in "project_description" with "Project 5"
+    Then I press "Save" 
+    Then I should be on the new project page
+
+Scenario: Non-admins cannot add a project.
+    Given I am logged in as Jason
+    And I am on the project page
+    When I go to the new project page
+    Then I should see "Sorry, you have to be an admin to perform this action."
+
+Scenario: Admins can edit a project.
     Given I am logged in as an admin
     When I go to the project page for "First Project"
     Then I should see "Matrix"
@@ -37,15 +47,14 @@ Scenario: Edit a project.
     Then I press "Save"
     Then I should see "Project 'Test Project2' was succesfully updated."
 
-Scenario: Add project with missing fields.
-    And I am on the project page
-    When I go to the new project page
-    When I fill in "project_description" with "Project 5"
-    Then I press "Save" 
-#    Then I should be on the new project page 
+Scenario: Project owners can edit a project.
+    Given I am logged in as Jason
+    When I go to the project page for "Second Project"
+    When I fill in "project_name" with "Edit Name"
+    Then I press "Save"
+    Then I should see "Project 'Edit Name' was succesfully updated."
 
-Scenario: View a project that the user doesn't have read permissions.
-    Given I am logged in as an admin
-    And I am on the project page
-    When I go to the project page for "First Project"
-#    Then I should see "Don't have permission to view this project."
+Scenario: Project members cannot edit a project.
+    Given I am logged in as Linda
+    When I go to the project page for "Second Project"
+    Then I should not see "Save"

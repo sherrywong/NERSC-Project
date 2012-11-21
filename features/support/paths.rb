@@ -53,13 +53,19 @@ module NavigationHelpers
       end
       "/user/project/#{pid}/risk/#{rid}/edit"
     
+    when /^the Edit Risk page for (.*) in the second project$/i
+      pid = Project.find_by_name("Second Project").id
+      rid = 0
+      if Risk.find_by_title($1) == nil
+        rid = Risk.find_by_title($1).object_id
+      else
+        rid = Risk.find_by_title($1).id
+      end
+      "/user/project/#{pid}/risk/#{rid}/edit"
+
     when /^the Risk page for (.*) in the first project$/i
-      puts "AAAAA"
       pid = Project.find_by_name("First Project").id
       rid = 0
-      puts "ZZZZ1"
-      puts $1
-      puts "ZZZZ2"
       if Risk.find_by_title($1) == nil
         rid = Risk.find_by_title($1).object_id
       else
@@ -67,6 +73,15 @@ module NavigationHelpers
       end
       "/project/#{pid}/risk/#{rid}"
 
+    when /^the Risk page for (.*) in the second project$/i
+      pid = Project.find_by_name("Second Project").id
+      rid = 0
+      if Risk.find_by_title($1) == nil
+        rid = Risk.find_by_title($1).object_id
+      else
+        rid = Risk.find_by_title($1).id
+      end
+      "/project/#{pid}/risk/#{rid}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

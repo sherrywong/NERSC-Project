@@ -14,6 +14,8 @@ class UserController < ApplicationController
            @projects = @user.projects.sort_by { |project| project.name }
           when "owner"
            @projects = @user.projects.sort_by { |project| project.owner_username }
+          when "admin"
+           @projects = @user.projects.sort_by { |project| project.admin}
           when "status"
            @projects = @user.projects.sort_by { |project| project.status}
           else
@@ -48,7 +50,7 @@ class UserController < ApplicationController
       user_hash = params[:user]
       @new = get_current_user.create_user(user_hash)
       if @new.errors.empty?
-        flash[:notice]= "User '#{@new.first}' '#{@new.last}'created."
+        flash[:notice]= "User '#{@new.first} #{@new.last}'created."
         redirect_to "/user/show_users"
       else
         flash[:notice] = "Error occurred when creating user."

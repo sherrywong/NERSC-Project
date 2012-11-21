@@ -18,7 +18,10 @@
     Email: <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
-  <% if (not @edit) or @curr_user%>
+    Admin: <%= text_field 'user', 'admin', :placeholder => "true/false", :required => true %>
+    </div>
+    <div>
+<% if (not @edit) or @curr_user %>
     Password: <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
  <% end %>
     </div>
