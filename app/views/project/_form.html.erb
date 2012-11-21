@@ -1,7 +1,22 @@
 <script type="text/javascript">
-  function setColors() {
-  alert("hereeee");
-}</script>
+  window.onload = function setColors() {
+  for (var i=1; i<4; i++) {
+      for (var j=1; j<4; j++) {
+          var elem = "probability_impact_" + i + j;
+          var val = document.getElementById(elem).value;
+
+          if (val == 1) {
+            document.getElementById(elem).style.background = "green";
+            }
+              if (val == 2) {
+                document.getElementById(elem).style.background = "yellow";}
+                  if (val == 3) {
+                  document.getElementById(elem).style.background = "red";}
+        }
+    }
+}
+
+          </script>
 <div id="autosave"></div>
 <div class='editor-left'>
   <div>
@@ -25,7 +40,7 @@
         <tr>
         <% (1..3).each do |i| %>
           <td class = 'risk_cell' id="project[probability_impact_<%= p%><%= i%>]">
-             <select class='risk_menu' onchange="changeColor(this);" name = 'project[probability_impact_<%= p %><%= i %>]'>
+             <select class='risk_menu' onchange="changeColor(this);" name = 'project[probability_impact_<%= p %><%= i %>]' id = 'probability_impact_<%= p %><%= i %>'>
              <%# JT - changed values to 1 2 3 - database dependent information sorry for the bad style!%>
                 <option value="3" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 3"%>>High</option>
                 <option value="2" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 2"%>>Med</option>
