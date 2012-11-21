@@ -57,7 +57,16 @@ class UserController < ApplicationController
   end
 
   def edit
+    @edit = true
+
+    if (params[:id].to_s == session[:uid].to_s)
+      @curr_user = true
+    else
+      @curr_user = false
+    end
+
     @user = User.find_by_id(params[:id])
+    @user_username = @user.username
   end
 
   def update

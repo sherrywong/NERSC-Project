@@ -8,13 +8,19 @@
     Last Name: <%= text_field 'user', 'last', :placeholder => "Last Name", :required => true %>
     </div>
     <div>
+  <% if @edit %>
+ Username: <%= @user_username %><%= hidden_field_tag 'user[username]', @user_username %><br/>
+  <% else %>
     Username: <%= text_field 'user', 'username', :placeholder => "Username", :required => true %>
+  <% end %>
     </div>
     <div>
     Email: <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
+  <% if (not @edit) or @curr_user%>
     Password: <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
+ <% end %>
     </div>
     <% if @user.nil? or @user.status == 'active' %>
       <%= submit_tag "Save" %>

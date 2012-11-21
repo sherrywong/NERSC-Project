@@ -6,6 +6,7 @@
 <%= button_to "+ Manage System Users", "/user/show_users", :class => 'btn btn-info', :method => :get %>
 <%= button_to "+ Create New Project", "/user/project/new", :class => 'btn btn-info', :method => :get%>
 <% end %>
+<%= button_to "+ Edit My Profile", edit_user_path(session[:uid]), :class => 'btn btn-info', :method => :get %>
 <h2>My Projects </h2>
 <table class="table table-striped" id="projects">
     <tr>
