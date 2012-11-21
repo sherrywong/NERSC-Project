@@ -13,7 +13,7 @@ Feature: Create a risk
 #    So that I can make comments on the status or history of risk changes
 #    I want to record changes made to the risk in a comment field.
 	
-Background: some projects and no risks have been added to database
+Background: Some projects and no risks have been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
@@ -62,11 +62,3 @@ Scenario: Add a risk with missing fields. #Doesn't have title.
     Then I press "Save"
 #    Then I should be on First Project's Add Risk page
 #we will show all the fields they didn't fill out
-
-Scenario: View a risk that the user doesn't have read permission
-    When I go to Second Project's Add Risk page
-#    Then I should see "Error: Don't have permission to view the risks associated with this project."
-    
-Scenario: Add risk to a project when user doesn't have permission to add risk
-    When I go to Third Project's Add Risk page
-#    Then I should see "Error: Don't have permission to add risks to this project."

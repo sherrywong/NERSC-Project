@@ -33,6 +33,7 @@ World(WithinHelpers)
 @usr
 @admin_user
 @first_project
+@lz
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
     User.create(user_hash);
@@ -54,9 +55,12 @@ Given /^a set of users exist$/ do
 
   User.create({"username"=>"ag", "email"=>"anna@gmail.com", "first"=>"Anensshiya", "last"=>"Govinthasamy", "admin"=>"true", "password"=>"agovinthasamy", "status"=>"active"})
   User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
+#Jason: non-admin, project owner of Second project
   User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
-  User.create({"username"=>"lz", "email"=>"linda@gmail.com", "first"=>"Lingbo", "last"=>"Zhang", "admin"=>"false", "password"=>"lzhang", "status"=>"active"})
-  User.create({"username"=>"bobw", "email"=>"bob@gmail.com", "first"=>"Sherry", "last"=>"Wong", "admin"=>"true", "password"=>"swong", "status"=>"active" })
+#Linda: non-admin, project member of Second project
+  @lz = User.create({"username"=>"lz", "email"=>"linda@gmail.com", "first"=>"Lingbo", "last"=>"Zhang", "admin"=>"false", "password"=>"lzhang", "status"=>"active"})
+#Sherry: non-admin, project owner of Third project
+  User.create({"username"=>"bobw", "email"=>"bob@gmail.com", "first"=>"Sherry", "last"=>"Wong", "admin"=>"false", "password"=>"swong", "status"=>"active" })
 end
 
 Given /^a set of projects exist$/ do
@@ -65,8 +69,9 @@ Given /^a set of projects exist$/ do
   @first_project.add_members(User.all.map {|x| x.id})
 
   proj2 = @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"jt"})
+  proj2.add_members(Array[@lz.id])
 
-  proj3 = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"admin"})
+  proj3 = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"bobw"})
   proj3.add_members(User.all.map {|x| x.id})
 end
 
@@ -88,6 +93,9 @@ Given /^I am logged in as (.+)$/ do |user|
   elsif user == "Jason"
     fill_in 'username', :with => 'jt'
     fill_in 'password', :with => 'jteoh'
+  elsif user == "Sherry"
+    fill_in 'username', :with => 'bobw'
+    fill_in 'password', :with => 'swong'
   end
   click_button 'Login'
   @usr = User.find_by_username('admin')

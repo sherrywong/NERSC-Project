@@ -25,7 +25,7 @@ Scenario: Project managers (owners) can deactivate their own projects.
     And I should see "Project 'Second Project' deactivated."
     
 Scenario: Project managers (owners) cannot deactivate other projects
-    Given I am logged in as Linda
+    Given I am logged in as Sherry
     Then I should not see "Second Project"
     
 Scenario: Collaborators cannot deactivate projects
