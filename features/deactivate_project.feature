@@ -16,19 +16,24 @@ Scenario: Admins can deactivate a project.
     Then I should be on the project page
     And I should see "Project 'First Project' deactivated."
     
-Scenario: Project managers (owners) can deactivate their own projects.
+Scenario: Project owners can deactivate their own projects.
     Given I am logged in as Jason
     And I am on the project page for "Second Project"
     And I click on deactivate project for "Second Project"
 #confirmation?
     Then I should be on the project page
     And I should see "Project 'Second Project' deactivated."
-    
-Scenario: Project managers (owners) cannot deactivate other projects
-    Given I am logged in as Sherry
-    Then I should not see "Second Project"
-    
-Scenario: Collaborators cannot deactivate projects
+
+Scenario: Project members cannot deactivate projects
     Given I am logged in as Linda
     And I am on the project page
     Then there should not be deactivate project for "Third Project"
+  
+Scenario: Project owners cannot deactivate other projects
+    Given I am logged in as Jason
+    Then there should not be deactivate project for "First Project"
+
+Scenario: Project members cannot deactivate projects
+    Given I am logged in as Sherry
+    And I click on deactivate project for "Second Project"
+    Then I should see "Sorry, you don't have access to the requested project."
