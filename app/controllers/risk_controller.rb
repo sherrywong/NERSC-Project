@@ -4,9 +4,12 @@ class RiskController < ApplicationController
   before_filter :is_admin_or_member, :only => [:new, :edit]
   before_filter :is_admin, :only =>[:destroy]
 
+  add_breadcrumb "Home", :user_index_path
   def index
+
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    add_breadcrumb @project.name, edit_project_path(params[:pid])
     sort = params[:sort] || session[:sort]
     case sort
       when "title"

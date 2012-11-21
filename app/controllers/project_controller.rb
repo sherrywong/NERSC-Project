@@ -6,6 +6,8 @@ class ProjectController < ApplicationController
   before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
   before_filter :is_admin, :only =>[:new]
 
+  add_breadcrumb "Home", :user_index_path
+
   def index
     @user = get_current_user
     @projects = @user.projects

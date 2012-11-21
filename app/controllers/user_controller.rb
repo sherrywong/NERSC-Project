@@ -3,6 +3,8 @@ class UserController < ApplicationController
   before_filter :is_admin, :only => [:new, :destroy]
   before_filter :is_admin_or_user, :only => [:edit, :update]
 
+  add_breadcrumb "Home", :user_index_path
+
   def index
     @user = get_current_user
     if @user.nil?
