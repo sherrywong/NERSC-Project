@@ -43,11 +43,6 @@ Scenario: Add and edit a valid risk.
     Then I press "Save"
     Then I should be on the risk index page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
-    Then I sort risks for "First Project" by "title"
-    Then I sort risks for "First Project" by "owner"
-    Then I sort risks for "First Project" by "early_impact"
-    Then I sort risks for "First Project" by "last_impact"
-    Then I sort risks for "First Project" by "status"
     When I go to the Edit Risk page for Test Risk in the first project
     When I fill in "risk_description" with "D Changed"
     Then I press "Save"
