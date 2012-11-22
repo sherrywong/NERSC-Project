@@ -30,6 +30,9 @@ class RiskController < ApplicationController
 
   def new
     @user = get_current_user
+    @project = Project.find_by_id(params[:pid])
+    add_breadcrumb @project.name, edit_project_path(params[:pid])
+    add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = nil
     if request.post?
       @risk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
@@ -42,6 +45,9 @@ class RiskController < ApplicationController
 
   def show
     @user = get_current_user
+    @project = Project.find_by_id(params[:pid])
+    add_breadcrumb @project.name,  edit_project_path(params[:pid])
+    add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
       flash[:notice] = "That risk does not exist."
@@ -79,11 +85,16 @@ class RiskController < ApplicationController
 
   def edit
     @user = get_current_user
+    @project = Project.find_by_id(params[:pid])
+    add_breadcrumb @project.name, edit_project_path(params[:pid])
+    add_breadcrumb "Risks", risk_index_path(params[:pid])
+
     if params[:risk] ==nil
       @risk = Risk.find_by_id(params[:rid])
     else
       @risk = params[:risk]
     end
+    add_breadcrumb @risk.title, show_risk_path(params[:pid], params[:rid])
     if @risk.nil?
       flash[:notice] = "That risk does not exist."
       redirect_to risk_index_path(params[:pid])

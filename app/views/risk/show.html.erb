@@ -1,11 +1,13 @@
 <h1><center> <%= @risk.title %></center> </h1>
-  <%= button_to "<< Return to Risks", risk_index_path, :class => 'btn btn-info', :method => :get %>
-<%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
+ <%= render_breadcrumbs %>
+<% if @risk.status == "active" %><%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
+<% end %>
 
 Title: <%= @risk.title %> <br/>
 Short Title: <%= @risk.short_title %> <br/>
 Owner: <%= @risk_owner_username %> <br/>
 Creator: <%= @risk_creator_username %> <br/>
+Status: <%= @risk.status %><br />
 Description: <%= @risk.description %> <br/>
 Risk Rating: <%= @risk.risk_rating %> <br/>
 Root Cause: <%= @risk.root_cause %> <br/>

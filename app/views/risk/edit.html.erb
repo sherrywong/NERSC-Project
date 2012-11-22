@@ -1,5 +1,6 @@
 <h1> <%= @risk.title %> </h1>
-<%= button_to "<< Return to Risks", risk_index_path, :class => 'btn btn-info', :method => :get %>
+  <%= render_breadcrumbs %>
+
   <% if @risk!=nil%>
    <%= render "home/shared/error_messages", :target => @risk %>
   <% end %>
