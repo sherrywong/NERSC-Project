@@ -54,6 +54,7 @@ Given /^a set of users exist$/ do
   @admin_user.admin = true; @admin_user.save
 
   User.create({"username"=>"ag", "email"=>"anna@gmail.com", "first"=>"Anensshiya", "last"=>"Govinthasamy", "admin"=>"true", "password"=>"agovinthasamy", "status"=>"active"})
+#Elise: retired user
   User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
 #Jason: non-admin, project owner of Second project
   User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
