@@ -18,9 +18,9 @@ Background: Some projects and risks have been added to database.
     Given I am logged in as an admin
     Given a set of projects exist
     Given a set of risks exist
-    And I am on the project page 
 	
-Scenario: Add and edit a valid risk.
+Scenario: Admins can add and edit a valid risk.
+    Given I am logged in as an admin
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
@@ -47,9 +47,44 @@ Scenario: Add and edit a valid risk.
     When I fill in "risk_description" with "D Changed"
     Then I press "Save"
     Then I should be on the Risk page for Test Risk in the first project
-#    And I should see "Risk 'Title Risk' was successfully updated."
+    Then there should be this message: "Risk 'Title Risk' was successfully updated."
+
+Scenario: Project owners can add and edit a valid risk.
+    Given I am logged in as Jason
+    When I go to Second Project's Add Risk page
+    When I fill in "risk_title" with "Test Risk"
+    When I fill in "risk_owner_id" with "admin"
+    When I fill in "risk_description" with "P2 Test Risk"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
+    Then I press "Save"
+    Then I should be on the risk index page for Second Project
+    Then there should be this message: "Risk 'P2 Test Risk' created."
+    When I go to the Edit Risk page for Test Risk in the second project
+    When I fill in "risk_description" with "D Changed"
+    Then I press "Save"
+    Then I should be on the Risk page for Test Risk in the second project
+    Then there should be this message: "Risk 'Title Risk' was successfully updated."
+
+Scenario: Project members can add and edit a valid risk.
+    Given I am logged in as Linda
+    When I go to Second Project's Add Risk page
+    When I fill in "risk_title" with "Test Risk2"
+    When I fill in "risk_owner_id" with "admin"
+    When I fill in "risk_description" with "P2 Test Risk2"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
+    Then I press "Save"
+    Then I should be on the risk index page for Second Project
+    Then there should be this message: "Risk 'P2 Test Risk2' created."
+    When I go to the Edit Risk page for Test Risk2 in the second project
+    When I fill in "risk_description" with "D Changed"
+    Then I press "Save"
+    Then I should be on the Risk page for Test Risk2 in the second project
+    Then there should be this message: "Risk 'Title Risk2' was successfully updated."
 
 Scenario: Add a risk with missing fields. #Doesn't have title.
+    Given I am logged in as an admin
     When I go to First Project's Add Risk page
     When I fill in "risk_owner_id" with "admin"
     When I fill in "risk_description" with "Our test risk for First Project."
@@ -60,5 +95,10 @@ Scenario: Add a risk with missing fields. #Doesn't have title.
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
-#    Then I should be on First Project's Add Risk page
+    Then I should be on First Project's Add Risk page
 #we will show all the fields they didn't fill out
+
+Scenario: Non-project members cannot add and edit a valid risk.
+    Given I am logged in as Sherry
+    When I go to Second Project's Add Risk page
+    Then I should see "Sorry, you don't have access to the requested project."

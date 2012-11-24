@@ -9,7 +9,7 @@ Background:
     Given a set of projects exist
     Given a set of risks exist
 
-Scenario: Admin or owners should be able to deactivate risk.
+Scenario: Admin can deactivate a risk.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Deactivate Test Risk"
