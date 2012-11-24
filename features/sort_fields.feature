@@ -38,5 +38,6 @@ Scenario: Sort system users.
     Then I sort users by "first"
     Then I sort users by "last"
     Then I sort users by "email"
+    Then I sort users by "admin"
     Then I sort users by "status"
 

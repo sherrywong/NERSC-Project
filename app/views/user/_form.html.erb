@@ -14,6 +14,9 @@
     Email: <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
+    Admin: <%= text_field 'user', 'admin', :placeholder => "true/false", :required => true %>
+    </div>
+    <div>
     Password: <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
     </div>
     <% if @user.nil? or @user.status == 'active' %>

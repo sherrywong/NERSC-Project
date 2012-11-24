@@ -1,7 +1,7 @@
 Feature: Create a risk
-#    As a project member,
-#    So that I can capture risk associated with a particular project,
-#    I want to be able to document the specifics of the risk and add it to the risk log.
+    As a project member,
+    So that I can capture risk associated with a particular project,
+    I want to be able to document the specifics of the risk and add it to the risk log.
 
 #Feature: Add Risk Fields
 #    As a project member,
@@ -13,7 +13,7 @@ Feature: Create a risk
 #    So that I can make comments on the status or history of risk changes
 #    I want to record changes made to the risk in a comment field.
 	
-Background: Some projects and no risks have been added to database.
+Background: Some projects and risks have been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
