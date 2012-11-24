@@ -34,6 +34,7 @@ World(WithinHelpers)
 @admin_user
 @first_project
 @second_project
+@third_project
 @lz
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |user_hash|
@@ -73,8 +74,8 @@ Given /^a set of projects exist$/ do
   @second_project = @usr.create_project({"name"=>"Second Project", "prefix" => "proj2", "description"=>"prefix = proj2", "owner_username"=>"jt"})
   @second_project.add_members(Array[@lz.id])
 
-  proj3 = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"bobw"})
-  proj3.add_members(User.all.map {|x| x.id})
+  @third_project = @usr.create_project({"name"=>"Third Project", "prefix" => "proj3", "description"=>"prefix = proj2", "owner_username"=>"bobw"})
+  @third_project.add_members(User.all.map {|x| x.id})
 end
 
 Given /^a set of risks exist$/ do
