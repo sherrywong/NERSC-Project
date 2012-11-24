@@ -22,6 +22,10 @@ module NavigationHelpers
     when /^the show users page$/
       '/user/show_users'
 
+    when /^the My Profile page for "(.*)"$/
+      uid = User.find_by_first($1).id
+      '/user/#{uid}/edit'
+
     when /^the Add New User page$/
       '/user/new'
       

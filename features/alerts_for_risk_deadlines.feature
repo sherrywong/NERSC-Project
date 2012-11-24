@@ -5,7 +5,7 @@ Feature: Alerts for risk deadlines
 	
 Background: some projects and risks have already been added to database
   Given a set of users exist
-  Given that I am logged in as an admin
+  Given I am logged in as an admin
   Given a set of projects exist
   Given a set of risks exist
   And the following risks exist:
@@ -20,19 +20,19 @@ Background: some projects and risks have already been added to database
 # For the sake of initial scenarios I write with a vaguely defined step, to be refined later.
 
 Scenario: No warning if the project is ok.
-  Given that I am logged in as Linda
+  Given I am logged in as Linda
   And I am on the project page for "First Project"
   And the date is "02-15-2012"
   And I should not be notified that "First Risk" needs to be reviewed.
     
 Scenario: Warning if it's been longer than the the review-frequency requirement.
-  Given that I am logged in as Linda
+  Given I am logged in as Linda
   And I am on the project page for "First Project"
   And the date is "03-11-2012"
   And I should be notified that "First Risk" needs to be reviewed.
     
 Scenario: Warning if it's past the deadline
-  Given that I am logged in as Sherry
+  Given I am logged in as Sherry
   And I am on the project page for "Third Project"
   And the date is "04-18-2012"
   And I should be notified that "Third Risk" needs to be reviewed.

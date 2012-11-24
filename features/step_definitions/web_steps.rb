@@ -59,7 +59,7 @@ Given /^a set of users exist$/ do
 #Elise: retired user
   User.create({"username"=>"em", "email"=>"elise@gmail.com", "first"=>"Elise", "last"=>"McCallum", "admin"=>"false", "password"=>"emccallum", "status"=>"retired"})
 #Jason: non-admin, project owner of Second project
-  User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jia", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
+  User.create({"username"=>"jt", "email"=>"jason@gmail.com", "first"=>"Jason", "last"=>"Teoh", "admin"=>"false", "password"=>"jteoh", "status"=>"active"})
 #Linda: non-admin, project member of Second project
   @lz = User.create({"username"=>"lz", "email"=>"linda@gmail.com", "first"=>"Lingbo", "last"=>"Zhang", "admin"=>"false", "password"=>"lzhang", "status"=>"active"})
 #Sherry: non-admin, project owner of Third project

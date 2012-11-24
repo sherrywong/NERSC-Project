@@ -7,15 +7,15 @@ Background: Some user logins exist.
     Given a set of users exist
 
 Scenario: Users can edit their own profile information.
-    Given I am logged in as an Jason
-    And I go to the My Profile page
+    Given I am logged in as Jason
+    And I go to the My Profile page for "Jason"
     And I fill in "user_first" with "Sherry"
     And I press "Save"
     Then I should see "Profile Information updated."
 
 Scenario: Users can change their password.
-    Given I am logged in as an Jason
-    And I go to the My Profile page
+    Given I am logged in as Jason
+    And I go to the My Profile page for "Jason"
     And I go to the Change Password page
     Then I should see "Old Password"
     Then I should see "New Password"
@@ -28,8 +28,8 @@ Scenario: Users can change their password.
     Then I should see "Profile Information updated."
 
 Scenario: Incorrect old password.
-    Given I am logged in as an Jason
-    And I go to the My Profile page
+    Given I am logged in as Jason
+    And I go to the My Profile page for "Jason"
     And I go to the Change Password page
     And I fill in "old_password" with "zzzz"
     And I fill in "new_password" with "jt"
