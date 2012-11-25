@@ -13,6 +13,11 @@ Scenario: Users can edit their own profile information.
     And I press "Save"
     Then I should see "Profile Information updated."
 
+Scenario: User cannot edit their username.
+   Given I am logged in as Jason
+   And I go to the My Profile page for "Jason"
+   Then I should not be able to fill in "user_username"
+
 Scenario: Users can change their password.
     Given I am logged in as Jason
     And I go to the My Profile page for "Jason"
@@ -24,7 +29,7 @@ Scenario: Users can change their password.
     And I fill in "new_password" with "jt"
     And I fill in "confirm_new_password" with "jt"
     And I press "Save"
-    Then I should be the My Profile page
+    Then I should be on the My Profile page for "Jason"
     Then I should see "Profile Information updated."
 
 Scenario: Incorrect old password.
@@ -47,6 +52,6 @@ Scenario: Incorrect old password.
     And I fill in "new_password" with "jt"
     And I fill in "confirm_new_password" with "jt"
     And I press "Save"
-    Then I should be the My Profile page
+    Then I should be on the My Profile page for "Jason"
     Then I should see "Profile Information updated."
 

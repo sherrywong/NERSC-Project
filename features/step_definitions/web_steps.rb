@@ -395,3 +395,7 @@ end
 Then /^there should a log on field "([^"]*)", old value "([^"]*)", and new value "([^"]*)"$/ do |field, oldV, newV|
   page.body.match /<tr class="info">.*\/#{field}\/.*\/#{oldV}\/.*\/#{newV}\/.*<\/tr>/
 end
+
+Then /^(?:|I )should not be able to fill in "([^"]*)"$/ do |field|
+  page.body.match /input id="#{field}".*type="hidden"/
+end
