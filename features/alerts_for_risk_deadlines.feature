@@ -8,7 +8,7 @@ Background: some projects and risks have already been added to database
   Given I am logged in as an admin
   Given a set of projects exist
   Given a set of risks exist
-  And the following risks exist:
+#  And the following risks exist:
 #  | title       | project        | risk_id | originator | owner  | description                   | id_date    | last-reviewed | deadline   | review-frequency | condition |
 #  | First Risk  | First Project  | 1-1     | Linda      | Anna   | Our first risk for project 1. | 02-11-2012 | 02-11-2012    | 01-11-2014 | 14               | stable    |
 #  | Second Risk | Second Project | 2-1     | Jason      | Elise  | Our first risk for project 2. | 03-11-2012 | 03-11-2012    | 01-11-2014 | 14               | stable    |
