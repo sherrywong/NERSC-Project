@@ -29,6 +29,7 @@ class UserController < ApplicationController
   end
 
   def show_users
+
     sort = params[:sort] || session[:sort]
     case sort
       when "username"
@@ -48,6 +49,7 @@ class UserController < ApplicationController
   end
 
   def new
+    add_breadcrumb "Users", show_users_path
     if request.post?
       user_hash = params[:user]
       @new = get_current_user.create_user(user_hash)
@@ -62,7 +64,7 @@ class UserController < ApplicationController
 
   def edit
     @edit = true
-
+    add_breadcrumb "Users", show_users_path
     if (params[:id].to_s == session[:uid].to_s)
       @curr_user = true
     else

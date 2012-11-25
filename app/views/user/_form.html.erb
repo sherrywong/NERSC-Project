@@ -1,5 +1,5 @@
 <div id="autosave"></div>
-<%= render_breadcrumbs %>
+
 <div class='clearfix'>
   <div>
     <div>
@@ -22,8 +22,10 @@
     Admin: <%= text_field 'user', 'admin', :placeholder => "true/false", :required => true %>
     </div>
     <div>
-<% if (not @edit) or @curr_user %>
+<% if (not @edit)  %>
     Password: <%= password_field 'user', 'password', :placeholder => "Password", :required => true %>
+<% elsif @curr_user %>
+    Password: <%= password_field 'user', 'password', :placeholder => "Password" %>
  <% end %>
     </div>
     <% if @user.nil? or @user.status == 'active' %>
