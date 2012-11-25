@@ -55,10 +55,10 @@ class UserController < ApplicationController
       @new = get_current_user.create_user(user_hash)
       if @new.errors.empty?
         flash[:notice]= "User '#{@new.first} #{@new.last}'created."
-        redirect_to "/user/show_users"
       else
-        flash[:notice] = "Error occurred when creating user."
+        flash[:notice] = @new.errors[:owner].to_s
       end
+      redirect_to "/user/show_users"
     end
   end
 

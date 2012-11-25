@@ -18,8 +18,8 @@
 <td class='last'>
 <%= risk.status %>
 </td>
-<% if @user.admin? or risk.owner_id == @user.id%>
-       <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id) -%></td>
+<% if risk.owner_id == @user.id or @user.admin?%>
+       <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id)-%></td>
 <% else %>
        <td><%= 'N/A' %>
 <% end %>

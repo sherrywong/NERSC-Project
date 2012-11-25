@@ -46,7 +46,10 @@ class User < ActiveRecord::Base
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-    @usr.save
+    if @usr.save
+    else
+      @usr.errors[:owner] = "Error: This uesrname already exists. Please create another username and try again."
+    end
     return @usr
   end
 
