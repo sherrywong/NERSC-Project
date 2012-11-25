@@ -5,7 +5,7 @@ gem "audited-activerecord", "~> 3.0"
 gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
-gem 'breadcrumbs', ' ~>0.1.6'
+gem "breadcrumbs", "~> 0.1.6"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
