@@ -53,6 +53,7 @@ module NavigationHelpers
       if Risk.find_by_title($1) == nil
         rid = Risk.find_by_title($1).object_id
       else
+        puts "NOT"
         rid = Risk.find_by_title($1).id
       end
       "/user/project/#{pid}/risk/#{rid}/edit"
