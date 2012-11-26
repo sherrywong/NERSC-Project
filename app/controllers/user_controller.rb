@@ -73,6 +73,7 @@ class UserController < ApplicationController
 
     @user = User.find_by_id(params[:id])
     @user_username = @user.username
+    @user_admin = @user.admin
   end
 
   def update

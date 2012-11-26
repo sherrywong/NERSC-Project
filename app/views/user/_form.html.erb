@@ -19,7 +19,14 @@
     Email: <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
-    Admin: <%= text_field 'user', 'admin', :placeholder => "true/false", :required => true %>
+         <% if (not @edit) %>
+    Admin: <select id='user[admin]'>
+                <option value="true">True</option>
+                <option value="false">False</option>
+           </select> <% else %>
+    Admin: <%= @user_admin %><%= hidden_field_tag 'user[admin]', @user_admin %><br/> <% end %>
+
+
     </div>
     <div>
 <% if (not @edit)  %>
