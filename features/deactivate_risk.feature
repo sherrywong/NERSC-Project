@@ -24,6 +24,7 @@ Scenario: Admin can deactivate a risk. #Just member of project
 #    Then I press "Yes"
     Then I should be on the risk index page for Third Project
     And I should see "Risk 'P3 Test Risk' deactivated."
+    Then there should not be deactivate project for "P3 Test Risk"
 
 Scenario: Risk owners can deactivate a risk.
     Given I am logged in as Linda
@@ -39,6 +40,7 @@ Scenario: Risk owners can deactivate a risk.
 #    Then I press "Yes"
     Then I should be on the risk index page for Third Project
     And I should see "Risk 'P3 Test Risk3' deactivated."
+    Then there should not be deactivate project for "P3 Test RIsk3"
 
 Scenario: Project owners cannot deactivate a risk.
     Given I am logged in as Sherry

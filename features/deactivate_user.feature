@@ -14,6 +14,7 @@ Scenario: Admin can deactivate a user.
 #    And I click "Yes"
     Then there should be this message: "User deactivated."
     And "Sherry Wong" should be retired
+    Then there should not be deactivate user for "Sherry"
 
 Scenario: Admin cannot deactivate admin.
     Given I am logged in as an admin

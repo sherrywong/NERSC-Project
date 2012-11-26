@@ -62,7 +62,6 @@ Scenario: Audit log modified when risk edited
 
 Scenario: Risk log generated on risk deactivation
     Given I am logged in as an admin
-    
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
     When I fill in "risk_owner_id" with "admin"
