@@ -1,7 +1,7 @@
 <% for project in @projects %>
   <tr class="info">
     <td>
-      <%= link_to project.name, edit_project_path(project.id) %>
+      <%= link_to project.name, show_project_path(project.id) %>
     </td>
     <td>
       <%= project.description %>
@@ -11,11 +11,12 @@
     </td>
     <td class='last'>
       <%= project.status %>
-      <% if (@user.admin? or project.owner == @user) and project.status == "active" %>
+    </td>
+      <% if ((@user.admin? or project.owner == @user) and (project.status == "active")) %>
          <td> <%= link_to "X", {:controller => 'project', :action => 'destroy', :pid => project.id} -%>
     </td>
     <% else %>
-        <td><%= 'N/A' %>
+        <td><%= 'N/A' %></td>
     <% end %>
   </tr>
 <% end %>

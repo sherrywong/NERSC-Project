@@ -18,7 +18,27 @@ class ProjectController < ApplicationController
     #Project.all if we want to show all users
   end
 
+  def show
+    @project = Project.find_by_id(params[:pid])
+    sort = params[:sort] || session[:sort]
+    case sort
+      when "members"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.username}
+      when "first"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.first}
+      when "last"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.last}
+      when "email"
+        @proj_members = @project.members
+        @proj_members = @proj_members.sort_by {|usr| usr.email}
+      else
+        @proj_members = @project.members
+      end
 
+  end
 
   def new
 
@@ -39,6 +59,7 @@ class ProjectController < ApplicationController
   def edit
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    add_breadcrumb @project.name, show_project_path(params[:pid])
     sort = params[:sort] || session[:sort]
     case sort
       when "members"
