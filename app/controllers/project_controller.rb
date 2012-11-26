@@ -17,6 +17,7 @@ class ProjectController < ApplicationController
 
 
   def new
+
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
