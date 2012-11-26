@@ -14,7 +14,12 @@
   </td>
   <td><%= user.status %>
   </td>
-  <td class='last'><%= link_to "X", {:action => 'destroy', :uid => user.id} -%>
+  <td class='last'>
+   <% if user.status == "active" %>
+   <%= link_to "X", {:action => 'destroy', :uid => user.id} -%>
+   <% else %>
+   <%= 'N/A' %>
+   <% end %>
   </td>
 </tr>
 <% end %>
