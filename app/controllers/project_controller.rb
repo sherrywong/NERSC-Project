@@ -37,11 +37,9 @@ class ProjectController < ApplicationController
       else
         @proj_members = @project.members
       end
-
   end
 
   def new
-
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
@@ -53,7 +51,6 @@ class ProjectController < ApplicationController
         redirect_to "/user/index"
     end
   end
-
 
 
   def edit
@@ -77,14 +74,13 @@ class ProjectController < ApplicationController
       else
         @proj_members = @project.members
     end
-
-
     if @project.nil?
         flash[:notice] = "That project does not exist."
         redirect_to "/user/index"
     end
     #include error handling...
   end
+
 
   def update
     @user = get_current_user
@@ -95,6 +91,7 @@ class ProjectController < ApplicationController
     redirect_to "/user/index"
   end
 
+
   def destroy
     @project = Project.find(params[:pid])
     if @project != nil
@@ -102,6 +99,7 @@ class ProjectController < ApplicationController
     end
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
+
 
   def add_members
     members = params[:members]
@@ -123,6 +121,7 @@ class ProjectController < ApplicationController
     redirect_to edit_project_path(params[:pid])
   end
 
+
   def remove_member
     @project = Project.find_by_id(params[:pid])
     @member= User.find_by_id(params[:uid])
@@ -131,6 +130,7 @@ class ProjectController < ApplicationController
     redirect_to edit_project_path(params[:pid])
   end
 
+=begin
   def sort_column
     Project.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
@@ -138,5 +138,6 @@ class ProjectController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+=end
 
 end

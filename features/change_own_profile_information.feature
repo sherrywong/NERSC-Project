@@ -14,7 +14,8 @@ Scenario: Users can edit their own profile information.
     Then I should be on the project page
     Then I should see "User Sherry Teoh was successfully updated."
 
-Scenario: User cannot edit their username.
+Scenario: User cannot edit their username or admin status.
    Given I am logged in as Jason
    And I go to the My Profile page for "Jason"
    Then I should not be able to fill in "user_username"
+   Then I should not be able to fill in "user_admin"

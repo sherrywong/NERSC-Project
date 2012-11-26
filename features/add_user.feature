@@ -14,12 +14,26 @@ Scenario: Admin can create a user.
     And I fill in "user_email" with "a.a@gmail.com"
     And I fill in "user_first" with "Temp"
     And I fill in "user_last" with "User"
-    And I fill in "user_admin" with "false"
+    And I select "False" from "user[admin]"
     And I fill in "user_password" with "tu"
     And I press "Save"
     Then I should be on the show users page
     Then there should be this message: "User 'Temp User' created."
     And I should see "Starfish"
+
+Scenario: Admin cannot create a user with an existing username.
+    Given I am logged in as an admin
+    And I go to the show users page
+    And I go to the Add New User page
+    And I fill in "user_username" with "ag"
+    And I fill in "user_email" with "a.a@gmail.com"
+    And I fill in "user_first" with "Temp"
+    And I fill in "user_last" with "User"
+    And I select "False" from "user[admin]"
+    And I fill in "user_password" with "tu"
+    And I press "Save"
+    Then I should be on the show users page
+    Then there should be this message: "Error: This uesrname already exists. Please create another username and try again."
 
 Scenario: Non-admin cannot create a user.
     Given I am logged in as Jason

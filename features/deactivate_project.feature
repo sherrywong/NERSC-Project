@@ -15,6 +15,7 @@ Scenario: Admins can deactivate a project.
 #confirmation?
     Then I should be on the project page
     And I should see "Project 'First Project' deactivated."
+    Then there should not be deactivate project for "First Project"
     
 Scenario: Project owners can deactivate their own projects.
     Given I am logged in as Jason
@@ -23,6 +24,7 @@ Scenario: Project owners can deactivate their own projects.
 #confirmation?
     Then I should be on the project page
     And I should see "Project 'Second Project' deactivated."
+    Then there should not be deactivate project for "Second Project"
 
 Scenario: Project members cannot deactivate projects.
     Given I am logged in as Linda

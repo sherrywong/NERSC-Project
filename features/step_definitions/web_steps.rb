@@ -372,6 +372,10 @@ Then /^there should not be deactivate risk for "([^"]*)"$/ do |risk|
   page.body.match /<tr>.*\/#{risk}\/.*N\/A.*<\/tr>/
 end
 
+Then /^there should not be deactivate user for "([^"]*)"$/ do |user|
+  page.body.match /<tr>.*\/#{user}\/.*N\/A.*<\/tr>/
+end
+
 Then /^there should be this message: "([^"]*)"$/ do |error|
   page.body.include?(error)
 end

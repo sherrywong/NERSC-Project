@@ -16,7 +16,8 @@ Background: Some projects have already been added to database.
 Scenario: Admins can add a valid project.
     Given I am logged in as an admin
     And I am on the project page
-    When I go to the new project page
+    When I press "+ Create New Project"
+    And I am on the new project page
     When I fill in "project_name" with "Test Project" 
     And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
@@ -27,11 +28,13 @@ Scenario: Admins can add a valid project.
     And I should see "Test Project"
 
 Scenario: Add project with missing fields.
+    Given I am logged in as an admin
     And I am on the project page
-    When I go to the new project page
+    When I press "+ Create New Project"
+    And I am on the new project page
     When I fill in "project_description" with "Project 5"
     Then I press "Save" 
-    Then I should be on the new project page
+#    Then I should be on the new project page
 
 Scenario: Non-admins cannot add a project.
     Given I am logged in as Jason
@@ -41,20 +44,28 @@ Scenario: Non-admins cannot add a project.
 
 Scenario: Admins can edit a project.
     Given I am logged in as an admin
-    When I go to the project page for "First Project"
+    And I am on the project page
+    When I follow "First Project"
+    And I am on the project page for "First Project"
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
+    Then I should be on the project page
     Then I should see "Project 'Test Project2' was succesfully updated."
 
 Scenario: Project owners can edit a project.
     Given I am logged in as Jason
-    When I go to the project page for "Second Project"
+    And I am on the project page
+    When I follow "Second Project"
+    Then I should be on the project page for "Second Project"
     When I fill in "project_name" with "Edit Name"
     Then I press "Save"
+    Then I should be on the project page
     Then I should see "Project 'Edit Name' was succesfully updated."
 
 Scenario: Project members cannot edit a project.
     Given I am logged in as Linda
-    When I go to the project page for "Second Project"
+    And I am on the project page
+    When I follow "Second Project"
+    Then I should be on the project page for "Second Project"
     Then I should not see "Save"
