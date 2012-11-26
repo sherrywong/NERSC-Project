@@ -21,7 +21,10 @@ Background: Some projects and risks have been added to database.
 	
 Scenario: Admins can add and edit a valid risk.
     Given I am logged in as an admin
-    When I go to First Project's Add Risk page
+    And I am on the project page
+    When I follow "First Project"
+    And I am on the project page for "First Project"
+    When I press "+ Add New Risk"
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
     When I fill in "risk_owner_id" with "admin"
@@ -43,7 +46,8 @@ Scenario: Admins can add and edit a valid risk.
     Then I press "Save"
     Then I should be on the risk index page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
-    When I go to the Edit Risk page for Test Risk in the first project
+    When I follow "Test Risk"
+    And I am on the Edit Risk page for Test Risk in the first project
     When I fill in "risk_description" with "D Changed"
     Then I press "Save"
     Then I should be on the Risk page for Test Risk in the first project

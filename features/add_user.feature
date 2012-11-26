@@ -14,7 +14,7 @@ Scenario: Admin can create a user.
     And I fill in "user_email" with "a.a@gmail.com"
     And I fill in "user_first" with "Temp"
     And I fill in "user_last" with "User"
-    And I fill in "user_admin" with "false"
+    And I select "False" from "user[admin]"
     And I fill in "user_password" with "tu"
     And I press "Save"
     Then I should be on the show users page
