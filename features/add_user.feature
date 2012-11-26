@@ -31,6 +31,7 @@ Scenario: Admin can edit a user.
    When I go to ag's Edit User page
    And I fill in "user_first" with "Sherry"
    And I press "Save"
+   Then I should be on the project page
    Then I should see "User Sherry Govinthasamy was successfully updated."
 
 Scenario: Admin cannot edit a username.
@@ -47,4 +48,5 @@ Scenario: Admin cannot edit a retired user.
 Scenario: Non-admin cannot edit a user.
    Given I am logged in as Jason
    When I go to ag's Edit User page
-   Then I should see "Sorry, you have to be an admin to perform this action."
+   Then I should see "Sorry, you have to be an admin to edit someone else's account information."
+   And I should be on the project page

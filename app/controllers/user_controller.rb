@@ -79,7 +79,7 @@ class UserController < ApplicationController
     @user = User.find_by_username(params[:user]["username"])
     @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
     flash[:notice] = "User #{@user.first} #{@user.last} was successfully updated."
-    redirect_to "/user/show_users"
+    redirect_to "/user/index"
   end
 
   def destroy
