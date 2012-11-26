@@ -10,7 +10,11 @@ class ProjectController < ApplicationController
 
   def index
     @user = get_current_user
-    @projects = @user.projects
+    if @user.admin?
+      @projects = Project.all
+    else
+      @projects = @user.projects
+    end
     #Project.all if we want to show all users
   end
 
