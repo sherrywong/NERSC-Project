@@ -64,14 +64,15 @@ class UserController < ApplicationController
 
   def edit
     @edit = true
-    add_breadcrumb "Users", show_users_path
     if (params[:id].to_s == session[:uid].to_s)
       @curr_user = true
     else
       @curr_user = false
     end
-
     @user = User.find_by_id(params[:id])
+    if (@user.admin)
+      add_breadcrumb "Users", show_users_path
+    end
     @user_username = @user.username
     @user_admin = @user.admin
   end
