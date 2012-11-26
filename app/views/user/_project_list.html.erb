@@ -11,7 +11,7 @@
     </td>
     <td class='last'>
       <%= project.status %>
-      <% if @user.admin? or project.owner == @user%>
+      <% if (@user.admin? or project.owner == @user) and project.status == "active" %>
          <td> <%= link_to "X", {:controller => 'project', :action => 'destroy', :pid => project.id} -%>
     </td>
     <% else %>

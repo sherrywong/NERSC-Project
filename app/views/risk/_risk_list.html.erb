@@ -18,7 +18,7 @@
 <td class='last'>
 <%= risk.status %>
 </td>
-<% if risk.owner_id == @user.id or @user.admin?%>
+<% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "active" %>
        <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id)-%></td>
 <% else %>
        <td><%= 'N/A' %>
