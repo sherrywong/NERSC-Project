@@ -40,7 +40,8 @@ class ApplicationController < ActionController::Base
   end
 
   def is_admin_or_user
-    if !get_current_user.admin? and get_current_user!=User.find_by_id(params[:id])
+    if get_current_user.admin? or get_current_user.username==User.find_by_id(params["id"].to_i).username
+    else
       flash[:notice] = "Sorry, you have to be an admin to edit someone else's account information."
       redirect_to :controller => "user", :action => "show_users"
     end

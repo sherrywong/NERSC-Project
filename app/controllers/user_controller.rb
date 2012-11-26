@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   before_filter :login_required, :except => [:login]
   before_filter :is_admin, :only => [:new, :destroy]
-  before_filter :is_admin_or_user, :only => [:edit, :update]
+  before_filter :is_admin_or_user, :only => :edit
 
   add_breadcrumb "Home", :user_index_path
 
@@ -93,7 +93,7 @@ class UserController < ApplicationController
   end
 
   def login
-    if request.post? #If the form was submitted
+    if request.post? #If form was submitted
       if @user= User.authenticate(params[:username], params[:password]) and @user and @user.active? #Check that user exists, password is correct, and status is active
         session[:uid] = @user.id #If so log in the user
         redirect_to :action => "index" #And redirect to their profile
