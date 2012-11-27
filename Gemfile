@@ -6,6 +6,7 @@ gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 gem "breadcrumbs_on_rails"
+gem 'rails3-jquery-autocomplete'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
