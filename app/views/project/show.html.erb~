@@ -1,0 +1,10 @@
+<h1><center><%= @project.name %></center></h1>
+<%= render_breadcrumbs %>
+<% if @project.status == "active" %><%= button_to "+ Edit Project", edit_project_path(params[:pid]), :class => 'btn btn-info', :method => :get %>
+
+Name: <%= @project.name %><br/>
+Prefix: <%= @project.prefix %><br/>
+Description <%= @project.description %><br/>
+Owner: <%= @project_owner_username %><br/>
+Risk Matrix:<br/>
+

@@ -81,6 +81,7 @@ NerscProject::Application.routes.draw do
   match "/project/:pid/risk/destroy" => 'risk#destroy', :as => :destroy_risk
   match "/project/:pid/risk/:rid" => 'risk#show', :as => :show_risk
   match "/project/users_autocomplete_name" => 'project#users_autocomplete_name', :as => :users_autocomplete_name
+  match "/project/:pid" => 'project#show', :as => :show_project
 
 
   # See how all your routes lay out with "rake routes"

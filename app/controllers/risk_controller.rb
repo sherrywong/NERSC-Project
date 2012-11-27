@@ -9,7 +9,8 @@ class RiskController < ApplicationController
 
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    add_breadcrumb @project.name, edit_project_path(params[:pid])
+    add_breadcrumb @project.name, show_project_path(params[:pid])
+    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     sort = params[:sort] || session[:sort]
     case sort
       when "title"
@@ -31,7 +32,8 @@ class RiskController < ApplicationController
   def new
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    add_breadcrumb @project.name, edit_project_path(params[:pid])
+    add_breadcrumb @project.name, show_project_path(params[:pid])
+    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = nil
     if request.post?
@@ -46,7 +48,8 @@ class RiskController < ApplicationController
   def show
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    add_breadcrumb @project.name,  edit_project_path(params[:pid])
+    add_breadcrumb @project.name, show_project_path(params[:pid])
+    add_breadcrumb "Edit " + @project.name,  edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
@@ -86,7 +89,8 @@ class RiskController < ApplicationController
   def edit
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    add_breadcrumb @project.name, edit_project_path(params[:pid])
+    add_breadcrumb @project.name, show_project_path(params[:pid])
+    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
 
     if params[:risk] ==nil
