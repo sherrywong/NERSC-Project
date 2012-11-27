@@ -104,14 +104,6 @@ class User < ActiveRecord::Base
     project.owner = new_owner unless new_owner.nil?
   end
 
-  ##updating risks by SW##
-  def update_risk(risk_hash, risk)
-    new_owner = extract_owner_username(risk_hash)
-    risk.update_attributes(risk_hash)
-    risk.owner_id = new_owner.id unless new_owner.nil?
-    return risk
-  end
-
   def deactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
     if @proj
