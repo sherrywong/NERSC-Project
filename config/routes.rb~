@@ -82,10 +82,9 @@ NerscProject::Application.routes.draw do
   match "/project/:pid/risk/:rid" => 'risk#show', :as => :show_risk
   match "/project/users_autocomplete_name" => 'project#users_autocomplete_name', :as => :users_autocomplete_name
   match "/project/:pid" => 'project#show', :as => :show_project
+  
+  match "/user/autocomplete_username" => 'user#autocomplete_username', :as => :autocomplete_username_user
 
-resources :user do
-  get :autocomplete_username, :on => :collection
-end
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

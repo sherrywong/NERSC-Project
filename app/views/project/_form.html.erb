@@ -33,7 +33,7 @@
     </div>
     <%# JT - added owner_username for owner setting at creation%>
     <div>
-    Owner: <%= autocomplete_field_tag 'username', '',  autocomplete_username_user_path, :size => 75  %>
+    Owner: <%= autocomplete_field_tag 'project[owner_username]', '',  autocomplete_username_users_path, :size => 75  %>
     </div>
     <div>Risk Matrix
       <table id="risk_mx">
