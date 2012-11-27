@@ -100,6 +100,14 @@ class ProjectController < ApplicationController
     redirect_to user_index_path, :notice => "Project '#{@project.name}' deactivated."
   end
 
+  def reactivate
+    @project = Project.find(params[:pid])
+    if @project != nil
+      get_current_user.reactivate_project(params[:pid])
+    end
+    redirect_to user_index_path, :notice => "Project '#{@project.name}' reactivated."
+  end
+
 
   def add_members
     members = params[:members]

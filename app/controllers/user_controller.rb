@@ -94,6 +94,16 @@ class UserController < ApplicationController
     redirect_to "/user/show_users"
   end
 
+  def reactivate
+    @user = get_current_user
+    if @user.reactivate_user(params[:uid])
+      flash[:notice] = "User reactivated."
+    else
+      flash[:notice] = "You cannot reactivate this user."
+    end
+    redirect_to "/user/show_users"
+  end
+
   def login
     if request.post? #If form was submitted
       if @user= User.authenticate(params[:username], params[:password]) and @user and @user.active? #Check that user exists, password is correct, and status is active
