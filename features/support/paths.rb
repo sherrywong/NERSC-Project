@@ -36,6 +36,9 @@ module NavigationHelpers
       '/user/project/new'
 
     when /^the project page for "(.*)"$/i
+      "/project/#{Project.find_by_name($1).id}"
+
+    when /^the edit project page for "(.*)"$/i
       "/project/#{Project.find_by_name($1).id}/edit"
       
     when /^(.*)'s Edit User page$/i

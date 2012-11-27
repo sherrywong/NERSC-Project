@@ -71,8 +71,6 @@ class Risk < ActiveRecord::Base
       return @risk
     end
 
-
-  ##this is probably not needed anymore? since i'm updating risk in user.rb##
     def self.update_risk(risk_hash, risk)
       if risk_hash[:owner_id]!=nil
    @owner = User.find_by_username(risk_hash[:owner_id])

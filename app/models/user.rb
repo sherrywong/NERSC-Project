@@ -104,14 +104,7 @@ class User < ActiveRecord::Base
     project.owner = new_owner unless new_owner.nil?
   end
 
-  ##updating risks by SW##
-  def update_risk(risk_hash, risk)
-    new_owner = extract_owner_username(risk_hash)
-    risk.update_attributes(risk_hash)
-    risk.owner_id = new_owner.id unless new_owner.nil?
-    return risk
-  end
-
+  #deactivating project/risk/user
   def deactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
     if @proj
@@ -134,10 +127,38 @@ class User < ActiveRecord::Base
     @usr = User.find_by_id(user_id)
     if @usr and self.admin? and not @usr.admin?
       @usr.status = "retired"
-      @usr.save
-      return true
+      return @usr.save
     end
     return false
   end
+  
+  #reactivating project/risk/user - identical to deactivation except setting = active.
+  def reactivate_project(project_id)
+    @proj = Project.find_by_id(project_id)
+    if @proj
+      @proj.status = "active"
+      @proj.save
+    end
+    return @proj
+  end
+
+  def reactivate_risk(risk_id)
+    @risk = Risk.find_by_id(risk_id)
+    if @risk
+        @risk.status = "active"
+        @risk.save
+    end
+    return @risk
+  end
+
+  def reactivate_user(user_id)
+    @usr = User.find_by_id(user_id)
+    if @usr and self.admin? and not @usr.admin?
+      @usr.status = "active"
+      return @usr.save
+    end
+    return false
+  end
+  
 
 end

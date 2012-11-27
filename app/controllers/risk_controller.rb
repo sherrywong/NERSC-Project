@@ -123,5 +123,13 @@ class RiskController < ApplicationController
     end
     redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@risk.title}' deactivated."
   end
+  
+  def reactivate
+    @risk = Risk.find(params[:rid])
+    if @risk != nil
+      get_current_user.reactivate_risk(params[:rid])
+    end
+    redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@risk.title}' reactivated."
+  end
 
 end

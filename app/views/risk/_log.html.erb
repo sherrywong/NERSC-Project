@@ -5,7 +5,7 @@
          <td><%= audit.created_at%></td>
          <td><%= change[0]%></td>
          <% if change[1].class == Array%>
-           <% if (not (change[1][0].class == Fixnum)) and change[1][0].empty? %>
+           <% if (not (change[1][0].class == Fixnum)) and !change[1][0].class == Date and change[1][0].empty? %>
              <td><%= 'nil' %>
              <td><%= change[1][1]%></td>
            <% else %>

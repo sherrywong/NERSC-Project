@@ -1,4 +1,4 @@
-Feature: Create a project 
+Feature: Create a project
     As an administrator, 
     So that I can capture and share information about a project I am working on 
     I want to be able to create a project and share it with project members 
@@ -46,7 +46,8 @@ Scenario: Admins can edit a project.
     Given I am logged in as an admin
     And I am on the project page
     When I follow "First Project"
-    And I am on the project page for "First Project"
+    Then I press "+ Edit Project"
+    And I am on the edit project page for "First Project"
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
@@ -57,7 +58,8 @@ Scenario: Project owners can edit a project.
     Given I am logged in as Jason
     And I am on the project page
     When I follow "Second Project"
-    Then I should be on the project page for "Second Project"
+    When I press "+ Edit Project"
+    Then I should be on the edit project page for "Second Project"
     When I fill in "project_name" with "Edit Name"
     Then I press "Save"
     Then I should be on the project page
@@ -67,5 +69,4 @@ Scenario: Project members cannot edit a project.
     Given I am logged in as Linda
     And I am on the project page
     When I follow "Second Project"
-    Then I should be on the project page for "Second Project"
-    Then I should not see "Save"
+    Then I should not see "+ Edit Project"
