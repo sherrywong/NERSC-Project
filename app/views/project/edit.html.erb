@@ -2,8 +2,6 @@
   <p><center><%= flash[:notice] %></center></p>
 <br>
 <%= render_breadcrumbs %>
-<%= button_to "+ Add New Risk", new_risk_path(@project.id), :class => 'btn btn-info', :method => :get%>
-<%= button_to "+ Display Associated Risks", risk_index_path(@project.id), :class => 'btn btn-info', :method => :get %>
 
   <input type="button" value="+" onclick="showForm();"/> Add Project Members
 

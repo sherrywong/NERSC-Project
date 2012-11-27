@@ -19,6 +19,7 @@ class ProjectController < ApplicationController
   end
 
   def show
+    @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     sort = params[:sort] || session[:sort]
     case sort
