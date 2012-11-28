@@ -19,7 +19,7 @@
     Email: <%= text_field 'user', 'email', :placeholder => "Email", :required => true %>
     </div>
     <div>
-         <% if (not @edit) %>
+         <% if (not @edit) or (@current_user.admin) %>
     Admin: <select id='user[admin]'>
                 <option value="true">True</option>
                 <option value="false">False</option>

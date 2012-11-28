@@ -62,6 +62,7 @@ class UserController < ApplicationController
 
   def edit
     @edit = true
+    @current_user = get_current_user
     if (params[:id].to_s == session[:uid].to_s)
       @curr_user = true
     else
