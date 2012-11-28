@@ -1,16 +1,19 @@
 <% for audit in @risk.audits %>
   <% for change in audit.audited_changes %>
-    <tr class="info">
-       <% if not change[1].nil? and not (change[1].class == Array and change[1][0].nil?)%>
+     <% field = change[0] %>
+     <tr class="info">
+       <% if not change[1].nil? and (change[1].class == Array and not change[1][0].nil?)%>
+         <% old_val = change[1][0] %>
+         <% new_val = change[1][1] %>
          <td><%= audit.created_at%></td>
-         <td><%= change[0]%></td>
+         <td><%= field%> </td>
          <% if change[1].class == Array%>
-           <% if (not (change[1][0].class == Fixnum)) and !change[1][0].class == Date and change[1][0].empty? %>
+           <% if (not (old_val.class == Fixnum)) and !old_val.class == Date and old_val.empty? %>
              <td><%= 'nil' %>
-             <td><%= change[1][1]%></td>
+             <td><%= new_val %></td>
            <% else %>
-             <td><%= change[1][0]%></td>
-             <td><%= change[1][1]%></td>
+             <td><%= old_val %></td>
+             <td><%= new_val %></td>
            <% end %>
          <% else%>
            <td><%= 'nil' %>
