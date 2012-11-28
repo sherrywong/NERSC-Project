@@ -50,6 +50,8 @@ Scenario: Go through series of pages dealing with risks.
     Then I should be on the project page for "First Project"
     When I press "+ Edit Project"
     Then I should be on the edit project page for "First Project"
+    When I follow "First Project"
+    Then I should be on the project page for "First Project"
     When I press "+ Add New Risk"
     When I follow "Risks"
     Then I should be on the risk index page for First Project

@@ -22,7 +22,7 @@ Scenario: Set a user that doesn't exist as project owner.
     When I go to the new project page 
     When I fill in "project_name" with "First Project"
     When I fill in "project_description" with "Project 5"
-    When I fill in "project_owner_username" with "blah"
+    When I fill in "username" with "blah"
     Then I press "Save"
     And I am on the project page
     Then there should be this message: "Warning: User not found in database. Owner set to admin instead."

@@ -10,7 +10,7 @@ Background: some users and projects have already been added to database
 
 Scenario: Add aa user to project as an admin.
     Given I am logged in as an admin
-    When I go to the project page for "First Project"
+    When I go to the edit project page for "First Project"
     Then I press "+"
     When I fill in "members_" with "ag"
     And I press "Add"
@@ -20,11 +20,12 @@ Scenario: Add aa user to project as an admin.
 
 Scenario: Remove a user from project as an admin.
     Given I am logged in as an admin
-    When I go to the project page for "First Project"
+    When I go to the edit project page for "First Project"
     And I click on delete project member "ag" for "First Project"
 #    Then I should see "Are you sure you want to delete user: Sherry Wong from First Project?"
 #    And I click "Yes"
-    And I should be on the project page for "First Project"
+    And I should be on the edit project page for "First Project"
+    Then there should be this message: "Removed Anensshiya Govinthasamy from this project."
     Then I should not see "ag"
 
 Scenario: Add invalid user to project as an admin.
