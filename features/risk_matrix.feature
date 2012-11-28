@@ -14,7 +14,7 @@ Scenario: set project specific risk parameters
     When I fill in "project_name" with "Test Project" 
     And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
-    And I fill in "username" with "admin"
+    And I fill in "project_owner_username" with "admin"
     When I select "Low" from "project[probability_impact_11]"
 #    Then "project[probability_impact_11]" should be "Low"
 #    And "project[probability_impact_11]" should be "green"

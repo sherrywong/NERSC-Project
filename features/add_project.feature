@@ -21,7 +21,7 @@ Scenario: Admins can add a valid project.
     When I fill in "project_name" with "Test Project" 
     And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
-    And I fill in "username" with "admin"
+    And I fill in "project_owner_username" with "admin"
     Then I press "Save" 
     Then I should be on the project page
     And I should see "Project 'Test Project' created."
