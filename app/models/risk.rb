@@ -51,15 +51,20 @@ class Risk < ActiveRecord::Base
       #because user specify owner by username but our db stores a owner id
       if risk_hash[:owner_id] != nil
         @owner = User.find_by_username(risk_hash[:owner_id])
-        if @owner!=nil
-          risk_hash[:owner_id] = @owner.id
+        if @owner!=nil and !@owner.retired?
+            risk_hash[:owner_id] = @owner.id
+	 elsif @owner!=nil and @owner.retired?
+	     risk_hash[:owner_id] = -1 # invalid id number, corresponds to deactivated user
         else
-          risk_hash[:owner_id] = 0 # invalid id number
+          risk_hash[:owner_id] = 0 # invalid id number, corresponds to inexisting user
         end
       end
       @risk = Risk.new(risk_hash)
       if @risk.owner_id == 0
-        @risk.errors[:owner] << "does not exist"
+        @risk.errors[:owner] << "does not exist."
+      end
+      if @risk.owner_id == -1
+	 @risk.errors[:owner] << "cannot be a deactivated user."
       end
       @risk.creator_id = uid
       @risk.project_id = pid
@@ -73,9 +78,11 @@ class Risk < ActiveRecord::Base
 
     def self.update_risk(risk_hash, risk)
       if risk_hash[:owner_id]!=nil
-   @owner = User.find_by_username(risk_hash[:owner_id])
+        @owner = User.find_by_username(risk_hash[:owner_id])
         if @owner==nil
           risk.errors[:owner] << "does not exist"
+        elsif @owner.retired?
+	   risk.errors[:owner] << "cannot be a deactivated user."
         else
           risk_hash[:owner_id] = @owner.id
         end

@@ -10,7 +10,6 @@ class RiskController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
-    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     sort = params[:sort] || session[:sort]
     case sort
       when "title"
@@ -33,7 +32,6 @@ class RiskController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
-    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = nil
     if request.post?
@@ -49,7 +47,6 @@ class RiskController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
-    add_breadcrumb "Edit " + @project.name,  edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
     @risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
@@ -90,7 +87,6 @@ class RiskController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
-    add_breadcrumb "Edit " + @project.name, edit_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
 
     if params[:risk] ==nil
@@ -111,9 +107,12 @@ class RiskController < ApplicationController
   def update
     @user = get_current_user
     @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]))
-    redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
-    flash[:notice] = "Risk #{@risk.title} was successfully updated."
- #   redirect_to show_risk_path(params[:pid], params[:rid])
+    if @risk.errors.empty?
+      flash[:notice] = "Risk #{@risk.title} was successfully updated."
+      redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
+    else 
+      redirect_to edit_risk_path(params[:pid], params[:rid]), :risk =>@risk
+    end
   end
 
   def destroy
