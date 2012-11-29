@@ -15,7 +15,6 @@ class ProjectController < ApplicationController
     else
       @projects = @user.projects
     end
-    #Project.all if we want to show all users
   end
 
   def show
@@ -46,10 +45,10 @@ class ProjectController < ApplicationController
       @proj = @user.create_project(params[:project])
       if @proj.errors.empty?
         flash[:notice] = "Project '#{@proj.name}' created."
+	 redirect_to "/project/#{@proj.id}"
       else #Stays on same page.
         flash[:notice] = @proj.errors[:owner].to_s
       end
-        redirect_to "/user/index"
     end
   end
 
@@ -87,9 +86,9 @@ class ProjectController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     @user.update_project(@project, params[:project])
-    #@project.update_attributes!(params[:project])
     flash[:notice] = "Project '#{@project.name}' was succesfully updated."
-    redirect_to "/user/index"
+    redirect_to "/project/#{@project.id}"
+     
   end
 
 

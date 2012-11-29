@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:new, :destroy]
+  before_filter :is_admin, :only => [:new, :destroy, :show_users]
   before_filter :is_admin_or_user, :only => :edit
 
   autocomplete :username, :full => true
@@ -8,25 +8,22 @@ class UserController < ApplicationController
 
   def index
     @user = get_current_user
-    if @user.nil?
-       @projects = []
+    sort = params[:sort] || session[:sort]
+    if @user.admin?
+      @projects = Project.all
     else
-       sort = params[:sort] || session[:sort]
-       case sort
-          when "title"
-           @projects = @user.projects.sort_by { |project| project.name }
-          when "owner"
-           @projects = @user.projects.sort_by { |project| project.owner_username }
-          when "admin"
-           @projects = @user.projects.sort_by { |project| project.admin}
-          when "status"
-           @projects = @user.projects.sort_by { |project| project.status}
-          else
-           @projects = @user.projects
-       end
-      #  @projects = @user.projects
+      @projects = @user.projects
     end
-    # @projects = Project.find(:all)
+    case sort
+      when "title"
+        @projects.sort_by { |project| project.name }
+      when "owner"
+        @projects.sort_by { |project| project.owner_username }
+      when "admin"
+        @projects.sort_by { |project| project.admin}
+      when "status"
+        @projects.sort_by { |project| project.status}
+     end
   end
 
   def show_users
