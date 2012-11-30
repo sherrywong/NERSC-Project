@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   #don't think I need this - db will error out since admin not a boolean.
   validates_uniqueness_of :username
   attr_accessible :admin, :email, :first, :last, :password, :username, :status, :permission
-
+  validates :email, :email_format => {:message => "is not a valid e-mail address"}
 #Rails internal password digesting (temporary until LDAP)
   has_secure_password
 
@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     return self.status == "active"
   end
 
+  def inactive?
+	return !(active?)
+  end
+  
   def retired?
     return self.status == "retired"
   end
@@ -47,8 +51,8 @@ class User < ActiveRecord::Base
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
     if @usr.save
-    else
-      @usr.errors[:owner] = "Error: This uesrname already exists. Please create another username and try again."
+    #else
+    #  @usr.errors[:owner] = "Error: This uesrname already exists. Please create another username and try again."
     end
     return @usr
   end
@@ -89,8 +93,8 @@ class User < ActiveRecord::Base
             #return false
         #end
       #end
-    else
-      @proj.errors[:owner] = "Error: This project name already exists. Please use another name and try again."
+    #else
+    #  @proj.errors[:owner] = "Error: This project name already exists. Please use another name and try again."
     end
     return @proj #check @proj.errors
   end

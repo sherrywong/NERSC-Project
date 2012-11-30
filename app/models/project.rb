@@ -5,15 +5,10 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :prefix
   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
-  validates_inclusion_of :probability_impact_11, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_12, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_13, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_21, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_22, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_23, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_31, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_32, :in => [1,2,3]
-  validates_inclusion_of :probability_impact_33, :in => [1,2,3]
+  #by row to simplify reading.
+  validates_inclusion_of :probability_impact_11, :probability_impact_12, :probability_impact_13, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_21, :probability_impact_22, :probability_impact_23, :in => [1,2,3]
+  validates_inclusion_of :probability_impact_31, :probability_impact_32, :probability_impact_33, :in => [1,2,3]
   
   before_validation :init_prefix
   def init_prefix
