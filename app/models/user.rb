@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     find_by_username(username).try(:authenticate, password)
   end
 
+  def member?(pid)
+    return ProjectMembership.find_by_user_id_and_project_id(self.id, pid)!=nil
+  end
+ 
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)

@@ -51,10 +51,14 @@ class Risk < ActiveRecord::Base
       #because user specify owner by username but our db stores a owner id
       if risk_hash[:owner_id] != nil
         @owner = User.find_by_username(risk_hash[:owner_id])
-        if @owner!=nil and !@owner.retired?
+        if @owner!=nil 
+          if @owner.retired?
+            risk_hash[:owner_id] = -2 # invalid id number, corresponds to deactivated user
+	   elsif !@owner.member?(pid)
+	     risk_hash[:owner_id] = -1 # invalid id number, corresponds to non-member
+          else 
             risk_hash[:owner_id] = @owner.id
-	 elsif @owner!=nil and @owner.retired?
-	     risk_hash[:owner_id] = -1 # invalid id number, corresponds to deactivated user
+          end
         else
           risk_hash[:owner_id] = 0 # invalid id number, corresponds to inexisting user
         end
@@ -62,8 +66,9 @@ class Risk < ActiveRecord::Base
       @risk = Risk.new(risk_hash)
       if @risk.owner_id == 0
         @risk.errors[:owner] << "does not exist."
-      end
-      if @risk.owner_id == -1
+      elsif @risk.owner_id == -1
+	 @risk.errors[:owner] << "has to be a member of this project."
+      elsif @risk.owner_id == -2
 	 @risk.errors[:owner] << "cannot be a deactivated user."
       end
       @risk.creator_id = uid
@@ -83,6 +88,8 @@ class Risk < ActiveRecord::Base
           risk.errors[:owner] << "does not exist"
         elsif @owner.retired?
 	   risk.errors[:owner] << "cannot be a deactivated user."
+        elsif !@owner.member?(risk.project_id)
+          risk.errors[:owner] << "has to be a member of this project."
         else
           risk_hash[:owner_id] = @owner.id
         end

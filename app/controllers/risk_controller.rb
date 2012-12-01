@@ -99,7 +99,7 @@ class RiskController < ApplicationController
       flash[:notice] = "That risk does not exist."
       redirect_to risk_index_path(params[:pid])
     end
-    if not @risk.owner_id.nil?
+    if !@risk.owner_id.nil?
       @risk_owner_username = @risk.find_username(@risk.owner_id)
     end
   end
@@ -108,10 +108,11 @@ class RiskController < ApplicationController
     @user = get_current_user
     @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]))
     if @risk.errors.empty?
-      flash[:notice] = "Risk #{@risk.title} was successfully updated."
+      flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
-    else 
-      redirect_to edit_risk_path(params[:pid], params[:rid]), :risk =>@risk
+    else
+      flash[:error] = @risk.errors.full_messages[0]
+      redirect_to edit_risk_path(params[:pid], params[:rid]), :risk => @risk
     end
   end
 
