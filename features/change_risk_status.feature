@@ -78,7 +78,7 @@ Scenario: A project member cannot deactivate a risk.
     Then I should be on the risk index page for Third Project
     And I click on deactivate risk for "P3 Test Risk4" in "Third Project"
     Then I should be on the risk index page for Third Project
-    Then I should see "You don't have permission to deactivate risk 'P3 Test Risk4'"
+    Then I should see "Sorry, you have to be an admin or project owner or risk owner to perform this action."
     And I click on reactivate risk for "P3 Test Risk4" in "Third Project"
     Then I should be on the risk index page for Third Project
-    Then I should see "You don't have permission to reactivate risk 'P3 Test Risk4'"
+    Then I should see "Sorry, you have to be an admin or project owner or risk owner to perform this action."

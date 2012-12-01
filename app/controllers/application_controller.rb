@@ -40,13 +40,13 @@ class ApplicationController < ActionController::Base
     if get_current_user.admin? or get_current_user.powner?(params[:pid]) or get_current_user.rowner?(params[:rid])
       return true
     end
-    redirect_to :controller => "user", :action => "index", :notice=> "Sorry, you have to be an admin or project owner or risk owner to perform this action."
+    redirect_to risk_index_path(params[:pid]), :notice=> "Sorry, you have to be an admin or project owner or risk owner to perform this action."
     return false
   end
 
   def is_admin_or_member
     if not get_current_user.admin? and not Project.find_by_id(params[:pid]).has_member?(get_current_user.id)
-       redirect_to :controller => "user", :action => "index", :notice => "Sorry, you have to be an admin or project member to perform this action."
+       redirect_to risk_index_path(params[:pid]), :notice => "Sorry, you have to be an admin or project member to perform this action."
     end
   end
 
