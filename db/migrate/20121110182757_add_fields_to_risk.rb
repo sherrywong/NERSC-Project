@@ -18,6 +18,5 @@ class AddFieldsToRisk < ActiveRecord::Migration
     add_column :risks, :critical_path, :string
     add_column :risks, :wbs_spec, :string
     add_column :risks, :comment, :text
-    add_column :risks, :edited_by, :string
   end
 end
