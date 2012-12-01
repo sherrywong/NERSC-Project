@@ -27,8 +27,12 @@ class User < ActiveRecord::Base
     return self.admin
   end
 
-  def owner?(proj_id)
+  def powner?(proj_id)
     return self==Project.find_by_id(proj_id).owner
+  end
+
+  def rowner?(risk_id)
+    return self==Risk.find_by_id(risk_id).owner
   end
 
   def active?

@@ -28,11 +28,19 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def is_admin_or_owner
-    if get_current_user.admin? or get_current_user.owner?(params[:pid])
+  def is_admin_or_powner
+    if get_current_user.admin? or get_current_user.powner?(params[:pid])
       return true
     end
     redirect_to :controller => "user", :action => "index", :notice=> "Sorry, you have to be an admin or project owner to perform this action."
+    return false
+  end
+
+  def is_admin_or_powner_or_rowner
+    if get_current_user.admin? or get_current_user.powner?(params[:pid]) or get_current_user.rowner?(params[:rid])
+      return true
+    end
+    redirect_to :controller => "user", :action => "index", :notice=> "Sorry, you have to be an admin or project owner or risk owner to perform this action."
     return false
   end
 
