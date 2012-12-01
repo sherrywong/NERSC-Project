@@ -148,12 +148,24 @@ And /^(?:|I )click on deactivate user for "([^"]*)"$/ do |user|
   visit("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
+And /^(?:|I )click on reactivate user for "([^"]*)"$/ do |user|
+  visit("/user/reactivate?uid=" + User.find_by_username(user).id.to_s)
+end
+
 And /^(?:|I )click on deactivate project for "([^"]*)"$/ do |project|
   visit("/project/destroy?pid=" + Project.find_by_name(project).id.to_s)
 end
 
+And /^(?:|I )click on reactivate project for "([^"]*)"$/ do |project|
+  visit("/project/reactivate?pid=" + Project.find_by_name(project).id.to_s)
+end
+
 And /^(?:|I )click on deactivate risk for "([^"]*)" in "([^"]*)"$/ do |risk, project|
   visit("/project/" + Project.find_by_name(project).id.to_s + "/risk/destroy?rid=" + Risk.find_by_title(risk).id.to_s)
+end
+
+And /^(?:|I )click on reactivate risk for "([^"]*)" in "([^"]*)"$/ do |risk, project|
+  visit("/project/" + Project.find_by_name(project).id.to_s + "/risk/reactivate?rid=" + Risk.find_by_title(risk).id.to_s)
 end
 
 And /^(?:|I )click on delete project member "([^"]*)" for "([^"]*)"$/ do |user, project|
@@ -170,10 +182,6 @@ end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
-end
-
-And /"([^"]*)" should be retired$/ do |user|
-  #visit path_to("/user/destroy?uid=" + User.find_by_username(user).id.to_s)
 end
 
 # Use this to fill in an entire form with data from a table. Example:
@@ -364,16 +372,12 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-Then /^there should not be deactivate project for "([^"]*)"$/ do |project|
-  page.body.match /<tr>.*\/#{project}\/.*N\/A.*<\/tr>/
+Then /^there should not be deactivate "([^"]*)" for "([^"]*)"$/ do |item, project|
+  page.body.match /<tr>.*\/#{project}\/.*N\/A.*<\/td><td class='last'>/
 end
 
-Then /^there should not be deactivate risk for "([^"]*)"$/ do |risk|
-  page.body.match /<tr>.*\/#{risk}\/.*N\/A.*<\/tr>/
-end
-
-Then /^there should not be deactivate user for "([^"]*)"$/ do |user|
-  page.body.match /<tr>.*\/#{user}\/.*N\/A.*<\/tr>/
+Then /^there should not be reactivate "([^"]*)" for "([^"]*)"$/ do |item, project|
+  page.body.match /<tr>.*\/#{project}\/.*<td class='last'>N\/A<\/td>/
 end
 
 Then /^there should be this message: "([^"]*)"$/ do |error|

@@ -2,7 +2,7 @@ class RiskController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user
   before_filter :is_admin_or_member, :only => [:new, :edit]
-  before_filter :is_admin, :only =>[:destroy]
+  before_filter :is_admin, :only =>[:destroy, :reactivate]
 
   add_breadcrumb "Home", :user_index_path
   def index

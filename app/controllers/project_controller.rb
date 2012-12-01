@@ -3,7 +3,7 @@ class ProjectController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
-  before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members]
+  before_filter :is_admin_or_owner, :only => [:destroy, :update, :add_members, :reactivate]
   before_filter :is_admin, :only =>[:new]
 
   add_breadcrumb "Home", :user_index_path
