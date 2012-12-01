@@ -138,14 +138,4 @@ class ProjectController < ApplicationController
     redirect_to edit_project_path(params[:pid])
   end
 
-=begin
-  def sort_column
-    Project.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-=end
-
 end

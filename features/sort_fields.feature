@@ -23,6 +23,13 @@ Scenario: Sort project members.
     Then I sort "First Project" project members by "last"
     Then I sort "First Project" project members by "email"
 
+Scenario: Sort project members on project edit page.
+    When I go to the edit project page for "First Project"
+    Then I sort "First Project" project members by "members"
+    Then I sort "First Project" project members by "first"
+    Then I sort "First Project" project members by "last"
+    Then I sort "First Project" project members by "email"
+
 Scenario: Sort risk.
     When I go to the risk index page for First Project
     Then I sort risks for "First Project" by "title"
