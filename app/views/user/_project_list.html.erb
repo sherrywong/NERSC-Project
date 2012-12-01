@@ -18,5 +18,11 @@
     <% else %>
         <td><%= 'N/A' %></td>
     <% end %>
+        <% if ((@user.admin? or project.owner == @user) and (project.status == "retired")) %>
+         <td> <%= link_to "X", {:controller => 'project', :action => 'reactivate', :pid => project.id} -%>
+    </td>
+    <% else %>
+        <td><%= 'N/A' %></td>
+    <% end %>
   </tr>
 <% end %>
