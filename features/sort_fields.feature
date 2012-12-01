@@ -11,7 +11,7 @@ Background: Some projects and risks have already been added to database.
 
 Scenario: Sort projects.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     Then I sort projects by "title"
     Then I sort projects by "status"
     Then I sort projects by "owner"
@@ -32,7 +32,7 @@ Scenario: Sort risk.
     Then I sort risks for "First Project" by "status"
 
 Scenario: Sort system users.
-    When I go to the project page
+    When I go to the home page
     And I go to the show users page
     Then I sort users by "username"
     Then I sort users by "first"

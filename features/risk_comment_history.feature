@@ -11,7 +11,7 @@ Background: Some projects and risks have been added to database.
 	
 Scenario: Admins can add and edit a valid risk.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     When I follow "First Project"
     And I am on the project page for "First Project"
     When I press "+ Add New Risk"

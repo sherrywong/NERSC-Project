@@ -11,7 +11,7 @@ Scenario: Users can edit their own profile information.
     And I go to the My Profile page for "Jason"
     And I fill in "user_first" with "Sherry"
     And I press "Save"
-    Then I should be on the project page
+    Then I should be on the home page
     Then I should see "User Sherry Teoh was successfully updated."
 
 Scenario: User cannot edit their username or admin status.

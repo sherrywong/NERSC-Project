@@ -16,7 +16,7 @@ module NavigationHelpers
     when /^the login\s?page$/
       '/'
 
-    when /^the project\s?page$/
+    when /^the home page$/
       '/user/index'
 
     when /^the show users page$/
@@ -28,9 +28,6 @@ module NavigationHelpers
 
     when /^the Add New User page$/
       '/user/new'
-      
-    when /^the project index page$/
-      '/user/project/index'
       
     when /^the new project page$/
       '/user/project/new'

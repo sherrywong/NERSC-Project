@@ -30,17 +30,18 @@ Scenario: Risk owners can deactivate a risk.
     Given I am logged in as Linda
     When I go to Third Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk3"
-    When I fill in "risk_owner_id" with "ag"
+    When I fill in "risk_owner_id" with "lz"
     When I fill in "risk_description" with "P3 TR3."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
+    Then I should be on the risk index page for Third Project
     And I click on deactivate risk for "P3 Test Risk3" in "Third Project"
 #    Then I should see "Are you sure you want to delete test?"
 #    Then I press "Yes"
     Then I should be on the risk index page for Third Project
     And I should see "Risk 'P3 Test Risk3' deactivated."
-    Then there should not be deactivate project for "P3 Test RIsk3"
+    Then there should not be deactivate project for "P3 Test Risk3"
 
 Scenario: Project owners cannot deactivate a risk.
     Given I am logged in as Sherry

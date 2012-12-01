@@ -15,7 +15,7 @@ Scenario: Non-admins cannot view system users.
 
 Scenario: Non-project members cannot view or edit a project.
     Given I am logged in as Sherry
-    And I am on the project page
+    And I am on the home page
     When I go to the project page for "Second Project"
     Then I should see "Sorry, you don't have access to the requested project."
 

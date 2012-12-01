@@ -8,7 +8,7 @@ Background: Some user logins exist.
     And I am not logged in
     
 Scenario: Require login.
-    When I go to the project page
+    When I go to the home page
     And I should not see "My Projects"
     And I should see "Login"
 
@@ -25,7 +25,7 @@ Scenario: valid login
     And I fill in "username" with "ag"
     And I fill in "password" with "agovinthasamy"
     And I press "Login"
-    Then I should be on the project page
+    Then I should be on the home page
     
 Scenario: invalid login - bad password
     When I go to the login page
@@ -46,6 +46,6 @@ Scenario: invalid login - username nonexistent
 Scenario: after logout should require login access
     Given I am logged in as an admin
     And I log out
-    And I go to the project page
+    And I go to the home page
     Then I should not see "My Projects"
     And I should be on the login page

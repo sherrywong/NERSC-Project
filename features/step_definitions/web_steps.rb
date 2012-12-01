@@ -50,30 +50,32 @@ Given /^the following projects exist:$/ do |table|
 end
 
 Given /^a set of users exist$/ do
-  @admin_user = User.create(:first => :ADMIN, :last => :ACCOUNT, :email => "admin@gmail.com", :username => :admin, :password => :admin, :status => :active)
+#  User.create({"username"=>"admin", "email"=>"admin@gmail.com", "first"=>"admin", "last"=>"admin", "admin"=>"true", "password"=>"admin", "status"=>"active", "admin" => true})
+
+  @admin_user = User.create("username" => "admin", :email => "admin@gmail.com", "first" => "ADMIN", "last" => "ACCOUNT", :password => :admin, :status => "active")
   @admin_user.admin = true; @admin_user.save
 
-  anna = @admin_user.create_user(:first => :Anensshiya, :last => :Govinthasamy, :email => "anna@gmail.com", :username => :ag, :password => :agovinthasamy, :admin => :true, :status => :active)
+  User.create({"username" => "ag", "email"=>"anna@gmail.com", "first" => "Anensshiya", "last" => "Govinthasamy", "admin" => "true", "password" => "agovinthasamy", "status" => "active"})
 #Elise: retired user
-  elise = @admin_user.create_user(:first => :Elise, :last => :McCallum, :email => "elise@gmail.com", :username => :em, :password => :emccallum, :admin => :false, :status => :retired)
+  User.create({"username" => "em", "email" => "elise@gmail.com", "first" => "Elise", "last" => "McCallum", "admin" => "false", "password" => "emccallum", "status" => "retired"})
 #Jason: non-admin, project owner of Second project
-  jason = @admin_user.create_user(:first=>:Jason, :last=> :Teoh, :email => "jason@gmail.com", :username=>:jt, :password => :jteoh, :admin => :false, :status => :active)
+  User.create({"username" => "jt", "email" => "jason@gmail.com", "first" => "Jason", "last" => "Teoh", "admin" => "false", "password" => "jteoh", "status" => "active"})
 #Linda: non-admin, project member of Second project
-  @lz = @admin_user.create_user(:first => :Lingbo, :last => :Zhang, :email => "linda@gmail.com", :username => :lz, :password => :lzhang, :admin => :false, :status => :active)
+  @lz = User.create({"username" => "lz", "email" => "linda@gmail.com", "first" => "Lingbo", "last" => "Zhang", "admin" => "false", "password" => "lzhang", "status" => "active"})
 #Sherry: non-admin, project owner of Third project
-  bob = @admin_user.create_user(:first=>:Sherry, :last=> :Wong, :email => "bob@gmail.com", :username=>:bobw, :password => :swong, :admin => :false, :status => :active)
+  User.create({"username" => "bobw", "email" => "bob@gmail.com", "first" => "Sherry", "last" => "Wong", "admin" => "false", "password" => "swong", "status" => "active"})
 end
 
 Given /^a set of projects exist$/ do
   #coordinators, project_id, start, end
-  @first_project = @usr.create_project(:name => "First Project", :prefix => :proj1, :description => :P1, :owner_username => :admin)
-  @first_project.add_members(User.all.map {|x| x.id})
+  @first_project = @usr.create_project({"name" => "First Project", "prefix" => "proj1", "description" => "P1", "owner_username" => "admin"})
+  @first_project.add_members(User.find_all_by_status("active").map {|x| x.id})
 
-  @second_project = @usr.create_project(:name => "Second Project", :prefix => :proj2, :description => :P2, :owner_username => :jt)
+  @second_project = @usr.create_project({"name" => "Second Project", "prefix" => "proj2", "description" => "P2", "owner_username" => "jt"})
   @second_project.add_members(Array[@lz.id])
 
-  @third_project = @usr.create_project(:name => "Third Project", :prefix => :proj3, :description => :P3, :owner_username => :bobw)
-  @third_project.add_members(User.all.map {|x| x.id})
+  @third_project = @usr.create_project({"name" => "Third Project", "prefix" => "proj3", "description" => "P3", "owner_username" => "bobw"})
+  @third_project.add_members(User.find_all_by_status("active").map {|x| x.id})
 end
 
 Given /^a set of risks exist$/ do

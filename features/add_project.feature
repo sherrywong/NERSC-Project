@@ -15,7 +15,7 @@ Background: Some projects have already been added to database.
 
 Scenario: Admins can add a valid project.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     When I press "+ Create New Project"
     And I am on the new project page
     When I fill in "project_name" with "Test Project" 
@@ -23,13 +23,13 @@ Scenario: Admins can add a valid project.
     And I fill in "project_description" with "Project 4"
     And I fill in "project_owner_username" with "admin"
     Then I press "Save" 
-    Then I should be on the project page
+    Then I should be on the project page for "Test Project"
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
 
 Scenario: Add project with missing fields.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     When I press "+ Create New Project"
     And I am on the new project page
     When I fill in "project_description" with "Project 5"
@@ -38,35 +38,35 @@ Scenario: Add project with missing fields.
 
 Scenario: Non-admins cannot add a project.
     Given I am logged in as Jason
-    And I am on the project page
+    And I am on the home page
     When I go to the new project page
     Then I should see "Sorry, you have to be an admin to perform this action."
 
 Scenario: Admins can edit a project.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     When I follow "First Project"
     Then I press "+ Edit Project"
     And I am on the edit project page for "First Project"
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
     Then I press "Save"
-    Then I should be on the project page
+    Then I should be on the project page for "Test Project2"
     Then I should see "Project 'Test Project2' was succesfully updated."
 
 Scenario: Project owners can edit a project.
     Given I am logged in as Jason
-    And I am on the project page
+    And I am on the home page
     When I follow "Second Project"
     When I press "+ Edit Project"
     Then I should be on the edit project page for "Second Project"
     When I fill in "project_name" with "Edit Name"
     Then I press "Save"
-    Then I should be on the project page
+    Then I should be on the project page for "Edit Name"
     Then I should see "Project 'Edit Name' was succesfully updated."
 
 Scenario: Project members cannot edit a project.
     Given I am logged in as Linda
-    And I am on the project page
+    And I am on the home page
     When I follow "Second Project"
     Then I should not see "+ Edit Project"

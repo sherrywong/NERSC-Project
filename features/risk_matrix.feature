@@ -7,7 +7,6 @@ Background: some projects and no risks have been added to database
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-    And I am on the project page 
 
 Scenario: set project specific risk parameters
     When I go to the new project page
@@ -25,6 +24,6 @@ Scenario: set project specific risk parameters
 #    Then "project[probability_impact_12]" should be "Med"
 #    And "project[probability_impact_12]" should be "yellow"
     Then I press "Save" 
-    Then I should be on the project page
+    Then I should be on the project page for "Test Project"
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"

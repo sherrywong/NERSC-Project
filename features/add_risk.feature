@@ -21,7 +21,7 @@ Background: Some projects and risks have been added to database.
 	
 Scenario: Admins can add and edit a valid risk.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     When I follow "First Project"
     And I am on the project page for "First Project"
     When I press "+ Add New Risk"
@@ -57,7 +57,7 @@ Scenario: Project owners can add and edit a valid risk.
     Given I am logged in as Jason
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_owner_id" with "admin"
+    When I fill in "risk_owner_id" with "lz"
     When I fill in "risk_description" with "P2 Test Risk"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -74,7 +74,7 @@ Scenario: Project members can add and edit a valid risk.
     Given I am logged in as Linda
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk2"
-    When I fill in "risk_owner_id" with "admin"
+    When I fill in "risk_owner_id" with "jt"
     When I fill in "risk_description" with "P2 Test Risk2"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

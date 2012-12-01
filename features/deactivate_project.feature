@@ -10,10 +10,10 @@ Background: Some projects are already in the database.
 
 Scenario: Admins can deactivate a project.
     Given I am logged in as an admin
-    And I am on the project page
+    And I am on the home page
     And I click on deactivate project for "First Project"
 #confirmation?
-    Then I should be on the project page
+    Then I should be on the home page
     And I should see "Project 'First Project' deactivated."
     Then there should not be deactivate project for "First Project"
     
@@ -22,13 +22,13 @@ Scenario: Project owners can deactivate their own projects.
     And I am on the project page for "Second Project"
     And I click on deactivate project for "Second Project"
 #confirmation?
-    Then I should be on the project page
+    Then I should be on the home page
     And I should see "Project 'Second Project' deactivated."
     Then there should not be deactivate project for "Second Project"
 
 Scenario: Project members cannot deactivate projects.
     Given I am logged in as Linda
-    And I am on the project page
+    And I am on the home page
     Then there should not be deactivate project for "Third Project"
   
 Scenario: Project owners cannot deactivate other projects.

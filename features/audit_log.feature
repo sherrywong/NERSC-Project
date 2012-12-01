@@ -8,7 +8,6 @@ Background: Some projects have already been added to database.
     Given I am logged in as an admin
     Given a set of projects exist
     Given a set of risks exist
-    And I am on the project page
 
 #User who changed it?
 Scenario: Risk log generated on risk creation.
