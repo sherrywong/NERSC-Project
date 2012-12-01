@@ -29,6 +29,7 @@ class RiskController < ApplicationController
   end
 
   def new
+    current_user
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
@@ -106,7 +107,7 @@ class RiskController < ApplicationController
 
   def update
     @user = get_current_user
-    @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]))
+    @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]), @user)
     if @risk.errors.empty?
       flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
       redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
@@ -123,7 +124,7 @@ class RiskController < ApplicationController
     end
     redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@risk.title}' deactivated."
   end
-  
+
   def reactivate
     @risk = Risk.find(params[:rid])
     if @risk != nil

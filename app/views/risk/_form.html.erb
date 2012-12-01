@@ -83,11 +83,11 @@
     <div>
     Other Type: <%= text_field 'risk', 'other_type' %>
     </div>
-    <form>
+    <div>
      Comments:
      <br/>
-     <textarea rows="3" placeholder="Comment on this risk"></textarea>
-    </form>
+     <%= text_area 'risk', 'comment', :size => "10x5"%>
+    </div>
     <br/>
     <% if @risk.nil? or @risk.status == "active" %>
     <%= submit_tag "Save" %>
