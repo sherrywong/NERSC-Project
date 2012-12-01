@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
   end
 
   def member?(pid)
-    return ProjectMembership.find_by_user_id_and_project_id(self.id, pid)!=nil
+	return ( p = Project.find_by_id(pid) and p.has_member?(self))
+		
+    #return ProjectMembership.find_by_user_id_and_project_id(self.id, pid)!=nil
   end
  
 
@@ -62,14 +64,11 @@ class User < ActiveRecord::Base
   end
 
 
-  #Do not pass in owner just yet!
-  #Current setup: create_project (owner is by default the creator).
-  #If another person should be owner, use Proj.owner =
-  #(Future change expected)
-
+  #Note: this method expects "owner_username" because key values from the params hash
+  # are passed in as strings, not symbols. Be sure to use the string version when
+  # writing rails code as well (eg testing).
   def extract_owner_username(project_hash)
-    if new_owner = User.find_by_username(project_hash.delete("owner_username"))
-    end
+    new_owner = User.find_by_username(project_hash.delete("owner_username"))
     return new_owner
   end
 
@@ -81,7 +80,12 @@ class User < ActiveRecord::Base
         #@proj.edit_member_permission(self, "write")
         @proj.owner = new_owner || self
         if new_owner.nil?
-            @proj.errors[:owner] = "Warning: User not found in database. Owner set to admin instead."
+            @proj.errors[:owner] = "not found in database. Owner set to current user instead."
+			@proj.destroy
+	    elsif new_owner.inactive?
+			@proj.errors[:owner] = "is an inactive user. Set to current user instead."
+			@proj.owner = self
+			@proj.destroy
         end
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
@@ -104,12 +108,27 @@ class User < ActiveRecord::Base
   end
 
   def update_project(project, project_hash)
-    new_owner = extract_owner_username(project_hash)
-    temp = project.update_attributes(project_hash)
+    @proj = project
+	new_owner = extract_owner_username(project_hash)
+    orig_owner = @proj.owner
+	if new_owner.nil?
+		@proj.errors[:owner] = "not found in database. Owner set to current user instead."
+	elsif new_owner.inactive?
+		@proj.errors[:owner] = "is an inactive user. Set to current user instead."
+		@proj.owner = self
+	else
+		@proj.owner = new_owner
+	end
+	
+	temp = @proj.update_attributes(project_hash)
     if not temp
-        print project.errors.full_messages
+        print @proj.errors.full_messages
+		@proj.owner = orig_owner
+		if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
+			pm.destroy
+		end
     end
-    project.owner = new_owner unless new_owner.nil?
+	return @proj
   end
 
   #deactivating project/risk/user

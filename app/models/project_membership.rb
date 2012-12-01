@@ -45,7 +45,7 @@ class ProjectMembership < ActiveRecord::Base
     end
   end
   def user_is_active
-	if not User.find_by_id(user_id).active?
+	if (temp = User.find_by_id(user_id)).nil? or temp.inactive?
 		errors.add(:user_id, "#{User.find_by_id(user_id)} is not an active user")
 	end
   end
