@@ -1,0 +1,29 @@
+<%= form_for(@add_fields_to_risk) do |f| %>
+  <% if @add_fields_to_risk.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@add_fields_to_risk.errors.count, "error") %> prohibited this add_fields_to_risk from being saved:</h2>
+
+      <ul>
+      <% @add_fields_to_risk.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :columna %><br />
+    <%= f.text_field :columna %>
+  </div>
+  <div class="field">
+    <%= f.label :columnB %><br />
+    <%= f.text_field :columnB %>
+  </div>
+  <div class="field">
+    <%= f.label :columnc %><br />
+    <%= f.text_field :columnc %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
