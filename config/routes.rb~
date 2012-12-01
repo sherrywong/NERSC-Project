@@ -74,6 +74,7 @@ NerscProject::Application.routes.draw do
   match "/user/project/:pid/risk/:rid/update" => 'risk#update', :as => :update_risk
   match "/user/project/:pid/risk/index" => 'risk#index', :as => :risk_index
   match "/project/destroy" => 'project#destroy'
+  match "/project/reactivate" => 'project#reactivate'
   match "/project/:pid/remove_member" => 'project#remove_member', :as => :remove_member
   match "/project/:pid/risk/destroy" => 'risk#destroy', :as => :destroy_risk
   match "/project/:pid/risk/:rid" => 'risk#show', :as => :show_risk

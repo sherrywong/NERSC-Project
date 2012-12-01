@@ -1,27 +1,32 @@
 <% for risk in @risks %>
-<tr>
+  <tr>
     <td class='first'>
-            <%= link_to risk.title, show_risk_path(params[:pid], risk.id) %>
-            </td>
-<td>
-<%= risk.description %>
-</td>
-<td>
-<%= User.find_by_id(risk.owner_id).username %>
-</td>
-<td>
-<%= risk.early_impact %>
-</td>
-<td>
-<%= risk.last_impact %>
-</td>
-<td class='last'>
-<%= risk.status %>
-</td>
-<% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "active" %>
-       <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id)-%></td>
-<% else %>
-       <td><%= 'N/A' %>
-<% end %>
-</tr>
+      <%= link_to risk.title, show_risk_path(params[:pid], risk.id) %>
+    </td>
+    <td>
+      <%= risk.description %>
+    </td>
+    <td>
+      <%= User.find_by_id(risk.owner_id).username %>
+    </td>
+    <td>
+      <%= risk.early_impact %>
+    </td>
+    <td>
+      <%= risk.last_impact %>
+    </td>
+    <td class='last'>
+      <%= risk.status %>
+    </td>
+  <% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "active" %>
+    <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id)-%></td>
+  <% else %>
+    <td><%= 'N/A' %>
+  <% end %>
+  <% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "retired" %>
+    <td><%= link_to "X", reactivate_risk_path(params[:pid], :rid => risk.id)-%></td>
+  <% else %>
+    <td><%= 'N/A' %>
+  <% end %>
+  </tr>
 <% end %>

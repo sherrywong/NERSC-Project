@@ -17,9 +17,8 @@
     <th><%= link_to "Early Impact", risk_index_path(params[:pid], :sort => "early_impact") %></th>
     <th><%= link_to "Last Impact", risk_index_path(params[:pid], :sort => "last_impact") %></th>
     <th><%= link_to "Status", risk_index_path(params[:pid], :sort => "status")%></th>
-
     <th><%= "Deactivate?" %></th>
-
+    <th><%= "Reactivate?" %></th>
     </tr>
 <%= render 'risk_list', {:risks => @risks } -%>
 </table>

@@ -77,6 +77,7 @@ NerscProject::Application.routes.draw do
   match "/project/reactivate" => 'project#reactivate'
   match "/project/:pid/remove_member" => 'project#remove_member', :as => :remove_member
   match "/project/:pid/risk/destroy" => 'risk#destroy', :as => :destroy_risk
+  match "/project/:pid/risk/reactivate" => 'risk#reactivate', :as => :reactivate_risk
   match "/project/:pid/risk/:rid" => 'risk#show', :as => :show_risk
   match "/project/users_autocomplete_name" => 'project#users_autocomplete_name', :as => :users_autocomplete_name
   match "/project/:pid" => 'project#show', :as => :show_project
