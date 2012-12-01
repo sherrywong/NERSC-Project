@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   before_filter :login_required, :except => [:login]
-  before_filter :is_admin, :only => [:new, :destroy, :show_users]
+  before_filter :is_admin, :only => [:new, :destroy, :show_users, :reactivate]
   before_filter :is_admin_or_user, :only => :edit
 
   autocomplete :username, :full => true

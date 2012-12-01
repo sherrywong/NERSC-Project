@@ -14,6 +14,7 @@
     <th><%= link_to "Admin", show_users_path(:sort => "admin") %></th>
     <th><%= link_to "Status", show_users_path(:sort => "status") %></th>
     <th><%= "Deactivate?" %></th>
+    <th><%= "Reactivate?" %></th>
     </tr>
 <%= render 'user_list', {:users => @users } -%>
 </table>
