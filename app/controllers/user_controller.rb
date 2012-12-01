@@ -19,8 +19,6 @@ class UserController < ApplicationController
         @projects.sort_by { |project| project.name }
       when "owner"
         @projects.sort_by { |project| project.owner_username }
-      when "admin"
-        @projects.sort_by { |project| project.admin}
       when "status"
         @projects.sort_by { |project| project.status}
      end
@@ -38,6 +36,8 @@ class UserController < ApplicationController
         @users = User.order("last")
       when "email"
         @users = User.order("email")
+      when "admin"
+	@users = User.order("admin")
       when "status"
         @users = User.order("status")
       else

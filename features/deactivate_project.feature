@@ -29,7 +29,10 @@ Scenario: Project owners can deactivate their own projects.
 Scenario: Project members cannot deactivate projects.
     Given I am logged in as Linda
     And I am on the home page
-    Then there should not be deactivate project for "Third Project"
+    Then there should not be deactivate project for "Second Project"
+    And I click on deactivate project for "Second Project"
+    Then I should be on the home page
+    Then I should see "Sorry, you have to be an admin or project owner to perform this action."
   
 Scenario: Project owners cannot deactivate other projects.
     Given I am logged in as Jason
