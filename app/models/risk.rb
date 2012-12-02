@@ -1,7 +1,7 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
-  audited
-   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :edited_by
+  has_paper_trail
+  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id
 
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
    validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
@@ -94,7 +94,6 @@ class Risk < ActiveRecord::Base
           risk.errors[:owner] << "has to be a member of this project."
         else
           risk_hash[:owner_id] = @owner.id
-          risk_hash[:edited_by] = user.username
         end
       end
       if risk.errors.empty?

@@ -1,30 +1,182 @@
-<% for audit in @risk.audits.reverse %>
-  <% for change in audit.audited_changes %>
-     <% field = change[0] %>
-     <tr class="info">
-       <% if not change[1].nil? and (change[1].class == Array and not change[1][0].nil?) and field != 'days_to_impact' and field != 'edited_by'%>
-         <% old_val = change[1][0] %>
-         <% new_val = change[1][1] %>
-         <% if !audit.audited_changes["edited_by"].nil?%>
-           <td><%= audit.audited_changes["edited_by"][1] %></td>
-         <% else %>
-           <td><%= @risk.edited_by %>
-         <% end %>
-         <td><%= audit.created_at%></td>
-         <td><%= field%> </td>
-         <% if change[1].class == Array%>
-           <% if (not (old_val.class == Fixnum)) and !old_val.class == Date and old_val.empty? %>
-             <td><%= 'nil' %>
-             <td><%= new_val %></td>
-           <% else %>
-             <td><%= old_val %></td>
-             <td><%= new_val %></td>
-           <% end %>
-         <% else%>
-           <td><%= 'nil' %>
-           <td><%= change[1] %>
-         <% end %>
+<% for version in @risk.versions.reverse %>
+    <% previous = version.previous %>
+    <%if !version.nil? and !version.reify.nil? %>
+       <%version.next.nil? ? curr_version = @risk : curr_version = version.next.reify %>
+      <% if version.reify.title != curr_version.title%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Title" %>
+        <td><%= version.reify.title %> </td>
+        <td><%= curr_version.title%> </td>
+        </tr>
       <% end %>
-    </tr>
-  <% end %>
+      <% if version.reify.short_title != curr_version.short_title%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Short Title" %>
+        <td><%= version.reify.short_title %> </td>
+        <td><%= curr_version.short_title%> </td>
+        </tr>
+      <% end %>
+      <% if version.reify.description != curr_version.description%>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Description" %>
+        <td><%= version.reify.description %> </td>
+        <td><%= curr_version.description %></td></tr>
+      <% end %>
+      <% if version.reify.root_cause != curr_version.root_cause%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Root Cause" %>
+        <td><%= version.reify.root_cause %> </td>
+        <td><%= curr_version.root_cause%> </td></tr>
+      <% end %>
+      <% if version.reify.mitigation != curr_version.mitigation%>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Mitigation" %>
+        <td><%= version.reify.mitigation %> </td>
+        <td><%= curr_version.mitigation%> </td></tr>
+      <% end %>
+      <% if version.reify.contingency != curr_version.contingency%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Contingency" %>
+        <td><%= version.reify.contingency %> </td>
+        <td><%= curr_version.contingency%> </td></tr>
+      <% end %>
+      <% if version.reify.cost != curr_version.cost%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Cost" %>
+        <% if version.reify.cost == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif version.reify.cost == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+        <% if curr_version.cost == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif curr_version.cost == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+      <% end %>
+      <% if version.reify.schedule != curr_version.schedule%>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Schedule" %>
+        <% if version.reify.schedule == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif version.reify.schedule == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+        <% if curr_version.schedule == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif curr_version.schedule == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+      <% end %>
+      <% if version.reify.technical != curr_version.technical%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Technical" %>
+        <% if version.reify.technical == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif version.reify.technical == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+        <% if curr_version.technical == 1 %>
+          <td><%= "Low" %> </td>
+        <% elsif curr_version.technical == 2 %>
+          <td><%= "Medium" %> </td>
+        <% else %>
+          <td><%= "High" %> </td>
+        <% end %>
+      <% end %>
+      <% if version.reify.other_type != curr_version.other_type%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Other Type" %>
+        <td><%= version.reify.other_type %> </td>
+        <td><%= curr_version.other_type%> </td>
+      <% end %>
+      <% if version.reify.probability != curr_version.probability%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Probability" %>
+        <td><%= version.reify.probability %> </td>
+        <td><%= curr_version.probability%> </td></tr>
+      <% end %>
+      <% if version.reify.status != curr_version.status%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Status" %>
+        <td><%= version.reify.status%> </td>
+        <td><%= curr_version.status%> </td></tr>
+      <% end %>
+      <% if version.reify.early_impact != curr_version.early_impact%>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Early Impact" %>
+        <td><%= version.reify.early_impact %> </td>
+        <td><%= curr_version.early_impact%> </td></tr>
+      <% end %>
+      <% if version.reify.last_impact != curr_version.last_impact%>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Last Impact" %>
+        <td><%= version.reify.last_impact %> </td>
+        <td><%= curr_version.last_impact%> </td></tr>
+      <% end %>
+      <% if version.reify.type != curr_version.type%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= version.reify.type %> </td>
+        <td><%= curr_version.type%> </td></tr>
+      <% end %>
+      <% if version.reify.critical_path != curr_version.critical_path%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+       <td><%= version.created_at %>
+        <td><%= "Critical Path" %>
+        <td><%= version.reify.critical_path %> </td>
+        <td><%= curr_version.critical_path%> </td></tr>
+      <% end %>
+      <% if version.reify.wbs_spec != curr_version.wbs_spec%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "WBS Spec" %>
+        <td><%= version.reify.wbs_spec %> </td>
+        <td><%= curr_version.wbs_spec%> </td></tr>
+      <% end %>
+      <% if version.reify.comment != curr_version.comment%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Comment" %>
+        <td><%= version.reify.comment %> </td>
+        <td><%= curr_version.comment%> </td></tr>
+      <% end %>
+      <% if version.reify.owner_id != curr_version.owner_id%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Owner" %>
+        <td><%= User.find_by_id(version.reify.owner_id).username%> </td>
+        <td><%= User.find_by_id(curr_version.owner_id).username%> </td></tr>
+      <% end %>
+    <% elsif !version.nil? %>
+      <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
+      <td><%= version.created_at %> </td>
+      <td><%= "N/A" %>
+      <td><%= "N/A" %>
+      <td><%= "Created"%></tr>
+    <% end %>
 <% end %>

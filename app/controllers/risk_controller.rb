@@ -5,8 +5,8 @@ class RiskController < ApplicationController
   before_filter :is_admin_or_powner_or_rowner, :only =>[:destroy, :reactivate]
 
   add_breadcrumb "Home", :user_index_path
-  def index
 
+  def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
