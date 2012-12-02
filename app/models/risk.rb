@@ -12,18 +12,6 @@ class Risk < ActiveRecord::Base
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
 
-=begin
-    def map_to_int(string)
-      if string == "High"
-        return 3
-      elsif string == "Medium"
-         return 2
-      else
-         return 1
-       end
-    end
-=end
-
   def prefix_id
     return "#{self.project.prefix}-#{self.id}"
   end
