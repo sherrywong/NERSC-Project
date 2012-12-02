@@ -59,6 +59,11 @@ Scenario: Admin cannot edit a retired user.
     When I go to em's Edit User page
     Then I should not see "Save"
 
+Scenario: Non-admin cannot edit a retired user.
+    Given I am logged in as Jason
+    When I go to the show users page
+    Then I should see "Sorry, you have to be an admin to perform this action."
+
 Scenario: Non-admin cannot edit a user.
    Given I am logged in as Jason
    When I go to ag's Edit User page
