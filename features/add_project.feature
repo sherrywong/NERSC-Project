@@ -27,6 +27,20 @@ Scenario: Admins can add a valid project.
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
 
+Scenario: Admins can view a project that is not apart of.
+    Given I am logged in as an admin
+    And I am on the home page
+    When I press "+ Create New Project"
+    And I am on the new project page
+    When I fill in "project_name" with "Test Project" 
+    And I fill in "project_prefix" with "test"
+    And I fill in "project_description" with "Project 4"
+    And I fill in "project_owner_username" with "jt"
+    Then I press "Save" 
+    Then I should be on the project page for "Test Project"
+    And I should see "Project 'Test Project' created."
+    And I should see "Test Project"
+
 Scenario: Add project with missing fields.
     Given I am logged in as an admin
     And I am on the home page
@@ -50,6 +64,7 @@ Scenario: Admins can edit a project.
     And I am on the edit project page for "First Project"
     Then I should see "Matrix"
     When I fill in "project_name" with "Test Project2"
+    And I fill in "project_owner_username" with "admin"
     Then I press "Save"
     Then I should be on the project page for "Test Project2"
     Then I should see "Project 'Test Project2' was succesfully updated."
@@ -61,6 +76,7 @@ Scenario: Project owners can edit a project.
     When I press "+ Edit Project"
     Then I should be on the edit project page for "Second Project"
     When I fill in "project_name" with "Edit Name"
+    And I fill in "project_owner_username" with "admin"
     Then I press "Save"
     Then I should be on the project page for "Edit Name"
     Then I should see "Project 'Edit Name' was succesfully updated."

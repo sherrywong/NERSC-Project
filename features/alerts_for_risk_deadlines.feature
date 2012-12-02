@@ -36,7 +36,7 @@ Scenario: Warning if it's past the deadline
   And I should be notified that "Third Risk" needs to be reviewed.
     
 Scenario: Warning if a risk moves into critical condition
-  Given that I am logged in as Jason
+  Given I am logged in as Jason
   And I am on the project page for "Second Project"
   And the date is "03-12-2012"
   When I set the condition of "Second Risk" to "critical"

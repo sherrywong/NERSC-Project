@@ -1,12 +1,11 @@
 class RiskController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user
-  before_filter :is_admin_or_member, :only => [:new, :edit]
   before_filter :is_admin_or_powner_or_rowner, :only =>[:destroy, :reactivate]
 
   add_breadcrumb "Home", :user_index_path
-  def index
 
+  def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
@@ -90,22 +89,28 @@ class RiskController < ApplicationController
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
-
-    if params[:risk] ==nil
+    #@risk = Risk.find_by_id(params[:rid])
+    if @risk.nil?
       @risk = Risk.find_by_id(params[:rid])
-    else
-      @risk = params[:risk]
+      if @risk.nil?
+        flash[:notice] = "That risk does not exist."
+        redirect_to risk_index_path(params[:pid])
+      end
     end
     add_breadcrumb @risk.title, show_risk_path(params[:pid], params[:rid])
-    if @risk.nil?
-      flash[:notice] = "That risk does not exist."
-      redirect_to risk_index_path(params[:pid])
-    end
     if !@risk.owner_id.nil?
       @risk_owner_username = @risk.find_username(@risk.owner_id)
     end
+    if request.post?
+      @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]), @user)
+      if @risk.errors.empty?
+        flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
+        redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
+      end
+    end
   end
 
+=begin
   def update
     @user = get_current_user
     @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]), @user)
@@ -114,9 +119,10 @@ class RiskController < ApplicationController
       redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
     else
       flash[:error] = @risk.errors.full_messages[0]
-      redirect_to edit_risk_path(params[:pid], params[:rid]), :risk => @risk
+      redirect_to edit_risk_path(params[:pid], params[:rid]), :errors => @risk.errors
     end
   end
+=end
 
   def destroy
     @risk = Risk.find(params[:rid])

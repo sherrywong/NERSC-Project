@@ -12,6 +12,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20121118203154) do
 =======
 ActiveRecord::Schema.define(:version => 20121202104234) do
@@ -37,6 +38,9 @@ ActiveRecord::Schema.define(:version => 20121202104234) do
   add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
+=======
+ActiveRecord::Schema.define(:version => 20121117223200) do
+>>>>>>> 40734fa46e30a461de672c1fbeb1b257ccc9ad2b
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
@@ -102,7 +106,10 @@ ActiveRecord::Schema.define(:version => 20121202104234) do
     t.string   "critical_path"
     t.string   "wbs_spec"
     t.text     "comment"
+<<<<<<< HEAD
     t.string   "edited_by"
+=======
+>>>>>>> 40734fa46e30a461de672c1fbeb1b257ccc9ad2b
     t.integer  "creator_id"
   end
 

@@ -18,7 +18,7 @@ Scenario: Cannot add a user if the user email address is invalid
     And I fill in "user_password" with "tu"
     And I press "Save"
     Then I should be on the show users page
-    And I should see "Error: Invalid email address"    
+    And I should see "Error occured when trying to create this user. Please make sure you have entered a valid email address and the username has not been taken."    
 
 Scenario: Can add a user with a valid email address
     Given I am logged in as an admin
@@ -33,5 +33,4 @@ Scenario: Can add a user with a valid email address
     And I press "Save"
     Then I should be on the show users page
     Then there should be this message: "User 'Temp User' created."
-    And I should see "Starfish"
 

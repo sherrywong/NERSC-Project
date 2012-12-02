@@ -24,7 +24,7 @@ Scenario: Admins can add and edit a valid risk.
     And I am on the home page
     When I follow "First Project"
     And I am on the project page for "First Project"
-    When I press "+ Add New Risk"
+    When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
     When I fill in "risk_owner_id" with "admin"

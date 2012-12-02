@@ -40,9 +40,9 @@ class User < ActiveRecord::Base
   end
 
   def inactive?
-	return !(active?)
+  return !(active?)
   end
-  
+
   def retired?
     return self.status == "retired"
   end
@@ -52,17 +52,14 @@ class User < ActiveRecord::Base
   end
 
   def member?(pid)
-	return ( p = Project.find_by_id(pid) and p.has_member?(self))
-		
-    #return ProjectMembership.find_by_user_id_and_project_id(self.id, pid)!=nil
+    return ( p = Project.find_by_id(pid) and p.has_member?(self))
   end
- 
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
     if @usr.save
-    #else
-    #  @usr.errors[:owner] = "Error: This uesrname already exists. Please create another username and try again."
+    else
+    @usr.errors[:owner] = "Error occured when trying to create this user.  Please make sure you have entered a valid email address and the username has not been taken."
     end
     return @usr
   end
@@ -79,18 +76,36 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
+    if !@proj.errors.any? and @proj.save
+      if new_owner.nil?
+        @proj.errors.add(:owner, "not found in database.")
+        @proj.destroy
+      elsif new_owner.inactive?
+        @proj.errors.add(:owner, "cannot be a deactivated user.")
+        @proj.destroy
+      else
+        @proj.owner = new_owner
+      end
+    end
+    return @proj #check @proj.errors
+  end
+
+=begin
+  def create_project(project_hash)
+    new_owner = extract_owner_username(project_hash)
+    @proj = Project.new(project_hash)
     if self.admin? and @proj.save
-        #@proj.add_member(self.id) don't need this line- all admins have access to all projects
-        #@proj.edit_member_permission(self, "write")
-        @proj.owner = new_owner || self
-        if new_owner.nil?
-            @proj.errors[:owner] = "not found in database. Owner set to current user instead."
-			@proj.destroy
-	    elsif new_owner.inactive?
-			@proj.errors[:owner] = "is an inactive user. Set to current user instead."
-			@proj.owner = self
-			@proj.destroy
-        end
+      #@proj.add_member(self.id) don't need this line- all admins have access to all projects
+      #@proj.edit_member_permission(self, "write")
+      #@proj.owner = new_owner || self
+      if new_owner.nil?
+        @proj.errors[:owner] = "not found in database."
+        @proj.destroy
+      elsif new_owner.inactive?
+        @proj.errors[:owner] = "cannot be a deactivated user."
+        #@proj.owner = self
+        @proj.destroy
+      end
         #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
         #@pm.permission = "write"
         #@pm.owner = true
@@ -110,30 +125,52 @@ class User < ActiveRecord::Base
     end
     return @proj #check @proj.errors
   end
+=end
 
   def update_project(project, project_hash)
     @proj = project
-	new_owner = extract_owner_username(project_hash)
-    orig_owner = @proj.owner
-	if new_owner.nil?
-		@proj.errors[:owner] = "not found in database. Owner set to current user instead."
-	elsif new_owner.inactive?
-		@proj.errors[:owner] = "is an inactive user. Set to current user instead."
-		@proj.owner = self
-	else
-		@proj.owner = new_owner
-	end
-	
-	temp = @proj.update_attributes(project_hash)
-    if not temp
-        print @proj.errors.full_messages
-		@proj.owner = orig_owner
-		if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
-			pm.destroy
-		end
+    new_owner = extract_owner_username(project_hash)
+    if new_owner.nil?
+      @proj.errors.add(:owner, "not found in database.")
+    elsif new_owner.inactive?
+      @proj.errors.add(:owner, "cannot be a deactivated user.")
+    else
+      @proj.owner = new_owner
+      temp= @proj.update_attributes(project_hash)
+      if not temp
+        @proj.owner = orig_owner
+        if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
+           pm.destroy
+        end
+      end
     end
-	return @proj
+    return @proj
   end
+
+=begin
+  def update_project(project, project_hash)
+    @proj = project
+    new_owner = extract_owner_username(project_hash)
+    if new_owner.nil?
+      @proj.errors[:owner] = "not found in database."
+    elsif new_owner.inactive?
+      @proj.errors[:owner] = "is an inactive user. Set to current user instead."
+      @proj.owner = self
+    else
+      @proj.owner = new_owner
+    end
+
+    temp = @proj.update_attributes(project_hash)
+      if not temp
+        print @proj.errors.full_messages
+        @proj.owner = orig_owner
+      if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
+        pm.destroy
+      end
+    end
+    return @proj
+  end
+=end
 
   #deactivating project/risk/user
   def deactivate_project(project_id)
@@ -162,7 +199,7 @@ class User < ActiveRecord::Base
     end
     return false
   end
-  
+
   #reactivating project/risk/user - identical to deactivation except setting = active.
   def reactivate_project(project_id)
     @proj = Project.find_by_id(project_id)
@@ -190,6 +227,6 @@ class User < ActiveRecord::Base
     end
     return false
   end
-  
+
 
 end

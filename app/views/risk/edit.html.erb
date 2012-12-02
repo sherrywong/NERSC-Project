@@ -1,7 +1,4 @@
 <h1> <%= @risk.title %> </h1>
   <%= render_breadcrumbs %>
-  <p><center><%= flash[:notice] %></center></p>
-  <p><center><%= params[:notice] %></center></p>
-  <p><center><%= params[:error] %></center></p>
 
-  <%= render "home/shared/edit", { :form_type => "risk", :form_action => {:action => "update", :class => ('autosave')}} %>
+  <%= render "home/shared/edit", { :form_type => "risk", :form_action => {:action => "edit", :class => ('autosave')}} %>

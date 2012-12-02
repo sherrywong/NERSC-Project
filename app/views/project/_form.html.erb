@@ -1,3 +1,6 @@
+  <% if @project!=nil%>
+   <%= render "home/shared/error_messages", :target => @project %>
+  <% end %>
 
 <script type="text/javascript">
   window.onload = function setColors() {
@@ -59,7 +62,7 @@
 </div>
 <div>
     <br/>
-    <% if not @project.nil? %> <%= render 'member_list' %> <% end %>
+    <% if not @new %> <%= render 'member_list' %> <% end %>
     </div>
     <br/>
     <% if (not @user.nil?) and ((@user.admin? ) or (@project.owner == @user and @project.status == 'active'))%>

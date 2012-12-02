@@ -1,28 +1,17 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
-  audited
-   attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :edited_by
+  has_paper_trail
+  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
 
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
    validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "Notification before early impact has to be a non-negative integer. "
    validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
 
    belongs_to :project
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
-
-=begin
-    def map_to_int(string)
-      if string == "High"
-        return 3
-      elsif string == "Medium"
-         return 2
-      else
-         return 1
-       end
-    end
-=end
 
   def prefix_id
     return "#{self.project.prefix}-#{self.id}"
@@ -56,8 +45,8 @@ class Risk < ActiveRecord::Base
         if @owner!=nil
           if @owner.retired?
             risk_hash[:owner_id] = -2 # invalid id number, corresponds to deactivated user
-     elsif !@owner.member?(pid)
-       risk_hash[:owner_id] = -1 # invalid id number, corresponds to non-member
+          elsif !@owner.member?(pid)
+            risk_hash[:owner_id] = -1 # invalid id number, corresponds to non-member
           else
             risk_hash[:owner_id] = @owner.id
           end
@@ -67,11 +56,11 @@ class Risk < ActiveRecord::Base
       end
       @risk = Risk.new(risk_hash)
       if @risk.owner_id == 0
-        @risk.errors[:owner] << "does not exist."
+        @risk.errors.add(:owner, "is not found in database.")
       elsif @risk.owner_id == -1
-   @risk.errors[:owner] << "has to be a member of this project."
+        @risk.errors.add(:owner, "has to be a member of this project.")
       elsif @risk.owner_id == -2
-   @risk.errors[:owner] << "cannot be a deactivated user."
+        @risk.errors.add(:owner, "cannot be a deactivated user.")
       end
       @risk.creator_id = uid
       @risk.project_id = pid
@@ -84,25 +73,30 @@ class Risk < ActiveRecord::Base
     end
 
     def self.update_risk(risk_hash, risk, user)
+      @risk = risk
+      @errors=nil
       if risk_hash[:owner_id]!=nil
         @owner = User.find_by_username(risk_hash[:owner_id])
         if @owner==nil
-          risk.errors[:owner] << "does not exist"
+          @errors= "is not found in database."
+          risk_hash[:owner_id] = risk.owner_id
         elsif @owner.retired?
-     risk.errors[:owner] << "cannot be a deactivated user."
+          @errors = "cannot be a deactivated user."
+          risk_hash[:owner_id] = risk.owner_id
         elsif !@owner.member?(risk.project_id)
-          risk.errors[:owner] << "has to be a member of this project."
+          @errors = "has to be a member of this project."
+          risk_hash[:owner_id] = risk.owner_id
         else
           risk_hash[:owner_id] = @owner.id
-          risk_hash[:edited_by] = user.username
         end
       end
-      if risk.errors.empty?
-        risk.update_attributes!(risk_hash)
-        risk.risk_rating = risk.calculate_risk_rating
-        risk.days_to_impact = risk.calculate_days_to_impact
-        risk.save
+      @risk.update_attributes(risk_hash)
+      @risk.risk_rating = @risk.calculate_risk_rating
+      @risk.days_to_impact = @risk.calculate_days_to_impact
+      @risk.save
+      if @errors!=nil
+        @risk.errors.add(:owner, "#{@errors}")
       end
-      return risk
+      return @risk
     end
 end
