@@ -52,10 +52,10 @@ class UserController < ApplicationController
       user_hash = params[:user]
       @new = get_current_user.create_user(user_hash)
       if @new.errors.empty?
+        UserMailer.welcome_email(@new).deliver
         flash[:notice]= "User '#{@new.first} #{@new.last}'created."
-        UserMailer.sendmail(@new).deliver
       else
-        flash[:notice] = @new.errors[:owner].to_s
+        flash[:notice] = @new.errors[:owner][0].to_s
       end
       #send mail
       redirect_to "/user/show_users"
