@@ -21,6 +21,8 @@ Scenario: Admin cannot deactivate admin.
     And I go to the show users page
     And I click on deactivate user for "admin"
     Then there should be this message: "You cannot deactivate this user."
+    And I click on reactivate user for "admin"
+    Then there should be this message: "You cannot reactivate this user."
 
 Scenario: Non-admin cannot deactivate users.
     Given I am logged in as Jason
