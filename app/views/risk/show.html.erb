@@ -1,6 +1,7 @@
 <h1><center> <%= @risk.title %></center> </h1>
-<p><center><%= flash[:notice] %></center></p>
-<p><center><%= params[:notice] %></center></p>
+  <p><center><%= flash[:notice] %></center></p>
+  <p><center><%= params[:notice] %></center></p>
+  <p><center><%= params[:error] %></center></p>
  <%= render_breadcrumbs %>
 <% if @risk.status == "active" %><%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
 <% end %>

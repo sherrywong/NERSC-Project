@@ -25,5 +25,5 @@ function changeColor(cell) {
 }
 </script>
 <%= hidden_field_tag "members_sort", true if @members_header %>
-  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "update", :class => ('autosave')}} %>
+  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "edit", :class => ('autosave')}} %>
 

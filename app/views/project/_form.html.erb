@@ -1,3 +1,6 @@
+  <% if @project!=nil%>
+   <%= render "home/shared/error_messages", :target => @project %>
+  <% end %>
 
 <script type="text/javascript">
   window.onload = function setColors() {

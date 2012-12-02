@@ -20,22 +20,21 @@ class ProjectController < ApplicationController
   def show
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    if @project.nil?
+      flash[:notice] = "That project does not exist."
+      redirect_to "/user/index"
+    end
+    @proj_members = @project.members
     sort = params[:sort] || session[:sort]
     case sort
       when "members"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.username}
       when "first"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.first}
       when "last"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.last}
       when "email"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.email}
-      else
-        @proj_members = @project.members
       end
   end
 
@@ -46,8 +45,6 @@ class ProjectController < ApplicationController
       if @proj.errors.empty?
         flash[:notice] = "Project '#{@proj.name}' created."
 	 redirect_to "/project/#{@proj.id}"
-      else #Stays on same page.
-        flash[:notice] = @proj.errors[:owner].to_s
       end
     end
   end
@@ -56,41 +53,47 @@ class ProjectController < ApplicationController
   def edit
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    add_breadcrumb @project.name, show_project_path(params[:pid])
+    @errors = params[:errors]
+    if @project.nil?
+      flash[:notice] = "That project does not exist."
+      redirect_to "/user/index"
+    end
+    #@project.errors=params[:errors]
+    @proj_members = @project.members
     sort = params[:sort] || session[:sort]
     case sort
       when "members"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.username}
       when "first"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.first}
       when "last"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.last}
       when "email"
-        @proj_members = @project.members
         @proj_members = @proj_members.sort_by {|usr| usr.email}
-      else
-        @proj_members = @project.members
     end
-    if @project.nil?
-        flash[:notice] = "That project does not exist."
-        redirect_to "/user/index"
+    add_breadcrumb @project.name, show_project_path(params[:pid])
+    if request.post?
+      @project = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
+      if @project.errors.empty?
+        flash[:notice] = "Project '#{@project.name}' was succesfully updated."
+        redirect_to "/project/#{@project.id}"
+      end
     end
-    #include error handling...
+      
   end
 
-
+=begin
   def update
     @user = get_current_user
-    @project = Project.find_by_id(params[:pid])
-    @user.update_project(@project, params[:project])
-    flash[:notice] = "Project '#{@project.name}' was succesfully updated."
-    redirect_to "/project/#{@project.id}"
-     
+    @proj = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
+    if @proj.errors.empty?
+      flash[:notice] = "Project '#{@proj.name}' was succesfully updated."
+      redirect_to "/project/#{@proj.id}"
+    else
+      redirect_to edit_project_path(params[:pid], :errors => @proj.errors, :hash=>params[:project])
+    end   
   end
-
+=end
 
   def destroy
     @project = Project.find(params[:pid])
@@ -133,9 +136,13 @@ class ProjectController < ApplicationController
   def remove_member
     @project = Project.find_by_id(params[:pid])
     @member= User.find_by_id(params[:uid])
-    @project.remove_member(params[:uid])
-    flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
-    redirect_to edit_project_path(params[:pid])
+    if @project.owner != @member
+      @project.remove_member(params[:uid])
+      flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
+      redirect_to edit_project_path(params[:pid])
+    else
+      @project.errors.add(:owner,"cannot be removed from the project. Please reassign project owner first.")
+    end
   end
 
 end
