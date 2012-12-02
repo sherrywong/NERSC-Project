@@ -29,7 +29,6 @@ class RiskController < ApplicationController
   end
 
   def new
-    current_user
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
