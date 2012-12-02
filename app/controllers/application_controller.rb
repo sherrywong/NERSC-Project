@@ -47,5 +47,8 @@ class ApplicationController < ActionController::Base
   def get_current_user
     return User.find_by_id(session[:uid])
   end
-    
+
+  def user_for_paper_trail
+    get_current_user
+  end
 end
