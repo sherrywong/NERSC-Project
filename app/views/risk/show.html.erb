@@ -29,13 +29,24 @@ Other Type: <%= @risk.other_type %> <br/>
 Comments: <%= @risk.comment %> <br/>
 
 <br>
+Comment Log:
+<table class="table table-striped" id="logs">
+    <tr>
+    <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %></th>
+    <th><%= link_to "Date", risk_index_path(params[:pid], :sort => "date") %></th>
+    <th><%= "Comment History" %></th>
+    </tr>
+           <%= render 'comment_log', {:risk => @risk} -%>
+</table>
+
 Log:
 <table class="table table-striped" id="logs">
     <tr>
+    <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %> </th>
     <th><%= link_to "Date", risk_index_path(params[:pid], :sort => "user") %></th>
     <th><%= link_to "Field Modified", risk_index_path(params[:pid], :sort => "field_modified") %></th>
-    <th><%= link_to "Old Value", risk_index_path(params[:pid], :sort => "old_value") %></th>
-    <th><%= link_to "New Value", risk_index_path(params[:pid], :sort => "new_value") %></th>
+    <th><%= "Old Value"%></th>
+    <th><%= "New Value"%></th>
     </tr>
            <%= render 'log', {:risk => @risk} -%>
 </table>

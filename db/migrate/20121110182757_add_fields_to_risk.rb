@@ -1,5 +1,5 @@
 class AddFieldsToRisk < ActiveRecord::Migration
-  def change 
+  def change
     add_column :risks, :short_title, :string
     add_column :risks, :create_date, :datetime
     add_column :risks, :root_cause, :text
@@ -18,5 +18,6 @@ class AddFieldsToRisk < ActiveRecord::Migration
     add_column :risks, :critical_path, :string
     add_column :risks, :wbs_spec, :string
     add_column :risks, :comment, :text
+    add_column :risks, :edited_by, :string
   end
 end

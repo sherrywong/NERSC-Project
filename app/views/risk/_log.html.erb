@@ -1,10 +1,15 @@
-<% for audit in @risk.audits %>
+<% for audit in @risk.audits.reverse %>
   <% for change in audit.audited_changes %>
      <% field = change[0] %>
      <tr class="info">
-       <% if not change[1].nil? and (change[1].class == Array and not change[1][0].nil?)%>
+       <% if not change[1].nil? and (change[1].class == Array and not change[1][0].nil?) and field != 'days_to_impact' and field != 'edited_by'%>
          <% old_val = change[1][0] %>
          <% new_val = change[1][1] %>
+         <% if !audit.audited_changes["edited_by"].nil?%>
+           <td><%= audit.audited_changes["edited_by"][1] %></td>
+         <% else %>
+           <td><%= @risk.edited_by %>
+         <% end %>
          <td><%= audit.created_at%></td>
          <td><%= field%> </td>
          <% if change[1].class == Array%>

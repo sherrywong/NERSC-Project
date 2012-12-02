@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118203154) do
+ActiveRecord::Schema.define(:version => 20121202071223) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20121118203154) do
     t.string   "wbs_spec"
     t.text     "comment"
     t.integer  "creator_id"
+    t.string   "edited_by"
   end
 
   create_table "users", :force => true do |t|
