@@ -141,7 +141,8 @@ class ProjectController < ApplicationController
       flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
       redirect_to edit_project_path(params[:pid])
     else
-      @project.errors.add(:owner,"cannot be removed from the project. Please reassign project owner first.")
+      flash[:errors] = "Cannot remove project woner from the project. Please reassign project owner first."
+      redirect_to edit_project_path(params[:pid])
     end
   end
 
