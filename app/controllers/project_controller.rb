@@ -1,6 +1,5 @@
 class ProjectController < ApplicationController
 
-  helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
   before_filter :is_admin_or_powner, :only => [:destroy, :update, :add_members, :reactivate]
@@ -40,12 +39,13 @@ class ProjectController < ApplicationController
   end
 
   def new
+    @users = User.all
     @user = get_current_user
     if request.post?
       @proj = @user.create_project(params[:project])
       if @proj.errors.empty?
         flash[:notice] = "Project '#{@proj.name}' created."
-	 redirect_to "/project/#{@proj.id}"
+   redirect_to "/project/#{@proj.id}"
       else #Stays on same page.
         flash[:notice] = @proj.errors[:owner].to_s
       end
@@ -54,6 +54,7 @@ class ProjectController < ApplicationController
 
 
   def edit
+    @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
@@ -88,7 +89,7 @@ class ProjectController < ApplicationController
     @user.update_project(@project, params[:project])
     flash[:notice] = "Project '#{@project.name}' was succesfully updated."
     redirect_to "/project/#{@project.id}"
-     
+
   end
 
 

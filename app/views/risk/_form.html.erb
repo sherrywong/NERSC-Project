@@ -16,7 +16,11 @@
     </div>
     <div>
     Owner: <% if @risk.nil? %>
-<%= text_field 'risk', 'owner_id', :required => true%>
+    <select id="project[owner_id]">
+           <% for user in @users %>
+              <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
+                  <% end %>
+           </select>
 <% else %>
 <%= text_field 'risk', 'owner_id', :value => @risk_owner_username %>
 <% end %>

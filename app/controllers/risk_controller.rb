@@ -29,6 +29,7 @@ class RiskController < ApplicationController
   end
 
   def new
+    @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
@@ -84,6 +85,7 @@ class RiskController < ApplicationController
   end
 
   def edit
+    @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     add_breadcrumb @project.name, show_project_path(params[:pid])
