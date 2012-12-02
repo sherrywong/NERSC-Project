@@ -37,7 +37,7 @@ class UserController < ApplicationController
       when "email"
         @users = User.order("email")
       when "admin"
-	@users = User.order("admin")
+  @users = User.order("admin")
       when "status"
         @users = User.order("status")
       else
@@ -53,9 +53,11 @@ class UserController < ApplicationController
       @new = get_current_user.create_user(user_hash)
       if @new.errors.empty?
         flash[:notice]= "User '#{@new.first} #{@new.last}'created."
+        UserMailer.sendmail(@new).deliver
       else
         flash[:notice] = @new.errors[:owner].to_s
       end
+      #send mail
       redirect_to "/user/show_users"
     end
   end

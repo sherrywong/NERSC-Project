@@ -22,10 +22,10 @@
 <% end %>
     </div>
     <div>
-    Description: <%= text_field 'risk', 'description', :required => true %>
+    Description: <%= text_area 'risk', 'description', :required => true, :rows => 5 %>
     </div>
     <div>
-    Root Cause: <%= text_field 'risk', 'root_cause'%>
+    Root Cause: <%= text_area 'risk', 'root_cause', :rows => 5%>
     </div>
     <div>
     Probability:
@@ -66,10 +66,10 @@
     Last Impact: <%= calendar_date_select 'risk', 'last_impact', :required => true %>
     </div>
     <div>
-    Mitigation: <%= text_field 'risk', 'mitigation' %>
+    Mitigation: <%= text_area 'risk', 'mitigation', :rows => 5 %>
     </div>
     <div>
-    Contingency: <%= text_field 'risk', 'contingency' %>
+    Contingency: <%= text_area 'risk', 'contingency', :rows => 5 %>
     </div>
     <div>
     Critical Path: <%= text_field 'risk', 'critical_path' %>

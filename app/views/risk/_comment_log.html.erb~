@@ -1,0 +1,18 @@
+<% for audit in @risk.audits.reverse %>
+  <% for change in audit.audited_changes %>
+     <% field = change[0] %>
+     <tr class="success">
+       <% if not change[1].nil? and (change[1].class == Array and not change[1][0].nil?) and field == 'comment'%>
+         <% old_val = change[1][0] %>
+         <% new_val = change[1][1] %>
+         <% if !audit.audited_changes["edited_by"].nil? %>
+           <td><%= audit.audited_changes["edited_by"][1]%>
+         <% else %>
+           <td><%= @risk.edited_by%></td>
+         <% end %>
+         <td><%= audit.created_at%></td>
+         <td><%= new_val %></td>
+      <% end %>
+    </tr>
+  <% end %>
+<% end %>

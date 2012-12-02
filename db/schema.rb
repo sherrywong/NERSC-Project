@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20121118203154) do
+=======
+ActiveRecord::Schema.define(:version => 20121202104234) do
+>>>>>>> 2502a479dde574602f635edd7b28bd76d9e291d4
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
