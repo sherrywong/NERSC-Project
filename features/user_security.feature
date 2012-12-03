@@ -20,14 +20,14 @@ Scenario: Deactivated user sign-in
    Then I should be on the login page
    Then I should see "Your account has been deactivated."
 
-Scenario: valid login
+Scenario: Valid login
     When I go to the login page
     And I fill in "username" with "ag"
     And I fill in "password" with "agovinthasamy"
     And I press "Login"
     Then I should be on the home page
     
-Scenario: invalid login - bad password
+Scenario: Invalid login with bad password
     When I go to the login page
     And I fill in "username" with "ag"
     And I fill in "password" with "swong"
@@ -35,7 +35,7 @@ Scenario: invalid login - bad password
     Then I should be on the login page
     And I should see "Incorrect password."
     
-Scenario: invalid login - username nonexistent
+Scenario: Invalid login - username nonexistent
     When I go to the login page
     And I fill in "username" with "starfish"
     And I fill in "password" with "swong"
@@ -43,7 +43,7 @@ Scenario: invalid login - username nonexistent
     Then I should be on the login page
     And I should see "We don't have a user by this username."
     
-Scenario: after logout should require login access
+Scenario: After logout should require login access
     Given I am logged in as an admin
     And I log out
     And I go to the home page
