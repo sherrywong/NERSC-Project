@@ -36,7 +36,7 @@
     </div>
     <%# JT - added owner_username for owner setting at creation%>
     <div>
-    Owner: <select id="project[owner_username]">
+    Owner: <select name='project[owner_username]'>
            <% for user in @users %>
               <option value=<%= user.username %> <%= "selected" if @project and @project.owner.username == user.username %>><%= user.username %></option>
                   <% end %>
