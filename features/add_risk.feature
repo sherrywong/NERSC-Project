@@ -1,4 +1,4 @@
-Feature: Create a risk
+Feature: Adds risk
     As a project member,
     So that I can capture risk associated with a particular project,
     I want to be able to document the specifics of the risk and add it to the risk log.
@@ -26,16 +26,16 @@ Scenario: Admins can add and edit a valid risk.
     And I am on the project page for "First Project"
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    Then I should see "Short Title"
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
-    Then I should see "Root Cause"
     When I select "High" from "risk[probability]"
     When I select "High" from "risk[cost]"
     When I select "Medium" from "risk[schedule]"
     When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
+    Then I should see "Short Title"
+    Then I should see "Root Cause"
     Then I should see "Mitigation"
     Then I should see "Contingency"
     Then I should see "Critical Path"
@@ -57,7 +57,7 @@ Scenario: Project owners can add and edit a valid risk.
     Given I am logged in as Jason
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I select "lz" from "project[owner_id]"
+    When I select "lz" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -74,7 +74,7 @@ Scenario: Project members can add and edit a valid risk.
     Given I am logged in as Linda
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk2"
-    When I select "jt" from "project[owner_id]"
+    When I select "jt" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk2"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -87,17 +87,29 @@ Scenario: Project members can add and edit a valid risk.
     Then I should be on the Risk page for Test Risk2 in the second project
     Then there should be this message: "Risk 'Title Risk2' was successfully updated."
 
+Scenario: Non-project members cannot add and edit a valid risk.
+    Given I am logged in as Sherry
+    When I go to Second Project's Add Risk page
+    Then I should see "Sorry, you don't have access to the requested project."
+
 Scenario: Add a risk with missing fields. #Doesn't have title.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
     Then I should be on First Project's Add Risk page
 
-Scenario: Non-project members cannot add and edit a valid risk.
-    Given I am logged in as Sherry
-    When I go to Second Project's Add Risk page
-    Then I should see "Sorry, you don't have access to the requested project."
+Scenario: Admin cannot add a risk with a deactivated user as its owner
+    Given I am logged in as an admin
+    When I go to First Project's Add Risk page
+    When I fill in "risk_title" with "Test Risk2"
+    When I select "em" from "risk[owner_id]"
+    When I fill in "risk_description" with "P2 Test Risk2"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
+    Then I press "Save"
+    Then I should be on First Project's Add Risk page
+    Then I should see "Owner cannot be a deactivated user."

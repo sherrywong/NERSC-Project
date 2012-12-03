@@ -1,4 +1,4 @@
-Feature: Change status of a risks
+Feature: Change risk status
     As a project owner,
     So that I can manage risks in the system
     I want to be able to deactivate/reactivate projects
@@ -13,7 +13,7 @@ Scenario: Admin can deactivate and reactivate a risk. #Just member of project
     Given I am logged in as an admin
     When I go to Third Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk"
-    When I fill in "risk_owner_id" with "ag"
+    When I select "ag" from "risk[owner_id]"
     When I fill in "risk_description" with "P3 TR1"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -32,7 +32,7 @@ Scenario: Risk owners can deactivate a risk.
     Given I am logged in as Linda
     When I go to Third Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk3"
-    When I fill in "risk_owner_id" with "lz"
+    When I select "lz" from "risk[owner_id]"
     When I fill in "risk_description" with "P3 TR3."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -51,7 +51,7 @@ Scenario: Project owners cannot deactivate a risk.
     Given I am logged in as Sherry
     When I go to Third Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk2"
-    When I fill in "risk_owner_id" with "ag"
+    When I select "ag" from "risk[owner_id]"
     When I fill in "risk_description" with "P3 TR2."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -70,7 +70,7 @@ Scenario: A project member cannot deactivate a risk.
     Given I am logged in as Linda
     When I go to Third Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk4"
-    When I fill in "risk_owner_id" with "ag"
+    When I select "ag" from "risk[owner_id]"
     When I fill in "risk_description" with "P3 TR2."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

@@ -1,7 +1,12 @@
-Feature: Create a project
+Feature: Add project
     As an administrator, 
     So that I can capture and share information about a project I am working on 
-    I want to be able to create a project and share it with project members 
+    I want to be able to create a project and share it with project members
+
+#Feature: Project Risk Matrix
+#    As a project owner,
+#    So that I can set parameters and categories for that project's risks,
+#    I should be ale to set project specific risk parameters.
 
 #Feature: Add Project Fields
 #    As a project owner,
@@ -13,7 +18,7 @@ Background: Some projects have already been added to database.
     Given I am logged in as an admin
     Given a set of projects exist
 
-Scenario: Admins can add a valid project.
+Scenario: Admins can add a valid project with a valid risk matrix
     Given I am logged in as an admin
     And I am on the home page
     When I press "+ Create New Project"
@@ -22,25 +27,13 @@ Scenario: Admins can add a valid project.
     And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
     And I select "admin" from "project[owner_username]"
+    When I select "Low" from "project[probability_impact_11]"
+    When I select "High" from "project[probability_impact_21]"
+    When I select "Med" from "project[probability_impact_12]"
     Then I press "Save" 
     Then I should be on the project page for "Test Project"
     And I should see "Project 'Test Project' created."
     And I should see "Test Project"
-
-Scenario: Admins can view a project that is not apart of.
-    Given I am logged in as an admin
-    And I am on the home page
-    And I should see "Second Project"
-
-Scenario: Add project with missing fields.
-    Given I am logged in as an admin
-    And I am on the home page
-    When I press "+ Create New Project"
-    And I am on the new project page
-    When I fill in "project_description" with "Project 5"
-    And I select "admin" from "project[owner_username]"
-    Then I press "Save" 
-    Then I should be on the new project page
 
 Scenario: Non-admins cannot add a project.
     Given I am logged in as Jason
@@ -76,3 +69,8 @@ Scenario: Project members cannot edit a project.
     And I am on the home page
     When I follow "Second Project"
     Then I should not see "+ Edit Project"
+
+Scenario: Admins can view a project that is not apart of.
+    Given I am logged in as an admin
+    And I am on the home page
+    And I should see "Second Project"
