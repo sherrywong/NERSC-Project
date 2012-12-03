@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
-    if @proj.save
+    if !@proj.errors.any? and @proj.save
       if new_owner.nil?
         @proj.errors.add(:owner, "not found in database.")
         @proj.destroy

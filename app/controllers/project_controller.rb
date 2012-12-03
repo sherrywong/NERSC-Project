@@ -40,17 +40,19 @@ class ProjectController < ApplicationController
 
   def new
     @user = get_current_user
+    @new = true
     if request.post?
-      @proj = @user.create_project(params[:project])
-      if @proj.errors.empty?
-        flash[:notice] = "Project '#{@proj.name}' created."
-	 redirect_to "/project/#{@proj.id}"
+      @project = @user.create_project(params[:project])
+      if @project.errors.empty?
+        flash[:notice] = "Project '#{@project.name}' created."
+	 redirect_to "/project/#{@project.id}"
       end
     end
   end
 
 
   def edit
+    @new = false
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     @errors = params[:errors]
@@ -141,7 +143,7 @@ class ProjectController < ApplicationController
       flash[:notice] = "Removed #{@member.first} #{@member.last} from this project."
       redirect_to edit_project_path(params[:pid])
     else
-      flash[:errors] = "Cannot remove project woner from the project. Please reassign project owner first."
+      flash[:errors] = "Cannot remove project owner from the project. Please reassign project owner first."
       redirect_to edit_project_path(params[:pid])
     end
   end

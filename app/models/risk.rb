@@ -1,10 +1,11 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
   has_paper_trail
-  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id
+  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
 
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
    validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "Notification before early impact has to be a non-negative integer. "
    validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
 
