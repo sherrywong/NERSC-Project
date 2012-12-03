@@ -132,16 +132,23 @@ class ProjectController < ApplicationController
     members_list = members[0].split(", ")
     @members = members_list
     member_id_list = Array(members_list.length)
-    members_list.each do |member|
-      member = User.find_by_username(member)
-      if not member.nil?
+	all_ok = true
+	invalid_list = [];
+    members_list.each do |member_name|
+      member = User.find_by_username(member_name)
+      if member and member.active?
         member_id = member.id
         member_id_list << member_id
-        flash[:notice] = "Members updated."
       else
-        flash[:notice] = "Error: This person is not a current user."
-      end
+		all_ok = false
+		invalid_list << member_name
+	  end
     end
+	if all_ok
+		flash[:notice] = "All members added successfully."
+	else
+		flash[:notice] = "The following member(s) are either nonexistent or inactive: #{invalid_list}"
+	end
     @project.add_members(member_id_list)
     redirect_to edit_project_path(params[:pid])
   end

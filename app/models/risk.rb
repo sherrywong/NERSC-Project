@@ -6,7 +6,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
    validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
    validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "has to be a non-negative integer.", :allow_nil=>true
-   validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
+   validates_presence_of :title, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
    validates_inclusion_of :status, :in=>["active", "retired", "pending"]
 
    belongs_to :project
