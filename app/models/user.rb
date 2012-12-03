@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     @usr = User.new(user_hash)
     if @usr.save
     else
-    @usr.errors[:owner] = "Error occured when trying to create this user.  Please make sure you have entered a valid email address and the username has not been taken"
+    @usr.errors[:owner] = "Error occured when trying to create this user.  Please make sure you have entered a valid email address and the username has not been taken."
     end
     return @usr
   end
