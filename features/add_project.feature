@@ -38,6 +38,7 @@ Scenario: Add project with missing fields.
     When I press "+ Create New Project"
     And I am on the new project page
     When I fill in "project_description" with "Project 5"
+    And I select "admin" from "project[owner_username]"
     Then I press "Save" 
     Then I should be on the new project page
 

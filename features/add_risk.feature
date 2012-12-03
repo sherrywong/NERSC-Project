@@ -27,7 +27,7 @@ Scenario: Admins can add and edit a valid risk.
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
     Then I should see "Short Title"
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "project[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     Then I should see "Root Cause"
     When I select "High" from "risk[probability]"
@@ -57,7 +57,7 @@ Scenario: Project owners can add and edit a valid risk.
     Given I am logged in as Jason
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_owner_id" with "lz"
+    When I select "lz" from "project[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -74,7 +74,7 @@ Scenario: Project members can add and edit a valid risk.
     Given I am logged in as Linda
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk2"
-    When I fill in "risk_owner_id" with "jt"
+    When I select "jt" from "project[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk2"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -90,17 +90,12 @@ Scenario: Project members can add and edit a valid risk.
 Scenario: Add a risk with missing fields. #Doesn't have title.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "project[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
-    When I select "High" from "risk[probability]"
-    When I select "High" from "risk[cost]"
-    When I select "Medium" from "risk[schedule]"
-    When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"
     Then I should be on First Project's Add Risk page
-#we will show all the fields they didn't fill out
 
 Scenario: Non-project members cannot add and edit a valid risk.
     Given I am logged in as Sherry
