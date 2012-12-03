@@ -38,7 +38,7 @@
     <div>
     Owner: <select name='project[owner_username]'>
            <% for user in @users %>
-              <option value=<%= user.username %> <%= "selected" if @project and @project.owner.username == user.username %>><%= user.username %></option>
+              <option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner.username == user.username %>><%= user.username %></option>
                   <% end %>
            </select>
     </div>
