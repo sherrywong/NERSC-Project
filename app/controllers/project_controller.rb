@@ -1,6 +1,5 @@
 class ProjectController < ApplicationController
 
-  helper_method :sort_column, :sort_direction
   before_filter :login_required
   before_filter :project_id_matches_user, :except => [:new]
   before_filter :is_admin_or_powner, :only => [:destroy, :update, :add_members, :reactivate]
@@ -39,19 +38,23 @@ class ProjectController < ApplicationController
   end
 
   def new
+    @users = User.all
     @user = get_current_user
     @new = true
     if request.post?
       @project = @user.create_project(params[:project])
       if @project.errors.empty?
         flash[:notice] = "Project '#{@project.name}' created."
-	 redirect_to "/project/#{@project.id}"
+   redirect_to "/project/#{@project.id}"
+      else #Stays on same page.
+        flash[:notice] = @project.errors[:owner].to_s
       end
     end
   end
 
 
   def edit
+    @users = User.all
     @new = false
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
@@ -81,19 +84,27 @@ class ProjectController < ApplicationController
         redirect_to "/project/#{@project.id}"
       end
     end
-      
+
   end
 
 =begin
   def update
     @user = get_current_user
+<<<<<<< HEAD
+    @project = Project.find_by_id(params[:pid])
+    @user.update_project(@project, params[:project])
+    flash[:notice] = "Project '#{@project.name}' was succesfully updated."
+    redirect_to "/project/#{@project.id}"
+
+=======
     @proj = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
     if @proj.errors.empty?
       flash[:notice] = "Project '#{@proj.name}' was succesfully updated."
       redirect_to "/project/#{@proj.id}"
     else
       redirect_to edit_project_path(params[:pid], :errors => @proj.errors, :hash=>params[:project])
-    end   
+    end
+>>>>>>> 40734fa46e30a461de672c1fbeb1b257ccc9ad2b
   end
 =end
 

@@ -36,7 +36,11 @@
     </div>
     <%# JT - added owner_username for owner setting at creation%>
     <div>
-    Owner: <%= autocomplete_field_tag 'project[owner_username]', '',  autocomplete_username_users_path, :size => 75  %>
+    Owner: <select id="project[owner_username]">
+           <% for user in @users %>
+              <option value=<%= user.username %> <%= "selected" if @project and @project.owner.username == user.username %>><%= user.username %></option>
+                  <% end %>
+           </select>
     </div>
     <div>Risk Matrix
       <table id="risk_mx">

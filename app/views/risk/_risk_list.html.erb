@@ -1,13 +1,19 @@
 <% for risk in @risks %>
   <tr>
-    <td class='first'>
+    <td class="expand_btn">
+      <input type="button" value="+" onclick="changeForm(<%= risk.id%>);" id="button_<%= risk.id %>"/>
+    </td>
+    <td>
+      <%= risk.prefix_id %>
+    </td>
+    <td>
       <%= link_to risk.title, show_risk_path(params[:pid], risk.id) %>
     </td>
     <td>
-      <%= risk.description %>
+      <%= risk.owner.username %>
     </td>
     <td>
-      <%= User.find_by_id(risk.owner_id).username %>
+      <%= risk.risk_rating %>
     </td>
     <td>
       <%= risk.early_impact %>
@@ -29,4 +35,9 @@
     <td><%= 'N/A' %>
   <% end %>
   </tr>
+  <tr>
+  <td>
+  <div id=<%= risk.id %> class="expand_button">yopza
+  </div>
+  </td></tr>
 <% end %>

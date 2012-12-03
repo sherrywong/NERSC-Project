@@ -2,9 +2,23 @@
 
 
   <h1> Risks for <%= @project.name %></h1>
-  <p><center><%= flash[:notice] %></center></p>
-  <p><center><%= params[:notice] %></center></p>
-  <p><center><%= params[:error] %></center></p>
+<script type="text/javascript">
+  function changeForm(div_id) {
+    div_button = "button_"+div_id;
+    if (document.getElementById(div_id).style.display = "hidden") {
+       document.getElementById(div_id).style.display = "block";
+       document.getElementById(div_button).value = "-";
+      }
+    else {
+        document.getElementById(div_id).style.display = "hidden";
+        document.getElementById(div_button).value = "+";
+      }
+  }
+</script>
+<p><center><%= flash[:notice] %></center></p>
+<p><center><%= params[:notice] %></center></p>
+<p><center><%= params[:error] %></center></p>
+
 <%= render_breadcrumbs %>
 
 <%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn info', :method => :get%>
@@ -12,9 +26,12 @@
 
 <table class="zebra-striped clearfix" id="risks">
     <tr>
+    <th><%= "Expand" %></th>
+    <th><%= link_to "Risk ID", risk_index_path(params[:pid], :sort => "id") %></th>
     <th><%= link_to "Title", risk_index_path(params[:pid], :sort => "title") %></th>
-    <th><%= "Description" %></th>
+
     <th><%= link_to "Risk Owner", risk_index_path(params[:pid], :sort => "owner") %></th>
+    <th><%= link_to "Risk Rating", risk_index_path(params[:pid], :sort => "risk_rating") %></th>
     <th><%= link_to "Early Impact", risk_index_path(params[:pid], :sort => "early_impact") %></th>
     <th><%= link_to "Last Impact", risk_index_path(params[:pid], :sort => "last_impact") %></th>
     <th><%= link_to "Status", risk_index_path(params[:pid], :sort => "status")%></th>
