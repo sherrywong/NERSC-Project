@@ -1,10 +1,77 @@
 <h1><center><%= @project.name %></center></h1>
+  <p><center><%= flash[:notice] %></center></p>
+  <p><center><%= params[:notice] %></center></p>
+  <p><center><%= params[:error] %></center></p>
 <%= render_breadcrumbs %>
-<% if @project.status == "active" %><%= button_to "+ Edit Project", edit_project_path(params[:pid]), :class => 'btn btn-info', :method => :get %>
-
+<script type="text/javascript">
+window.onload = function setColors() {
+  for (var i=1; i<4; i++) {
+     for (var j=1; j<4; j++) {
+        var elem = "probability_impact_"  + i + j;
+        var value = document.getElementById(elem).innerHTML;
+        if (value == 1) {
+           document.getElementById(elem).innerHTML = "Low";
+           document.getElementById(elem).style.background = "green";
+        }
+        if (value == 2) {
+           document.getElementById(elem).innerHTML = "Med";
+           document.getElementById(elem).style.background = "yellow";
+        }
+        if (value == 3) {
+           document.getElementById(elem).innerHTML = "High";
+           document.getElementById(elem).style.background = "red";
+        }
+    }
+  }
+}
+</script>
+<% if @project.status == "active" and (@project.owner == @user or @user.admin?)%><%= button_to "+ Edit Project", edit_project_path(params[:pid]), :class => 'btn btn-info', :method => :get %>
+<% end %>
+<%= button_to "+ Add New Risk", new_risk_path(@project.id), :class => 'btn btn info', :method => :get %>
+<%= button_to "+ Display Associated Risks", risk_index_path(@project.id), :class=> 'btn btn info', :method => :get %>
 Name: <%= @project.name %><br/>
 Prefix: <%= @project.prefix %><br/>
 Description <%= @project.description %><br/>
-Owner: <%= @project_owner_username %><br/>
-Risk Matrix:<br/>
+Owner: <%= @project.owner.username %><br/>
+Risk Matrix:
+<table id="risk_matrix">
+<tr>
+  <td class='risk_mx' id='probability_impact_31'><%= @project.probability_impact_31 %> </td>
+  <td class='risk_mx' id='probability_impact_32'><%= @project.probability_impact_32 %> </td>
+  <td class='risk_mx' id='probability_impact_33'><%= @project.probability_impact_33 %> </td>
+</tr>
+<tr>
+  <td class='risk_mx' id='probability_impact_21'><%= @project.probability_impact_21 %> </td>
+  <td class='risk_mx' id='probability_impact_22'><%= @project.probability_impact_22 %> </td>
+  <td class='risk_mx' id='probability_impact_23'><%= @project.probability_impact_23 %> </td>
+</tr>
+<tr>
+  <td class='risk_mx' id='probability_impact_11'><%= @project.probability_impact_11 %> </td>
+  <td class='risk_mx' id='probability_impact_12'><%= @project.probability_impact_12 %> </td>
+  <td class='risk_mx' id='probability_impact_13'><%= @project.probability_impact_13 %> </td>
+</tr>
+</table>
+<br/>
+<table class="table table-striped">
+  <th>
+    <%= link_to "Members", show_project_path(@project.id, :sort => "members") %>
+  </th>
+  <th>
+    <%= link_to "First Name", show_project_path(@project.id, :sort => "first") %>
+  </th>
+  <th>
+    <%= link_to "Last Name", show_project_path(@project.id, :sort => "last") %>
+  </th>
+  <th>
+    <%= link_to "Email", show_project_path(@project.id, :sort => "email") %>
+  </th>
+  <% for member in @proj_members %>
+    <tr class="success">
+         <td><%= member.username %></td>
+         <td><%= member.first %></td>
+         <td><%= member.last %></td>
+         <td><%= member.email %></td>
+    </tr>
+  <% end %>
+</table>
 

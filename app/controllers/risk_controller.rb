@@ -71,6 +71,7 @@ class RiskController < ApplicationController
     if not @risk.technical.nil?
       @risk_technical = int_to_value(@risk.technical)
     end
+    @risk_rating = int_to_value(@risk.risk_rating)
   end
 
   def int_to_value(int)

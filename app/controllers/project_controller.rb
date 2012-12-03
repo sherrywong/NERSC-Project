@@ -64,6 +64,10 @@ class ProjectController < ApplicationController
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
     end
+    if !@user.admin and @user != @project.owner
+      flash[:notice] = "Sorry! You do not have permission to edit this project."
+      redirect_to show_project_path(params[:pid])
+    end
     #@project.errors=params[:errors]
     @proj_members = @project.members
     sort = params[:sort] || session[:sort]

@@ -7,19 +7,17 @@
  function loadData(path, div_id) {
     var data_id = "#" +div_id
     var to_load = path + " #risk_info"
-    jQuery(data_id).load(to_load);
+    jQuery(data_id).load(to_load, function() { var elems = ["risk_rating", "risk_probability", "risk_cost", "risk_schedule", "risk_tech"];
+        for (var i=0; i<elems.length; i++) {
+          var elem_str = "#"+ elems[i];
+          var val = jQuery(elem_str).text().trim();
+          if (val == "High") {jQuery(elem_str).css({color: 'red'});}
+          if (val == "Med") { jQuery(elem_str).css({color: 'yellow'});}
+	  if (val == "Low") { jQuery(elem_str).css({color: 'green'});}
+}});
+   
   }
- function loadDat(path, div_id) {
-  jQuery.get(path, function(data, xml) {
-                var return_data = data;
-                var data_id = "#"+ div_id;
-                var return_data_html = return_data.substring(return_data.indexOf("<div id=\"risk_info\""));
-                return_data_html = return_data_html.substring(0, return_data_html.indexOf("</div>")+6);
-                alert(return_data_html);
 
-                // document.getElementById(div_id).innerHTML = return_data_html;
-});
-  }
   function changeForm(proj_id, div_id) {
     div_button = "button_"+div_id.substring(div_id.indexOf("_")+1);
 
@@ -34,6 +32,7 @@
         document.getElementById(div_button).value = "+";
       }
   }
+
 </script>
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
@@ -41,7 +40,7 @@
 
 <%= render_breadcrumbs %>
 
-<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn info', :method => :get%>
+<%= button_to "+ Add New Risk", new_risk_path(params[:pid]), :class => 'btn btn info', :method => :get%>
 
 
 <table class="zebra-striped clearfix" id="risks">
