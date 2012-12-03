@@ -57,4 +57,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'simplecov'
+  gem 'railroady'
 end

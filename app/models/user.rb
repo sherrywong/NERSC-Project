@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
       if not temp
         @proj.owner = orig_owner
         if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
-           pm.destroy
+           pm.destroy unless new_owner == orig_owner
         end
       end
     end
