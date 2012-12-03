@@ -16,7 +16,7 @@ Scenario: Admins can add and edit a valid risk.
     And I am on the project page for "First Project"
     When I press "+ Add New Risk"
     When I fill in "risk_title" with "Test Risk"
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

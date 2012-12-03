@@ -13,7 +13,7 @@ Scenario: set project specific risk parameters
     When I fill in "project_name" with "Test Project" 
     And I fill in "project_prefix" with "test"
     And I fill in "project_description" with "Project 4"
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I select "Low" from "project[probability_impact_11]"
     When I select "High" from "project[probability_impact_21]"
     When I select "Med" from "project[probability_impact_12]"

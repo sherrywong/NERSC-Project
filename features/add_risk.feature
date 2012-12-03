@@ -26,7 +26,7 @@ Scenario: Admins can add and edit a valid risk.
     And I am on the project page for "First Project"
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     When I select "High" from "risk[probability]"
     When I select "High" from "risk[cost]"
@@ -57,7 +57,7 @@ Scenario: Project owners can add and edit a valid risk.
     Given I am logged in as Jason
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I select "lz" from "project[owner_id]"
+    When I select "lz" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -74,7 +74,7 @@ Scenario: Project members can add and edit a valid risk.
     Given I am logged in as Linda
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "Test Risk2"
-    When I select "jt" from "project[owner_id]"
+    When I select "jt" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk2"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
@@ -90,7 +90,7 @@ Scenario: Project members can add and edit a valid risk.
 Scenario: Add a risk with missing fields. #Doesn't have title.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
-    When I select "admin" from "project[owner_id]"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

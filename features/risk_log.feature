@@ -15,7 +15,7 @@ Scenario: We should see the time changed
     When I follow "First Risk"
 
     When I fill in "risk_title" with "P3 Test Risk"
-    When I select "lz" from "project[owner_id]"
+    When I select "lz" from "risk[owner_id]"
     When I fill in "risk_description" with "P3 TR1"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

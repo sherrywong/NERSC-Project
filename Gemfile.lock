@@ -210,7 +210,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simplecov
   sqlite3
-  therubyracer
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   validates_email_format_of
