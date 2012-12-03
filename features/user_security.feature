@@ -35,7 +35,7 @@ Scenario: Invalid login with bad password
     Then I should be on the login page
     And I should see "Incorrect password."
     
-Scenario: Invalid login - username nonexistent
+Scenario: Invalid login with username nonexistent
     When I go to the login page
     And I fill in "username" with "starfish"
     And I fill in "password" with "swong"
