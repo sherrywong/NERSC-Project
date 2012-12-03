@@ -87,6 +87,11 @@ Scenario: Project members can add and edit a valid risk.
     Then I should be on the Risk page for Test Risk2 in the second project
     Then there should be this message: "Risk 'Title Risk2' was successfully updated."
 
+Scenario: Non-project members cannot add and edit a valid risk.
+    Given I am logged in as Sherry
+    When I go to Second Project's Add Risk page
+    Then I should see "Sorry, you don't have access to the requested project."
+
 Scenario: Add a risk with missing fields. #Doesn't have title.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
@@ -97,7 +102,14 @@ Scenario: Add a risk with missing fields. #Doesn't have title.
     Then I press "Save"
     Then I should be on First Project's Add Risk page
 
-Scenario: Non-project members cannot add and edit a valid risk.
-    Given I am logged in as Sherry
-    When I go to Second Project's Add Risk page
-    Then I should see "Sorry, you don't have access to the requested project."
+Scenario: Admin cannot add a risk with a deactivated user as its owner
+    Given I am logged in as an admin
+    When I go to First Project's Add Risk page
+    When I fill in "risk_title" with "Test Risk2"
+    When I select "em" from "risk[owner_id]"
+    When I fill in "risk_description" with "P2 Test Risk2"
+    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_last_impact" with "2013-10-20"
+    Then I press "Save"
+    Then I should be on First Project's Add Risk page
+    Then I should see "Owner cannot be a deactivated user."

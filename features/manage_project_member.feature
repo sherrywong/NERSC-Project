@@ -24,7 +24,6 @@ Scenario: Remove a user from project as an admin.
     And I click on delete project member "ag" for "First Project"
     And I should be on the edit project page for "First Project"
     Then there should be this message: "Removed Anensshiya Govinthasamy from this project."
-    Then I should not see "ag"
 
 Scenario: Add invalid user to project as an admin.
     Given I am logged in as an admin
@@ -37,8 +36,4 @@ Scenario: Add invalid user to project as an admin.
 Scenario: Add and delete user to project as a regular user
     Given I am logged in as Jason
     When I go to the edit project page for "First Project"
-    When I go to the first project
-    Then I press "+"
-    Then I should see "Don't have permission to add user to First Project."
-    Given I click on "Delete user" for Sherry Wong
-    Then I should see "Don't have permission to delete Sherry Wong from First Project."
+    Then I should see "Don't have permission to edit First Project."

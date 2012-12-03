@@ -384,20 +384,34 @@ Then /^there should be this message: "([^"]*)"$/ do |error|
   page.body.include?(error)
 end
 
-Then /^(?:|I )sort users by "([^"]*)"$/ do |field|
-  visit ('/user/show_users?sort=' + field.to_s)
+Then /^(?:|I )sort projects$/ do
+  visit ('/user/index?sort=' + 'title')
+  visit ('/user/index?sort=' + 'status')
+  visit ('/user/index?sort=' + 'owner')
 end
 
-Then /^(?:|I )sort projects by "([^"]*)"$/ do |field|
-  visit ('/user/index?sort=' + field.to_s)
+Then /^(?:|I )sort "([^"]*)" project members$/ do |project|
+  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + 'members')
+  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + 'first')
+  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + 'last')
+  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + 'email')
 end
 
-Then /^(?:|I )sort "([^"]*)" project members by "([^"]*)"$/ do |project, field|
-  visit ('/project/' + Project.find_by_name(project).id.to_s + '/edit?sort=' + field.to_s)
+Then /^(?:|I )sort risks for "([^"]*)"$/ do |project|
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + 'title')
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + 'owner')
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + 'early_impact')
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + 'last_impact')
+  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + 'status')
 end
 
-Then /^(?:|I )sort risks for "([^"]*)" by "([^"]*)"$/ do |project, field|
-  visit ('/user/project/' + Project.find_by_name(project).id.to_s + '/risk/index?sort=' + field.to_s)
+Then /^(?:|I )sort users$/ do
+  visit ('/user/show_users?sort=' + 'username')
+  visit ('/user/show_users?sort=' + 'first')
+  visit ('/user/show_users?sort=' + 'last')
+  visit ('/user/show_users?sort=' + 'email')
+  visit ('/user/show_users?sort=' + 'admin')
+  visit ('/user/show_users?sort=' + 'status')
 end
 
 Then /^there should a log on field "([^"]*)" with old value "([^"]*)" and new value "([^"]*)"$/ do |field, oldV, newV|
