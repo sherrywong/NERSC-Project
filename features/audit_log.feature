@@ -14,7 +14,7 @@ Scenario: Risk log generated on risk creation.
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "project[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
     When I select "High" from "risk[probability]"
     When I select "High" from "risk[cost]"
@@ -31,12 +31,8 @@ Scenario: Risk log generated on risk creation.
 Scenario: Audit log modified when risk edited
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Audit Test Risk"
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "project[owner_id]"
     When I fill in "risk_description" with "Test Descrip"
-    When I select "High" from "risk[probability]"
-    When I select "High" from "risk[cost]"
-    When I select "Medium" from "risk[schedule]"
-    When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2012-12-20"
     Then I press "Save"
@@ -63,12 +59,8 @@ Scenario: Risk log generated on risk deactivation
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
     When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "project[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
-    When I select "High" from "risk[probability]"
-    When I select "High" from "risk[cost]"
-    When I select "Medium" from "risk[schedule]"
-    When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
     Then I press "Save"

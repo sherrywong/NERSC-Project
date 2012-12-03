@@ -12,7 +12,7 @@ Scenario: We should see the time changed
     Given I am logged in as Jason
     When I go to Second Project's Add Risk page
     When I fill in "risk_title" with "P3 Test Risk"
-    When I fill in "risk_owner_id" with "lz"
+    When I select "lz" from "project[owner_id]"
     When I fill in "risk_description" with "P3 TR1"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"
