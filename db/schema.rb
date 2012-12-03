@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117223200) do
+ActiveRecord::Schema.define(:version => 20121203063231) do
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(:version => 20121117223200) do
     t.integer  "owner_id"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.string   "status",         :default => "active"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.string   "status",                           :default => "active"
     t.string   "short_title"
     t.datetime "create_date"
     t.text     "root_cause"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20121117223200) do
     t.string   "wbs_spec"
     t.text     "comment"
     t.integer  "creator_id"
+    t.integer  "notification_before_early_impact"
   end
 
   create_table "users", :force => true do |t|
