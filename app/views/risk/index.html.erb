@@ -2,8 +2,14 @@
 
 
   <h1> Risks for <%= @project.name %></h1>
+
 <script type="text/javascript">
  function loadData(path, div_id) {
+    var data_id = "#" +div_id
+    var to_load = path + " #risk_info"
+    jQuery(data_id).load(to_load);
+  }
+ function loadDat(path, div_id) {
   jQuery.get(path, function(data, xml) {
                 var return_data = data;
                 var data_id = "#"+ div_id;
@@ -11,7 +17,7 @@
                 return_data_html = return_data_html.substring(0, return_data_html.indexOf("</div>")+6);
                 alert(return_data_html);
 
-                document.getElementById(div_id).innerHTML = return_data_html;
+                // document.getElementById(div_id).innerHTML = return_data_html;
 });
   }
   function changeForm(proj_id, div_id) {
