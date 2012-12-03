@@ -17,6 +17,7 @@ class ProjectController < ApplicationController
   end
 
   def show
+    @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     if @project.nil?

@@ -3,14 +3,28 @@
 
   <h1> Risks for <%= @project.name %></h1>
 <script type="text/javascript">
-  function changeForm(div_id) {
-    div_button = "button_"+div_id;
-    if (document.getElementById(div_id).style.display = "hidden") {
+ function loadData(path, div_id) {
+  jQuery.get(path, function(data, xml) {
+                var return_data = data;
+                var data_id = "#"+ div_id;
+                var return_data_html = return_data.substring(return_data.indexOf("<div id=\"risk_info\""));
+                return_data_html = return_data_html.substring(0, return_data_html.indexOf("</div>")+6);
+                alert(return_data_html);
+
+                document.getElementById(div_id).innerHTML = return_data_html;
+});
+  }
+  function changeForm(proj_id, div_id) {
+    div_button = "button_"+div_id.substring(div_id.indexOf("_")+1);
+
+    if (document.getElementById(div_id).style.display == "none") {
+        var path = "/project/"+ proj_id + "/risk/" + div_id.substring(div_id.indexOf("_")+1);
+       loadData(path, div_id);
        document.getElementById(div_id).style.display = "block";
        document.getElementById(div_button).value = "-";
       }
     else {
-        document.getElementById(div_id).style.display = "hidden";
+        document.getElementById(div_id).style.display = "none";
         document.getElementById(div_button).value = "+";
       }
   }

@@ -5,29 +5,47 @@
  <%= render_breadcrumbs %>
 <% if @risk.status == "active" %><%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
 <% end %>
+<div id="risk_info">
 
-Title: <%= @risk.title %> <br/>
-Short Title: <%= @risk.short_title %> <br/>
+<span id="left_container" style="float:left;width:200px;padding-right:50px;">
+Title: <%= @risk.title %><br/>
+Short Title: <%= @risk.short_title %><br/>
+<br/>
 Owner: <%= @risk_owner_username %> <br/>
 Creator: <%= @risk_creator_username %> <br/>
 Status: <%= @risk.status %><br />
-Description: <%= @risk.description %> <br/>
-Risk Rating: <%= @risk.risk_rating %> <br/>
-Root Cause: <%= @risk.root_cause %> <br/>
-Probability: <%= @risk_probability %> <br/>
+Risk Rating: <%= @risk.risk_rating %><br/>
+  <br/>
+Days to Impact: <%= @risk.days_to_impact %><br/>
+Early Impact Date: <%= @risk.early_impact %><br/>
+  <br/>
+Last Impact Date: <%= @risk.last_impact %><br/>
+<br/>
+  Probability: <%= @risk_probability %> <br/>
 Cost: <%= @risk_cost %> <br/>
 Schedule: <%= @risk_schedule %> <br/>
 Technical: <%= @risk_technical %> <br/>
-Days to Impact: <%= @risk.days_to_impact %> <br/>
-Early Impact Date: <%= @risk.early_impact %> <br/>
-Last Impact Date: <%= @risk.last_impact %> <br/>
-Mitigation: <%= @risk.mitigation %> <br/>
-Contingency: <%= @risk.contingency %> <br/>
-Critical Path: <%= @risk.critical_path %> <br/>
+</span>
+  <span id="right_container" style="width:200px;">
+  Description: <%= @risk.description %><br/>
+  <br/>
+  Mitigation: <%= @risk.mitigation %><br/>
+  <br/>
+  Contingency: <%= @risk.contingency %><br/>
+  <br/>
+  Root Cause: <%= @risk.root_cause %><br/>
+  <br/>
+  Critical Path: <%= @risk.critical_path %> <br/>
 WBS Spec: <%= @risk.wbs_spec %> <br/>
 Type: <%= @risk.type %> <br/>
 Other Type: <%= @risk.other_type %> <br/>
 Comments: <%= @risk.comment %> <br/>
+  </div>
+
+
+
+
+
 
 <br>
 Comment Log:
@@ -51,3 +69,4 @@ Log:
     </tr>
            <%= render 'log', {:risk => @risk} -%>
 </table>
+</span>

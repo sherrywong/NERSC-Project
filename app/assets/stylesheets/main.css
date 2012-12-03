@@ -1,4 +1,6 @@
-
+.expand_frame {
+  display: none;
+}
 
 .events_table {
 	border-style: none;
@@ -162,6 +164,3 @@ background: white;
 border: solid 1px #000000;
 }
 
-.expand_button {
-display: hidden;
-}

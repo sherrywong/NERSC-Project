@@ -1,7 +1,7 @@
 <% for risk in @risks %>
   <tr>
     <td class="expand_btn">
-      <input type="button" value="+" onclick="changeForm(<%= risk.id%>);" id="button_<%= risk.id %>"/>
+      <input type="button" value="+" onclick="changeForm(<%= risk.project_id %>, 'frame_<%= risk.id%>');" id="button_<%= risk.id %>"/>
     </td>
     <td>
       <%= risk.prefix_id %>
@@ -36,8 +36,9 @@
   <% end %>
   </tr>
   <tr>
-  <td>
-  <div id=<%= risk.id %> class="expand_button">yopza
+            <td colspan="10">
+  <div id="frame_<%= risk.id %>" style="display:none" >
   </div>
-  </td></tr>
+</td>
+  </tr>
 <% end %>
