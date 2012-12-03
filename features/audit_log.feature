@@ -1,4 +1,4 @@
-Feature: Maintain an audit log of changes to risks
+Feature: Audit log (Maintain risk changes)
     As a user,
     So that I can easily see and track changes made to risks,
     I want the audit logs to only show actual modifications made to risks

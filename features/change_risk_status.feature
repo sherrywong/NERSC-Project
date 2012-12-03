@@ -1,4 +1,4 @@
-Feature: Change status of a risks
+Feature: Change risk status
     As a project owner,
     So that I can manage risks in the system
     I want to be able to deactivate/reactivate projects

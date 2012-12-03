@@ -1,4 +1,4 @@
-Feature: Create a risk
+Feature: Adds risk
     As a project member,
     So that I can capture risk associated with a particular project,
     I want to be able to document the specifics of the risk and add it to the risk log.

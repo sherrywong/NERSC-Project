@@ -1,4 +1,4 @@
-Feature: Change status of users
+Feature: Change user status
     As an admin,
     So that I can change access capability to the database,
     I want to be able to deactivate/activate users.

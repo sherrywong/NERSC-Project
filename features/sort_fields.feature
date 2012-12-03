@@ -1,4 +1,4 @@
-Feature: 'Sort by' for projects and risks
+Feature: Sort fields (for projects/risks/users)
     As a user,
     So that I can search for a project and risk easily,
     I want to be able to sort all projects and risks
