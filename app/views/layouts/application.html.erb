@@ -26,7 +26,12 @@
     <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
     <a class="brand" href="/user/index">NERSC Risk Tracker</a>
-
+	<!-- Logout button btn btn-inverse-->
+	<div id="logo" class = "logout_div">
+	<% if session[:uid]%>
+	<%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
+	<% end %>
+	</div>
     </div>
     </div>
 
@@ -35,19 +40,6 @@
       <div class="span9"><%= yield %></div>
     </div>
   </div>
-
-<!-- logging out -->
-<center>
-<div id="footer">
-<div id="logo">
-<% if session[:uid].nil? %>
-<!-- <%= button_to "login", :controller =>'user', :action => 'login' %> -->
-<% else %>
-<%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
-<% end %>
-</div>
-</div>
-</center>
 
 </body>
 </html>

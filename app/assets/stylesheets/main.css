@@ -172,3 +172,7 @@ background: white;
 border: solid 1px #000000;
 }
 
+.logout_div{
+	float: right;
+	padding-right: 20px;
+}
