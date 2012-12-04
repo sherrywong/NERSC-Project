@@ -10,11 +10,12 @@ Background: Some projects and risks have been added to database.
     Given a set of risks exist
     
 Scenario: Expand risks to see full report
-    Given I am logged in as admin
-    Then I follow "First Project"
-    Then I follow "+ Display Associated Risks"
-    Then I should see 4 risks ass
-    Given I expand "First Risk"
+    Given I am logged in as an admin
+    Given that a risk exists with title "Test Risk", owner "admin", description "Risk Description", early impact "2008-11-20", and last impact "2013-10-20" for project "First Project"
+    When I press "+"
+
+    When I go to the Edit Risk page for Test Risk in the second project
+    Then I expand "Test Risk"
     Then I should see all the details for "First Risk"
     Given I expand "Second Risk"
     Then I should see all the details for "Second Risk"

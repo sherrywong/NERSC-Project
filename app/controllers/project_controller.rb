@@ -5,8 +5,6 @@ class ProjectController < ApplicationController
   before_filter :is_admin_or_powner, :only => [:destroy, :update, :add_members, :reactivate]
   before_filter :is_admin, :only =>[:new]
 
-  add_breadcrumb "Home", :user_index_path
-
   def index
     @user = get_current_user
     if @user.admin?
@@ -20,6 +18,7 @@ class ProjectController < ApplicationController
     @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+	add_breadcrumb "#{@project.name}", show_project_path
     if @project.nil?
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
@@ -39,6 +38,7 @@ class ProjectController < ApplicationController
   end
 
   def new
+	add_breadcrumb "Create New Project", project_new_path
     @users = User.all
     @user = get_current_user
     @new = true
@@ -62,6 +62,7 @@ class ProjectController < ApplicationController
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
     end
+
     if !@user.admin and @user != @project.owner
       flash[:notice] = "Sorry! You do not have permission to edit this project."
       redirect_to show_project_path(params[:pid])
@@ -79,7 +80,8 @@ class ProjectController < ApplicationController
       when "email"
         @proj_members = @proj_members.sort_by {|usr| usr.email}
     end
-    add_breadcrumb @project.name, show_project_path(params[:pid])
+	add_breadcrumb @project.name, show_project_path(params[:pid])
+	add_breadcrumb "Edit Project", edit_project_path(@project.id)
     if request.post?
       @project = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
       if @project.errors.empty?

@@ -1,7 +1,7 @@
 Feature: Risk comment history
-	As a project member,
-	So I can track notes associated to a project risk,
-	I want to be able to see a date-sort comment log. 
+    As a project member,
+    So I can track notes associated to a project risk,
+    I want to be able to see a date-sort comment log. 
 	
 Background: Some projects and risks have been added to database.
     Given a set of users exist
@@ -22,6 +22,7 @@ Scenario: Admins can add and edit a valid risk.
     When I fill in "risk_last_impact" with "2013-10-20"
     When I fill in "risk_comment" with "Risk created"
     Then I press "Save"
+
     Then I should be on the risk index page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
     When I follow "Add comment"

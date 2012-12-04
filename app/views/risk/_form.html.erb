@@ -12,9 +12,6 @@
     Title: <%= text_field 'risk', 'title', :required => true%>
     </div>
     <div>
-    Short Title: <%= text_field 'risk', 'short_title'%>
-    </div>
-    <div>
     Owner: <% if @risk.nil? %>
     <select name="risk[owner_id]">
            <% for user in @users %>
@@ -36,6 +33,12 @@
     </div>
     <div>
     Description: <%= text_area 'risk', 'description', :rows => 5, :cols => 50 %>
+    </div>
+    <div>
+    Strategy: <%= text_field 'risk', 'strategy'%>
+    </div>
+    <div>
+    Triggers: <%= text_field 'risk', 'triggers'%>
     </div>
     <div>
     Root Cause: <%= text_area 'risk', 'root_cause', :rows => 5%>
@@ -86,9 +89,6 @@
     </div>
      <div>
     Type: <%= text_field 'risk', 'type' %>
-    </div>
-    <div>
-    Other Type: <%= text_field 'risk', 'other_type' %>
     </div>
     <div>
      Comments:

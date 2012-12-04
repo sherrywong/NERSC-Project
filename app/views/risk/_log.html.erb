@@ -1,4 +1,4 @@
-<% for version in @risk.versions.reverse %>
+<% for version in @risk.versions%>
     <% previous = version.previous %>
     <%if !version.nil? and !version.reify.nil? %>
        <%version.next.nil? ? curr_version = @risk : curr_version = version.next.reify %>
@@ -10,20 +10,26 @@
         <td><%= curr_version.title%> </td>
         </tr>
       <% end %>
-      <% if version.reify.short_title != curr_version.short_title%>
-       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
-        <td><%= version.created_at %>
-        <td><%= "Short Title" %>
-        <td><%= version.reify.short_title %> </td>
-        <td><%= curr_version.short_title%> </td>
-        </tr>
-      <% end %>
       <% if version.reify.description != curr_version.description%>
         <tr> <td><%= User.find_by_id(version.whodunnit).username %>
         <td><%= version.created_at %>
         <td><%= "Description" %>
         <td><%= version.reify.description %> </td>
         <td><%= curr_version.description %></td></tr>
+      <% end %>
+      <% if version.reify.strategy != curr_version.strategy%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Strategy" %>
+        <td><%= version.reify.strategy %> </td>
+        <td><%= curr_version.strategy%> </td></tr>
+      <% end %>
+      <% if version.reify.triggers != curr_version.triggers%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Triggers" %>
+        <td><%= version.reify.triggers %> </td>
+        <td><%= curr_version.triggers%> </td></tr>
       <% end %>
       <% if version.reify.root_cause != curr_version.root_cause%>
        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
@@ -102,13 +108,6 @@
         <% else %>
           <td><%= "High" %> </td>
         <% end %>
-      <% end %>
-      <% if version.reify.other_type != curr_version.other_type%>
-       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
-        <td><%= version.created_at %>
-        <td><%= "Other Type" %>
-        <td><%= version.reify.other_type %> </td>
-        <td><%= curr_version.other_type%> </td>
       <% end %>
       <% if version.reify.probability != curr_version.probability%>
        <tr> <td><%= User.find_by_id(version.whodunnit).username %>

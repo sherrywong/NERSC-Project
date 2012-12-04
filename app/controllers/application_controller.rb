@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  add_breadcrumb "Home", :user_index_path
   def login_required
      if session[:uid]==nil
        redirect_to :controller => "user", :action=> "login", :notice=>"Please log in to view this page"
