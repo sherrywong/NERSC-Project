@@ -72,9 +72,11 @@ class User < ActiveRecord::Base
 
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
-    project_hash[:owner_id]=new_owner.id
     @proj = Project.new(project_hash)
     @proj.save
+    if @proj.errors.empty?
+      @proj.owner=new_owner
+    end
     return @proj #check @proj.errors
   end
 
