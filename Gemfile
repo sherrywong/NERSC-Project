@@ -7,6 +7,7 @@ gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_sele
 #gem "breadcrumbs_on_rails"
 gem 'rails3-jquery-autocomplete'
 gem 'validates_email_format_of'
+gem 'validates_timeliness', '~>3.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

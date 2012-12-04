@@ -45,21 +45,19 @@ class UserController < ApplicationController
   end
 
   def new
-	add_breadcrumb "Users", show_users_path
+    add_breadcrumb "Users", show_users_path
     add_breadcrumb "Create New User", user_new_path
     if request.post?
       user_hash = params[:user]
-      @new = get_current_user.create_user(user_hash)
-      if @new.errors.empty?
-        UserMailer.welcome_email(@new).deliver
-        flash[:notice]= "User '#{@new.first} #{@new.last}'created."
-		#send mail
-		redirect_to show_users_path
+      @user = get_current_user.create_user(user_hash)
+      if @user.errors.empty?
+        UserMailer.welcome_email(@user).deliver
+        flash[:notice]= "User '#{@user.first} #{@user.last}'created."
+        redirect_to show_users_path
       else
-        flash[:notice] = @new.errors.full_messages.join(", ")
-		redirect_to user_new_path
+        flash[:notice] = @user.errors.full_messages.join(", ")
+	 redirect_to user_new_path
       end
-      
     end
   end
 

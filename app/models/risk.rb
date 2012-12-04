@@ -1,15 +1,16 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
   has_paper_trail
-  attr_accessible :title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :triggers, :probability, :status, :strategy, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
+  attr_accessible :title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :triggers, :probability, :status, :strategy, :early_impact, :last_impact, :risk_type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
 
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1, 0]
    validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "has to be a non-negative integer.", :allow_nil=>true
-   validates_presence_of :title, :description, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
+   validates_presence_of :title, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
    validates_inclusion_of :status, :in=>["active", "retired", "pending", "reject"], :message => "has to be one of either 'active', 'retired', 'pending', or 'reject'."
    validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retired"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
    validate :any_present?
-
+   validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
+   validate :early_impact_precedes_last_impact
 
    belongs_to :project
    belongs_to :creator, :class_name => "User"
@@ -24,6 +25,13 @@ class Risk < ActiveRecord::Base
       errors.add_to_base("At least one of 'cost', 'schedule', or 'technical' have to be filled in.")
     end
   end
+
+  def early_impact_precedes_last_impact
+    if self.last_impact - self.early_impact <0
+      errors.add("Early impact", "has to precede last impact.")
+    end
+  end
+
     def find_username(user_id)
       return User.find_by_id(user_id).username
     end
@@ -57,8 +65,8 @@ class Risk < ActiveRecord::Base
       @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
-      @risk.days_to_impact = @risk.calculate_days_to_impact
       if @risk.errors.empty?
+        @risk.days_to_impact = @risk.calculate_days_to_impact
         @risk.save
       end
       return @risk

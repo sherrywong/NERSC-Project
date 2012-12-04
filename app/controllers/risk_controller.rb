@@ -34,7 +34,7 @@ class RiskController < ApplicationController
     @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    make_risk_crumb
+    #make_risk_crumb
 	add_breadcrumb "Create New Risk", new_risk_path
     @risk = nil
     if request.post?
