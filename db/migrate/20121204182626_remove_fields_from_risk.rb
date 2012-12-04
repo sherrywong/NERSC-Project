@@ -5,7 +5,7 @@ class RemoveFieldsFromRisk < ActiveRecord::Migration
   end
 
   def down
-    add_column :risks, :triggers, :string
-    add_column :risks, :strategy, :string
+    add_column :risks, :short_title, :string
+    add_column :risks, :other_type, :string
   end
 end
