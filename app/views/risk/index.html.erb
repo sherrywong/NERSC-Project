@@ -7,14 +7,19 @@
  function loadData(path, div_id) {
     var data_id = "#" +div_id;    
     var to_load = path + " #risk_info";
-    jQuery(data_id).load(to_load);
-    setColors(div_id.substring(div_id.indexOf("_")+1));    
+    jQuery(data_id).load(to_load, function() {
+    setColors(div_id.substring(div_id.indexOf("_")+1));
+    var elem_str = "#frame_"+div_id.substring(div_id.indexOf("_")+1)+"_risk_rating";
+    var val = jQuery(elem_str).text().trim();
+    if (val == "High") {jQuery(elem_str).css({background: 'red'});}
+    if (val == "Med") {jQuery(elem_str).css({background: 'yellow'});}
+    if (val == "Low") {jQuery(elem_str).css({background: 'green'});} 
+});  
   }
 function setColors(risk_id) {
   for (var i=1; i<4; i++) {
      for (var j=1; j<4; j++) {
         var elem = "risk_" + risk_id +"_probability_impact_"  + i + j;
-        alert(elem);
         var value = document.getElementById(elem).innerHTML;
         if (value == 1) {
            document.getElementById(elem).innerHTML = "Low";

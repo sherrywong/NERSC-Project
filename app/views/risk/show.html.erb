@@ -1,11 +1,17 @@
 <h1><center> <%= @risk.title %></center> </h1>
 <script type="text/javascript">
 window.onload = function setColors() {
+    var full_path = window.location.pathname.split('/');
+    var elem_str = "#frame_"+ full_path[full_path.length -1]+"_risk_rating";
+    var val = jQuery(elem_str).text().trim();
+    if (val == "High") {jQuery(elem_str).css({background: 'red'});}
+    if (val == "Med") {jQuery(elem_str).css({background: 'yellow'});}
+    if (val == "Low") {jQuery(elem_str).css({background: 'green'});}
   for (var i=1; i<4; i++) {
      for (var j=1; j<4; j++) {
-	var full_path = window.location.pathname.split('/');
+	
         var elem = "risk_" + full_path[full_path.length -1] +"_probability_impact_"  + i + j;
-	alert (elem);
+	
         var value = document.getElementById(elem).innerHTML;
         if (value == 1) {
            document.getElementById(elem).innerHTML = "Low";
@@ -37,7 +43,7 @@ window.onload = function setColors() {
 <span style="font-weight:bold">Owner: </span><%= @risk_owner_username %> <br/>
 <span style="font-weight:bold">Creator: </span> <%= @risk_creator_username %> <br/>
 <span style="font-weight:bold">Status: </span> <%= @risk.status %><br />
-<span style="font-weight:bold">Risk Rating: </span> <span id="frame_<%= @risk.id %>_risk_rating"> <%= @risk_rating %> </span><br/>
+<span style="font-weight:bold">Risk Rating: </span> <span id="frame_<%= @risk.id %>_risk_rating">   <%= @risk_rating %>   </span><br/>
   <br/>
 Risk Matrix:
 <table id="risk_matrix" style="width:200px;">
