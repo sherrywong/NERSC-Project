@@ -12,7 +12,24 @@
     Title: <%= text_field 'risk', 'title', :required => true%>
     </div>
     <div>
-    Short Title: <%= text_field 'risk', 'short_title'%>
+    Status: 
+    <select name="risk[status]">
+       <option value="pending">Pending</option>
+       <option value="rejected">Rejected</option>
+       <option value="active">Active</option>
+       <option value="retired">Retired</option>
+    </select>
+    </div>
+    <div>
+    Strategy:     
+    <select name="risk[strategy]">
+       <option value="accept">Accept</option>
+       <option value="monitor">Monitor</option>
+       <option value="mitigate">Mitigate</option>
+       <option value="transfer">Transfer</option>
+       <option value="avoid">Avoid</option>
+       <option value="retire">Retire</option>    
+    </select>
     </div>
     <div>
     Owner: <% if @risk.nil? %>
@@ -85,10 +102,7 @@
     WBS Spec: <%= text_field 'risk', 'wbs_spec' %>
     </div>
      <div>
-    Type: <%= text_field 'risk', 'type' %>
-    </div>
-    <div>
-    Other Type: <%= text_field 'risk', 'other_type' %>
+    Type: <%= text_field 'risk', 'risk_type' %>
     </div>
     <div>
      Comments:
