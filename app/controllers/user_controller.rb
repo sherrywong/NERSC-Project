@@ -4,7 +4,6 @@ class UserController < ApplicationController
   before_filter :is_admin_or_user, :only => :edit
 
   autocomplete :username, :full => true
-  add_breadcrumb "Home", :user_index_path
 
   def index
     @user = get_current_user
