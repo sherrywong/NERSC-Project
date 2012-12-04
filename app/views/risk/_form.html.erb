@@ -105,7 +105,23 @@
     WBS Spec: <%= text_field 'risk', 'wbs_spec' %>
     </div>
      <div>
-    Type: <%= text_field 'risk', 'risk_type' %>
+    Type:
+      <select id="risk[risk_type]">
+ 	<option value="none">None</option>
+	<option value="cost">Cost</option>
+	<option value="schedule">Schedule</option>
+	<option value="technical">Technical</option>
+	<option value="other">Other</option>
+	<option value="cost/schedule">Cost/Schedule</option>
+	<option value="cost/technical">Cost/Technical</option>
+	<option value="schedule/technical">Schedule/Technical</option>
+	<option value="cost/schedule/technical">Cost/Schedule/Technical</option>
+	<option value="producibility">Producibility</option>
+	<option value="technical/schedule">Technical/Schedule</option>
+	<option value="technical/cost">Technical/Cost</option>
+	<option value="schedule/cost">Schedule/Cost</option>
+	<option value="technical/schedule/cost">Technical/Schedule/Cost</option>
+      </select>
     </div>
     <div>
      Comments:
