@@ -87,26 +87,6 @@ class ProjectController < ApplicationController
 
   end
 
-=begin
-  def update
-    @user = get_current_user
-<<<<<<< HEAD
-    @project = Project.find_by_id(params[:pid])
-    @user.update_project(@project, params[:project])
-    flash[:notice] = "Project '#{@project.name}' was succesfully updated."
-    redirect_to "/project/#{@project.id}"
-
-=======
-    @proj = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
-    if @proj.errors.empty?
-      flash[:notice] = "Project '#{@proj.name}' was succesfully updated."
-      redirect_to "/project/#{@proj.id}"
-    else
-      redirect_to edit_project_path(params[:pid], :errors => @proj.errors, :hash=>params[:project])
-    end
->>>>>>> 40734fa46e30a461de672c1fbeb1b257ccc9ad2b
-  end
-=end
 
   def destroy
     @project = Project.find(params[:pid])

@@ -1,13 +1,14 @@
 class Risk < ActiveRecord::Base
   #to maintain a history log
   has_paper_trail
-  attr_accessible :title, :short_title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :other_type, :probability, :status, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
+  attr_accessible :title, :description, :root_cause, :mitigation, :contingency, :cost, :schedule, :technical, :triggers, :probability, :status, :strategy, :early_impact, :last_impact, :type, :critical_path, :wbs_spec, :comment, :owner_id, :project_id, :creator_id, :notification_before_early_impact
 
-   validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1]
-   validates_inclusion_of :other_type,  :in => [3, 2, 1], :allow_nil=> true
+   validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1, 0]
    validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "has to be a non-negative integer.", :allow_nil=>true
-   validates_presence_of :title, :description, :probability, :cost, :schedule, :technical, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
-   validates_inclusion_of :status, :in=>["active", "retired", "pending"]
+   validates_presence_of :title, :description, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
+   validates_inclusion_of :status, :in=>["active", "retired", "pending", "reject"], :message => "has to be one of either 'active', 'retired', 'pending', or 'reject'."
+   validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retired"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
+   validate :any_present?
 
    belongs_to :project
    belongs_to :creator, :class_name => "User"
@@ -17,6 +18,11 @@ class Risk < ActiveRecord::Base
     return "#{self.project.prefix}-#{self.id}"
   end
 
+  def any_present?
+    if %w(cost schedule technical).all?{|attr| self[attr]==0}
+      errors.add_to_base("At least one of 'cost', 'schedule', or 'technical' have to be filled in.")
+    end
+  end
     def find_username(user_id)
       return User.find_by_id(user_id).username
     end
@@ -40,28 +46,9 @@ class Risk < ActiveRecord::Base
 
     def self.create_risk(uid, pid, risk_hash)
       #because user specify owner by username but our db stores a owner id
-      if risk_hash[:owner_id] != nil
-        @owner = User.find_by_username(risk_hash[:owner_id])
-        if @owner!=nil
-          if @owner.retired?
-            risk_hash[:owner_id] = -2 # invalid id number, corresponds to deactivated user
-          elsif !@owner.member?(pid)
-            risk_hash[:owner_id] = -1 # invalid id number, corresponds to non-member
-          else
-            risk_hash[:owner_id] = @owner.id
-          end
-        else
-          risk_hash[:owner_id] = 0 # invalid id number, corresponds to inexisting user
-        end
-      end
+      @owner = User.find_by_username(risk_hash[:owner_id])
+      risk_hash[:owner_id] = @owner.id
       @risk = Risk.new(risk_hash)
-      if @risk.owner_id == 0
-        @risk.errors.add(:owner, "is not found in database.")
-      elsif @risk.owner_id == -1
-        @risk.errors.add(:owner, "has to be a member of this project.")
-      elsif @risk.owner_id == -2
-        @risk.errors.add(:owner, "cannot be a deactivated user.")
-      end
       @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
@@ -74,29 +61,12 @@ class Risk < ActiveRecord::Base
 
     def self.update_risk(risk_hash, risk, user)
       @risk = risk
-      @errors=nil
-      if risk_hash[:owner_id]!=nil
-        @owner = User.find_by_username(risk_hash[:owner_id])
-        if @owner==nil
-          @errors= "is not found in database."
-          risk_hash[:owner_id] = risk.owner_id
-        elsif @owner.retired?
-          @errors = "cannot be a deactivated user."
-          risk_hash[:owner_id] = risk.owner_id
-        elsif !@owner.member?(risk.project_id)
-          @errors = "has to be a member of this project."
-          risk_hash[:owner_id] = risk.owner_id
-        else
-          risk_hash[:owner_id] = @owner.id
-        end
-      end
+      @owner = User.find_by_username(risk_hash[:owner_id])
+      risk_hash[:owner_id] = @owner.id
       @risk.update_attributes(risk_hash)
       @risk.risk_rating = @risk.calculate_risk_rating
       @risk.days_to_impact = @risk.calculate_days_to_impact
       @risk.save
-      if @errors!=nil
-        @risk.errors.add(:owner, "#{@errors}")
-      end
       return @risk
     end
 end

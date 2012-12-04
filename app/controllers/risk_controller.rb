@@ -74,7 +74,9 @@ class RiskController < ApplicationController
   end
 
   def int_to_value(int)
-    if int == 1
+    if int == 0
+      return "N/A"
+    elsif int == 1
       return "Low"
     elsif int == 2
       return "Med"
@@ -109,20 +111,6 @@ class RiskController < ApplicationController
       end
     end
   end
-
-=begin
-  def update
-    @user = get_current_user
-    @risk = Risk.update_risk(params[:risk], Risk.find_by_id(params[:rid]), @user)
-    if @risk.errors.empty?
-      flash[:notice] = "Risk '#{@risk.title}' was successfully updated."
-      redirect_to "/project/#{params[:pid]}/risk/#{params[:rid]}"
-    else
-      flash[:error] = @risk.errors.full_messages[0]
-      redirect_to edit_risk_path(params[:pid], params[:rid]), :errors => @risk.errors
-    end
-  end
-=end
 
   def destroy
     @risk = Risk.find(params[:rid])
