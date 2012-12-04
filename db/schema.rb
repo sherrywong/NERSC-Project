@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -11,28 +12,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203063231) do
-
-  create_table "audits", :force => true do |t|
-    t.integer  "auditable_id"
-    t.string   "auditable_type"
-    t.integer  "associated_id"
-    t.string   "associated_type"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "username"
-    t.string   "action"
-    t.text     "audited_changes"
-    t.integer  "version",         :default => 0
-    t.string   "comment"
-    t.string   "remote_address"
-    t.datetime "created_at"
-  end
-
-  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
-  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
-  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
-  add_index "audits", ["user_id", "user_type"], :name => "user_index"
+ActiveRecord::Schema.define(:version => 20121204182626) do
 
   create_table "project_memberships", :force => true do |t|
     t.integer  "user_id"
@@ -80,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20121203063231) do
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
     t.string   "status",                           :default => "active"
-    t.string   "short_title"
     t.datetime "create_date"
     t.text     "root_cause"
     t.text     "mitigation"
@@ -89,7 +68,6 @@ ActiveRecord::Schema.define(:version => 20121203063231) do
     t.integer  "cost"
     t.integer  "schedule"
     t.integer  "technical"
-    t.integer  "other_type"
     t.integer  "risk_rating"
     t.date     "early_impact"
     t.date     "last_impact"
