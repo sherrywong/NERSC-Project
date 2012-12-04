@@ -1,13 +1,28 @@
 <h1><center> <%= @risk.title %></center> </h1>
 <script type="text/javascript">
-window.onload = function () { 
-        var elems = ["risk_rating", "risk_probability", "risk_cost", "risk_schedule", "risk_tech"];
-        for (var i=0; i<elems.length; i++) {
-          var elem_str = "#"+ elems[i];
-          
-	  jQuery(elem_str).css({color: 'red'});
+window.onload = function setColors() {
+  for (var i=1; i<4; i++) {
+     for (var j=1; j<4; j++) {
+	var full_path = window.location.pathname.split('/');
+        var elem = "risk_" + full_path[full_path.length -1] +"_probability_impact_"  + i + j;
+	alert (elem);
+        var value = document.getElementById(elem).innerHTML;
+        if (value == 1) {
+           document.getElementById(elem).innerHTML = "Low";
+           document.getElementById(elem).style.background = "green";
         }
-}</script>
+        if (value == 2) {
+           document.getElementById(elem).innerHTML = "Med";
+           document.getElementById(elem).style.background = "yellow";
+        }
+        if (value == 3) {
+           document.getElementById(elem).innerHTML = "High";
+           document.getElementById(elem).style.background = "red";
+        }
+    }
+  }
+}
+</script>
   <p><center><%= params[:notice] %></center></p>
   <p><center><%= params[:error] %></center></p>
  <%= render_breadcrumbs %>
@@ -24,6 +39,28 @@ window.onload = function () {
 <span style="font-weight:bold">Status: </span> <%= @risk.status %><br />
 <span style="font-weight:bold">Risk Rating: </span> <span id="frame_<%= @risk.id %>_risk_rating"> <%= @risk_rating %> </span><br/>
   <br/>
+Risk Matrix:
+<table id="risk_matrix" style="width:200px;">
+<tr>
+  <td rowspan="3" style="text-align:center;width:10px;"> Probability </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_31"><%= @project.probability_impact_31 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_32"><%= @project.probability_impact_32 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_33"><%= @project.probability_impact_33 %> </td>
+</tr>
+<tr>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_21"><%= @project.probability_impact_21 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_22"><%= @project.probability_impact_22 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_23"><%= @project.probability_impact_23 %> </td>
+</tr>
+<tr>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_11"><%= @project.probability_impact_11 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_12"><%= @project.probability_impact_12 %> </td>
+  <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_13"><%= @project.probability_impact_13 %> </td>
+</tr>
+<tr>
+<td colspan="3" style="text-align:center">Impact</td>
+</tr>
+</table>
 <span style="font-weight:bold">Days to Impact: </span><%= @risk.days_to_impact %><br/>
 <span style="font-weight:bold">Early Impact Date: </span><%= @risk.early_impact %><br/>
   <br/>
@@ -53,7 +90,7 @@ window.onload = function () {
   </div>
 
 <br>
-Comment Log:
+<span style="font-weight:bold">Comment Log:</span>
 <table class="table table-striped" id="logs">
     <tr>
     <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %></th>
@@ -62,8 +99,8 @@ Comment Log:
     </tr>
            <%= render 'comment_log', {:risk => @risk} -%>
 </table>
-
-Log:
+<br/><br/><br/>
+<span style="font-weight:bold">Log:</span>
 <table class="table table-striped" id="logs">
     <tr>
     <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %> </th>

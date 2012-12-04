@@ -5,23 +5,35 @@
 
 <script type="text/javascript">
  function loadData(path, div_id) {
-    var data_id = "#" +div_id
-    var risk_id = data_id.substring(data_id.indexOf("_")+1);
+    var data_id = "#" +div_id;    
     var to_load = path + " #risk_info";
-    jQuery(data_id).load(to_load, function() { var elems = ["risk_rating", "risk_probability", "risk_cost", "risk_schedule", "risk_tech"];
-        for (var i=0; i<elems.length; i++) {
-          var elem_str = "#"+ "frame_" + risk_id +"_" +elems[i];
-          var val = jQuery(elem_str).text().trim();
-          if (val == "High") {jQuery(elem_str).css({color: 'red'});}
-          if (val == "Med") { jQuery(elem_str).css({color: 'yellow'});}
-	  if (val == "Low") { jQuery(elem_str).css({color: 'green'});}
-}});
-   
+    jQuery(data_id).load(to_load);
+    setColors(div_id.substring(div_id.indexOf("_")+1));    
   }
+function setColors(risk_id) {
+  for (var i=1; i<4; i++) {
+     for (var j=1; j<4; j++) {
+        var elem = "risk_" + risk_id +"_probability_impact_"  + i + j;
+        alert(elem);
+        var value = document.getElementById(elem).innerHTML;
+        if (value == 1) {
+           document.getElementById(elem).innerHTML = "Low";
+           document.getElementById(elem).style.background = "green";
+        }
+        if (value == 2) {
+           document.getElementById(elem).innerHTML = "Med";
+           document.getElementById(elem).style.background = "yellow";
+        }
+        if (value == 3) {
+           document.getElementById(elem).innerHTML = "High";
+           document.getElementById(elem).style.background = "red";
+        }
+    }
+  }
+}
 
   function changeForm(proj_id, div_id) {
     div_button = "button_"+div_id.substring(div_id.indexOf("_")+1);
-
     if (document.getElementById(div_id).style.display == "none") {
         var path = "/project/"+ proj_id + "/risk/" + div_id.substring(div_id.indexOf("_")+1);
        loadData(path, div_id);
