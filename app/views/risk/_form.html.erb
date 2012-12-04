@@ -26,7 +26,7 @@
 <% end %>
     </div>
     <div>
-    Notification before Early Impact: <%= text_field 'risk', 'notification_before_early_impact' %>
+    Notification before Early Impact(days): <%= text_field 'risk', 'notification_before_early_impact' %>
     </div>
     <div>
     Early Impact: <%= calendar_date_select 'risk', 'early_impact', :required => true %>
@@ -35,7 +35,7 @@
     Last Impact: <%= calendar_date_select 'risk', 'last_impact', :required => true %>
     </div>
     <div>
-    Description: <%= text_area 'risk', 'description', :rows => 5 %>
+    Description: <%= text_area 'risk', 'description', :rows => 5, :cols => 300 %>
     </div>
     <div>
     Root Cause: <%= text_area 'risk', 'root_cause', :rows => 5%>

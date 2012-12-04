@@ -36,6 +36,7 @@ Owner: <%= @project.owner.username %><br/>
 Risk Matrix:
 <table id="risk_matrix" style="width:200px;">
 <tr>
+  <td rowspan="3" style="text-align:center;width:10px;"> Probability </td>
   <td class='risk_mx' id='probability_impact_31'><%= @project.probability_impact_31 %> </td>
   <td class='risk_mx' id='probability_impact_32'><%= @project.probability_impact_32 %> </td>
   <td class='risk_mx' id='probability_impact_33'><%= @project.probability_impact_33 %> </td>
@@ -49,6 +50,9 @@ Risk Matrix:
   <td class='risk_mx' id='probability_impact_11'><%= @project.probability_impact_11 %> </td>
   <td class='risk_mx' id='probability_impact_12'><%= @project.probability_impact_12 %> </td>
   <td class='risk_mx' id='probability_impact_13'><%= @project.probability_impact_13 %> </td>
+</tr>
+<tr>
+<td colspan="3" style="text-align:center">Impact</td>
 </tr>
 </table>
 <br/>

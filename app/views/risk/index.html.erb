@@ -6,10 +6,11 @@
 <script type="text/javascript">
  function loadData(path, div_id) {
     var data_id = "#" +div_id
-    var to_load = path + " #risk_info"
+    var risk_id = data_id.substring(data_id.indexOf("_")+1);
+    var to_load = path + " #risk_info";
     jQuery(data_id).load(to_load, function() { var elems = ["risk_rating", "risk_probability", "risk_cost", "risk_schedule", "risk_tech"];
         for (var i=0; i<elems.length; i++) {
-          var elem_str = "#"+ elems[i];
+          var elem_str = "#"+ "frame_" + risk_id +"_" +elems[i];
           var val = jQuery(elem_str).text().trim();
           if (val == "High") {jQuery(elem_str).css({color: 'red'});}
           if (val == "Med") { jQuery(elem_str).css({color: 'yellow'});}
