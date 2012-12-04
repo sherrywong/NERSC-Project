@@ -57,10 +57,7 @@ class User < ActiveRecord::Base
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-    if @usr.save
-    else
-    @usr.errors[:owner] = "Error occured when trying to create this user.  Please make sure you have entered a valid email address and the username has not been taken."
-    end
+	@usr.save
     return @usr
   end
 
@@ -90,43 +87,6 @@ class User < ActiveRecord::Base
     return @proj #check @proj.errors
   end
 
-=begin
-  def create_project(project_hash)
-    new_owner = extract_owner_username(project_hash)
-    @proj = Project.new(project_hash)
-    if self.admin? and @proj.save
-      #@proj.add_member(self.id) don't need this line- all admins have access to all projects
-      #@proj.edit_member_permission(self, "write")
-      #@proj.owner = new_owner || self
-      if new_owner.nil?
-        @proj.errors[:owner] = "not found in database."
-        @proj.destroy
-      elsif new_owner.inactive?
-        @proj.errors[:owner] = "cannot be a deactivated user."
-        #@proj.owner = self
-        @proj.destroy
-      end
-        #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id)
-        #@pm.permission = "write"
-        #@pm.owner = true
-      #if project_hash[project][members].nil?
-        #@pm = ProjectMembership.new(:user_id=>self.id, :project_id => @proj.id, :owner=>true, :permission=>"write")
-      #else
-        #@pm = project_hash[project][members]
-        #proj.owner = self.id skipped in case pm errors.
-        #if not @pm.save
-            #@proj.errors[:membership_errors] = @pm.errors
-            #@proj.destroy
-            #return false
-        #end
-      #end
-    #else
-    #  @proj.errors[:owner] = "Error: This project name already exists. Please use another name and try again."
-    end
-    return @proj #check @proj.errors
-  end
-=end
-
   def update_project(project, project_hash)
     @proj = project
     new_owner = extract_owner_username(project_hash)
@@ -140,37 +100,12 @@ class User < ActiveRecord::Base
       if not temp
         @proj.owner = orig_owner
         if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
-           pm.destroy
+           pm.destroy unless new_owner == orig_owner
         end
       end
     end
     return @proj
   end
-
-=begin
-  def update_project(project, project_hash)
-    @proj = project
-    new_owner = extract_owner_username(project_hash)
-    if new_owner.nil?
-      @proj.errors[:owner] = "not found in database."
-    elsif new_owner.inactive?
-      @proj.errors[:owner] = "is an inactive user. Set to current user instead."
-      @proj.owner = self
-    else
-      @proj.owner = new_owner
-    end
-
-    temp = @proj.update_attributes(project_hash)
-      if not temp
-        print @proj.errors.full_messages
-        @proj.owner = orig_owner
-      if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
-        pm.destroy
-      end
-    end
-    return @proj
-  end
-=end
 
   #deactivating project/risk/user
   def deactivate_project(project_id)

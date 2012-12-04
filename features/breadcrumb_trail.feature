@@ -64,7 +64,7 @@ Scenario: Go through series of pages dealing with risks.
 
     When I press "+ Add New Risk"
     When I fill in "risk_title" with "Test Risk"
-    When I fill in "risk_owner_id" with "admin"
+    When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "P1 TR"
     When I fill in "risk_early_impact" with "2008-11-20"
     When I fill in "risk_last_impact" with "2013-10-20"

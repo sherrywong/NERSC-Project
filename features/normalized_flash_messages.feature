@@ -13,7 +13,7 @@ Scenario: Non-admins cannot view system users.
     And I go to the show users page
     Then I should see "Sorry, you have to be an admin to perform this action."
 
-Scenario: Non-project members cannot view or edit a project.
+Scenario: Non-project members cannot view a project.
     Given I am logged in as Sherry
     And I am on the home page
     When I go to the project page for "Second Project"

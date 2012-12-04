@@ -10,6 +10,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retired"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
    validate :any_present?
 
+
    belongs_to :project
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
@@ -39,6 +40,10 @@ class Risk < ActiveRecord::Base
       proj = self.project || Project.find_by_id(project_id)
       return eval(%Q{proj.probability_impact_#{self.probability}#{[self.cost, self.schedule, self.technical].max}})
     end
+	
+	def matrix_coordinate
+		return "probability_impact_#{self.probability}#{[self.cost, self.schedule, self.technical].max}"
+	end
 
     def calculate_days_to_impact
       return [self.early_impact - Date.today, 0].max

@@ -17,6 +17,7 @@ class ProjectController < ApplicationController
   end
 
   def show
+    @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     if @project.nil?
@@ -62,6 +63,10 @@ class ProjectController < ApplicationController
     if @project.nil?
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
+    end
+    if !@user.admin and @user != @project.owner
+      flash[:notice] = "Sorry! You do not have permission to edit this project."
+      redirect_to show_project_path(params[:pid])
     end
     #@project.errors=params[:errors]
     @proj_members = @project.members
@@ -110,16 +115,23 @@ class ProjectController < ApplicationController
     @project = Project.find_by_id(params[:pid])
     members_list = members[0].split(", ")
     @members = members_list
-    member_id_list = Array(members_list.length)
-    members_list.each do |member|
-      member = User.find_by_username(member)
-      if not member.nil?
+    member_id_list = []
+    all_ok = true
+    invalid_list = [];
+    members_list.each do |member_name|
+      member = User.find_by_username(member_name)
+      if member and member.active?
         member_id = member.id
         member_id_list << member_id
-        flash[:notice] = "Members updated."
       else
-        flash[:notice] = "Error: This person is not a current user."
+		all_ok = false
+		invalid_list << member_name
       end
+    end
+    if all_ok
+	flash[:notice] = "Member(s) added successfully."
+    else
+	flash[:notice] = "The following member(s) are either nonexistent or inactive: #{invalid_list.join(", ")}"
     end
     @project.add_members(member_id_list)
     redirect_to edit_project_path(params[:pid])

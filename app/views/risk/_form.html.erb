@@ -16,7 +16,7 @@
     </div>
     <div>
     Owner: <% if @risk.nil? %>
-    <select id="project[owner_id]">
+    <select name="risk[owner_id]">
            <% for user in @users %>
               <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
                   <% end %>
@@ -26,7 +26,16 @@
 <% end %>
     </div>
     <div>
-    Description: <%= text_area 'risk', 'description', :rows => 5 %>
+    Notification before Early Impact(number of days): <%= text_field 'risk', 'notification_before_early_impact' %>
+    </div>
+    <div>
+    Early Impact: <%= calendar_date_select 'risk', 'early_impact', :required => true %>
+    </div>
+    <div>
+    Last Impact: <%= calendar_date_select 'risk', 'last_impact', :required => true %>
+    </div>
+    <div>
+    Description: <%= text_area 'risk', 'description', :rows => 5, :cols => 50 %>
     </div>
     <div>
     Root Cause: <%= text_area 'risk', 'root_cause', :rows => 5%>
@@ -62,12 +71,6 @@
       <option value='2' <%= "selected" if @risk and @risk.technical == 2%>> Medium </option>
       <option value='1' <%= "selected" if @risk and @risk.technical == 1%>> Low </option>
     </select>
-    </div>
-    <div>
-    Early Impact: <%= calendar_date_select 'risk', 'early_impact', :required => true %>
-    </div>
-    <div>
-    Last Impact: <%= calendar_date_select 'risk', 'last_impact', :required => true %>
     </div>
     <div>
     Mitigation: <%= text_area 'risk', 'mitigation', :rows => 5 %>

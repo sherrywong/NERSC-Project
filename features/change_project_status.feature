@@ -1,4 +1,4 @@
-Feature: Change status of a projects
+Feature: Change project status
     As a project owner or admin,
     So that I can retire/activate projects from the system
     I want to be able to deactivate/reactivate projects

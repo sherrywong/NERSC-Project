@@ -9,7 +9,7 @@ Background: Some user logins exist.
 Scenario: Users can edit their own profile information.
     Given I am logged in as Jason
     And I go to the My Profile page for "Jason"
-    And I fill in "user_first" with "Sherry"
+    And I fill in "user_last" with "Sherry"
     And I press "Save"
     Then I should be on the home page
     Then I should see "User Sherry Teoh was successfully updated."

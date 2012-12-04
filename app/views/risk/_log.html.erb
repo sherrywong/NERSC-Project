@@ -172,6 +172,14 @@
         <td><%= User.find_by_id(version.reify.owner_id).username%> </td>
         <td><%= User.find_by_id(curr_version.owner_id).username%> </td></tr>
       <% end %>
+      <% if version.reify.notification_before_early_impact != curr_version.notification_before_early_impact%>
+       <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "Notification Before Early Impact" %>
+        <td><%= version.reify.notification_before_early_impact %> </td>
+        <td><%= curr_version.notification_before_early_impact%> </td>
+        </tr>
+      <% end %>
     <% elsif !version.nil? %>
       <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
       <td><%= version.created_at %> </td>

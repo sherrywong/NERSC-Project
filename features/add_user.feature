@@ -1,4 +1,4 @@
-Feature: Add users
+Feature: Add user
     As an admin,
     So that I can manage who has access to the database,
     I want to be able to add, edit, and delete users.

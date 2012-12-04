@@ -25,7 +25,7 @@ class UserController < ApplicationController
   end
 
   def show_users
-
+	add_breadcrumb "Users", show_users_path
     sort = params[:sort] || session[:sort]
     case sort
       when "username"
@@ -43,46 +43,54 @@ class UserController < ApplicationController
       else
         @users = User.all
     end
-    # @users= User.all
   end
 
   def new
-    add_breadcrumb "Users", show_users_path
+	add_breadcrumb "Users", show_users_path
+    add_breadcrumb "Create New User", user_new_path
     if request.post?
       user_hash = params[:user]
       @new = get_current_user.create_user(user_hash)
       if @new.errors.empty?
         UserMailer.welcome_email(@new).deliver
         flash[:notice]= "User '#{@new.first} #{@new.last}'created."
+		#send mail
+		redirect_to show_users_path
       else
-        flash[:notice] = @new.errors[:owner][0].to_s
+        flash[:notice] = @new.errors.full_messages.join(", ")
+		redirect_to user_new_path
       end
-      #send mail
-      redirect_to "/user/show_users"
+      
     end
   end
 
   def edit
     @edit = true
     @current_user = get_current_user
-    if (params[:id].to_s == session[:uid].to_s)
-      @curr_user = true
-    else
-      @curr_user = false
-    end
+    @curr_user = (params[:id].to_s == session[:uid].to_s)
     @user = User.find_by_id(params[:id])
-    if (@user.admin)
-      add_breadcrumb "Users", show_users_path
-    end
+
+    add_breadcrumb "Users", show_users_path if @user.admin
+	add_breadcrumb "#{@user.username}", edit_user_path(@user.id)
+
     @user_username = @user.username
     @user_admin = @user.admin
   end
 
   def update
     @user = User.find_by_username(params[:user]["username"])
-    @user.update_attributes!(params[:user]) #handle exceptions if the ! throws one.
-    flash[:notice] = "User #{@user.first} #{@user.last} was successfully updated."
-    redirect_to "/user/index"
+    if @user.update_attributes(params[:user])
+		flash[:notice] = "User #{@user.first} #{@user.last} was successfully updated."
+		if get_current_user.admin?
+			redirect_to show_users_path
+		else
+			redirect_to user_index_path
+		end
+	else
+		flash[:notice] = @user.errors.full_messages.join(", ")
+		redirect_to edit_user_path(@user.id)
+	end
+	
   end
 
   def destroy
@@ -92,7 +100,7 @@ class UserController < ApplicationController
     else
       flash[:notice] = "You cannot deactivate this user."
     end
-    redirect_to "/user/show_users"
+    redirect_to show_users_path
   end
 
   def reactivate
@@ -102,7 +110,7 @@ class UserController < ApplicationController
     else
       flash[:notice] = "You cannot reactivate this user."
     end
-    redirect_to "/user/show_users"
+    redirect_to show_users_path
   end
 
   def login
