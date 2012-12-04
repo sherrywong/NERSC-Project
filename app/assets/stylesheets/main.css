@@ -1,6 +1,9 @@
 .risk_mx {
 border: solid 1px;
+}
 
+#risk_table td {
+border:none;
 }
 
 .expand_frame {
