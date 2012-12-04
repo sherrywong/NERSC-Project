@@ -5,8 +5,6 @@ class ProjectController < ApplicationController
   before_filter :is_admin_or_powner, :only => [:destroy, :update, :add_members, :reactivate]
   before_filter :is_admin, :only =>[:new]
 
-  add_breadcrumb "Home", :user_index_path
-
   def index
     @user = get_current_user
     if @user.admin?
@@ -20,6 +18,7 @@ class ProjectController < ApplicationController
     @users = User.all
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+	add_breadcrumb "#{@project.name}", show_project_path
     if @project.nil?
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
@@ -39,6 +38,7 @@ class ProjectController < ApplicationController
   end
 
   def new
+	add_breadcrumb "Create New Project", project_new_path
     @users = User.all
     @user = get_current_user
     @new = true
@@ -46,9 +46,7 @@ class ProjectController < ApplicationController
       @project = @user.create_project(params[:project])
       if @project.errors.empty?
         flash[:notice] = "Project '#{@project.name}' created."
-   redirect_to "/project/#{@project.id}"
-      else #Stays on same page.
-        flash[:notice] = @project.errors[:owner].to_s
+        redirect_to "/project/#{@project.id}"
       end
     end
   end
@@ -64,6 +62,7 @@ class ProjectController < ApplicationController
       flash[:notice] = "That project does not exist."
       redirect_to "/user/index"
     end
+
     if !@user.admin and @user != @project.owner
       flash[:notice] = "Sorry! You do not have permission to edit this project."
       redirect_to show_project_path(params[:pid])
@@ -81,7 +80,8 @@ class ProjectController < ApplicationController
       when "email"
         @proj_members = @proj_members.sort_by {|usr| usr.email}
     end
-    add_breadcrumb @project.name, show_project_path(params[:pid])
+	add_breadcrumb @project.name, show_project_path(params[:pid])
+	add_breadcrumb "Edit Project", edit_project_path(@project.id)
     if request.post?
       @project = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
       if @project.errors.empty?
@@ -92,26 +92,6 @@ class ProjectController < ApplicationController
 
   end
 
-=begin
-  def update
-    @user = get_current_user
-<<<<<<< HEAD
-    @project = Project.find_by_id(params[:pid])
-    @user.update_project(@project, params[:project])
-    flash[:notice] = "Project '#{@project.name}' was succesfully updated."
-    redirect_to "/project/#{@project.id}"
-
-=======
-    @proj = @user.update_project(Project.find_by_id(params[:pid]), params[:project])
-    if @proj.errors.empty?
-      flash[:notice] = "Project '#{@proj.name}' was succesfully updated."
-      redirect_to "/project/#{@proj.id}"
-    else
-      redirect_to edit_project_path(params[:pid], :errors => @proj.errors, :hash=>params[:project])
-    end
->>>>>>> 40734fa46e30a461de672c1fbeb1b257ccc9ad2b
-  end
-=end
 
   def destroy
     @project = Project.find(params[:pid])

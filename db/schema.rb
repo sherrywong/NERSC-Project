@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203063231) do
+ActiveRecord::Schema.define(:version => 20121204204921) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20121203063231) do
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
     t.string   "status",                           :default => "active"
-    t.string   "short_title"
     t.datetime "create_date"
     t.text     "root_cause"
     t.text     "mitigation"
@@ -89,17 +88,18 @@ ActiveRecord::Schema.define(:version => 20121203063231) do
     t.integer  "cost"
     t.integer  "schedule"
     t.integer  "technical"
-    t.integer  "other_type"
     t.integer  "risk_rating"
     t.date     "early_impact"
     t.date     "last_impact"
     t.integer  "days_to_impact"
-    t.string   "type"
+    t.string   "risk_type"
     t.string   "critical_path"
     t.string   "wbs_spec"
     t.text     "comment"
     t.integer  "creator_id"
     t.integer  "notification_before_early_impact"
+    t.string   "triggers"
+    t.string   "strategy"
   end
 
   create_table "users", :force => true do |t|

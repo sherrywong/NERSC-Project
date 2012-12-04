@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name, :prefix, :probability_impact_11, :probability_impact_12, :probability_impact_13, :probability_impact_21, :probability_impact_22, :probability_impact_23, :probability_impact_31, :probability_impact_32, :probability_impact_33
+  attr_accessible :description, :name, :prefix, :probability_impact_11, :probability_impact_12, :probability_impact_13, :probability_impact_21, :probability_impact_22, :probability_impact_23, :probability_impact_31, :probability_impact_32, :probability_impact_33, :owner_id
   #not included: status should not be assignable by the normal user.
   validates_presence_of :name
   validates_uniqueness_of :prefix

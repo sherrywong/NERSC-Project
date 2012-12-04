@@ -1,4 +1,4 @@
-<% for version in @risk.versions.reverse %>
+<% for version in @risk.versions%>
     <% previous = version.previous %>
     <%if !version.nil? and !version.reify.nil? %>
        <%version.next.nil? ? curr_version = @risk : curr_version = version.next.reify %>
@@ -7,5 +7,9 @@
         <td><%= version.created_at %>
         <td><%= curr_version.comment%> </td></tr>
       <% end %>
+    <% elsif !version.nil? %>
+      <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
+      <td><%= version.created_at %> </td>
+      <td><%= @risk.comment%></tr>
     <% end %>
 <% end %>

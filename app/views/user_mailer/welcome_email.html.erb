@@ -4,13 +4,21 @@
       <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     </head>
   <body>
-    <h1>Welcome, <%= @user.first %></h1>
+    <h3>Welcome, <%= @user.first %></h3>
       <p>
-        You have successfully signed up to the NERSC Risk Tracker,
-      your username is: <%= @user.username %>.<br/>
+        You have have been signed up to the <b>NERSC Risk Tracker</b>!
+        <br/><br/>
+        Here is your account information:<br/>
+        <b>Username</b>: <%= @user.username %><br/>
+        <b>Password</b>: <%= @user.password %><br/>
       </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      To login to the application, just follow this link: <%= @url %> and enter in your username and password.<br/>
+      If you would like to change your account information, you can click on "Edit My Profile" button once you have logged into the site.<br/><br/>
+
+      Have a great day!<br/><br/>
+
+      -<b>NERSC Risk Tracking<b>
     </p>
   </body>
 </html>
