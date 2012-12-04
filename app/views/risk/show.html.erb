@@ -38,8 +38,6 @@ window.onload = function setColors() {
 
 <span id="left_container" style="float:left;width:200px;padding-right:50px;">
 <span style="font-weight:bold">Title: </span> <%= @risk.title %><br/>
-<span style="font-weight:bold">Short Title: </span> <%= @risk.short_title %><br/>
-<br/>
 <span style="font-weight:bold">Owner: </span><%= @risk_owner_username %> <br/>
 <span style="font-weight:bold">Creator: </span> <%= @risk_creator_username %> <br/>
 <span style="font-weight:bold">Status: </span> <%= @risk.status %><br />
@@ -79,12 +77,15 @@ Risk Matrix:
 <span style="font-weight:bold">  Critical Path: </span><%= @risk.critical_path %> <br/>
 <span style="font-weight:bold">WBS Spec: </span><%= @risk.wbs_spec %> <br/>
 <span style="font-weight:bold">Type: </span><%= @risk.type %> <br/>
-<span style="font-weight:bold">Other Type: </span><%= @risk.other_type %> <br/>
 </span>
   <span id="right_container" style="position:relative;">
   <span style="font-weight:bold">Description: </span><%= @risk.description %><br/>
 <br/>
-    <span style="font-weight:bold">Root Cause: </span><%= @risk.root_cause %><br/>
+   <span style="font-weight:bold">Strategy: </span><%= @risk.strategy %><br/>
+  <br/>
+   <span style="font-weight:bold">Triggers: </span><%= @risk.triggers %><br/>
+  <br/>
+   <span style="font-weight:bold">Root Cause: </span><%= @risk.root_cause %><br/>
   <br/>
   <span style="font-weight:bold">Mitigation: </span><%= @risk.mitigation %><br/>
   <br/>

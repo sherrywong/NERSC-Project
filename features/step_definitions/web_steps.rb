@@ -80,9 +80,20 @@ end
 
 Given /^a set of risks exist$/ do
   #coordinators, project_id, start, end, risk_id, originator
-  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "First Risk", "owner_id" => "admin", "description" => "Risk1 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
-  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "Second Risk", "owner_id" => "jt", "description" => "Risk2 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
-  Risk.create_risk(@admin_user.id, @second_project.id, {"title" => "Third Risk", "owner_id" => "admin", "description" => "Risk3 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
+#  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "First Risk", "owner_id" => "admin", "description" => "Risk1 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
+#  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "Second Risk", "owner_id" => "jt", "description" => "Risk2 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
+#  Risk.create_risk(@admin_user.id, @second_project.id, {"title" => "Third Risk", "owner_id" => "admin", "description" => "Risk3 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
+end
+
+Given /^that a risk exists with title "(.*?)", owner "(.*?)", description "(.*?)", early impact "(.*?)", and last impact "(.*?)" for project "(.*?)"$/ do |title, owner, descrip, early_impact, last_impact, project|
+  page_name = project + "'s Add Risk page"
+  visit path_to(page_name)
+  select(owner, :from => "risk[owner_id]")
+  fill_in("risk_title", :with => title)
+  fill_in("risk_description", :with => descrip)
+  fill_in("risk_early_impact", :with => early_impact)
+  fill_in("risk_last_impact", :with => last_impact)
+  click_button("Save")
 end
 
 Given /^I am logged in as (.+)$/ do |user|
