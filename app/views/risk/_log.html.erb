@@ -1,4 +1,4 @@
-<% for version in @risk.versions.reverse %>
+<% for version in @risk.versions%>
     <% previous = version.previous %>
     <%if !version.nil? and !version.reify.nil? %>
        <%version.next.nil? ? curr_version = @risk : curr_version = version.next.reify %>
