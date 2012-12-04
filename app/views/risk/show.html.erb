@@ -13,7 +13,7 @@ window.onload = function () {
  <%= render_breadcrumbs %>
 <% if @risk.status == "active" %><%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
 <% end %>
-<div id="risk_info">
+<div id="risk_info" style="position:relative">
 
 <span id="left_container" style="float:left;width:200px;padding-right:50px;">
 <span style="font-weight:bold">Title: </span> <%= @risk.title %><br/>
@@ -22,31 +22,33 @@ window.onload = function () {
 <span style="font-weight:bold">Owner: </span><%= @risk_owner_username %> <br/>
 <span style="font-weight:bold">Creator: </span> <%= @risk_creator_username %> <br/>
 <span style="font-weight:bold">Status: </span> <%= @risk.status %><br />
-<span style="font-weight:bold">Risk Rating: </span> <span id="risk_rating"> <%= @risk_rating %> </span><br/>
+<span style="font-weight:bold">Risk Rating: </span> <span id="frame_<%= @risk.id %>_risk_rating"> <%= @risk_rating %> </span><br/>
   <br/>
 <span style="font-weight:bold">Days to Impact: </span><%= @risk.days_to_impact %><br/>
 <span style="font-weight:bold">Early Impact Date: </span><%= @risk.early_impact %><br/>
   <br/>
 <span style="font-weight:bold">Last Impact Date: </span><%= @risk.last_impact %><br/>
 <br/>
-<span style="font-weight:bold">Probability: </span><span id="risk_probability"> <%= @risk_probability %> </span><br/>
-<span style="font-weight:bold">Cost: </span><span id="risk_cost"><%= @risk_cost %> </span><br/>
-<span style="font-weight:bold">Schedule: </span><span id="risk_schedule"><%= @risk_schedule %> </span><br/>
-<span style="font-weight:bold">Technical: </span><span id="risk_tech"> <%= @risk_technical %> </span><br/>
+<span style="font-weight:bold">Probability: </span><span id="frame_<%= @risk.id %>_risk_probability"> <%= @risk_probability %> </span><br/>
+<span style="font-weight:bold">Cost: </span><span id="frame_<%= @risk.id %>_risk_cost"><%= @risk_cost %> </span><br/>
+<span style="font-weight:bold">Schedule: </span><span id="frame_<%= @risk.id %>_risk_schedule"><%= @risk_schedule %> </span><br/>
+<span style="font-weight:bold">Technical: </span><span id="frame_<%= @risk.id %>_risk_tech"> <%= @risk_technical %> </span><br/>
+<span style="font-weight:bold">  Critical Path: </span><%= @risk.critical_path %> <br/>
+<span style="font-weight:bold">WBS Spec: </span><%= @risk.wbs_spec %> <br/>
+<span style="font-weight:bold">Type: </span><%= @risk.type %> <br/>
+<span style="font-weight:bold">Other Type: </span><%= @risk.other_type %> <br/>
 </span>
-  <span id="right_container" style="width:200px;">
+  <span id="right_container" style="position:relative;">
   <span style="font-weight:bold">Description: </span><%= @risk.description %><br/>
+<br/>
+    <span style="font-weight:bold">Root Cause: </span><%= @risk.root_cause %><br/>
   <br/>
   <span style="font-weight:bold">Mitigation: </span><%= @risk.mitigation %><br/>
   <br/>
   <span style="font-weight:bold">Contingency: </span><%= @risk.contingency %><br/>
   <br/>
-  <span style="font-weight:bold">Root Cause: </span><%= @risk.root_cause %><br/>
-  <br/>
-<span style="font-weight:bold">  Critical Path: </span><%= @risk.critical_path %> <br/>
-<span style="font-weight:bold">WBS Spec: </span><%= @risk.wbs_spec %> <br/>
-<span style="font-weight:bold">Type: </span><%= @risk.type %> <br/>
-<span style="font-weight:bold">Other Type: </span><%= @risk.other_type %> <br/>
+
+
 <span style="font-weight:bold">Comments: </span><%= @risk.comment %> <br/>
   </div>
 
