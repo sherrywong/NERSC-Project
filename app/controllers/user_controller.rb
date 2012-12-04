@@ -75,8 +75,20 @@ class UserController < ApplicationController
 
     @user_username = @user.username
     @user_admin = @user.admin
+    if request.post?
+      @user = User.find_by_username(params[:user]["username"])
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "User #{@user.first} #{@user.last} was successfully updated."
+	 if get_current_user.admin?
+	   redirect_to show_users_path
+	 else
+          redirect_to user_index_path
+	 end
+      end
+    end
   end
 
+=begin
   def update
     @user = User.find_by_username(params[:user]["username"])
     if @user.update_attributes(params[:user])
@@ -92,6 +104,7 @@ class UserController < ApplicationController
 	end
 	
   end
+=end
 
   def destroy
     @user = get_current_user

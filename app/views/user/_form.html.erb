@@ -1,5 +1,7 @@
 <div id="autosave"></div>
-
+  <% if @user!=nil%>
+   <%= render "home/shared/error_messages", :target => @user %>
+  <% end %>
 <div class='clearfix'>
   <div>
     <div>

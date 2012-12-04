@@ -72,36 +72,21 @@ class User < ActiveRecord::Base
 
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
+    project_hash[:owner_id]=new_owner.id
     @proj = Project.new(project_hash)
-    if !@proj.errors.any? and @proj.save
-      if new_owner.nil?
-        @proj.errors.add(:owner, "not found in database.")
-        @proj.destroy
-      elsif new_owner.inactive?
-        @proj.errors.add(:owner, "cannot be a deactivated user.")
-        @proj.destroy
-      else
-        @proj.owner = new_owner
-      end
-    end
+    @proj.save
     return @proj #check @proj.errors
   end
 
   def update_project(project, project_hash)
     @proj = project
     new_owner = extract_owner_username(project_hash)
-    if new_owner.nil?
-      @proj.errors.add(:owner, "not found in database.")
-    elsif new_owner.inactive?
-      @proj.errors.add(:owner, "cannot be a deactivated user.")
-    else
-      @proj.owner = new_owner
-      temp= @proj.update_attributes(project_hash)
-      if not temp
-        @proj.owner = orig_owner
-        if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
-           pm.destroy unless new_owner == orig_owner
-        end
+    @proj.owner = new_owner
+    temp= @proj.update_attributes(project_hash)
+    if not temp
+      @proj.owner = orig_owner
+      if pm = ProjectMembership.find_by_user_id_and_project_id(new_owner.id, @proj.id)
+         pm.destroy unless new_owner == orig_owner
       end
     end
     return @proj

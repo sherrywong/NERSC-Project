@@ -46,9 +46,7 @@ class ProjectController < ApplicationController
       @project = @user.create_project(params[:project])
       if @project.errors.empty?
         flash[:notice] = "Project '#{@project.name}' created."
-   redirect_to "/project/#{@project.id}"
-      else #Stays on same page.
-        flash[:notice] = @project.errors[:owner].to_s
+        redirect_to "/project/#{@project.id}"
       end
     end
   end
