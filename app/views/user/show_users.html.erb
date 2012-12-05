@@ -4,9 +4,11 @@
   <p><center><%= flash[:notice] %></center></p>
   <p><center><%= params[:notice] %></center></p>
   <p><center><%= params[:error] %></center></p>
+<br>
 <%= render_breadcrumbs %>
+<br>
 <%= button_to "+ Add new user", "/user/new", :class => 'btn btn-info', :method => :get%>
-
+<br>
 <table class="zebra-striped clearfix" id="users">
     <tr = "warning">
     <th><%= link_to "Username", show_users_path(:sort => "username") %></th>

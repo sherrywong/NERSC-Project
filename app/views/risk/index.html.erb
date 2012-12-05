@@ -52,11 +52,10 @@ function setColors(risk_id) {
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
 <p><center><%= params[:error] %></center></p>
-
+<br>
 <%= render_breadcrumbs %>
-
 <%= button_to "+ Add New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
-
+<br>
 
 <table class="zebra-striped clearfix" id="risks">
     <tr>
