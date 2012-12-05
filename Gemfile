@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'chronic'
-gem 'rufus-scheduler', :require => "rufus/scheduler"
+gem 'rufus-scheduler', :require => 'rufus/scheduler'
 gem 'rails', '3.2.7'
 gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
-#gem "breadcrumbs_on_rails"
+gem "breadcrumbs_on_rails"
 gem 'rails3-jquery-autocomplete'
 gem 'validates_email_format_of'
 gem 'validates_timeliness', '~>3.0'
@@ -27,7 +26,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+  # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails'
@@ -60,5 +59,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'simplecov'
-  #gem 'railroady'		 # Used to generate UML diagrams.
+  gem 'railroady'
 end

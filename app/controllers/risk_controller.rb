@@ -32,15 +32,15 @@ class RiskController < ApplicationController
     report = params[:report]
     case report
         when "current"
-  	@risks = @project.risks
+  	@risks = current_risks
   	when "near"
-  	@risks = @project.risks
+  	@risks = near_term_risks
   	when "mid"
-  	@risks = @project.risks
+  	@risks = mid_term_risks
   	when "far"
-  	@risks = @project.risks
+  	@risks = far_term_risks
   	when "past"
-  	@risks = @project.risks
+  	@risks = past_risks
     end
   end
 
@@ -151,19 +151,65 @@ class RiskController < ApplicationController
 
   def current_risks
     @risks = @project.risks
-
+    date = Date.today
+    curr_risks = []
+    for risk in @risks
+      if (risk.early_impact < date) and (risk.late_impact > date)
+        curr_risks << risk
+      end
+    end
+    curr_risks
   end
 
   def near_term_risks
+    @risks = @project.risks
+    date = Date.today
+    near_risks = []
+    for risk in @risks
+      if (date-risk.early_impact).numerator <= 30
+        near_risks << risk
+      end
+    end
+    near_risks
   end
 
   def mid_term_risks
+    @risks = @project.risks
+    date = Date.today
+    mid_risks = []
+    for risk in @risks
+      diff = date-risk.early_impact
+      if (diff.numerator >= 30) and (diff.numerator <= 120)
+        mid_risks << risk
+      end
+    end
+    mid_risks
   end
 
   def far_term_risks
+    @risks = @project.risks
+    date = Date.today
+    far_risks = []
+    for risk in @risks
+      diff = date-risk.early_impact
+      if (diff.numerator <= 120)
+        far_risks << risk
+      end
+    end
+    far_risks
   end
 
   def past_risks
+    @risks = @project.risks
+    date = Date.today
+    past_risks = []
+    for risk in @risks
+      diff = date-risk.late_impact
+      if risk.status == "active" and (diff.numerator > 0)
+        past_risks << risk
+      end
+    end
+    past_risks
   end
 
 end
