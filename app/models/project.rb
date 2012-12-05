@@ -29,6 +29,7 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+
   def remove_member(member_id)
     @pm = ProjectMembership.find_by_project_id_and_user_id(self.id, member_id)
     if @pm

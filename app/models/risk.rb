@@ -60,14 +60,24 @@ class Risk < ActiveRecord::Base
     def self.create_risk(uid, pid, risk_hash)
       #because user specify owner by username but our db stores a owner id
       @owner = User.find_by_username(risk_hash[:owner_id])
+      @creator = User.find_by_id(uid)
       risk_hash[:owner_id] = @owner.id
       @risk = Risk.new(risk_hash)
+      if !@owner.member?(pid) and (@creator.admin? or @creator.powner?(pid))
+        owner_id = [] << @owner.id
+        Project.find_by_id(pid).add_members(owner_id)
+      else
+        @risk.errors.add("Owner", "has to be a project member.") 
+      end
+  
       @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       if @risk.errors.empty?
         @risk.days_to_impact = @risk.calculate_days_to_impact
         @risk.save
+      else
+        Project.remove_member(@owner.id)
       end
       return @risk
     end
@@ -76,10 +86,19 @@ class Risk < ActiveRecord::Base
       @risk = risk
       @owner = User.find_by_username(risk_hash[:owner_id])
       risk_hash[:owner_id] = @owner.id
-      @risk.update_attributes(risk_hash)
-      @risk.risk_rating = @risk.calculate_risk_rating
-      @risk.days_to_impact = @risk.calculate_days_to_impact
-      @risk.save
+      if @risk.update_attributes(risk_hash)
+        if !@owner.member?(risk.project_id) and (user.admin? or user.powner?(risk.project_id))
+          owner_id = [] << @owner.id
+          Project.find_by_id(risk.project_id).add_members(owner_id)
+        else 
+          @risk.errors.add("Owner", "has to be a project member.") 
+        end
+        if @risk.errors.empty?
+          @risk.risk_rating = @risk.calculate_risk_rating
+          @risk.days_to_impact = @risk.calculate_days_to_impact
+          @risk.save
+        end
+      end
       return @risk
     end
 end
