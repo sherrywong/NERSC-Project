@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
-
 gem 'rufus-scheduler', :require => "rufus/scheduler"
+gem 'devise'
 gem 'rails', '3.2.7'
 gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
-#gem "breadcrumbs_on_rails"
+gem "breadcrumbs_on_rails"
 gem 'rails3-jquery-autocomplete'
 gem 'validates_email_format_of'
-gem 'validates_timeliness', '~>3.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -28,6 +27,8 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
+  gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
@@ -50,7 +51,7 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'cucumber-rails', :require=>false
-  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
+  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
@@ -58,11 +59,3 @@ group :test, :development do
   gem 'sqlite3'
   gem 'simplecov'
 end
-
-
-
-
-
-
-
-
