@@ -1,7 +1,7 @@
 <% for risk in @risks %>
   <tr>
-    <td class="expand_btn">
-      <input type="button" value="+" onclick="changeForm(<%= risk.project_id %>, 'frame_<%= risk.id%>');" id="button_<%= risk.id %>"/>
+    <td class="expand_btn" >
+      <input type="button" class="expand_bttn" value="+" onclick="changeForm(<%= risk.project_id %>, 'frame_<%= risk.id%>');" id="button_<%= risk.id %>"/>
     </td>
     <td>
       <%= risk.prefix_id %>

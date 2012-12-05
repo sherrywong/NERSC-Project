@@ -1,6 +1,23 @@
   <h1> Risks for <%= @project.name %></h1>
 
 <script type="text/javascript">
+window.onload = function () {
+	if (window.location.search.length > 0) {
+		jQuery("input.expand_bttn").each(function() {
+			alert("fix meeeee");
+			jQuery(this).click();
+		});
+		var data = jQuery('#risks').html();
+		jQuery('body').html(data);
+	}
+}
+function setReport() {
+	var report_str = jQuery('#report_select').val();
+	var url = jQuery('#report').attr("href");
+	jQuery('#report').attr("href", (url.substring(0,url.indexOf("report=")+7)+ report_str));
+	
+}
+
  function loadData(path, div_id) {
     var data_id = "#" +div_id;    
     var to_load = path + " #risk_info";
@@ -55,8 +72,16 @@ function setColors(risk_id) {
 
 <%= render_breadcrumbs %>
 
-<%= button_to "+ Add New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
-
+<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
+<br/>
+Generate Report: 
+<select id="report_select" onchange="setReport();">
+	<option value="current">Current Risks</option>
+	<option value="near">Near Term Risks</option>
+	<option value="mid">Mid Term Risks</option>
+	<option value="far">Far Term Risks</option>
+	<option value="past">Past Risks</option>
+</select><%= link_to "  Preview", risk_index_path(params[:pid], :report => "current"), :target => "_blank", :id=>"report" %>
 
 <table class="zebra-striped clearfix" id="risks">
     <tr>
