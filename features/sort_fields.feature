@@ -7,7 +7,6 @@ Background: Some projects and risks have already been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-    Given a set of risks exist
 
 Scenario: Sort projects.
     And I am on the home page
