@@ -51,7 +51,11 @@ class Project < ActiveRecord::Base
   end
 
   def owner_username #mostly for view.
-    owner.username
+    if owner.nil?
+        return "Owner could not be found - Please contact the database administrator for details."
+    else
+        owner.username
+    end
   end
 
 end

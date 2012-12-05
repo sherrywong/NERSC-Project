@@ -6,8 +6,8 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1, 0]
    validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "has to be a non-negative integer.", :allow_nil=>true
    validates_presence_of :title, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
-   validates_inclusion_of :status, :in=>["active", "retired", "pending", "rejected"], :message => "has to be one of either 'active', 'retired', 'pending', or 'reject'."
-   validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retire"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
+   validates_inclusion_of :status, :in=>["active", "retired", "pending", "rejected"], :message => "has to be one of either 'active', 'retired', 'pending', or 'rejected'."
+   validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retire"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retire'."
    validate :any_present?
    #validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
    validate :early_impact_precedes_last_impact
@@ -66,7 +66,11 @@ class Risk < ActiveRecord::Base
       if !@owner.member?(pid) and (@creator.admin? or @creator.powner?(pid))
         owner_id = [] << @owner.id
         Project.find_by_id(pid).add_members(owner_id)
+<<<<<<< HEAD
       elsif !@owner.member?
+=======
+      elsif !@owner.member?(risk.project_id)
+>>>>>>> 1a473016c8aefa687224718d347b890604368e98
         @risk.errors.add("Owner", "has to be a project member.") 
       end
   
@@ -90,7 +94,11 @@ class Risk < ActiveRecord::Base
         if !@owner.member?(risk.project_id) and (user.admin? or user.powner?(risk.project_id))
           owner_id = [] << @owner.id
           Project.find_by_id(risk.project_id).add_members(owner_id)
+<<<<<<< HEAD
         elsif !@owner.member?
+=======
+        elsif !@owner.member?(risk.project_id)
+>>>>>>> 1a473016c8aefa687224718d347b890604368e98
           @risk.errors.add("Owner", "has to be a project member.") 
         end
         if @risk.errors.empty?

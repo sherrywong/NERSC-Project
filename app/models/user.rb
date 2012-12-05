@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
 #    return false if pm.nil? or pm.permission == "read"
 #    return true #otherwise
 #  end
-
+  def self.active_users
+    return User.where(:status=>"active").order(:username)
+  end
+  
   def admin?
     return self.admin
   end
