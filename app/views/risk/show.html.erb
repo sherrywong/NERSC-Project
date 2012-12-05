@@ -9,9 +9,9 @@ window.onload = function setColors() {
     if (val == "Low") {jQuery(elem_str).css({background: 'green'});}
   for (var i=1; i<4; i++) {
      for (var j=1; j<4; j++) {
-	
+
         var elem = "risk_" + full_path[full_path.length -1] +"_probability_impact_"  + i + j;
-	
+
         var value = document.getElementById(elem).innerHTML;
         if (value == 1) {
            document.getElementById(elem).innerHTML = "Low";
@@ -41,52 +41,52 @@ window.onload = function setColors() {
 <table class="show_table" style="border-bottom: solid">
   <tr>
     <td><b>Title: </b> <%= @risk.title %><br/><br/>
-	<b>Owner: </b><%= @risk_owner_username %><br/><br>
-	<b>Creator: </b><%= @risk_creator_username %><br/><br>
-	<b>Status: </b><%= @risk.status %><br/><br>
-	<b>Strategy: </b><%= @risk.strategy %><br/><br>
-	<b>Risk Rating: </b><span id="frame_<%= @risk.id %>_risk_rating"><b><%= @risk_rating %></b></span><br/><br>
-	<b>Risk Matrix:</b><br>
-	<br/>
-	<b>Days to Impact: </b><%= @risk.days_to_impact %><br/><br>
-	<b>Early Impact Date: </b><%= @risk.last_impact%><br/><br>
-	<b>Last Impact Date: </b><%= @risk.early_impact %><br/><br/>
-	<b>Probability: </b><%= @risk_probability %><br/><br>
-	<b>Cost: </b><%= @risk_cost %><br/><br>
-	<b>Schedule: </b><%= @risk_schedule %><br/><br>
-	<b>Technical: </b><%= @risk_technical %><br/><br/>
-	<b>Critical Path: </b><%= @risk.critical_path %><br/><br>
-	<b>Triggers: </b><%= @risk.triggers %><br/><br>
-	<b>WBS Spec: </b><%= @risk.wbs_spec %><br/><br>
-	<b>Type: </b><%= @risk.risk_type %><br/><br>
+  <b>Owner: </b><%= @risk_owner_username %><br/><br>
+  <b>Creator: </b><%= @risk_creator_username %><br/><br>
+  <b>Status: </b><%= @risk.status %><br/><br>
+  <b>Strategy: </b><%= @risk.strategy %><br/><br>
+  <b>Risk Rating: </b><span id="frame_<%= @risk.id %>_risk_rating"><b><%= @risk_rating %></b></span><br/><br>
+  <b>Risk Matrix:</b><br>
+  <br/>
+  <b>Days to Impact: </b><%= @risk.days_to_impact %><br/><br>
+  <b>Early Impact Date: </b><%= @risk.last_impact%><br/><br>
+  <b>Last Impact Date: </b><%= @risk.early_impact %><br/><br/>
+  <b>Probability: </b><%= @risk_probability %><br/><br>
+  <b>Cost: </b><%= @risk_cost %><br/><br>
+  <b>Schedule: </b><%= @risk_schedule %><br/><br>
+  <b>Technical: </b><%= @risk_technical %><br/><br/>
+  <b>Critical Path: </b><%= @risk.critical_path %><br/><br>
+  <b>Triggers: </b><%= @risk.triggers %><br/><br>
+  <b>WBS Spec: </b><%= @risk.wbs_spec %><br/><br>
+  <b>Type: </b><%= @risk.risk_type %><br/><br>
     </td>
     <td>
-	<table id="risk_matrix" style="width:200px;">
-	<tr>
-  	<td rowspan="3" style="text-align:center;width: 1em; font-weight:bold; letter-spacing:5px;"> P r o b a b i l i t y </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_31"><%= @project.probability_impact_31 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_32"><%= @project.probability_impact_32 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_33"><%= @project.probability_impact_33 %> </td>
-	</tr>
-	<tr>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_21"><%= @project.probability_impact_21 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_22"><%= @project.probability_impact_22 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_23"><%= @project.probability_impact_23 %> </td>
-	</tr>
-	<tr>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_11"><%= @project.probability_impact_11 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_12"><%= @project.probability_impact_12 %> </td>
-  	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_13"><%= @project.probability_impact_13 %> </td>
-	</tr>
-	<tr>
-	<td colspan="4" style="text-align:center;font-weight:bold">I m p a c t</td>	
-	</tr>
-	</table>
-	<b>Description: </b><%= @risk.description %> <br/><br/>
-	<b>Root Cause: </b><%= @risk.root_cause %><br/><br/>
-	<b>Mitigation: </b><%= @risk.mitigation %><br/><br/>
-	<b>Contingency: </b><%= @risk.contingency %><br/><br/>
-	<b>Comments: </b><%= @risk.comment %><br/><br/>
+  <table id="risk_matrix" style="width:200px;">
+  <tr>
+    <td rowspan="3" style="text-align:center;width: 1em; font-weight:bold; letter-spacing:5px;"> P r o b a b i l i t y </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_31"><%= @project.probability_impact_31 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_32"><%= @project.probability_impact_32 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_33"><%= @project.probability_impact_33 %> </td>
+  </tr>
+  <tr>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_21"><%= @project.probability_impact_21 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_22"><%= @project.probability_impact_22 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_23"><%= @project.probability_impact_23 %> </td>
+  </tr>
+  <tr>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_11"><%= @project.probability_impact_11 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_12"><%= @project.probability_impact_12 %> </td>
+    <td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_13"><%= @project.probability_impact_13 %> </td>
+  </tr>
+  <tr>
+  <td colspan="4" style="text-align:center;font-weight:bold">I m p a c t</td>
+  </tr>
+  </table>
+  <b>Description: </b><%= @risk.description %> <br/><br/>
+  <b>Root Cause: </b><%= @risk.root_cause %><br/><br/>
+  <b>Mitigation: </b><%= @risk.mitigation %><br/><br/>
+  <b>Contingency: </b><%= @risk.contingency %><br/><br/>
+  <b>Comments: </b><%= @risk.comment %><br/><br/>
     </td>
 </tr>
   </table>
@@ -95,8 +95,8 @@ window.onload = function setColors() {
 <span style="font-weight:bold">Comment Log:</span>
 <table class="table table-striped" id="logs">
     <tr>
-    <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %></th>
-    <th><%= link_to "Date", risk_index_path(params[:pid], :sort => "date") %></th>
+    <th><%="User"%></th>
+    <th><%="Date"%></th>
     <th><%= "Comment History" %></th>
     </tr>
            <%= render 'comment_log', {:risk => @risk} -%>
@@ -105,9 +105,9 @@ window.onload = function setColors() {
 <span style="font-weight:bold">Log:</span>
 <table class="table table-striped" id="logs">
     <tr>
-    <th><%= link_to "User", risk_index_path(params[:pid], :sort => "user") %> </th>
-    <th><%= link_to "Date", risk_index_path(params[:pid], :sort => "user") %></th>
-    <th><%= link_to "Field Modified", risk_index_path(params[:pid], :sort => "field_modified") %></th>
+    <th><%= "User"%> </th>
+    <th><%="Date" %></th>
+    <th><%= "Field Modified"%></th>
     <th><%= "Old Value"%></th>
     <th><%= "New Value"%></th>
     </tr>
