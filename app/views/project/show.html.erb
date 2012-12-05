@@ -27,16 +27,22 @@ window.onload = function setColors() {
 </script>
 <% if @project.status == "active" and (@project.owner == @user or @user.admin?)%><%= button_to "+ Edit Project", edit_project_path(params[:pid]), :class => 'btn btn-info', :method => :get %>
 <% end %>
-<%= button_to "+ Add New Risk", new_risk_path(@project.id), :class => 'btn btn-info', :method => :get %>
+<%= button_to "+ Create New Risk", new_risk_path(@project.id), :class => 'btn btn-info', :method => :get %>
 <%= button_to "+ Display Associated Risks", risk_index_path(@project.id), :class=> 'btn btn-info', :method => :get %>
-Name: <%= @project.name %><br/>
-Prefix: <%= @project.prefix %><br/>
-Description <%= @project.description %><br/>
-Owner: <%= @project.owner.username %><br/>
-Risk Matrix:
-<table id="risk_matrix" style="width:200px;">
+<table class="show_matrix">
+  <tr>
+    <td><b>Name: </b><%= @project.name %></td>
+    <td><b>Risk Matrix: </b></td>
+  </tr>
+  <tr>
+    <td><b>Prefix: </b><%= @project.prefix %><br/>
+	<b>Owner: </b><%= @project.owner.username %><br/>
+	<b>Description: </b><%= @project.description %>
+   </td>
+    <td>
+	<table id="risk_matrix" style="width:200px;">
 <tr>
-  <td rowspan="3" style="text-align:center;width:10px;"> Probability </td>
+  <td rowspan="3" style="text-align:center;width: 1em; font-weight:bold; letter-spacing:5px;"> P r o b a b i l i t y </td>
   <td class='risk_mx' id='probability_impact_31'><%= @project.probability_impact_31 %> </td>
   <td class='risk_mx' id='probability_impact_32'><%= @project.probability_impact_32 %> </td>
   <td class='risk_mx' id='probability_impact_33'><%= @project.probability_impact_33 %> </td>
@@ -52,10 +58,14 @@ Risk Matrix:
   <td class='risk_mx' id='probability_impact_13'><%= @project.probability_impact_13 %> </td>
 </tr>
 <tr>
-<td colspan="3" style="text-align:center">Impact</td>
+<td colspan="4" style="text-align:center; font-weight:bold">Impact</td>
 </tr>
 </table>
-<br/>
+</td>
+  </tr>
+
+</table>
+
 <table class="table table-striped">
   <th>
     <%= link_to "Members", show_project_path(@project.id, :sort => "members") %>

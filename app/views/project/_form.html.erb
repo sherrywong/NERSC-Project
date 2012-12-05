@@ -23,28 +23,17 @@
           </script>
 <div id="autosave"></div>
 <div class='editor-left'>
-  <div>
-    <div>
-    Name: <%= text_field 'project', 'name', :placeholder => "Name", :required => true %>
-    </div>
+  <table id="project_table">
+    <tr>
+    	<td>Name: </td>
+	<td><%= text_field 'project', 'name', :required => true %></td>    
+	<td style="text-align:center">Risk Matrix </td>
+    </tr>
     <%# JT - added prefix at creation time (optional)%>
-    <div>
-    Prefix: <%= text_field 'project', 'prefix', :placeholder => "Prefix", :required => true%>
-    </div>
-    <div>
-    Description: <%= text_field 'project', 'description', :placeholder => "Description", :required => true %>
-    </div>
-    <%# JT - added owner_username for owner setting at creation%>
-    <div>
-    Owner: <select name='project[owner_username]'>
-           <% for user in @users %>
-              <option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner.username == user.username %>><%= user.username %></option>
-                  <% end %>
-           </select>
-    </div>
-    <div>Risk Matrix
-      <table id="risk_mx">
-
+    <tr>
+    	<td>Prefix: </td>
+	<td><%= text_field 'project', 'prefix', :required => true%></td>
+	<td rowspan="4" style="padding-left:20px;"><table id="risk_mx">
       <% 3.downto(1).each do |p| %>
         <tr>
         <% (1..3).each do |i| %>
@@ -64,15 +53,31 @@
        Impact</td>
        </tr>
        </table>
-</div>
+	</td>
+    </tr>
+    <tr>
+    	<td>Description: </td>
+	<td><%= text_field 'project', 'description', :required => true %></td>
+    </tr>
+    <%# JT - added owner_username for owner setting at creation%>
+    <tr>
+    	<td>Owner: </td>
+	<td><select name='project[owner_username]'>
+           <% for user in @users %>
+              <option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner.username == user.username %>><%= user.username %></option>
+                  <% end %>
+           </select>
+	</td>
+    </tr>
+</table>
 <div>
     <br/>
     <% if not @new %> <%= render 'member_list' %> <% end %>
     </div>
     <br/>
+	<div style="text-align:center">
     <% if (not @user.nil?) and ((@user.admin? ) or (@project.owner == @user and @project.status == 'active'))%>
      <%= submit_tag "Save" %>
-    <% end %>
-
-  </div>
+    <% end %></div>
+  
 </div>
