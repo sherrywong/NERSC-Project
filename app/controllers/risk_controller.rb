@@ -5,10 +5,10 @@ class RiskController < ApplicationController
   before_filter :is_active_project, :only =>[:new, :edit]
 
   def make_risk_crumb
-	add_breadcrumb @project.name, show_project_path(params[:pid])
+  add_breadcrumb @project.name, show_project_path(params[:pid])
     add_breadcrumb "Risks", risk_index_path(params[:pid])
   end
-  
+
   def index
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
@@ -51,7 +51,7 @@ class RiskController < ApplicationController
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     make_risk_crumb
-	add_breadcrumb "Create New Risk", new_risk_path
+  add_breadcrumb "Create New Risk", new_risk_path
     @risk = nil
     if request.post?
       @risk = Risk.create_risk(session[:uid], params[:pid], params[:risk])
@@ -70,8 +70,8 @@ class RiskController < ApplicationController
       flash[:notice] = "That risk does not exist."
       redirect_to user_index_path
     end
-	make_risk_crumb
-	add_breadcrumb @risk.title, show_risk_path(@project.id, @risk.id)
+  make_risk_crumb
+  add_breadcrumb @risk.title, show_risk_path(@project.id, @risk.id)
     if not @risk.creator_id.nil?
       @risk_creator_username = @risk.find_username(@risk.creator_id)
       end
@@ -109,7 +109,7 @@ class RiskController < ApplicationController
     @users = User.active_users
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
-    
+
     #@risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
       @risk = Risk.find_by_id(params[:rid])
@@ -118,10 +118,10 @@ class RiskController < ApplicationController
         redirect_to risk_index_path(params[:pid])
       end
     end
-	make_risk_crumb
-	add_breadcrumb @risk.title, show_risk_path(params[:pid], params[:rid])
-	add_breadcrumb "Edit Risk", edit_risk_path(@risk.id)
-    
+  make_risk_crumb
+  add_breadcrumb @risk.title, show_risk_path(params[:pid], params[:rid])
+  add_breadcrumb "Edit Risk", edit_risk_path(@risk.id)
+
     if !@risk.owner_id.nil?
       @risk_owner_username = @risk.find_username(@risk.owner_id)
     end
@@ -148,6 +148,22 @@ class RiskController < ApplicationController
       get_current_user.reactivate_risk(params[:rid])
     end
     redirect_to risk_index_path(params[:pid]), :notice => "Risk '#{@risk.title}' reactivated."
+  end
+
+  def current_risks
+    @risks = Risk.all
+  end
+
+  def near_term_risks
+  end
+
+  def mid_term_risks
+  end
+
+  def far_term_risks
+  end
+
+  def past_risks
   end
 
 end
