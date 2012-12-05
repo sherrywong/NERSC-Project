@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 window.onload = function () {
-	if (window.location.search.length > 0) {
+	if (window.location.search.length > 0 && (window.location.href.indexOf("report") > -1)) {
 		jQuery("input.expand_bttn").each(function() {
 			jQuery(this).click();
 		});
