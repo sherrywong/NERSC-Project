@@ -78,19 +78,20 @@ Given /^a set of projects exist$/ do
   @third_project.add_members(User.find_all_by_status("active").map {|x| x.id})
 end
 
+=begin
 Given /^a set of risks exist$/ do
   #coordinators, project_id, start, end, risk_id, originator
-#  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "First Risk", "owner_id" => "admin", "description" => "Risk1 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
-#  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "Second Risk", "owner_id" => "jt", "description" => "Risk2 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
-#  Risk.create_risk(@admin_user.id, @second_project.id, {"title" => "Third Risk", "owner_id" => "admin", "description" => "Risk3 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2008-11-20", "last_impact" => "2013-10-20"})
+  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "First Risk", "owner_id" => "admin", "description" => "Risk1 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2013-11-20", "last_impact" => "2014-10-20"})
+  Risk.create_risk(@admin_user.id, @first_project.id, {"title" => "Second Risk", "owner_id" => "jt", "description" => "Risk2 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2013-11-20", "last_impact" => "2014-10-20"})
+  Risk.create_risk(@admin_user.id, @second_project.id, {"title" => "Third Risk", "owner_id" => "admin", "description" => "Risk3 for P1", "probability" => 2, "cost" => 3, "schedule" => 2, "technical" => 1, "status" => "active", "early_impact" => "2013-11-20", "last_impact" => "2014-10-20"})
 end
+=end
 
-Given /^that a risk exists with title "(.*?)", owner "(.*?)", description "(.*?)", early impact "(.*?)", and last impact "(.*?)" for project "(.*?)"$/ do |title, owner, descrip, early_impact, last_impact, project|
+Given /^that a risk exists with title "(.*?)", owner "(.*?)", early impact "(.*?)", and last impact "(.*?)" for project "(.*?)"$/ do |title, owner, early_impact, last_impact, project|
   page_name = project + "'s Add Risk page"
   visit path_to(page_name)
   select(owner, :from => "risk[owner_id]")
   fill_in("risk_title", :with => title)
-  fill_in("risk_description", :with => descrip)
   fill_in("risk_early_impact", :with => early_impact)
   fill_in("risk_last_impact", :with => last_impact)
   click_button("Save")
@@ -429,6 +430,14 @@ Then /^there should a log on field "([^"]*)" with old value "([^"]*)" and new va
   page.body.match /<tr class="info">.*\/#{field}\/.*\/#{oldV}\/.*\/#{newV}\/.*<\/tr>/
 end
 
+Then /^(?:|I )should see comment "([^"]*)" by "([^"]*)"$/ do |comment, user|
+  !!(page.body.to_s =~ /^<th>Comment History<\/th>.*<tr> <td>#{user}.*<td>#{comment}<\/tr>.*/)
+end
+
 Then /^(?:|I )should not be able to fill in "([^"]*)"$/ do |field|
   page.body.match /input id="#{field}".*type="hidden"/
+end
+
+Then /^(?:|I )should be able to expand "([^"]*)"$/ do |risk|
+  click_button("+")
 end

@@ -17,7 +17,6 @@ Background: Some projects and risks have been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-    Given a set of risks exist
 	
 Scenario: Admins can add and edit a valid risk.
     Given I am logged in as an admin
@@ -32,16 +31,16 @@ Scenario: Admins can add and edit a valid risk.
     When I select "High" from "risk[cost]"
     When I select "Medium" from "risk[schedule]"
     When I select "Low" from "risk[technical]"
-    When I fill in "risk_early_impact" with "2008-11-20"
+    When I fill in "risk_early_impact" with "2013-09-20"
     When I fill in "risk_last_impact" with "2013-10-20"
-    Then I should see "Short Title"
+    Then I should see "Strategy"
+    Then I should see "Triggers"
     Then I should see "Root Cause"
     Then I should see "Mitigation"
     Then I should see "Contingency"
     Then I should see "Critical Path"
     Then I should see "WBS Spec"
     Then I should see "Type"
-    Then I should see "Other Type"
     Then I should see "Comments"
     Then I press "Save"
     Then I should be on the risk index page for First Project

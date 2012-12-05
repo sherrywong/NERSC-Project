@@ -10,5 +10,5 @@ Background: Some projects and risks have been added to database.
     
 Scenario: Expand risks to see full report
     Given I am logged in as an admin
-    Given that a risk exists with title "Test Risk", owner "admin", description "Risk Description", early impact "2013-11-20", and last impact "2014-10-20" for project "First Project"
+    Given that a risk exists with title "Test Risk", owner "admin", early impact "2013-11-20", and last impact "2014-10-20" for project "First Project"
     Then I should be able to expand "Test Risk"
