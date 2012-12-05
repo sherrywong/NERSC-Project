@@ -189,6 +189,13 @@ width: 60px;
 height: 60px;
 border: solid 1px #000000;
 }
+
 #risk_matrix td{
 border: solid 1px;
 }
+
+.logout_div{
+	float: right;
+	padding-right: 20px;
+}
+
