@@ -9,7 +9,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :status, :in=>["active", "retired", "pending", "reject"], :message => "has to be one of either 'active', 'retired', 'pending', or 'reject'."
    validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retired"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
    validate :any_present?
-   validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
+   #validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
    validate :early_impact_precedes_last_impact
 
    belongs_to :project

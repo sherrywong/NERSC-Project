@@ -1,6 +1,3 @@
-<% @page_heading = "Risks Page" + content_tag(:div, link_to("New Risk", {:controller => 'risk', :action => 'new'}, :class => 'btn info'), :class => 'pull-right') %>
-
-
   <h1> Risks for <%= @project.name %></h1>
 
 <script type="text/javascript">
@@ -58,7 +55,7 @@ function setColors(risk_id) {
 
 <%= render_breadcrumbs %>
 
-<%= button_to "+ Add New Risk", new_risk_path(params[:pid]), :class => 'btn btn info', :method => :get%>
+<%= button_to "+ Add New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
 
 
 <table class="zebra-striped clearfix" id="risks">
