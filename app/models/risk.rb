@@ -16,6 +16,14 @@ class Risk < ActiveRecord::Base
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
 
+  def self.notification_email(risk)
+    notify_date = risk.early_impact.prev_day(risk.notification_before_early_impact)
+    if (Date.today == notify_date)
+      owner = User.find_by_id(risk.owner_id)
+      UserMailer.risk_notify(owner, risk).deliver
+    end
+  end
+
   def prefix_id
     return "#{self.project.prefix}-#{self.id}"
   end
