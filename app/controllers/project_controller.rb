@@ -4,6 +4,7 @@ class ProjectController < ApplicationController
   before_filter :project_id_matches_user, :except => [:new]
   before_filter :is_admin_or_powner, :only => [:destroy, :update, :add_members, :reactivate]
   before_filter :is_admin, :only =>[:new]
+  before_filter :is_active_project => [:edit]
 
   def index
     @user = get_current_user

@@ -45,6 +45,16 @@ class ApplicationController < ActionController::Base
     return false
   end
 
+  def is_active_project
+    if Project.find_by_id(params[:pid]).status=="retired"
+      redirect_to :controller =>"project", :action => "show", :pid => params[:pid], :notice => "Sorry, you cannot add or edit risks for a retired project."
+      return false
+    else 
+      return true
+    end
+  end
+
+
   def get_current_user
     return User.find_by_id(session[:uid])
   end
