@@ -7,5 +7,9 @@
         <td><%= version.created_at %>
         <td><%= curr_version.comment%> </td></tr>
       <% end %>
+    <% elsif !version.nil? %>
+      <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
+      <td><%= version.created_at %> </td>
+      <td><%= @risk.comment%></tr>
     <% end %>
 <% end %>
