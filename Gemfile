@@ -14,6 +14,7 @@ gem 'validates_timeliness', '~>3.0'
 
 #gem "twitter-bootstrap-rails"
 
+
 group :production do
   gem 'pg'
 end
@@ -25,10 +26,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
 
-  gem 'less-rails'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
@@ -51,12 +50,19 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'cucumber-rails', :require=>false
-  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
+  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'simplecov'
-  #gem 'railroady'		 # Used to generate UML diagrams.
 end
+
+
+
+
+
+
+
+
