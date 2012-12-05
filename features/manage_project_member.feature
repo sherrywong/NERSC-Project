@@ -36,4 +36,5 @@ Scenario: Add invalid user to project as an admin.
 Scenario: Add and delete user to project as a regular user
     Given I am logged in as Jason
     When I go to the edit project page for "First Project"
-    Then I should see "Don't have permission to edit First Project."
+    Then I should be on the project page for "First Project"
+    Then I should see "Sorry! You do not have permission to edit this project."

@@ -12,7 +12,7 @@ Scenario: Users can edit their own profile information.
     And I fill in "user_last" with "Sherry"
     And I press "Save"
     Then I should be on the home page
-    Then I should see "User Sherry Teoh was successfully updated."
+    Then I should see "User Jason Sherry was successfully updated."
 
 Scenario: User cannot edit their username or admin status.
    Given I am logged in as Jason

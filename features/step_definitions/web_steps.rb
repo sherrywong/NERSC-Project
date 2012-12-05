@@ -431,7 +431,6 @@ Then /^there should a log on field "([^"]*)" with old value "([^"]*)" and new va
 end
 
 Then /^(?:|I )should see comment "([^"]*)" by "([^"]*)"$/ do |comment, user|
-   puts page.body
    /^<th>Comment History<\/th>.*<tr> <td>#{user}.*<td>#{comment}<\/tr>.*/.match(page.body)
 end
 
