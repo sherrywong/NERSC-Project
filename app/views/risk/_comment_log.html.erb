@@ -1,6 +1,10 @@
 <% for version in @risk.versions%>
     <% previous = version.previous %>
-    <%if !version.nil? and !version.reify.nil? %>
+    <% if (version == @risk.versions.first) and !version.next.nil? %>
+      <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
+      <td><%= version.created_at %> </td>
+      <td><%= version.next.reify.comment%></tr>
+    <%elsif !version.nil? and !version.reify.nil? %>
        <%version.next.nil? ? curr_version = @risk : curr_version = version.next.reify %>
       <% if version.reify.comment != curr_version.comment%>
        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
@@ -10,6 +14,7 @@
     <% elsif !version.nil? %>
       <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
       <td><%= version.created_at %> </td>
+
       <td><%= @risk.comment%></tr>
-    <% end %>
+   <%end%>
 <% end %>

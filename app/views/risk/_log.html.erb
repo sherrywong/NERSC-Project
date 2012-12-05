@@ -180,10 +180,11 @@
         </tr>
       <% end %>
     <% elsif !version.nil? %>
-      <tr> <td><%= User.find_by_id(@risk.creator_id).username%> </td>
-      <td><%= version.created_at %> </td>
-      <td><%= "N/A" %>
-      <td><%= "N/A" %>
-      <td><%= "Created"%></tr>
+        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
+        <td><%= version.created_at %>
+        <td><%= "N/A" %>
+        <td><%= "N/A" %> </td>
+        <td><%= "Risk Created" %> </td>
+        </tr>
     <% end %>
 <% end %>
