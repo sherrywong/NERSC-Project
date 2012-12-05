@@ -7,17 +7,8 @@ Background: Some projects and risks have been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-    Given a set of risks exist
     
 Scenario: Expand risks to see full report
     Given I am logged in as an admin
-    Given that a risk exists with title "Test Risk", owner "admin", description "Risk Description", early impact "2008-11-20", and last impact "2013-10-20" for project "First Project"
-    When I press "+"
-
-    When I go to the Edit Risk page for Test Risk in the second project
-    Then I expand "Test Risk"
-    Then I should see all the details for "First Risk"
-    Given I expand "Second Risk"
-    Then I should see all the details for "Second Risk"
-    Given I expand "Third Risk"
-    Then I should see all the details for "Third Risk"
+    Given that a risk exists with title "Test Risk", owner "admin", description "Risk Description", early impact "2013-11-20", and last impact "2014-10-20" for project "First Project"
+    Then I should be able to expand "Test Risk"

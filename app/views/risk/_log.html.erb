@@ -137,11 +137,11 @@
         <td><%= version.reify.last_impact %> </td>
         <td><%= curr_version.last_impact%> </td></tr>
       <% end %>
-      <% if version.reify.type != curr_version.type%>
+      <% if version.reify.risk_type != curr_version.risk_type%>
        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
         <td><%= version.created_at %>
-        <td><%= version.reify.type %> </td>
-        <td><%= curr_version.type%> </td></tr>
+        <td><%= version.reify.risk_type %> </td>
+        <td><%= curr_version.risk_type%> </td></tr>
       <% end %>
       <% if version.reify.critical_path != curr_version.critical_path%>
        <tr> <td><%= User.find_by_id(version.whodunnit).username %>
