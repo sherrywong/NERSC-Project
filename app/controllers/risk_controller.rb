@@ -32,16 +32,15 @@ class RiskController < ApplicationController
     report = params[:report]
     case report
         when "current"
-  @risks = @project.risks
-  puts @risks
-  when "near"
-  @risks = @project.risks
-  when "mid"
-  @risks = @project.risks
-  when "far"
-  @risks = @project.risks
-  when "past"
-  @risks = @project.risks
+  	@risks = @project.risks
+  	when "near"
+  	@risks = @project.risks
+  	when "mid"
+  	@risks = @project.risks
+  	when "far"
+  	@risks = @project.risks
+  	when "past"
+  	@risks = @project.risks
     end
   end
 
