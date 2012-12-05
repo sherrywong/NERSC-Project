@@ -2,6 +2,7 @@ class RiskController < ApplicationController
   before_filter :login_required
   before_filter :project_id_matches_user
   before_filter :is_admin_or_powner_or_rowner, :only =>[:destroy, :reactivate]
+  before_filter :is_active_project, :only =>[:new, :edit]
 
   def make_risk_crumb
 	add_breadcrumb @project.name, show_project_path(params[:pid])
