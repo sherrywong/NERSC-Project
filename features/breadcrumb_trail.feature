@@ -20,14 +20,14 @@ Scenario: Go through series of pages dealing with users as an admin.
     Then I should be on the show users page
     When I follow "Home"
     Then I should be on the home page
-    When I press "+ Edit My Profile"
+    When I press "My Profile"
     When I follow "Home"
     Then I should be on the home page
 
 Scenario: Go through series of pages dealing with users as a user.
     Given I am logged in as Jason
     Then I should be on the home page
-    When I press "+ Edit My Profile"
+    When I press "My Profile"
     Then I should not see "Users"
     When I follow "Home"
     Then I should be on the home page
@@ -54,7 +54,7 @@ Scenario: Go through series of pages dealing with risks.
     When I press "+ Create New Risk"
     When I follow "Risks"
     Then I should be on the risk index page for First Project
-    When I press "+ Add New Risk"
+    When I press "+ Create New Risk"
     When I follow "First Project"
     Then I should be on the project page for "First Project"
     When I press "+ Display Associated Risks"
