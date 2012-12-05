@@ -33,15 +33,13 @@
     </select></td>
     </tr>
     <tr>
-    <td>Owner: </td><td><% if @risk.nil? or !@risk.errors.empty? %>
+    <td>Owner: </td><td>
     <select name="risk[owner_id]">
            <% for user in @users %>
               <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
                   <% end %>
            </select>
-<% else %>
-<%= text_field 'risk', 'owner_id', :value => @risk_owner_username %>
-<% end %></td>
+</td>
     </tr>
     <tr>
     <td>Notification before Early Impact <br/> (number of days):</td>
