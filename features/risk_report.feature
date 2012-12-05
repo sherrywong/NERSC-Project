@@ -7,22 +7,25 @@ Background: Some projects and risks have been added to database.
     Given a set of users exist
     Given I am logged in as an admin
     Given a set of projects exist
-    
-Scenario: Expand risks to see full report
-    Given I am logged in as an admin
     Given that a risk exists with title "Test Risk", owner "admin", early impact "2013-11-20", and last impact "2014-10-20" for project "First Project"
-    Then I should be able to expand "Test Risk"
+    When I go to the risk index page for First Project
+    
+Scenario: Expand risks to see full report for current risks
     When I select "Current Risks" from "report_select"
     And I follow "Preview"
-    When I go to the risk index page for First Project
+
+Scenario: View near term risks
     When I select "Near Term Risks" from "report_select"
     And I follow "Preview"
-    When I go to the risk index page for First Project
+
+Scenario: View mid term risks
     When I select "Mid Term Risks" from "report_select"
     And I follow "Preview"
-    When I go to the risk index page for First Project
+
+Scenario: View far term risks
     When I select "Far Term Risks" from "report_select"
     And I follow "Preview"
-    When I go to the risk index page for First Project
+
+Scenario: View far past risks
     When I select "Past Risks" from "report_select"
     And I follow "Preview"
