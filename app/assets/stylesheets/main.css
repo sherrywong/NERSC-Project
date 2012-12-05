@@ -190,6 +190,10 @@ height: 60px;
 border: solid 1px #000000;
 }
 
+#proj_risk_mx td {
+border: solid 1px;
+}
+
 #risk_matrix td{
 border: solid 1px;
 }

@@ -9,7 +9,7 @@
 
   <table id="risk_table">
     <tr>
-	<td>Title: </td>
+	<td>*Title: </td>
     	<td> <%= text_field 'risk', 'title', :required => true%> </td>
     </tr>
     <tr>
@@ -33,7 +33,7 @@
     </select></td>
     </tr>
     <tr>
-    <td>Owner: </td><td><% if @risk.nil? %>
+    <td>Owner: </td><td><% if @risk.nil? or !@risk.errors.empty? %>
     <select name="risk[owner_id]">
            <% for user in @users %>
               <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
@@ -48,11 +48,11 @@
     <td> <%= text_field 'risk', 'notification_before_early_impact' %></td>
     </tr>
     <tr>
-    	<td>Early Impact: </td>
+    	<td>*Early Impact: </td>
 	<td><%= calendar_date_select 'risk', 'early_impact', :required => true, :popup => :force %></td>
     </tr>
     <tr>
-    	<td>Last Impact: </td>
+    	<td>*Last Impact: </td>
 	<td><%= calendar_date_select 'risk', 'last_impact', :required => true, :popup => :force %></td>
     </tr>
     <tr>

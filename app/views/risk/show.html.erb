@@ -36,7 +36,7 @@ window.onload = function setColors() {
 <% end %>
 <div id="risk_info" style="position:relative">
 
-<table class="show_table">
+<table class="show_table" style="border-bottom: solid">
   <tr>
     <td><b>Title: </b> <%= @risk.title %><br/><br/>
 	<b>Owner: </b><%= @risk_owner_username %><br/>
@@ -87,7 +87,7 @@ window.onload = function setColors() {
     </td>
 </tr>
   </table>
-
+</div>
 <br>
 <span style="font-weight:bold">Comment Log:</span>
 <table class="table table-striped" id="logs">
