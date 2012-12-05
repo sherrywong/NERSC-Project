@@ -30,7 +30,7 @@ class Risk < ActiveRecord::Base
 
   def any_present?
     if %w(cost schedule technical).all?{|attr| self[attr]==0}
-      errors.add_to_base("At least one of 'cost', 'schedule', or 'technical' have to be filled in.")
+      errors.add("At least one of 'cost', 'schedule', or 'technical'", "has to be filled in.")
     end
   end
 
