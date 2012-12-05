@@ -5,39 +5,39 @@
 <div class='clearfix'>
   <table id="user_table">
     <tr>
-    	<td>First Name: </td>
+    	<td><b>First Name: </b></td>
 	<td><%= text_field 'user', 'first', :required => true%></td>
     </tr>
     <tr>
-    	<td>Last Name: </td>
+    	<td><b>Last Name: </b></td>
 	<td><%= text_field 'user', 'last', :required => true %></td>
     </tr>
     <tr>
-	<td>Username: </td>
+	<td><b>Username: </b></td>
  	<td> 	<% if @edit %>
  		<%= @user_username %><%= hidden_field_tag 'user[username]', @user_username %><br/>
   		<% else %>
     		<%= text_field 'user', 'username', :required => true %>
-  		<% end %>
+  		<% end %><br>
 	</td>
     </tr>
     <tr>
-    	<td>Email: </td>
+    	<td><b>Email: </b></td>
 	<td> <%= text_field 'user', 'email', :required => true %> </td>
     </tr>
     <tr>
-	<td>Admin: </td>
+	<td><b>Admin: </b></td>
         <td>	<% if (not @edit) or ((@current_user.admin) and @current_user!=@user) %>
     		<select name='user[admin]'>
     	            <option value="true">True</option>
     	            <option value="false">False</option>
     	       </select> <% else %>
-    		<%= @user_admin %><%= hidden_field_tag 'user[admin]', @user_admin %><br/> <% end %>
+    		<%= @user_admin %><%= hidden_field_tag 'user[admin]', @user_admin %><br/> <% end %><br>
 	</td>
     </tr>
     <% if @current_user==@user %>
     <tr>
-	<td>Password: </td>
+	<td><b>Password: </b></td>
 	<td><% if (not @edit)  %>
     	    <%= password_field 'user', 'password', :required => true %>
     	    <% elsif @curr_user %>

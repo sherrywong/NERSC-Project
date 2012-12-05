@@ -9,11 +9,11 @@
 
   <table id="risk_table">
     <tr>
-	<td>*Title: </td>
+	<td><b>Title:</b> </td>
     	<td> <%= text_field 'risk', 'title', :required => true%> </td>
     </tr>
     <tr>
-    <td>Status:</td> 
+    <td><b>Status:</b></td> 
     <td><select name="risk[status]">
        <option value="pending" <%= "selected" if @risk and @risk.status == "pending"%>>Pending</option>
        <option value="rejected" <%= "selected" if @risk and @risk.status == "rejected"%>>Rejected</option>
@@ -22,7 +22,7 @@
     </select></td>
     </tr>
     <tr>
-    <td>Strategy:</td>     
+    <td><b>Strategy:</b></td>     
     <td><select name="risk[strategy]">
        <option value="accept" <%= "selected" if @risk and @risk.strategy == "accept"%>>Accept</option>
        <option value="monitor" <%= "selected" if @risk and @risk.strategy == "monitor"%>>Monitor</option>
@@ -33,7 +33,7 @@
     </select></td>
     </tr>
     <tr>
-    <td>Owner: </td><td>
+    <td><b>Owner: </b></td><td>
     <select name="risk[owner_id]">
            <% for user in @users %>
 		<% if user.status == "active" %>
@@ -43,15 +43,15 @@
 </td>
     </tr>
     <tr>
-    <td>Notification before Early Impact <br/> (number of days):</td>
+    <td>Notification before Early Impact <br/> (Number of Days):</td>
     <td> <%= text_field 'risk', 'notification_before_early_impact' %></td>
     </tr>
     <tr>
-    	<td>*Early Impact: </td>
+    	<td><b>Early Impact: </b></td>
 	<td><%= calendar_date_select 'risk', 'early_impact', :required => true, :popup => :force %></td>
     </tr>
     <tr>
-    	<td>*Last Impact: </td>
+    	<td><b>Last Impact: </b></td>
 	<td><%= calendar_date_select 'risk', 'last_impact', :required => true, :popup => :force %></td>
     </tr>
     <tr>
@@ -67,35 +67,39 @@
 	<td><%= text_area 'risk', 'root_cause', :rows => 5%></td>
     </tr>
     <tr>
-    	<td>Probability:</td>
+    	<td><b>Probability:</b></td>
     	<td><select name="risk[probability]">
       <option value='3' <%= "selected" if @risk and @risk.probability == 3%>> High </option>
       <option value='2' <%= "selected" if @risk and @risk.probability == 2%>> Medium </option>
       <option value='1' <%= "selected" if @risk and @risk.probability == 1%>> Low </option>
+      <option value='0' <%= "selected" if @risk and @risk.probability == 0%>> N/A </option>
     </select></td>
     </tr>
     <tr>
-    	<td>Cost:</td>
+    	<td><b>Cost:</b></td>
     <td><select name="risk[cost]">
       <option value='3' <%= "selected" if @risk and @risk.cost == 3%>> High </option>
       <option value='2' <%= "selected" if @risk and @risk.cost == 2%>> Medium </option>
       <option value='1' <%= "selected" if @risk and @risk.cost == 1%>> Low </option>
+      <option value='0' <%= "selected" if @risk and @risk.cost == 0%>> N/A </option>
     </select></td>
     </tr>
     <tr>
-   	<td>Schedule:</td>
+   	<td><b>Schedule:</b></td>
     	<td><select name="risk[schedule]">
       <option value='3' <%= "selected" if @risk and @risk.schedule == 3%>> High </option>
       <option value='2' <%= "selected" if @risk and @risk.schedule == 2%>> Medium </option>
       <option value='1' <%= "selected" if @risk and @risk.schedule == 1%>> Low </option>
+      <option value='0' <%= "selected" if @risk and @risk.schedule == 0%>> N/A </option>
     </select></td>
     </tr>
     <tr>
-    	<td>Technical:</td>
+    	<td><b>Technical:</b></td>
     	<td><select name="risk[technical]">
       <option value='3' <%= "selected" if @risk and @risk.technical == 3%>> High </option>
       <option value='2' <%= "selected" if @risk and @risk.technical == 2%>> Medium </option>
       <option value='1' <%= "selected" if @risk and @risk.technical == 1%>> Low </option>
+      <option value='0' <%= "selected" if @risk and @risk.technical == 0%>> N/A </option>
     </select></td>
     </tr>
     <tr>
@@ -115,7 +119,7 @@
 	<td><%= text_field 'risk', 'wbs_spec' %></td>
     </tr>
     <tr>
-    	<td>Type: </td>
+    	<td><b>Type: </b></td>
       	<td>
 		<select name="risk[risk_type]">
  			<option value="none">None</option>

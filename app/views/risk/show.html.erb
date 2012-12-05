@@ -1,4 +1,4 @@
-<h1><center> <%= @risk.title %></center> </h1>
+<h1>Risk <%= @risk.title %></h1>
 <script type="text/javascript">
 window.onload = function setColors() {
     var full_path = window.location.pathname.split('/');
@@ -31,20 +31,36 @@ window.onload = function setColors() {
 </script>
   <p><center><%= params[:notice] %></center></p>
   <p><center><%= params[:error] %></center></p>
+  <br>
  <%= render_breadcrumbs %>
 <% if @risk.status != "retired" %><%= button_to "+ Edit Risk", edit_risk_path(params[:pid], params[:rid]), :class => 'btn btn-info', :method => :get %>
 <% end %>
+
 <div id="risk_info" style="position:relative">
 
 <table class="show_table" style="border-bottom: solid">
   <tr>
     <td><b>Title: </b> <%= @risk.title %><br/><br/>
-	<b>Owner: </b><%= @risk_owner_username %><br/>
-	<b>Creator: </b><%= @risk_creator_username %><br/>
-	<b>Status: </b><%= @risk.status %><br/>
-	<b>Strategy: </b><%= @risk.strategy %><br/>
-	<b>Risk Rating: </b><span id="frame_<%= @risk.id %>_risk_rating"><%= @risk_rating %></span><br/>
-	<b>Risk Matrix:</b>
+	<b>Owner: </b><%= @risk_owner_username %><br/><br>
+	<b>Creator: </b><%= @risk_creator_username %><br/><br>
+	<b>Status: </b><%= @risk.status %><br/><br>
+	<b>Strategy: </b><%= @risk.strategy %><br/><br>
+	<b>Risk Rating: </b><span id="frame_<%= @risk.id %>_risk_rating"><b><%= @risk_rating %></b></span><br/><br>
+	<b>Risk Matrix:</b><br>
+	<br/>
+	<b>Days to Impact: </b><%= @risk.days_to_impact %><br/><br>
+	<b>Early Impact Date: </b><%= @risk.last_impact%><br/><br>
+	<b>Last Impact Date: </b><%= @risk.early_impact %><br/><br/>
+	<b>Probability: </b><%= @risk_probability %><br/><br>
+	<b>Cost: </b><%= @risk_cost %><br/><br>
+	<b>Schedule: </b><%= @risk_schedule %><br/><br>
+	<b>Technical: </b><%= @risk_technical %><br/><br/>
+	<b>Critical Path: </b><%= @risk.critical_path %><br/><br>
+	<b>Triggers: </b><%= @risk.triggers %><br/><br>
+	<b>WBS Spec: </b><%= @risk.wbs_spec %><br/><br>
+	<b>Type: </b><%= @risk.risk_type %><br/><br>
+    </td>
+    <td>
 	<table id="risk_matrix" style="width:200px;">
 	<tr>
   	<td rowspan="3" style="text-align:center;width: 1em; font-weight:bold; letter-spacing:5px;"> P r o b a b i l i t y </td>
@@ -63,23 +79,10 @@ window.onload = function setColors() {
   	<td class='risk_mx' id="risk_<%= @risk.id%>_probability_impact_13"><%= @project.probability_impact_13 %> </td>
 	</tr>
 	<tr>
-	<td colspan="4" style="text-align:center;font-weight:bold">Impact</td>	
+	<td colspan="4" style="text-align:center;font-weight:bold">I m p a c t</td>	
 	</tr>
 	</table>
-	<br/>
-	<b>Days to Impact: </b><%= @risk.days_to_impact %><br/>
-	<b>Early Impact Date: </b><%= @risk.last_impact%><br/>
-	<b>Last Impact Date: </b><%= @risk.early_impact %><br/><br/>
-	<b>Probability: </b><%= @risk_probability %><br/>
-	<b>Cost: </b><%= @risk_cost %><br/>
-	<b>Schedule: </b><%= @risk_schedule %><br/>
-	<b>Technical: </b><%= @risk_technical %><br/><br/>
-	<b>Critical Path: </b><%= @risk.critical_path %><br/>
-	<b>Triggers: </b><%= @risk.triggers %><br/>
-	<b>WBS Spec: </b><%= @risk.wbs_spec %><br/>
-	<b>Type: </b><%= @risk.risk_type %><br/>
-    </td>
-    <td><b>Description: </b><%= @risk.description %> <br/><br/>
+	<b>Description: </b><%= @risk.description %> <br/><br/>
 	<b>Root Cause: </b><%= @risk.root_cause %><br/><br/>
 	<b>Mitigation: </b><%= @risk.mitigation %><br/><br/>
 	<b>Contingency: </b><%= @risk.contingency %><br/><br/>
