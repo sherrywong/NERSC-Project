@@ -17,15 +17,15 @@ Scenario: Cannot add a user if the user email address is invalid
     And I select "False" from "user[admin]"
     And I fill in "user_password" with "tu"
     And I press "Save"
-    Then I should be on the show users page
-    And I should see "Error occured when trying to create this user. Please make sure you have entered a valid email address and the username has not been taken."    
+    Then I should be on the Add New User page
+    And I should see "Email is not a valid e-mail address"    
 
 Scenario: Can add a user with a valid email address
     Given I am logged in as an admin
     And I go to the show users page
     And I go to the Add New User page
     And I fill in "user_username" with "Starfish"
-    And I fill in "user_email" with "a.agmail.com"
+    And I fill in "user_email" with "a@gmail.com"
     And I fill in "user_first" with "Temp"
     And I fill in "user_last" with "User"
     And I select "False" from "user[admin]"

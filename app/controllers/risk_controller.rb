@@ -29,7 +29,22 @@ class RiskController < ApplicationController
         @risks = @project.risks
     end
     # @risks = @project.risks
+    report = params[:report]
+    case report
+        when "current"
+	@risks = @project.risks
+	puts @risks
+	when "near"
+	@risks = @project.risks
+	when "mid"
+	@risks = @project.risks
+	when "far"
+	@risks = @project.risks
+	when "past"
+	@risks = @project.risks
+    end
   end
+  
 
   def new
     @users = User.active_users

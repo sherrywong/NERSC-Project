@@ -32,8 +32,8 @@ Scenario: Admin cannot create a user with an existing username.
     And I select "False" from "user[admin]"
     And I fill in "user_password" with "tu"
     And I press "Save"
-    Then I should be on the show users page
-    Then there should be this message: "Error: This uesrname already exists. Please create another username and try again."
+    Then I should be on the Add New User page
+    Then there should be this message: "Username has already been taken"
 
 Scenario: Non-admin cannot create a user.
     Given I am logged in as Jason
@@ -45,7 +45,7 @@ Scenario: Admin can edit a user.
    When I go to ag's Edit User page
    And I fill in "user_first" with "Sherry"
    And I press "Save"
-   Then I should be on the home page
+   Then I should be on the show users page
    Then I should see "User Sherry Govinthasamy was successfully updated."
 
 Scenario: Admin cannot edit a username.

@@ -32,7 +32,7 @@ Scenario: Admins can add and edit a valid risk.
     When I select "Medium" from "risk[schedule]"
     When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2013-09-20"
-    When I fill in "risk_last_impact" with "2013-10-20"
+    When I fill in "risk_last_impact" with "2014-10-20"
     Then I should see "Strategy"
     Then I should see "Triggers"
     Then I should see "Root Cause"
@@ -58,8 +58,8 @@ Scenario: Project owners can add and edit a valid risk.
     When I fill in "risk_title" with "Test Risk"
     When I select "lz" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk"
-    When I fill in "risk_early_impact" with "2008-11-20"
-    When I fill in "risk_last_impact" with "2013-10-20"
+    When I fill in "risk_early_impact" with "2013-11-20"
+    When I fill in "risk_last_impact" with "2015-10-20"
     Then I press "Save"
     Then I should be on the risk index page for Second Project
     Then there should be this message: "Risk 'P2 Test Risk' created."
@@ -75,8 +75,8 @@ Scenario: Project members can add and edit a valid risk.
     When I fill in "risk_title" with "Test Risk2"
     When I select "jt" from "risk[owner_id]"
     When I fill in "risk_description" with "P2 Test Risk2"
-    When I fill in "risk_early_impact" with "2008-11-20"
-    When I fill in "risk_last_impact" with "2013-10-20"
+    When I fill in "risk_early_impact" with "2013-11-20"
+    When I fill in "risk_last_impact" with "2015-10-20"
     Then I press "Save"
     Then I should be on the risk index page for Second Project
     Then there should be this message: "Risk 'P2 Test Risk2' created."
@@ -96,19 +96,12 @@ Scenario: Add a risk with missing fields. #Doesn't have title.
     When I go to First Project's Add Risk page
     When I select "admin" from "risk[owner_id]"
     When I fill in "risk_description" with "Our test risk for First Project."
-    When I fill in "risk_early_impact" with "2008-11-20"
-    When I fill in "risk_last_impact" with "2013-10-20"
+    When I fill in "risk_early_impact" with "2014-11-20"
+    When I fill in "risk_last_impact" with "2015-10-20"
     Then I press "Save"
     Then I should be on First Project's Add Risk page
 
 Scenario: Admin cannot add a risk with a deactivated user as its owner
     Given I am logged in as an admin
     When I go to First Project's Add Risk page
-    When I fill in "risk_title" with "Test Risk2"
-    When I select "em" from "risk[owner_id]"
-    When I fill in "risk_description" with "P2 Test Risk2"
-    When I fill in "risk_early_impact" with "2008-11-20"
-    When I fill in "risk_last_impact" with "2013-10-20"
-    Then I press "Save"
-    Then I should be on First Project's Add Risk page
-    Then I should see "Owner cannot be a deactivated user."
+    Then I should not see "em" as an option for owner
