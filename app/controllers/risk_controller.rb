@@ -31,7 +31,7 @@ class RiskController < ApplicationController
   end
 
   def new
-    @users = User.all
+    @users = User.active_users
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
     make_risk_crumb
@@ -90,9 +90,10 @@ class RiskController < ApplicationController
   end
 
   def edit
-    @users = User.all
+    @users = User.active_users
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])
+    
     #@risk = Risk.find_by_id(params[:rid])
     if @risk.nil?
       @risk = Risk.find_by_id(params[:rid])

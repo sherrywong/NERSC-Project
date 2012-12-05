@@ -30,7 +30,7 @@
 		<select name='project[owner_username]'>
            	<% for user in @users %>
 		<% if user.status == "active" %>
-              	<option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner.username == user.username %>><%= user.username %></option><% end %>
+              	<option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner_username == user.username %>><%= user.username %></option><% end %>
                 <% end %>
            	</select>
 	<br/>*Description: <%= text_area 'project', 'description', :required => true, :rows => 5 %>
