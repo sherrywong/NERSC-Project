@@ -431,7 +431,7 @@ Then /^there should a log on field "([^"]*)" with old value "([^"]*)" and new va
 end
 
 Then /^(?:|I )should see comment "([^"]*)" by "([^"]*)"$/ do |comment, user|
-  !!(page.body.to_s =~ /^<th>Comment History<\/th>.*<tr> <td>#{user}.*<td>#{comment}<\/tr>.*/)
+   /^<th>Comment History<\/th>.*<tr> <td>#{user}.*<td>#{comment}<\/tr>.*/.match(page.body)
 end
 
 Then /^(?:|I )should not be able to fill in "([^"]*)"$/ do |field|

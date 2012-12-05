@@ -16,4 +16,3 @@ Scenario: Admins can add and edit a valid risk.
     Then I fill in "risk_comment" with "Risk created."
     Then I press "Save"
     Then I should see comment "Risk created." by "admin"
-    Then I should see comment "fdsfdsfdfds" by "admin"
