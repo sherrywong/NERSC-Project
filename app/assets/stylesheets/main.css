@@ -174,7 +174,9 @@ width: 10px;
 .show_matrix td{
 border:none;
 }
-
+.show_matrix tr{
+height:1%;
+}
 .risk_menu {
 border:solid 1px #000000;
 width: 55px;
