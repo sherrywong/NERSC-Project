@@ -27,12 +27,14 @@
     <div class="navbar-inner">
     <a class="brand" href="/user/index">NERSC Risk Tracker</a>
 	<!-- Logout button btn btn-inverse-->
-	<div id="logo" class = "logout_div">
-	<% if session[:uid]%>
-    <!-- Working on My Profile button <%= button_to "My Profile", {:controller=>'user', :action=> 'edit', :id => session[:uid]}, :class => 'btn btn-inverse', :method => :get%> -->
-	<%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
-	<% end %>
-	</div>
+    <% if session[:uid]%>
+        <div id="logo" class = "navbar_right_div">
+            <%= button_to "logout", {:controller =>'user', :action => 'logout'}, :class=>'btn btn-inverse', :method => :get%>
+        </div>
+        <div id = "myprofile" class = "navbar_right_div">
+            <%= button_to "My Profile", {:controller=>'user', :action=> 'edit', :id => session[:uid]}, :class => 'btn btn-inverse', :method => :get%>
+        </div>
+    <% end %>
     </div>
     </div>
 
