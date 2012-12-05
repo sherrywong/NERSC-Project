@@ -67,7 +67,7 @@ class UserController < ApplicationController
     @curr_user = (params[:id].to_s == session[:uid].to_s)
     @user = User.find_by_id(params[:id])
 
-    add_breadcrumb "Users", show_users_path if @user.admin
+    add_breadcrumb "Users", show_users_path if @current_user.admin
 	add_breadcrumb "#{@user.username}", edit_user_path(@user.id)
 
     @user_username = @user.username
