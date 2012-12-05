@@ -33,15 +33,6 @@ Scenario: Admins can add and edit a valid risk.
     When I select "Low" from "risk[technical]"
     When I fill in "risk_early_impact" with "2013-09-20"
     When I fill in "risk_last_impact" with "2014-10-20"
-    Then I should see "Strategy"
-    Then I should see "Triggers"
-    Then I should see "Root Cause"
-    Then I should see "Mitigation"
-    Then I should see "Contingency"
-    Then I should see "Critical Path"
-    Then I should see "WBS Spec"
-    Then I should see "Type"
-    Then I should see "Comments"
     Then I press "Save"
     Then I should be on the risk index page for First Project
     Then there should be this message: "Risk 'Test Risk' created."
@@ -54,14 +45,7 @@ Scenario: Admins can add and edit a valid risk.
 
 Scenario: Project owners can add and edit a valid risk.
     Given I am logged in as Jason
-    When I go to Second Project's Add Risk page
-    When I fill in "risk_title" with "Test Risk"
-    When I select "lz" from "risk[owner_id]"
-    When I fill in "risk_description" with "P2 Test Risk"
-    When I fill in "risk_early_impact" with "2013-11-20"
-    When I fill in "risk_last_impact" with "2015-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Second Project
+    Given that a risk exists with title "Test Risk", owner "lz", early impact "2013-11-20", and last impact "2014-10-20" for project "Second Project"
     Then there should be this message: "Risk 'P2 Test Risk' created."
     When I go to the Edit Risk page for Test Risk in the second project
     When I fill in "risk_description" with "D Changed"
@@ -71,14 +55,7 @@ Scenario: Project owners can add and edit a valid risk.
 
 Scenario: Project members can add and edit a valid risk.
     Given I am logged in as Linda
-    When I go to Second Project's Add Risk page
-    When I fill in "risk_title" with "Test Risk2"
-    When I select "jt" from "risk[owner_id]"
-    When I fill in "risk_description" with "P2 Test Risk2"
-    When I fill in "risk_early_impact" with "2013-11-20"
-    When I fill in "risk_last_impact" with "2015-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Second Project
+    Given that a risk exists with title "Test Risk2", owner "jt", early impact "2013-11-20", and last impact "2014-10-20" for project "Second Project"
     Then there should be this message: "Risk 'P2 Test Risk2' created."
     When I go to the Edit Risk page for Test Risk2 in the second project
     When I fill in "risk_description" with "D Changed"

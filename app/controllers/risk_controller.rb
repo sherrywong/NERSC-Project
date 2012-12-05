@@ -31,17 +31,16 @@ class RiskController < ApplicationController
     # @risks = @project.risks
     report = params[:report]
     case report
-        when "current"
-  @risks = @project.risks
-  puts @risks
-  when "near"
-  @risks = @project.risks
-  when "mid"
-  @risks = @project.risks
-  when "far"
-  @risks = @project.risks
-  when "past"
-  @risks = @project.risks
+      when "current"
+      @risks = current_risks
+      when "near"
+      @risks = near_term_risks
+      when "mid"
+      @risks = mid_term_risks
+      when "far"
+      @risks = far_term_risks
+      when "past"
+      @risks = past_risks
     end
   end
 
@@ -155,7 +154,7 @@ class RiskController < ApplicationController
     date = Date.today
     curr_risks = []
     for risk in @risks
-      if (risk.early_impact < date) and (risk.late_impact > date)
+      if (risk.early_impact <= date) and (risk.last_impact >= date)
         curr_risks << risk
       end
     end
@@ -167,7 +166,7 @@ class RiskController < ApplicationController
     date = Date.today
     near_risks = []
     for risk in @risks
-      if (date-risk.early_impact).numerator <= 30
+      if (risk.early_impact-date).numerator <= 30
         near_risks << risk
       end
     end
@@ -179,7 +178,7 @@ class RiskController < ApplicationController
     date = Date.today
     mid_risks = []
     for risk in @risks
-      diff = date-risk.early_impact
+      diff = risk.early_impact-date
       if (diff.numerator >= 30) and (diff.numerator <= 120)
         mid_risks << risk
       end
@@ -192,8 +191,8 @@ class RiskController < ApplicationController
     date = Date.today
     far_risks = []
     for risk in @risks
-      diff = date-risk.early_impact
-      if (diff.numerator <= 120)
+      diff = risk.early_impact-date
+      if (diff.numerator >= 120)
         far_risks << risk
       end
     end
@@ -205,7 +204,7 @@ class RiskController < ApplicationController
     date = Date.today
     past_risks = []
     for risk in @risks
-      diff = date-risk.late_impact
+      diff = date-risk.last_impact
       if risk.status == "active" and (diff.numerator > 0)
         past_risks << risk
       end
