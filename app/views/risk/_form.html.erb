@@ -36,7 +36,8 @@
     <td>Owner: </td><td>
     <select name="risk[owner_id]">
            <% for user in @users %>
-              <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
+		<% if user.status == "active" %>
+              <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option><% end %>
                   <% end %>
            </select>
 </td>
