@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rufus-scheduler', :require => "rufus/scheduler"
 gem 'rails', '3.2.7'
 gem 'paper_trail', '~> 2'
 gem 'yard'
