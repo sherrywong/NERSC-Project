@@ -29,6 +29,7 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+
   def remove_member(member_id)
     @pm = ProjectMembership.find_by_project_id_and_user_id(self.id, member_id)
     if @pm
@@ -50,7 +51,11 @@ class Project < ActiveRecord::Base
   end
 
   def owner_username #mostly for view.
-    owner.username
+    if owner.nil?
+        return "Owner could not be found - Please contact the database administrator for details."
+    else
+        owner.username
+    end
   end
 
 end

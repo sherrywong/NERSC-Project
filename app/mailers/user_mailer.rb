@@ -11,6 +11,6 @@ class UserMailer < ActionMailer::Base
     @risk_owner = risk_owner
     @risk = risk
     @url = risk_index_path(@risk.id)
-    mail(:to => risk_owner.email, :subject => "Notification for #{risk.name}'s Early Impact")
+    mail(:to => risk_owner.email, :subject => "Notification for #{risk.title}'s Early Impact")
   end
 end

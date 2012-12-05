@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
 #    return false if pm.nil? or pm.permission == "read"
 #    return true #otherwise
 #  end
-
+  def self.active_users
+    return User.where(:status=>"active").order(:username)
+  end
+  
   def admin?
     return self.admin
   end
@@ -40,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def inactive?
-  return !(active?)
+    return !(active?)
   end
 
   def retired?
@@ -57,7 +60,7 @@ class User < ActiveRecord::Base
 
   def create_user(user_hash) #returns user object
     @usr = User.new(user_hash)
-	@usr.save
+    @usr.save
     return @usr
   end
 
@@ -73,9 +76,12 @@ class User < ActiveRecord::Base
   def create_project(project_hash)
     new_owner = extract_owner_username(project_hash)
     @proj = Project.new(project_hash)
-    @proj.save
-    if @proj.errors.empty?
-      @proj.owner=new_owner
+    if new_owner.inactive?
+      @proj.errors("Owner", "cannot be a deactivated user.")
+    end  
+    if @proj.errors.empty? and @proj.save
+      @proj.owner= new_owner
+      #@proj.add_members([]<<@proj.owner.id)
     end
     return @proj #check @proj.errors
   end
@@ -84,6 +90,7 @@ class User < ActiveRecord::Base
     @proj = project
     new_owner = extract_owner_username(project_hash)
     @proj.owner = new_owner
+     @proj.add_members([]<<@proj.owner.id)
     temp= @proj.update_attributes(project_hash)
     if not temp
       @proj.owner = orig_owner

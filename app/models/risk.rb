@@ -6,15 +6,23 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :probability, :cost, :schedule, :technical, :in => [3, 2, 1, 0]
    validates_numericality_of :notification_before_early_impact, :only_integer =>true, :greater_than_or_equal_to =>0, :message => "has to be a non-negative integer.", :allow_nil=>true
    validates_presence_of :title, :probability, :status, :early_impact, :last_impact, :days_to_impact, :owner_id, :project_id, :creator_id
-   validates_inclusion_of :status, :in=>["active", "retired", "pending", "rejected"], :message => "has to be one of either 'active', 'retired', 'pending', or 'reject'."
-   validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retire"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retired'."
+   validates_inclusion_of :status, :in=>["active", "retired", "pending", "rejected"], :message => "has to be one of either 'active', 'retired', 'pending', or 'rejected'."
+   validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retire"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retire'."
    validate :any_present?
-   #validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
+   validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
    validate :early_impact_precedes_last_impact
 
    belongs_to :project
    belongs_to :creator, :class_name => "User"
    belongs_to :owner, :class_name => "User"
+
+  def self.notification_email(risk)
+    notify_date = risk.early_impact.prev_day(risk.notification_before_early_impact)
+    if (Date.today == notify_date)
+      owner = User.find_by_id(risk.owner_id)
+      UserMailer.risk_notify(owner, risk).deliver
+    end
+  end
 
   def prefix_id
     return "#{self.project.prefix}-#{self.id}"
@@ -59,15 +67,27 @@ class Risk < ActiveRecord::Base
 
     def self.create_risk(uid, pid, risk_hash)
       #because user specify owner by username but our db stores a owner id
+      @added = false
       @owner = User.find_by_username(risk_hash[:owner_id])
+      @creator = User.find_by_id(uid)
       risk_hash[:owner_id] = @owner.id
       @risk = Risk.new(risk_hash)
+      if !@owner.member?(pid) and (@creator.admin? or @creator.powner?(pid))
+        owner_id = [] << @owner.id
+        Project.find_by_id(pid).add_members(owner_id)
+      elsif !@owner.member?(pid)
+        @risk.errors.add("Owner", "has to be a project member.") 
+        @added = true
+      end
+  
       @risk.creator_id = uid
       @risk.project_id = pid
       @risk.risk_rating = @risk.calculate_risk_rating
       if @risk.errors.empty?
         @risk.days_to_impact = @risk.calculate_days_to_impact
         @risk.save
+      elsif @added = true
+        Project.find_by_id(pid).remove_member(@owner.id)
       end
       return @risk
     end
@@ -76,10 +96,19 @@ class Risk < ActiveRecord::Base
       @risk = risk
       @owner = User.find_by_username(risk_hash[:owner_id])
       risk_hash[:owner_id] = @owner.id
-      @risk.update_attributes(risk_hash)
-      @risk.risk_rating = @risk.calculate_risk_rating
-      @risk.days_to_impact = @risk.calculate_days_to_impact
-      @risk.save
+      if @risk.update_attributes(risk_hash)
+        if !@owner.member?(@risk.project_id) and (user.admin? or user.powner?(@risk.project_id))
+          owner_id = [] << @owner.id
+          Project.find_by_id(@risk.project_id).add_members(owner_id)
+        elsif !@owner.member?(@risk.project_id)
+          @risk.errors.add("Owner", "has to be a project member.") 
+        end
+        if @risk.errors.empty?
+          @risk.risk_rating = @risk.calculate_risk_rating
+          @risk.days_to_impact = @risk.calculate_days_to_impact
+          @risk.save
+        end
+      end
       return @risk
     end
 end

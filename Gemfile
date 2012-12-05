@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rufus-scheduler', :require => "rufus/scheduler"
 gem 'rails', '3.2.7'
 gem 'paper_trail', '~> 2'
 gem 'yard'
@@ -13,7 +14,6 @@ gem 'validates_timeliness', '~>3.0'
 
 #gem "twitter-bootstrap-rails"
 
-
 group :production do
   gem 'pg'
 end
@@ -26,7 +26,7 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-
+  gem 'less-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails'
 end

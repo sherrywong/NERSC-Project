@@ -25,10 +25,4 @@ Scenario: Add a project with a name and prefix as an existing project.
 
 Scenario: Admin cannot add a project with a deactivated user as its owner
     When I go to the new project page
-    When I fill in "project_name" with "Test Project" 
-    And I fill in "project_prefix" with "test"
-    And I fill in "project_description" with "Project 4"
-    And I select "em" from "project[owner_username]"
-    Then I press "Save" 
-    Then I should be on the new project page
-    Then there should be this message: "Owner cannot be a deactivated user."
+    Then I should not see "em" as an option for owner

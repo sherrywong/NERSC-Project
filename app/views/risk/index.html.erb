@@ -69,7 +69,7 @@ function setColors(risk_id) {
 <p><center><%= flash[:notice] %></center></p>
 <p><center><%= params[:notice] %></center></p>
 <p><center><%= params[:error] %></center></p>
-
+<br>
 <%= render_breadcrumbs %>
 
 <%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>

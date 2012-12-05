@@ -39,7 +39,7 @@ class ProjectController < ApplicationController
 
   def new
 	add_breadcrumb "Create New Project", project_new_path
-    @users = User.all
+    @users = User.active_users
     @user = get_current_user
     @new = true
     if request.post?
@@ -53,7 +53,7 @@ class ProjectController < ApplicationController
 
 
   def edit
-    @users = User.all
+    @users = User.active_users
     @new = false
     @user = get_current_user
     @project = Project.find_by_id(params[:pid])

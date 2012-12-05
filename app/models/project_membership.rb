@@ -23,7 +23,12 @@ class ProjectMembership < ActiveRecord::Base
   end
 
   def self.owner_of_project(project)
-    owner_membership_of_project(project).user
+    temp = owner_membership_of_project(project)
+    if temp.nil?
+        return temp
+    else
+        return temp.user
+    end
   end
 
   def self.set_owner_of_project(project, new_owner)
