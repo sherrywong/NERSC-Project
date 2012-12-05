@@ -80,7 +80,8 @@ class User < ActiveRecord::Base
       @proj.errors("Owner", "cannot be a deactivated user.")
     end  
     if @proj.errors.empty? and @proj.save
-      @proj.owner=new_owner
+      @proj.owner= new_owner
+      #@proj.add_members([]<<@proj.owner.id)
     end
     return @proj #check @proj.errors
   end
@@ -89,6 +90,7 @@ class User < ActiveRecord::Base
     @proj = project
     new_owner = extract_owner_username(project_hash)
     @proj.owner = new_owner
+     @proj.add_members([]<<@proj.owner.id)
     temp= @proj.update_attributes(project_hash)
     if not temp
       @proj.owner = orig_owner

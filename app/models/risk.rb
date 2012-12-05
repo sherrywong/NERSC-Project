@@ -66,7 +66,7 @@ class Risk < ActiveRecord::Base
       if !@owner.member?(pid) and (@creator.admin? or @creator.powner?(pid))
         owner_id = [] << @owner.id
         Project.find_by_id(pid).add_members(owner_id)
-      elsif !@owner.member?(risk.project_id)
+      elsif !@owner.member?(@risk.project_id)
         @risk.errors.add("Owner", "has to be a project member.") 
       end
   
@@ -90,7 +90,7 @@ class Risk < ActiveRecord::Base
         if !@owner.member?(risk.project_id) and (user.admin? or user.powner?(risk.project_id))
           owner_id = [] << @owner.id
           Project.find_by_id(risk.project_id).add_members(owner_id)
-        elsif !@owner.member?(risk.project_id)
+        elsif !@owner.member?(@risk.project_id)
           @risk.errors.add("Owner", "has to be a project member.") 
         end
         if @risk.errors.empty?
