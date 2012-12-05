@@ -9,7 +9,7 @@ class Risk < ActiveRecord::Base
    validates_inclusion_of :status, :in=>["active", "retired", "pending", "rejected"], :message => "has to be one of either 'active', 'retired', 'pending', or 'rejected'."
    validates_inclusion_of :strategy, :in=>["accept", "monitor", "mitigate", "transfer", "avoid", "retire"], :message => "has to be one of either 'accept', 'monitor', 'mitigate', 'transfer', 'avoid', or 'retire'."
    validate :any_present?
-   #validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
+   validates_date :early_impact, :last_impact, :on_or_after => lambda {Date.current}, :message => "cannot be before today."
    validate :early_impact_precedes_last_impact
 
    belongs_to :project
@@ -59,6 +59,7 @@ class Risk < ActiveRecord::Base
 
     def self.create_risk(uid, pid, risk_hash)
       #because user specify owner by username but our db stores a owner id
+      @added = false
       @owner = User.find_by_username(risk_hash[:owner_id])
       @creator = User.find_by_id(uid)
       risk_hash[:owner_id] = @owner.id
@@ -66,8 +67,9 @@ class Risk < ActiveRecord::Base
       if !@owner.member?(pid) and (@creator.admin? or @creator.powner?(pid))
         owner_id = [] << @owner.id
         Project.find_by_id(pid).add_members(owner_id)
-      elsif !@owner.member?(@risk.project_id)
+      elsif !@owner.member?(pid)
         @risk.errors.add("Owner", "has to be a project member.") 
+        @added = true
       end
   
       @risk.creator_id = uid
@@ -76,7 +78,7 @@ class Risk < ActiveRecord::Base
       if @risk.errors.empty?
         @risk.days_to_impact = @risk.calculate_days_to_impact
         @risk.save
-      else
+      elsif @added = true
         Project.find_by_id(pid).remove_member(@owner.id)
       end
       return @risk
