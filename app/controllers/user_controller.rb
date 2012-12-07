@@ -15,11 +15,13 @@ class UserController < ApplicationController
     end
     case sort
       when "title"
-        @projects.sort_by { |project| project.name }
+        @projects = @projects.sort_by { |project| project.name }
+      when "prefix"
+        @projects = @projects.sort_by { |project| project.prefix }
       when "owner"
-        @projects.sort_by { |project| project.owner_username }
+        @projects = @projects.sort_by { |project| project.owner_username }
       when "status"
-        @projects.sort_by { |project| project.status}
+        @projects = @projects.sort_by { |project| project.status}
      end
   end
 
