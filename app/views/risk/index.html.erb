@@ -7,7 +7,13 @@ window.onload = function () {
 			jQuery(this).click();
 		});
 		var data = jQuery('#risks').html();
-		jQuery('body').html(data);
+		jQuery('.navbar navbar-fixed-top navbar-inverse').hide();
+		jQuery('.navbar-inner').hide();
+		jQuery('.brand').hide();
+		jQuery('#logo').hide();
+		jQuery('#myprofile').hide();
+		jQuery('.breadcrumb').hide();
+		jQuery('#add_risk_btn').hide();
 	}
 }
 function setReport() {
@@ -71,15 +77,15 @@ function setColors(risk_id) {
 <br>
 <%= render_breadcrumbs %>
 
-<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
+<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get, :id => 'add_risk_btn'%>
 <br/>
 Generate Report:
 <select id="report_select" onchange="setReport();">
-  <option value="current">Current Risks</option>
-  <option value="near">Near Term Risks</option>
-  <option value="mid">Mid Term Risks</option>
-  <option value="far">Far Term Risks</option>
-  <option value="past">Past Risks</option>
+  <option value="current" <%= "selected" if params[:report] == "current" %>>Current Risks</option>
+  <option value="near" <%= "selected" if params[:report] == "near" %>>Near Term Risks</option>
+  <option value="mid" <%= "selected" if params[:report] == "mid" %>>Mid Term Risks</option>
+  <option value="far" <%= "selected" if params[:report] == "far" %>>Far Term Risks</option>
+  <option value="past" <%= "selected" if params[:report] == "past" %>>Past Risks</option>
 </select><%= link_to "  Preview", risk_index_path(params[:pid], :report => "current"), :target => "_blank", :id=>"report" %>
 
 <table class="zebra-striped clearfix" id="risks">

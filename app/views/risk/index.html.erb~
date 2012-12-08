@@ -2,23 +2,19 @@
 
 <script type="text/javascript">
 window.onload = function () {
-<<<<<<< HEAD
-  if (window.location.search.length > 0 && window.location.search.contains("report")) {
-    jQuery("input.expand_bttn").each(function() {
-      jQuery(this).click();
-    });
-    var data = jQuery('#risks').html();
-    jQuery('body').html(data);
-  }
-=======
 	if (window.location.search.length > 0 && (window.location.href.indexOf("report") > -1)) {
 		jQuery("input.expand_bttn").each(function() {
 			jQuery(this).click();
 		});
 		var data = jQuery('#risks').html();
-		jQuery('body').html(data);
+		jQuery('.navbar navbar-fixed-top navbar-inverse').hide();
+		jQuery('.navbar-inner').hide();
+		jQuery('.brand').hide();
+		jQuery('#logo').hide();
+		jQuery('#myprofile').hide();
+		jQuery('.breadcrumb').hide();
+		jQuery('#add_risk_btn').hide();
 	}
->>>>>>> b2aeeb6189625a9c8ebb7a2d1b59821644b90898
 }
 function setReport() {
   var report_str = jQuery('#report_select').val();
@@ -81,11 +77,11 @@ function setColors(risk_id) {
 <br>
 <%= render_breadcrumbs %>
 
-<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
+<%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get, :id => 'add_risk_btn'%>
 <br/>
 Generate Report:
 <select id="report_select" onchange="setReport();">
-  <option value="current">Current Risks</option>
+  <option value="current" <%= "selected" if params[:report] == "current" %>>Current Risks</option>
   <option value="near">Near Term Risks</option>
   <option value="mid">Mid Term Risks</option>
   <option value="far">Far Term Risks</option>
