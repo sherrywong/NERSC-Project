@@ -17,6 +17,7 @@ Scenario: Admin can create a user.
     And I select "False" from "user[admin]"
     And I fill in "user_password" with "tu"
     And I press "Save"
+    And "a.a@gmail.com" should receive an email
     Then I should be on the show users page
     Then there should be this message: "User 'Temp User' created."
     And I should see "Starfish"

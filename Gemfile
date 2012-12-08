@@ -60,4 +60,5 @@ group :test, :development do
   gem 'sqlite3'
   gem 'simplecov'
   gem 'railroady'
+  gem 'email_spec'
 end

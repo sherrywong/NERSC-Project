@@ -1,0 +1,44 @@
+<% for risk in @risks %>
+  <tr>
+    <td class="expand_btn" >
+      <input type="button" name="expand_btn" value="+" onclick="changeForm(<%= risk.project_id %>, 'frame_<%= risk.id%>');" id="button_<%= risk.id %>"/>
+    </td>
+    <td>
+      <%= risk.prefix_id %>
+    </td>
+    <td>
+      <%= link_to risk.title, show_risk_path(params[:pid], risk.id) %>
+    </td>
+    <td>
+      <%= risk.owner.username %>
+    </td>
+    <td>
+      <%= risk.risk_rating %>
+    </td>
+    <td>
+      <%= risk.early_impact %>
+    </td>
+    <td>
+      <%= risk.last_impact %>
+    </td>
+    <td class='last'>
+      <%= risk.status %>
+    </td>
+  <% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "active" %>
+    <td><%= link_to "X", destroy_risk_path(params[:pid], :rid => risk.id)-%></td>
+  <% else %>
+    <td><%= 'N/A' %>
+  <% end %>
+  <% if (risk.owner_id == @user.id or @user.admin?) and risk.status == "retired" %>
+    <td><%= link_to "X", reactivate_risk_path(params[:pid], :rid => risk.id)-%></td>
+  <% else %>
+    <td><%= 'N/A' %>
+  <% end %>
+  </tr>
+  <tr>
+    <td colspan="10">
+  <div id="frame_<%= risk.id %>" style="display:none" >
+  </div>
+</td>
+  </tr>
+<% end %>

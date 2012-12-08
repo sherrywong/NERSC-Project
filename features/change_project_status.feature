@@ -15,6 +15,10 @@ Scenario: Admins can deactivate and activate a project.
     Then I should be on the home page
     And I should see "Project 'First Project' deactivated."
     Then there should not be deactivate "project" for "First Project"
+    When I go to First Project's Add Risk page
+    Then I should be on the project page for "First Project"
+    Then I should see "Sorry, you cannot add or edit risks for a retired project."
+    When I go to the home page
     And I click on reactivate project for "First Project"
     Then I should be on the home page
     And I should see "Project 'First Project' reactivated."

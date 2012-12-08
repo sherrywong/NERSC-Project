@@ -438,6 +438,11 @@ Then /^(?:|I )should not be able to fill in "([^"]*)"$/ do |field|
   page.body.match /input id="#{field}".*type="hidden"/
 end
 
+Then /^an risk alert email will be sent for "([^"]*)"$/ do |risk|
+  text = "Risk '" + risk + "' created."
+  page.body.include?(text)
+end
+
 Then /^(?:|I )should be able to expand "([^"]*)"$/ do |risk|
   click_button("+")
 end

@@ -1,0 +1,77 @@
+  <% if @project!=nil%>
+   <%= render "home/shared/error_messages", :target => @project %>
+  <% end %>
+
+<script type="text/javascript">
+  window.onload = function setColors() {
+  for (var i=1; i<4; i++) {
+      for (var j=1; j<4; j++) {
+          var elem = "probability_impact_" + i + j;
+          var val = document.getElementById(elem).value;
+
+          if (val == 1) {
+            document.getElementById(elem).style.background = "green";
+            }
+          if (val == 2) {
+            document.getElementById(elem).style.background = "yellow";}
+          if (val == 3) {
+            document.getElementById(elem).style.background = "red";}
+        }
+    }
+}
+
+          </script>
+<div id="autosave"></div>
+<div class='editor-left'>
+  <table id="project_table">
+    <tr>
+    	<td>*Name: <%= text_field 'project', 'name', :required => true %>    	<br/>*Prefix: <%= text_field 'project', 'prefix', :required => true%>
+ 	<br/>*Owner: 
+		<select name='project[owner_username]'>
+           	<% for user in @users %>
+              	<option value=<%= user.username %> <%= "selected" if @project and !@project.errors.any? and @project.owner.username == user.username %>><%= user.username %></option>
+                <% end %>
+           	</select>
+	<br/>*Description: <%= text_area 'project', 'description', :required => true, :rows => 5 %>
+	</td>
+
+	<td style="text-align:center">Risk Matrix 
+    	
+	<table id="proj_risk_mx">
+	
+      <% 3.downto(1).each do |p| %>
+        <tr>
+        <% (1..3).each do |i| %>
+	  <% if p == 3 and i == 1 %>
+	  <td rowspan="3" style="text-align:center;width: 1em; font-weight: bold; letter-spacing: 5px;"> P r o b a b i l i t y </td>
+	  <% end %>
+          <td class = 'risk_cell' id="project[probability_impact_<%= p%><%= i%>]">
+             <select class='risk_menu' onchange="changeColor(this);" name = 'project[probability_impact_<%= p %><%= i %>]' id = 'probability_impact_<%= p %><%= i %>'>
+             <%# JT - changed values to 1 2 3 - database dependent information sorry for the bad style!%>
+                <option value="3" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 3"%>>High</option>
+                <option value="2" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 2"%>>Med</option>
+                <option value="1" <%= "selected" if @project and eval  "@project.probability_impact_#{p}#{i} == 1"%>>Low</option>
+             </select>
+         </td>
+        <% end %>
+        </tr>
+       <% end %>
+       <tr>
+       <td colspan="4" style="text-align:center;">
+       Impact</td>
+       </tr>
+       </table>
+	</td>
+    </tr>
+</table>
+<div>
+    <br/>
+    <% if not @new %> <%= render 'member_list' %> <% end %>
+    </div>
+    <br/>
+	<div style="text-align:center">
+    <% if (not @user.nil?) and ((@user.admin? ) or (@project.owner == @user and @project.status == 'active'))%>
+     <%= submit_tag "Save" %>
+    <% end %></div>
+  
+</div>

@@ -1,0 +1,23 @@
+<% @page_heading = "Main Page" + content_tag(:div, link_to("New Project", {:controller => 'user', :action => 'index'}, :class => 'btn info'), :class => 'pull-right') %>
+<h1> Main Page </h1>
+  <p><center><%= flash[:notice] %></center></p>
+  <p><center><%= params[:notice] %></center></p>
+  <p><center><%= params[:error] %></center></p>
+<% if @user.admin? %>
+<%= button_to "+ Manage System Users", "/user/show_users", :class => 'btn btn-info', :method => :get %>
+<%= button_to "+ Create New Project", "/user/project/new", :class => 'btn btn-info', :method => :get%>
+<% end %>
+<%= button_to "+ Edit My Profile", edit_user_path(session[:uid]), :class => 'btn btn-info', :method => :get %>
+<h2>My Projects </h2>
+<table class="table table-striped" id="projects">
+    <tr>
+    <th><%= link_to "Title", user_index_path(:sort => "title") %></th>
+    <th><%= "Description" %></th>
+    <th><%= link_to "Project Owner", user_index_path(:sort => "owner") %></th>
+    <th><%= link_to "Status", user_index_path(:sort => "status") %></th>
+    <th><%= "Deactivate?" %></th>
+    <th><%= "Reactivate?" %></th>
+    </tr>
+    <%= render 'project_list', {:projects => @projects } -%>
+</table>
+

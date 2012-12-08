@@ -10,16 +10,8 @@ Background:
 
 Scenario: Admin can deactivate and reactivate a risk. #Just member of project
     Given I am logged in as an admin
-    When I go to Third Project's Add Risk page
-    When I fill in "risk_title" with "P3 Test Risk"
-    When I select "ag" from "risk[owner_id]"
-    When I fill in "risk_description" with "P3 TR1"
-    When I fill in "risk_early_impact" with "2013-11-20"
-    When I fill in "risk_last_impact" with "2014-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Third Project
+    Given that a risk exists with title "P3 Test Risk", owner "ag", early impact "2013-11-20", and last impact "2014-10-20" for project "First Project"
     And I click on deactivate risk for "P3 Test Risk" in "Third Project"
-    Then I should be on the risk index page for Third Project
     And I should see "Risk 'P3 Test Risk' deactivated."
     Then there should not be deactivate "project" for "P3 Test Risk"
     And I click on reactivate risk for "P3 Test Risk" in "Third Project"
@@ -29,14 +21,7 @@ Scenario: Admin can deactivate and reactivate a risk. #Just member of project
 
 Scenario: Risk owners can deactivate a risk.
     Given I am logged in as Linda
-    When I go to Third Project's Add Risk page
-    When I fill in "risk_title" with "P3 Test Risk3"
-    When I select "lz" from "risk[owner_id]"
-    When I fill in "risk_description" with "P3 TR3."
-    When I fill in "risk_early_impact" with "2013-11-20"
-    When I fill in "risk_last_impact" with "2014-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Third Project
+    Given that a risk exists with title "P3 Test Risk3", owner "lz", early impact "2013-11-20", and last impact "2014-10-20" for project "Third Project"
     And I click on deactivate risk for "P3 Test Risk3" in "Third Project"
     Then I should be on the risk index page for Third Project
     And I should see "Risk 'P3 Test Risk3' deactivated."
@@ -48,14 +33,7 @@ Scenario: Risk owners can deactivate a risk.
 
 Scenario: Project owners cannot deactivate a risk.
     Given I am logged in as Sherry
-    When I go to Third Project's Add Risk page
-    When I fill in "risk_title" with "P3 Test Risk2"
-    When I select "ag" from "risk[owner_id]"
-    When I fill in "risk_description" with "P3 TR2."
-    When I fill in "risk_early_impact" with "2014-11-20"
-    When I fill in "risk_last_impact" with "2015-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Third Project
+    Given that a risk exists with title "P3 Test Risk2", owner "ag", early impact "2013-11-20", and last impact "2014-10-20" for project "Third Project"
     Then there should not be deactivate "project" for "P3 Test Risk2"
     Then there should not be reactivate "project" for "P3 Test Risk2"
 
@@ -67,14 +45,7 @@ Scenario: A project member cannot deactivate a risk.
 
 Scenario: A project member cannot deactivate a risk.
     Given I am logged in as Linda
-    When I go to Third Project's Add Risk page
-    When I fill in "risk_title" with "P3 Test Risk4"
-    When I select "ag" from "risk[owner_id]"
-    When I fill in "risk_description" with "P3 TR2."
-    When I fill in "risk_early_impact" with "2015-11-20"
-    When I fill in "risk_last_impact" with "2016-10-20"
-    Then I press "Save"
-    Then I should be on the risk index page for Third Project
+    Given that a risk exists with title "P3 Test Risk4", owner "ag", early impact "2013-11-20", and last impact "2014-10-20" for project "Third Project"
     And I click on deactivate risk for "P3 Test Risk4" in "Third Project"
     Then I should be on the risk index page for Third Project
     Then I should see "Sorry, you have to be an admin or project owner or risk owner to perform this action."

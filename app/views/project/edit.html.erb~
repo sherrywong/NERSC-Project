@@ -1,0 +1,30 @@
+<h1> <%= @project.name %> </h1>
+<% if !@user.admin and !@user == @project.owner %> <% end %>
+<%= render_breadcrumbs %>
+  <p><center><%= flash[:notice] %></center></p>
+  <p><center><%= flash[:errors] %></center></p>
+<br>
+  <input type="button" value="+" onclick="showForm();"/> Add Project Members
+
+<div id="members_form" style="display:none;">Please enter a comma-delimited list of usernames to add. <%= form_tag :controller=> 'project', :action=> 'add_members'%> <%= text_field :members, ''%><%= submit_tag "Add" %></form></div>
+
+<script type="text/javascript">
+function showForm() {
+document.getElementById('members_form').style.display = 'block';
+}
+function changeColor(cell) {
+  if (cell.value == "1") {
+      cell.style.background = "green";
+    }
+    if (cell.value == "2") {
+        cell.style.background = "yellow";
+      }
+      if (cell.value == "3") {
+          cell.style.background = "red";
+        }
+
+}
+</script>
+<%= hidden_field_tag "members_sort", true if @members_header %>
+  <%= render "home/shared/edit", { :form_type => "project", :form_action => {:action => "edit", :class => ('autosave')}} %>
+

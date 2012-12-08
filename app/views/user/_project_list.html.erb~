@@ -1,0 +1,30 @@
+<% for project in @projects %>
+  <tr class="info">
+    <td>
+      <%= link_to project.name, show_project_path(project.id) %>
+    </td>
+    <td>
+      <%= project.description %>
+    </td>
+    <td>
+      <%= project.owner_username %>
+    </td>
+    <td class='last'>
+      <%= project.status %>
+    </td>
+  <% if ((@user.admin? or project.owner == @user) and (project.status == "active")) %>
+    <td>
+      <%= link_to "X", {:controller => 'project', :action => 'destroy', :pid => project.id} -%>
+    </td>
+  <% else %>
+    <td><%= 'N/A' %></td>
+  <% end %>
+  <% if ((@user.admin? or project.owner == @user) and (project.status == "retired")) %>
+    <td>
+  <%= link_to "X", {:controller => 'project', :action => 'reactivate', :pid => project.id} -%>
+    </td>
+  <% else %>
+    <td><%= 'N/A' %></td>
+  <% end %>
+  </tr>
+<% end %>

@@ -1,0 +1,146 @@
+<div id="autosave"></div>
+
+<div class='editor-left'>
+
+  <% if @risk!=nil%>
+   <%= render "home/shared/error_messages", :target => @risk %>
+  <% end %>
+<br>
+
+  <table id="risk_table">
+    <tr>
+	<td>*Title: </td>
+    	<td> <%= text_field 'risk', 'title', :required => true%> </td>
+    </tr>
+    <tr>
+    <td>Status:</td> 
+    <td><select name="risk[status]">
+       <option value="pending" <%= "selected" if @risk and @risk.status == "pending"%>>Pending</option>
+       <option value="rejected" <%= "selected" if @risk and @risk.status == "rejected"%>>Rejected</option>
+       <option value="active" <%= "selected" if @risk and @risk.status == "active"%>>Active</option>
+       <option value="retired" <%= "selected" if @risk and @risk.status == "retired"%>>Retired</option>
+    </select></td>
+    </tr>
+    <tr>
+    <td>Strategy:</td>     
+    <td><select name="risk[strategy]">
+       <option value="accept" <%= "selected" if @risk and @risk.strategy == "accept"%>>Accept</option>
+       <option value="monitor" <%= "selected" if @risk and @risk.strategy == "monitor"%>>Monitor</option>
+       <option value="mitigate" <%= "selected" if @risk and @risk.strategy == "mitigate"%>>Mitigate</option>
+       <option value="transfer" <%= "selected" if @risk and @risk.strategy == "transfer"%>>Transfer</option>
+       <option value="avoid" <%= "selected" if @risk and @risk.strategy == "avoid"%>>Avoid</option>
+       <option value="retire" <%= "selected" if @risk and @risk.strategy == "retire"%>>Retire</option>    
+    </select></td>
+    </tr>
+    <tr>
+    <td>Owner: </td><td>
+    <select name="risk[owner_id]">
+           <% for user in @users %>
+              <option value=<%= user.username %> <%= "selected" if @risk and @risk.owner.username == user.username %>><%= user.username %></option>
+                  <% end %>
+           </select>
+</td>
+    </tr>
+    <tr>
+    <td>Notification before Early Impact <br/> (number of days):</td>
+    <td> <%= text_field 'risk', 'notification_before_early_impact' %></td>
+    </tr>
+    <tr>
+    	<td>*Early Impact: </td>
+	<td><%= calendar_date_select 'risk', 'early_impact', :required => true, :popup => :force %></td>
+    </tr>
+    <tr>
+    	<td>*Last Impact: </td>
+	<td><%= calendar_date_select 'risk', 'last_impact', :required => true, :popup => :force %></td>
+    </tr>
+    <tr>
+    	<td>Description: </td>
+	<td><%= text_area 'risk', 'description', :rows => 5, :cols => 50 %></td>
+    </tr>
+    <tr>
+    	<td>Triggers: </td>
+	<td><%= text_field 'risk', 'triggers'%></td>
+    </tr>
+    <tr>
+    	<td>Root Cause: </td>
+	<td><%= text_area 'risk', 'root_cause', :rows => 5%></td>
+    </tr>
+    <tr>
+    	<td>Probability:</td>
+    	<td><select name="risk[probability]">
+      <option value='3' <%= "selected" if @risk and @risk.probability == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.probability == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.probability == 1%>> Low </option>
+    </select></td>
+    </tr>
+    <tr>
+    	<td>Cost:</td>
+    <td><select name="risk[cost]">
+      <option value='3' <%= "selected" if @risk and @risk.cost == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.cost == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.cost == 1%>> Low </option>
+    </select></td>
+    </tr>
+    <tr>
+   	<td>Schedule:</td>
+    	<td><select name="risk[schedule]">
+      <option value='3' <%= "selected" if @risk and @risk.schedule == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.schedule == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.schedule == 1%>> Low </option>
+    </select></td>
+    </tr>
+    <tr>
+    	<td>Technical:</td>
+    	<td><select name="risk[technical]">
+      <option value='3' <%= "selected" if @risk and @risk.technical == 3%>> High </option>
+      <option value='2' <%= "selected" if @risk and @risk.technical == 2%>> Medium </option>
+      <option value='1' <%= "selected" if @risk and @risk.technical == 1%>> Low </option>
+    </select></td>
+    </tr>
+    <tr>
+    	<td>Mitigation: </td>
+	<td><%= text_area 'risk', 'mitigation', :rows => 5 %></td>
+    </tr>
+    <tr>
+    	<td>Contingency: </td>
+	<td><%= text_area 'risk', 'contingency', :rows => 5 %></td>
+    </tr>
+    <tr>
+    	<td>Critical Path: </td>
+	<td><%= text_field 'risk', 'critical_path' %></td>
+    </tr>
+    <tr>
+    	<td>WBS Spec: </td>
+	<td><%= text_field 'risk', 'wbs_spec' %></td>
+    </tr>
+    <tr>
+    	<td>Type: </td>
+      	<td>
+		<select name="risk[risk_type]">
+ 			<option value="none">None</option>
+			<option value="cost">Cost</option>
+			<option value="schedule">Schedule</option>
+			<option value="technical">Technical</option>
+			<option value="other">Other</option>
+			<option value="cost/schedule">Cost/Schedule</option>
+			<option value="cost/technical">Cost/Technical</option>
+			<option value="schedule/technical">Schedule/Technical</option>
+			<option value="cost/schedule/technical">Cost/Schedule/Technical</option>
+			<option value="producibility">Producibility</option>
+			<option value="technical/schedule">Technical/Schedule</option>
+			<option value="technical/cost">Technical/Cost</option>
+			<option value="schedule/cost">Schedule/Cost</option>
+			<option value="technical/schedule/cost">Technical/Schedule/Cost</option>
+      		</select>
+	</td>
+    </tr>
+    <tr>
+     <td>Comments:</td>
+     <td><%= text_area 'risk', 'comment', :size => "10x5"%></td>
+    </tr>
+    <br/>
+    <tr><td colspan="2" style="text-align:center">
+    <%= submit_tag "Save" %>
+    </td></tr>
+  </table>
+</div>
