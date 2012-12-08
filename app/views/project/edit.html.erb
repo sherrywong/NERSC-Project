@@ -1,7 +1,6 @@
 <h1> <%= @project.name %> </h1>
-<%= render_breadcrumbs %>
-  <p><center><%= flash[:notice] %></center></p>
   <p><center><%= flash[:errors] %></center></p>
+<%= render_breadcrumbs %>
 <br>
   <input type="button" value="+" onclick="showForm();"/> Add Project Members
 

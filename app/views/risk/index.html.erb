@@ -2,13 +2,13 @@
 
 <script type="text/javascript">
 window.onload = function () {
-  if (window.location.search.length > 0 && window.location.search.contains("report")) {
-    jQuery("input.expand_bttn").each(function() {
-      jQuery(this).click();
-    });
-    var data = jQuery('#risks').html();
-    jQuery('body').html(data);
-  }
+	if (window.location.search.length > 0 && (window.location.href.indexOf("report") > -1)) {
+		jQuery("input.expand_bttn").each(function() {
+			jQuery(this).click();
+		});
+		var data = jQuery('#risks').html();
+		jQuery('body').html(data);
+	}
 }
 function setReport() {
   var report_str = jQuery('#report_select').val();

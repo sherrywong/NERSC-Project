@@ -88,6 +88,7 @@ class User < ActiveRecord::Base
 
   def update_project(project, project_hash)
     @proj = project
+    orig_owner = project.owner
     new_owner = extract_owner_username(project_hash)
     @proj.owner = new_owner
      @proj.add_members([]<<@proj.owner.id)

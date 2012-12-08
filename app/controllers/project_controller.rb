@@ -13,6 +13,17 @@ class ProjectController < ApplicationController
     else
       @projects = @user.projects
     end
+    sort = params[:sort] || session[:sort]
+    case sort
+      when "title"
+        @projects = @projects.sort_by { |project| project.name }
+      when "prefix"
+        @projects = @projects.sort_by { |project| project.prefix }
+      when "owner"
+        @projects = @projects.sort_by { |project| project.owner_username }
+      when "status"
+        @projects = @projects.sort_by { |project| project.status}
+     end
   end
 
   def show

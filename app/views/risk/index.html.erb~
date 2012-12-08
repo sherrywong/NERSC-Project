@@ -1,29 +1,34 @@
   <h1> Risks for <%= @project.name %></h1>
 
 <script type="text/javascript">
-var loaded = false;
 window.onload = function () {
-	if (window.location.search.length > 0) {
+<<<<<<< HEAD
+  if (window.location.search.length > 0 && window.location.search.contains("report")) {
+    jQuery("input.expand_bttn").each(function() {
+      jQuery(this).click();
+    });
+    var data = jQuery('#risks').html();
+    jQuery('body').html(data);
+  }
+=======
+	if (window.location.search.length > 0 && (window.location.href.indexOf("report") > -1)) {
 		jQuery("input.expand_bttn").each(function() {
-			while (!loaded) {
-				
-			}
 			jQuery(this).click();
-			loaded = false;
 		});
 		var data = jQuery('#risks').html();
 		jQuery('body').html(data);
 	}
+>>>>>>> b2aeeb6189625a9c8ebb7a2d1b59821644b90898
 }
 function setReport() {
-	var report_str = jQuery('#report_select').val();
-	var url = jQuery('#report').attr("href");
-	jQuery('#report').attr("href", (url.substring(0,url.indexOf("report=")+7)+ report_str));
-	
+  var report_str = jQuery('#report_select').val();
+  var url = jQuery('#report').attr("href");
+  jQuery('#report').attr("href", (url.substring(0,url.indexOf("report=")+7)+ report_str));
+
 }
 
  function loadData(path, div_id) {
-    var data_id = "#" +div_id;    
+    var data_id = "#" +div_id;
     var to_load = path + " #risk_info";
     jQuery(data_id).load(to_load, function() {
     setColors(div_id.substring(div_id.indexOf("_")+1));
@@ -31,9 +36,8 @@ function setReport() {
     var val = jQuery(elem_str).text().trim();
     if (val == "High") {jQuery(elem_str).css({background: 'red'});}
     if (val == "Med") {jQuery(elem_str).css({background: 'yellow'});}
-    if (val == "Low") {jQuery(elem_str).css({background: 'green'});} 
-});  
-	loaded=true;
+    if (val == "Low") {jQuery(elem_str).css({background: 'green'});}
+});
   }
 function setColors(risk_id) {
   for (var i=1; i<4; i++) {
@@ -79,13 +83,13 @@ function setColors(risk_id) {
 
 <%= button_to "+ Create New Risk", new_risk_path(params[:pid]), :class => 'btn btn-info', :method => :get%>
 <br/>
-Generate Report: 
+Generate Report:
 <select id="report_select" onchange="setReport();">
-	<option value="current">Current Risks</option>
-	<option value="near">Near Term Risks</option>
-	<option value="mid">Mid Term Risks</option>
-	<option value="far">Far Term Risks</option>
-	<option value="past">Past Risks</option>
+  <option value="current">Current Risks</option>
+  <option value="near">Near Term Risks</option>
+  <option value="mid">Mid Term Risks</option>
+  <option value="far">Far Term Risks</option>
+  <option value="past">Past Risks</option>
 </select><%= link_to "  Preview", risk_index_path(params[:pid], :report => "current"), :target => "_blank", :id=>"report" %>
 
 <table class="zebra-striped clearfix" id="risks">

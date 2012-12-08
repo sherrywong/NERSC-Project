@@ -166,7 +166,8 @@ class RiskController < ApplicationController
     date = Date.today
     near_risks = []
     for risk in @risks
-      if (risk.early_impact-date).numerator <= 30
+      diff = (risk.early_impact-date).numerator
+      if (diff >= 0) and (diff <= 30)
         near_risks << risk
       end
     end

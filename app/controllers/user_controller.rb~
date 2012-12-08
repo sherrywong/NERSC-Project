@@ -3,6 +3,7 @@ class UserController < ApplicationController
   before_filter :is_admin, :only => [:new, :destroy, :show_users, :reactivate]
   before_filter :is_admin_or_user, :only => :edit
 
+
   autocomplete :username, :full => true
 
   def index
@@ -16,11 +17,21 @@ class UserController < ApplicationController
     if sort
     case sort
       when "title"
+<<<<<<< HEAD
         @projects = @project_list.sort_by { |project| project.name }
       when "owner"
         @projects = @project_list.sort_by { |project| project.owner_username }
       when "status"
         @projects = @project_list.sort_by { |project| project.status}
+=======
+        @projects = @projects.sort_by { |project| project.name }
+      when "prefix"
+        @projects = @projects.sort_by { |project| project.prefix }
+      when "owner"
+        @projects = @projects.sort_by { |project| project.owner_username }
+      when "status"
+        @projects = @projects.sort_by { |project| project.status}
+>>>>>>> b2aeeb6189625a9c8ebb7a2d1b59821644b90898
      end
 	
 else

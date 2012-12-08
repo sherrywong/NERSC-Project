@@ -10,23 +10,21 @@ class UserController < ApplicationController
     @user = get_current_user
     sort = params[:sort] || session[:sort]
     if @user.admin?
-      @project_list = Project.all
+      @projects = Project.all
     else
-      @project_list = @user.projects
+      @projects = @user.projects
     end
-    if sort
+    
     case sort
       when "title"
-        @projects = @project_list.sort_by { |project| project.name }
+        @projects = @projects.sort_by { |project| project.name }
+      when "prefix"
+        @projects = @projects.sort_by { |project| project.prefix }
       when "owner"
-        @projects = @project_list.sort_by { |project| project.owner_username }
+        @projects = @projects.sort_by { |project| project.owner_username }
       when "status"
-        @projects = @project_list.sort_by { |project| project.status}
+        @projects = @projects.sort_by { |project| project.status}
      end
-	
-else
-@projects = @project_list
-end
   end
 
   def show_users

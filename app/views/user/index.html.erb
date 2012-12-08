@@ -13,7 +13,7 @@
 <table class="table table-striped" id="projects">
     <tr>
     <th><%= link_to "Title", user_index_path(:sort => "title") %></th>
-    <th><%= "Prefix" %></th>
+    <th><%= link_to "Prefix", user_index_path(:sort => "prefix") %></th>
     <th><%= link_to "Project Owner", user_index_path(:sort => "owner") %></th>
     <th><%= link_to "Status", user_index_path(:sort => "status") %></th>
     <th><%= "Deactivate?" %></th>
