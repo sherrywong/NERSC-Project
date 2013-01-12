@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rufus-scheduler', :require => 'rufus/scheduler'
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.11'
 gem 'paper_trail', '~> 2'
 gem 'yard'
 gem 'calendar_date_select', :git =>  'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
